@@ -9,3 +9,10 @@
   每次准备写之前请一定要更新自己本地的代码（Androidstudio右上角有一个蓝色的箭头，点一下更新本地代码）
   负责哪个模块，就只修改这个模块的数据，其他的就不要修改了，避免修改之后产生一些无法解决的问题，一定要记住！！！
   框架我（刘忠澳）会提前布置好，然后就可以开始了，一些Util工具包我都会在后续添加进去
+添加了
+    //网络连接库
+    implementation 'com.squareup.okhttp3:okhttp:4.0.1'
+
+    //第三方数据库Litepal
+    implementation 'org.litepal.android:core:2.0.0'
+  两个依赖，抽空看一下这两个的用法
