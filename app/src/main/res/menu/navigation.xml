@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/home"
+        android:title="首页" />
+    <item
+        android:id="@+id/navigation_gongjv"
+        android:icon="@drawable/gongjv"
+        android:title="工具" />
+    <item
+        android:id="@+id/navigation_wenhao"
+        android:icon="@drawable/wenhao"
+        android:title="待定" />
+
+    <item
+        android:id="@+id/navigation_wenhao1"
+        android:icon="@drawable/wenhao"
+        android:title="待定1" />
+</menu>
