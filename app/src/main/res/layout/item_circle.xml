@@ -13,6 +13,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/background_shape" />
 
         <LinearLayout
@@ -23,12 +24,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/item_userid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="哈哈哈"
                 android:textColor="#000" />
 
             <TextView
+                android:id="@+id/item_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="哈哈哈"
@@ -37,6 +40,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/item_contains"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
@@ -45,24 +49,67 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp">
+        android:layout_height="20dp"
+        android:background="@drawable/background_shape">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/background_shape" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/background_shape" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/likes"/>
 
-        <ImageView
+            <TextView
+                android:id="@+id/likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:text="3" />
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/background_shape" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/comments" />
+
+            <TextView
+                android:id="@+id/comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/share" />
+
+            <TextView
+                android:id="@+id/shares"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
