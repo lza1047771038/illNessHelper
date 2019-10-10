@@ -34,14 +34,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="哈哈哈"
-                    android:textColor="#444" />
+                    android:textColor="#000" />
 
                 <TextView
                     android:id="@+id/item_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="哈哈哈"
-                    android:textColor="#CCC" />
+                    android:textColor="#000" />
             </LinearLayout>
         </LinearLayout>
 
@@ -49,21 +49,19 @@
             android:id="@+id/item_contains"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:paddingLeft="10dp"
             android:text="今天天气真好"
-            android:textColor="#444444"
-            android:textSize="16sp"/>
+            android:textColor="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center">
+            android:layout_height="20dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -78,13 +76,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3"
-                    android:textColor="#CCC" />
+                    android:textColor="#000" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -99,18 +97,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3"
-                    android:textColor="#CCC" />
+                    android:textColor="#000" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="20dp"
+                    android:layout_width="19dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/share" />
 
@@ -118,7 +116,7 @@
                     android:id="@+id/shares"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#CCC" />
+                    android:textColor="#000" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

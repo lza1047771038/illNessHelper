@@ -3,6 +3,8 @@ package wust.student.illnesshepler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -11,14 +13,23 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import wust.student.illnesshepler.Adapter.ListAdapterPostings;
+import wust.student.illnesshepler.Bean.Postem;
+import wust.student.illnesshepler.Bean.Postings;
+import wust.student.illnesshepler.Bean.Result;
+
 public class MainActivity extends AppCompatActivity {
+    private List<Postings> postingsList= new ArrayList<>();  //帖子List
     private Banner banner;                    //图片轮播第三方依赖库
     List<String> images=new ArrayList<>();   //定义图片集合
     List<String> title =new ArrayList<>();   //定义活动标题
@@ -26,8 +37,65 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String typeJson1 = "{\n" +
+                "  \"status\": \"1\", \n" +
+                "  \"data\": [\n" +
+                "   {\n" +
+                "      \"theme_id\": 19, \n" +
+                "      \"author_id_id\": 18, \n" +
+                "      \"contains\": \"文本文本文本文本文本文本文本文本\", \n" +
+                "      \"time\": 19, \n" +
+                "      \"likes\": 44, \n" +
+                "      \"comments_num\": 2\n" +
+                "       },\n" +
+                "  {\n" +
+                "      \"theme_id\": 20, \n" +
+                "      \"author_id_id\": 20, \n" +
+                "      \"contains\": \"文本文本文本文本文本文本文本文本\", \n" +
+                "      \"time\": 19, \n" +
+                "      \"likes\": 44, \n" +
+                "      \"comments_num\": 50\n" +
+                "       }\n" +
+                "]\n" +
+                "\n" +
+                "}";
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.posting_recicle);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        ListAdapterPostings adapter = new ListAdapterPostings(postingsList);
+        recyclerView.setAdapter(adapter);
+
+
+
         initbaner();                        //轮播图片  baner
         initnavigationbar();
+        initcerycletestdata();
+        initposting();
+    }
+    public void initcerycletestdata()
+    {
+        for (int i = 0; i < 10; i++) {
+            Postings postings=new Postings();
+            postings.setAuthor_id(i);
+            postings.setTime(1910092109);
+             postings.setComments_num(10);
+            postings.setContains("这是帖子内容/n这是帖子内容/n这是帖子内容/n这是帖子内容/" +
+                    "n这是帖子内容/n这是帖子内容/n这是帖子内容/n这是帖子内容/n这是帖子内容/n"+i);
+            postings.setLikes(99);
+            postingsList.add(postings);
+
+        }
+    }
+    public void initposting()
+    {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.posting_recicle);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        ListAdapterPostings adapter = new ListAdapterPostings(postingsList);
+        recyclerView.setAdapter(adapter);
     }
     public void initnavigationbar()
     {
