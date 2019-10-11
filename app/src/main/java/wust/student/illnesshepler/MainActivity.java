@@ -36,7 +36,6 @@ import wust.student.illnesshepler.Fragments.MeFragment;
 import wust.student.illnesshepler.Fragments.ToolsFragment;
 import wust.student.illnesshepler.Utills.GlideImageLoader;
 import wust.student.illnesshepler.Utills.Httputil;
-import wust.student.illnesshepler.Adapters.ListAdapterPostings;
 import wust.student.illnesshepler.Bean.Posting;
 import wust.student.illnesshepler.Utills.StatusBarUtil;
 
