@@ -2,7 +2,6 @@ package wust.student.illnesshepler.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -13,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -30,8 +28,6 @@ public class HomeFragment extends Fragment {
 
     View view;
     Banner banner;
-    ScrollView scrollView;
-    RecyclerView recyclerView;
 
 
     List<Posting> postingsList = new ArrayList<>();  //帖子List
@@ -41,7 +37,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_main, container, false);
+        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home, container, false);
         return view;
     }
 
@@ -49,9 +45,7 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        scrollView = view.findViewById(R.id.scrollViews);
         banner = view.findViewById(R.id.banner);
-        recyclerView =  view.findViewById(R.id.posting_recicle);
         layoutInit();
     }
 
