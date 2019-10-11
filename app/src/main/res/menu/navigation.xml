@@ -2,19 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/home"
+        android:icon="@drawable/icon_home"
         android:title="首页" />
     <item
-        android:id="@+id/navigation_gongjv"
-        android:icon="@drawable/gongjv"
-        android:title="工具" />
+        android:id="@+id/navigation_class"
+        android:icon="@drawable/icon_class"
+        android:title="课程" />
     <item
-        android:id="@+id/navigation_wenhao"
-        android:icon="@drawable/wenhao"
-        android:title="待定" />
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/icon_chat"
+        android:title="圈子" />
+    <item
+        android:id="@+id/navigation_tools"
+        android:icon="@drawable/icon_tools"
+        android:title="工具" />
 
     <item
-        android:id="@+id/navigation_wenhao1"
-        android:icon="@drawable/wenhao"
-        android:title="待定1" />
+        android:id="@+id/navigation_me"
+        android:icon="@drawable/icon_me"
+        android:title="我的" />
 </menu>

@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.Utills;
+package wust.student.illnesshepler.Adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import wust.student.illnesshepler.Bean.Posting;
@@ -36,11 +34,11 @@ public class ListAdapterPostings extends RecyclerView.Adapter<ListAdapterPosting
     @Override
     public void onBindViewHolder(@NonNull ListAdapterPostings.ViewHolder holder, int position) {
         Posting postings = mpostingslist.get(position);//get对应子项对象
-        holder.item_userid.setText(postings.getAuthor_id()+"");
-        holder.item_time.setText( TimeFrmat(postings.getTime()));
-        holder.item_contains.setText(postings.getContains());
-        holder.likes.setText(postings.getLikes()+"");
-        holder.comments.setText(postings.getComments_num()+"");
+        holder.item_userid.setText(postings.author_id+"");
+        holder.item_time.setText( timeFormat(postings.time));
+        holder.item_contains.setText(postings.contains);
+        holder.likes.setText(postings.likes+"");
+        holder.comments.setText(postings.comments_num+"");
     }
 
     @Override
@@ -64,34 +62,31 @@ public class ListAdapterPostings extends RecyclerView.Adapter<ListAdapterPosting
           comments=(TextView) view.findViewById(R.id.comments);
         }
     }
-    public String TimeFrmat(String time) {
-        long number = 0;
-        long time1=Long.parseLong(time);
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Log.d("test",  "fomat"+format1.format(time1));
-        long time2=System.currentTimeMillis();
-        number=time2-time1;
-        if(number<=60000*5)//一分钟*5
-        {
+
+    public String timeFormat(String time) {
+        int nd = 24 * 60 * 60 * 1000;
+        int nh = 60 * 60 * 1000;
+        int nm = 60 * 1000;
+        int ns = 1000;
+        long day, hour, minute;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+        long time1 = Long.parseLong(time);
+
+        long result = System.currentTimeMillis() - time1;
+
+        day = result / nd;
+        hour = result / nh % 24;
+        minute = result / nm % 60;
+
+        if (day == 0 && hour == 0 && minute < 5) {          //小于5分钟时
             return "刚刚";
-        }
-        else if(number>60000&&number<3600000){
-
-            return (number/60000)+"分钟前";
-        }
-        else if(number>=3600000&&number<3600000*24){
-
-            return (number/3600000)+"小时前";
-        }else if(number>86400000&&number<86400000*10)
-        {
-            return (number/86400000)+"天前";
-        }
-        else if(number>86400000*10&&number<31536000)
-        {
-            SimpleDateFormat format = new SimpleDateFormat("MM月dd日");
-            return format.format(time1);
-        }else {
-            SimpleDateFormat format = new SimpleDateFormat("YY年MM月dd日");
+        } else if (day == 0 && hour == 0 && minute > 5) {  //小于1小时
+            return minute + "分钟前";
+        } else if (day == 0 && hour != 0) {     //小于一天
+            return hour + "小时前";
+        } else if (day < 10) {              //小于10天
+            return day + "天前";
+        } else {                //10天以上
             return format.format(time1);
         }
     }

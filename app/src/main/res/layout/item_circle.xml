@@ -13,8 +13,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:layout_width="50dp"
@@ -26,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:gravity="center"
+                android:gravity="center|left"
                 android:orientation="vertical">
 
                 <TextView
@@ -41,7 +43,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="哈哈哈"
-                    android:textColor="#000" />
+                    android:textColor="#CCC"
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -49,19 +52,20 @@
             android:id="@+id/item_contains"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:paddingLeft="10dp"
             android:text="今天天气真好"
-            android:textColor="#000" />
+            android:textColor="#000"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="20dp">
+            android:layout_height="40dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -76,13 +80,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3"
-                    android:textColor="#000" />
+                    android:textColor="#CCC" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -97,12 +101,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3"
-                    android:textColor="#000" />
+                    android:textColor="#CCC" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -116,7 +120,7 @@
                     android:id="@+id/shares"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000" />
+                    android:textColor="#CCC" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
