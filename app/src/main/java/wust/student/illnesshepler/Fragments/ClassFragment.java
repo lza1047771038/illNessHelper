@@ -10,10 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import wust.student.illnesshepler.R;
+import wust.student.illnesshepler.Utills.StatusBarUtil;
 
 public class ClassFragment extends Fragment {
 
-    View view;
+    View view, statusBarBackground;
 
     @Nullable
     @Override
@@ -25,5 +26,9 @@ public class ClassFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        statusBarBackground = view.findViewById(R.id.statusBarBackground);
+        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
+        params.height = StatusBarUtil.getStatusBarHeight(getContext());
+        statusBarBackground.setLayoutParams(params);
     }
 }

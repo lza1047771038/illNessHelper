@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,6 +38,7 @@ import wust.student.illnesshepler.Utills.GlideImageLoader;
 import wust.student.illnesshepler.Utills.Httputil;
 import wust.student.illnesshepler.Adapters.ListAdapterPostings;
 import wust.student.illnesshepler.Bean.Posting;
+import wust.student.illnesshepler.Utills.StatusBarUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +57,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        }
+
+        StatusBarUtil.setStatusBarDarkTheme(this, true);
         setContentView(R.layout.activity_main);
 
         menuList.add(R.id.navigation_home);
@@ -111,13 +126,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_home:
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.navigation_tools:
+                    case R.id.navigation_class:
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.navigation_chat:
                         viewPager.setCurrentItem(2);
                         break;
-                    case R.id.navigation_class:
+                    case R.id.navigation_tools:
                         viewPager.setCurrentItem(3);
                         break;
                     case R.id.navigation_me:

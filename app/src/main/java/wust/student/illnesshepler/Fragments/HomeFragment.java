@@ -22,11 +22,11 @@ import java.util.List;
 import wust.student.illnesshepler.Bean.Posting;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utills.GlideImageLoader;
+import wust.student.illnesshepler.Utills.StatusBarUtil;
 
 public class HomeFragment extends Fragment {
 
-
-    View view;
+    View view, statusBarBackground;
     Banner banner;
 
 
@@ -46,10 +46,14 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         banner = view.findViewById(R.id.banner);
+        statusBarBackground = view.findViewById(R.id.statusBarBackground);
+        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
+        params.height = StatusBarUtil.getStatusBarHeight(getContext());
+        statusBarBackground.setLayoutParams(params);
         layoutInit();
     }
 
-    public void layoutInit(){
+    public void layoutInit() {
 
 
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);  //圆点指示器和标题其他默认
