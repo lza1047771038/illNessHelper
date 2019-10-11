@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.Utils.StatusBarUtils;
+package wust.student.illnesshepler.Utills;
 
 import android.os.Build;
 import android.text.TextUtils;

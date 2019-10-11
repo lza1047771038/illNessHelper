@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.Utils.StatusBarUtils;
+package wust.student.illnesshepler.Utills;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
