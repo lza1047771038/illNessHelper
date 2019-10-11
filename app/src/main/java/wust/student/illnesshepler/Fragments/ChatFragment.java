@@ -1,5 +1,6 @@
 package wust.student.illnesshepler.Fragments;
 
+import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -61,7 +62,16 @@ public class ChatFragment extends Fragment {
         recyclerView = view.findViewById(R.id.chat_recyclerView);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         layoutInit();
-        requestThemes();
+
+        SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo", Context.MODE_PRIVATE);
+        String cache = preferences.getString("ThemeCache", null);
+        if (cache != null) {
+            themeInfo = Httputil.handleMessages(cache);
+            if (themeInfo != null){
+                themeList.addAll(themeInfo.data);
+                themeAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     public void layoutInit() {
@@ -102,7 +112,7 @@ public class ChatFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
-                Log.d("tag123request",result);
+                Log.d("tag123request", result);
                 themeInfo = Httputil.handleMessages(result);
                 if (themeInfo != null) {
                     SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo", Context.MODE_PRIVATE);
