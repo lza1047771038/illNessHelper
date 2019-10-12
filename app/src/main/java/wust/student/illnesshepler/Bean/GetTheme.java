@@ -6,9 +6,9 @@ import java.util.List;
 
 public class GetTheme {
 
-    @SerializedName("status")
+    @SerializedName("total")
     public String status;
-    @SerializedName("data")
+    @SerializedName("theme")
     public List<Posting> data;
 
 }

@@ -1,6 +1,5 @@
 package wust.student.illnesshepler.Fragments;
 
-import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +33,9 @@ import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Bean.Posting;
 import wust.student.illnesshepler.R;
+import wust.student.illnesshepler.Utills.GsonUtils;
 import wust.student.illnesshepler.Utills.Httputil;
+import wust.student.illnesshepler.Utills.StatusBarUtil;
 
 
 public class ChatFragment extends Fragment {
@@ -48,16 +53,19 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_chat, container, false);
+        setHasOptionsMenu(true);
+
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*statusBarBackground = view.findViewById(R.id.statusBarBackground);
+        statusBarBackground = view.findViewById(R.id.statusBarBackground);
         ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);*/
+        statusBarBackground.setLayoutParams(params);
+
 
         recyclerView = view.findViewById(R.id.chat_recyclerView);
         refreshLayout = view.findViewById(R.id.refreshLayout);
@@ -66,12 +74,27 @@ public class ChatFragment extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo", Context.MODE_PRIVATE);
         String cache = preferences.getString("ThemeCache", null);
         if (cache != null) {
-            themeInfo = Httputil.handleMessages(cache);
-            if (themeInfo != null){
+            themeInfo = GsonUtils.handleMessages(cache);
+            if (themeInfo != null) {
                 themeList.addAll(themeInfo.data);
                 themeAdapter.notifyDataSetChanged();
             }
         }
+
+        Posting posting = new Posting();
+        posting.author_id = BigInteger.TEN;
+        posting.comments_num = 2;
+        posting.contains = "哈哈哈哈哈哈哈\n哈哈哈哈\n";
+        posting.likes = 3;
+        posting.theme_id = "1234567890";
+        posting.time = "1234567890";
+
+        themeList.add(posting);
+        themeList.add(posting);
+        themeList.add(posting);
+        themeList.add(posting);
+        themeList.add(posting);
+        themeList.add(posting);
     }
 
     public void layoutInit() {
@@ -107,13 +130,20 @@ public class ChatFragment extends Fragment {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 e.printStackTrace();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "似乎出现了一些问题,无法连接至服务器", Toast.LENGTH_SHORT).show();
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
                 Log.d("tag123request", result);
-                themeInfo = Httputil.handleMessages(result);
+                themeInfo = GsonUtils.handleMessages(result);
                 if (themeInfo != null) {
                     SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
