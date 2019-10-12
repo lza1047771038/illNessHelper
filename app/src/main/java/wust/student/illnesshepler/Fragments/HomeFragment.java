@@ -54,8 +54,6 @@ public class HomeFragment extends Fragment {
     }
 
     public void layoutInit() {
-
-
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);  //圆点指示器和标题其他默认
         images.add("https://img.ivsky.com/img/bizhi/slides/201908/12/the_angry_birds_movie.jpg");
         images.add("https://img.ivsky.com/img/bizhi/slides/201909/04/ne_zha-005.jpg");

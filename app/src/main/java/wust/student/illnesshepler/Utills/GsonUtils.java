@@ -8,11 +8,15 @@ import wust.student.illnesshepler.Bean.GetTheme;
 
 public class GsonUtils {
 
-    public static GetTheme handleMessages(String response){
-        try{
-            JSONObject jsonObject=new JSONObject(response);
-            return new Gson().fromJson(jsonObject.toString(),GetTheme.class);
-        }catch (Exception e) {
+
+    /**
+     * 根据json字符串返回对应的对象
+     */
+    public static GetTheme handleMessages(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            return new Gson().fromJson(jsonObject.toString(), GetTheme.class);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

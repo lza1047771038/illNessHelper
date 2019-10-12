@@ -4,6 +4,12 @@ import java.text.SimpleDateFormat;
 
 public class Utils {
 
+    /**
+     * 毫秒字符串格式化为要求的时间（刚刚，3分钟前，3小时前。。。）
+     *
+     * @param temp
+     * @return
+     */
     public static String timeFormat(String temp) {
         int nd = 24 * 60 * 60 * 1000;
         int nh = 60 * 60 * 1000;

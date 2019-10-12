@@ -11,9 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,6 +94,10 @@ public class ChatFragment extends Fragment {
         themeList.add(posting);
     }
 
+    /**
+     * 控件的设置以及监听器的设置
+     */
+
     public void layoutInit() {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
@@ -125,6 +126,12 @@ public class ChatFragment extends Fragment {
         });
     }
 
+
+    /**
+     * 向服务器请求主题信息
+     *  http://192.168.1.100:8080/theme_request
+     *  Edit by Lza
+     */
     public void requestThemes() {
         Httputil.sendOKHttpRequest(new Callback() {
             @Override
