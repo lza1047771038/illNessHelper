@@ -4,40 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Fragments.ChatFragment;
 import wust.student.illnesshepler.Fragments.ClassFragment;
 import wust.student.illnesshepler.Fragments.HomeFragment;
 import wust.student.illnesshepler.Fragments.MeFragment;
 import wust.student.illnesshepler.Fragments.ToolsFragment;
-import wust.student.illnesshepler.Utills.GlideImageLoader;
-import wust.student.illnesshepler.Utills.Httputil;
-import wust.student.illnesshepler.Bean.Posting;
-import wust.student.illnesshepler.Utills.StatusBarUtil;
+import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class MainActivity extends AppCompatActivity {
 

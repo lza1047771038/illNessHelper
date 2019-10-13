@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -19,20 +17,18 @@ import com.youth.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import wust.student.illnesshepler.Bean.Posting;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.Utills.GlideImageLoader;
-import wust.student.illnesshepler.Utills.StatusBarUtil;
+import wust.student.illnesshepler.Utils.GlideImageLoader;
+import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class HomeFragment extends Fragment {
 
-    View view, statusBarBackground;
-    Banner banner;
+    private View view, statusBarBackground;
+    private Banner banner;
 
 
-    List<Posting> postingsList = new ArrayList<>();  //帖子List
-    List<String> images = new ArrayList<>();   //定义图片集合
-    List<String> title = new ArrayList<>();   //定义活动标题
+    private List<String> images = new ArrayList<>();
+    private List<String> title = new ArrayList<>();
 
     @Nullable
     @Override
@@ -53,7 +49,7 @@ public class HomeFragment extends Fragment {
         layoutInit();
     }
 
-    public void layoutInit() {
+    private void layoutInit() {
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);  //圆点指示器和标题其他默认
         images.add("https://img.ivsky.com/img/bizhi/slides/201908/12/the_angry_birds_movie.jpg");
         images.add("https://img.ivsky.com/img/bizhi/slides/201909/04/ne_zha-005.jpg");

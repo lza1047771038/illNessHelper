@@ -12,7 +12,7 @@ import java.util.List;
 
 import wust.student.illnesshepler.Bean.Posting;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.Utills.Utils;
+import wust.student.illnesshepler.Utils.Utils;
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
 

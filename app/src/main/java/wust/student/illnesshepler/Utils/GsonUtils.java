@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.Utills;
+package wust.student.illnesshepler.Utils;
 
 import com.google.gson.Gson;
 

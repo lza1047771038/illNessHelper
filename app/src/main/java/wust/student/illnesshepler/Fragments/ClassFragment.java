@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.Utills.StatusBarUtil;
+import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class ClassFragment extends Fragment {
 

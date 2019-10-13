@@ -30,9 +30,9 @@ import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Bean.Posting;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.Utills.GsonUtils;
-import wust.student.illnesshepler.Utills.Httputil;
-import wust.student.illnesshepler.Utills.StatusBarUtil;
+import wust.student.illnesshepler.Utils.GsonUtils;
+import wust.student.illnesshepler.Utils.Httputil;
+import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 
 public class ChatFragment extends Fragment {

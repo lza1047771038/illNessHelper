@@ -1,14 +1,9 @@
-package wust.student.illnesshepler.Utills;
-
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
+package wust.student.illnesshepler.Utils;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import wust.student.illnesshepler.Bean.GetTheme;
 
 public class Httputil {
 
