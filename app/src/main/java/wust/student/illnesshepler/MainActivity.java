@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import wust.student.illnesshepler.Fragments.ClassFragment;
 import wust.student.illnesshepler.Fragments.HomeFragment;
 import wust.student.illnesshepler.Fragments.MeFragment;
 import wust.student.illnesshepler.Fragments.ToolsFragment;
+import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentList.add(chat);
         fragmentList.add(me);
 
+        InputStream inputStream=getResources().openRawResource(R.raw.keywords);    //获取敏感词汇库
+        SensitiveWordsUtils.initSensitiveWord(inputStream);                         //加载敏感词汇工具类
 
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @NonNull
