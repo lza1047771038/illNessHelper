@@ -7,17 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.OvershootInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,10 +24,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.recyclerview.animators.FadeInAnimator;
-import jp.wasabeef.recyclerview.animators.FadeInDownAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -84,6 +74,7 @@ public class ChatFragment extends Fragment {
         if (cache != null) {
             themeInfo = GsonUtils.handleMessages(cache);
             if (themeInfo != null) {
+                themeList.addAll(0,themeInfo.data);
                 updateRecyclerView();
             }
         }
