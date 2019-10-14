@@ -23,7 +23,6 @@ import wust.student.illnesshepler.Fragments.ChatFragment;
 import wust.student.illnesshepler.Fragments.ClassFragment;
 import wust.student.illnesshepler.Fragments.HomeFragment;
 import wust.student.illnesshepler.Fragments.MeFragment;
-import wust.student.illnesshepler.Fragments.ToolsFragment;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 

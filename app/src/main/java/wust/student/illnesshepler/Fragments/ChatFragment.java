@@ -7,11 +7,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -23,6 +30,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.animators.FadeInAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInDownAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -37,12 +48,12 @@ import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class ChatFragment extends Fragment {
 
-    GetTheme themeInfo;
+    private GetTheme themeInfo;
 
-    View view, statusBarBackground;
-    RecyclerView recyclerView;
-    ThemeAdapter themeAdapter;
-    SwipeRefreshLayout refreshLayout;
+    private View view;
+    private RecyclerView recyclerView;
+    private ThemeAdapter themeAdapter;
+    private SwipeRefreshLayout refreshLayout;
 
     List<Posting> themeList = new ArrayList<>();
 
@@ -58,7 +69,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        statusBarBackground = view.findViewById(R.id.statusBarBackground);
+        View statusBarBackground = view.findViewById(R.id.statusBarBackground);
         ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
@@ -73,8 +84,7 @@ public class ChatFragment extends Fragment {
         if (cache != null) {
             themeInfo = GsonUtils.handleMessages(cache);
             if (themeInfo != null) {
-                themeList.addAll(themeInfo.data);
-                themeAdapter.notifyDataSetChanged();
+                updateRecyclerView();
             }
         }
 
@@ -87,23 +97,62 @@ public class ChatFragment extends Fragment {
         posting.time = "1234567890";
 
         themeList.add(posting);
-        themeList.add(posting);
-        themeList.add(posting);
-        themeList.add(posting);
-        themeList.add(posting);
-        themeList.add(posting);
+
+    }
+
+    /**
+     * 动态刷新加载RecyclerView
+     * 这个能解决notifystatechanged不加载动画的问题
+     */
+    private void updateRecyclerView() {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return themeList.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return 0;
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return false;
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return false;
+            }
+        }, false);
+        diffResult.dispatchUpdatesTo(themeAdapter);
+
+        Log.d("tag123sizeofthemelist", themeList.size() + "");
     }
 
     /**
      * 控件的设置以及监听器的设置
      */
 
-    public void layoutInit() {
+    private void layoutInit() {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(manager);
         themeAdapter = new ThemeAdapter(themeList);
         recyclerView.setAdapter(themeAdapter);
+        //占用空间，用空间换取性能，提高滑动流畅性
+        recyclerView.setItemViewCacheSize(50);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.getItemAnimator().setAddDuration(200);
+        recyclerView.getItemAnimator().setRemoveDuration(200);
+        recyclerView.getItemAnimator().setMoveDuration(200);
+        recyclerView.getItemAnimator().setChangeDuration(200);
+
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -126,13 +175,12 @@ public class ChatFragment extends Fragment {
         });
     }
 
-
     /**
      * 向服务器请求主题信息
-     *  http://192.168.1.100:8080/theme_request
-     *  Edit by Lza
+     * http://192.168.1.100:8080/theme_request
+     * Edit by Lza
      */
-    public void requestThemes() {
+    private void requestThemes() {
         Httputil.sendOKHttpRequest(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -156,12 +204,12 @@ public class ChatFragment extends Fragment {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("ThemeCache", result);
                     editor.apply();
-                    themeList.addAll(themeInfo.data);
+                    themeList.addAll(0, themeInfo.data);
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getContext(), "已为你加载8条新内容", Toast.LENGTH_SHORT).show();
-                            themeAdapter.notifyDataSetChanged();
+                            updateRecyclerView();
                             refreshLayout.setRefreshing(false);
                         }
                     });

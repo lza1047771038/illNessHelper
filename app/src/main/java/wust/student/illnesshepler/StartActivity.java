@@ -11,14 +11,12 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-        Handler handler=new Handler();
-        handler.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(StartActivity.this,MainActivity.class));
+                startActivity(new Intent(StartActivity.this, MainActivity.class));
                 finish();
             }
-        },2000);
+        }, 1000);
     }
 }
