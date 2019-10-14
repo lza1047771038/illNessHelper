@@ -1,15 +1,18 @@
 package wust.student.illnesshepler.Fragments;
 
+import android.graphics.Outline;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.tabs.TabLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -25,6 +28,7 @@ public class HomeFragment extends Fragment {
 
     private View view, statusBarBackground;
     private Banner banner;
+    private TabLayout tabLayout;
 
 
     private List<String> images = new ArrayList<>();
@@ -40,6 +44,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+//        tabLayout = view.findViewById(R.id.tabLayout);
 
         banner = view.findViewById(R.id.banner);
         statusBarBackground = view.findViewById(R.id.statusBarBackground);
@@ -69,6 +74,17 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "你点击了" + position + "个图片", Toast.LENGTH_SHORT).show();
             }
         });
+
+        banner.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 10);
+            }
+        });
+
+
+        banner.setClipToOutline(true);
+
 
 
     }

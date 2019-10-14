@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment home = new HomeFragment();
     ClassFragment classes = new ClassFragment();
     ChatFragment chat = new ChatFragment();
-    ToolsFragment tools = new ToolsFragment();
     MeFragment me = new MeFragment();
 
     @Override
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
-//            getWindow().setNavigationBarColor(Color.TRANSPARENT);
         }
 
         StatusBarUtil.setStatusBarDarkTheme(this, true);
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         menuList.add(R.id.navigation_home);
         menuList.add(R.id.navigation_class);
         menuList.add(R.id.navigation_chat);
-        menuList.add(R.id.navigation_tools);
         menuList.add(R.id.navigation_me);
 
         bottom_navigation = findViewById(R.id.bottom_navigation);
@@ -67,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentList.add(home);
         fragmentList.add(classes);
         fragmentList.add(chat);
-        fragmentList.add(tools);
         fragmentList.add(me);
 
 
@@ -84,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        viewPager.setAdapter(pagerAdapter);   //设置适配器
-        viewPager.setOffscreenPageLimit(fragmentList.size() - 1); //预加载剩下两页
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -117,11 +113,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_chat:
                         viewPager.setCurrentItem(2);
                         break;
-                    case R.id.navigation_tools:
-                        viewPager.setCurrentItem(3);
-                        break;
                     case R.id.navigation_me:
-                        viewPager.setCurrentItem(4);
+                        viewPager.setCurrentItem(3);
                         break;
                     default:
                         break;
