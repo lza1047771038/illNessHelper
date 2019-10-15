@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.me_edit;
+package wust.student.illnesshepler;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import wust.student.illnesshepler.R;
 
 public class Edit_Userdata extends AppCompatActivity {
 
@@ -44,7 +42,7 @@ public class Edit_Userdata extends AppCompatActivity {
         User_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Edit_Userdata.this,Set_Userimg.class);
+                Intent intent=new Intent(Edit_Userdata.this, Set_Userimg.class);
                 startActivity(intent);
             }
         });

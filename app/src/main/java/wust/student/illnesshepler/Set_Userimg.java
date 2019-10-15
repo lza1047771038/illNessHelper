@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.me_edit;
+package wust.student.illnesshepler;
 
 import android.content.Intent;
 import android.os.Bundle;
