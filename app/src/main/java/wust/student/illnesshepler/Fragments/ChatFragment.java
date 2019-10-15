@@ -36,7 +36,7 @@ import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickListener {
 
     private GetTheme themeInfo;
 
@@ -131,13 +131,13 @@ public class ChatFragment extends Fragment {
         manager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(manager);
         themeAdapter = new ThemeAdapter(themeList);
+        themeAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(themeAdapter);
         //占用空间，用空间换取性能，提高滑动流畅性
         recyclerView.setItemViewCacheSize(50);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setHasFixedSize(true);
-
         recyclerView.getItemAnimator().setAddDuration(200);
         recyclerView.getItemAnimator().setRemoveDuration(200);
         recyclerView.getItemAnimator().setMoveDuration(200);
@@ -214,5 +214,27 @@ public class ChatFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void OnItemClick(View view, int position) {
+        switch (view.getId())
+        {
+            case R.id.comments_area:
+                Toast.makeText(getContext(),"点击了评论:" + position,Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.shares_area:
+                Toast.makeText(getContext(),"点击了分享:" + position,Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.likes_area:
+                Toast.makeText(getContext(),"点击了点赞:" + position,Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.hole_area:
+                Toast.makeText(getContext(),"整个item:" + position,Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Toast.makeText(getContext(),"点击了item:" + position,Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }
