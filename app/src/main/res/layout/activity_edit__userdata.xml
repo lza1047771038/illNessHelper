@@ -10,16 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:divider="@drawable/shape_divider"
-        android:showDividers="middle"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:showDividers="middle">
 
         <LinearLayout
             android:id="@+id/edit_user_img"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:orientation="horizontal"
             android:background="@drawable/ripple_bg"
+            android:orientation="horizontal"
             android:padding="5dp">
 
             <TextView
@@ -48,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:gravity="center"
             android:background="@drawable/ripple_bg"
+            android:gravity="center"
             android:padding="5dp">
 
             <TextView
@@ -67,8 +66,8 @@
                     android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="XXX"
-                    android:gravity="right|center"/>
+                    android:gravity="right|center"
+                    android:text="XXX" />
             </LinearLayout>
         </LinearLayout>
 
@@ -76,8 +75,8 @@
             android:id="@+id/edit_user_age"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center"
             android:background="@drawable/ripple_bg"
+            android:gravity="center"
             android:padding="5dp">
 
             <TextView
@@ -95,8 +94,8 @@
                     android:id="@+id/user_age"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="18"
-                    android:gravity="right|center"/>
+                    android:gravity="right|center"
+                    android:text="18" />
             </LinearLayout>
         </LinearLayout>
 
@@ -104,8 +103,8 @@
             android:id="@+id/edit_user_integral"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center"
             android:background="@drawable/ripple_bg"
+            android:gravity="center"
             android:padding="5dp">
 
             <TextView
@@ -123,8 +122,8 @@
                     android:id="@+id/user_integral"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="0"
-                    android:gravity="right|center"/>
+                    android:gravity="right|center"
+                    android:text="0" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
