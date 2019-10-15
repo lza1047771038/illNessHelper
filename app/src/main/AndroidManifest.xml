@@ -20,6 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".me_edit.Edit_Userdata"/>
+        <activity android:name=".me_edit.Set_Userimg"/>
         <activity android:name=".MainActivity">
 
         </activity>
