@@ -10,8 +10,10 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentList.add(chat);
         fragmentList.add(me);
 
-        InputStream inputStream=getResources().openRawResource(R.raw.keywords);    //获取敏感词汇库
+        InputStream inputStream = getResources().openRawResource(R.raw.keywords);    //获取敏感词汇库
         SensitiveWordsUtils.initSensitiveWord(inputStream);                         //加载敏感词汇工具类
 
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -125,6 +127,26 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private long oldMillions = 0;
+
+    protected void onQuit() {
+        if (System.currentTimeMillis() - oldMillions > 2000) {
+            oldMillions = System.currentTimeMillis();
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            onQuit();
+            return true;
+        }
+        return false;
     }
 
     @Override
