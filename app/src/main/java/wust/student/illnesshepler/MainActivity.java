@@ -1,12 +1,14 @@
 package wust.student.illnesshepler;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.pm.ActivityInfo;
+import android.drm.DrmStore;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
         StatusBarUtil.setStatusBarDarkTheme(this, true);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar=getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.hide();
+        }
 
         menuList.add(R.id.navigation_home);
         menuList.add(R.id.navigation_class);

@@ -14,18 +14,16 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".StartActivity"
             android:theme="@style/StartActivity">
-
-        </activity>
-        <activity android:name=".Edit_Userdata"/>
-        <activity android:name=".Set_Userimg"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".ThemeDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Edit_Userdata"/>
+        <activity android:name=".Set_Userimg"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ThemeDetailActivity"/>
     </application>
 
 </manifest>
