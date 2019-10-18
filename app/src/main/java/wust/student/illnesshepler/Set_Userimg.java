@@ -2,14 +2,18 @@ package wust.student.illnesshepler;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.litepal.LitePal;
@@ -20,9 +24,13 @@ import java.util.List;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.User_Information_LitePal.User_information;
 import wust.student.illnesshepler.Utils.FileUtil;
+import wust.student.illnesshepler.Utils.StatusBarUtil;
+
+import static org.litepal.LitePalApplication.getContext;
 
 public class Set_Userimg extends AppCompatActivity {
 
+    View statusBarBackground;
     Uri uri;
     ImageView user_img;
     FileUtil fileUtil;
@@ -48,6 +56,24 @@ public class Set_Userimg extends AppCompatActivity {
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
         if(all.get(0).getUser_Image_Uri()!=null)
             user_img.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+        StatusBarUtil.setStatusBarDarkTheme(this, true);
+        ActionBar actionBar=getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.hide();
+        }
+
+        statusBarBackground = findViewById(R.id.statusBarBackground);
+        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
+        params.height = StatusBarUtil.getStatusBarHeight(getContext());
+        statusBarBackground.setLayoutParams(params);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
