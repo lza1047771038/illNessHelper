@@ -1,11 +1,15 @@
 package wust.student.illnesshepler;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.lang.UProperty;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,13 +17,23 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.litepal.LitePal;
+
+import java.io.File;
+import java.util.List;
+
+import wust.student.illnesshepler.User_Information_LitePal.User_information;
+import wust.student.illnesshepler.Utils.FileUtil;
+
 public class Edit_Userdata extends AppCompatActivity {
 
     private View v,statusBarBackground;
     AlertDialog.Builder builder;
     TextView user_name;
     TextView user_age;
+    ImageView user_image;
     EditText input;
+    FileUtil fileUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +51,16 @@ public class Edit_Userdata extends AppCompatActivity {
 
         user_name=(TextView)findViewById(R.id.user_name);
         user_age=(TextView)findViewById(R.id.user_age);
+        user_image=(ImageView)findViewById(R.id.user_img);
         input=v.findViewById(R.id.input);
+
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        if(all.get(0).get_Id()==1){
+            user_name.setText(all.get(0).getUser_Name());
+            user_age.setText(all.get(0).getUser_Age());
+            if(all.get(0).getUser_Image_Uri()!=null)
+                user_image.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+        }
 
         User_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +102,7 @@ public class Edit_Userdata extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 name[0] =input.getText().toString();
                 user_name.setText(name[0]);
+                UpData("User_Name",name[0]);
                 Toast.makeText(Edit_Userdata.this,"已经修改用户名",Toast.LENGTH_SHORT).show();
 
             }
@@ -107,6 +131,7 @@ public class Edit_Userdata extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if(isNumericZidai(input.getText().toString())) {
                     user_age.setText(input.getText().toString());
+                    UpData("User_Age",input.getText().toString());
                     Toast.makeText(Edit_Userdata.this, "已经修改年龄", Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -131,5 +156,12 @@ public class Edit_Userdata extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+
+    public void UpData(String name,String data){
+        ContentValues values=new ContentValues();
+        values.put(name,data);
+        LitePal.updateAll(User_information.class,values);
     }
 }

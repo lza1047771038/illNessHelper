@@ -5,18 +5,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import org.litepal.LitePal;
+
+import java.util.List;
+
 import wust.student.illnesshepler.R;
+import wust.student.illnesshepler.User_Information_LitePal.User_information;
+import wust.student.illnesshepler.Utils.FileUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 import wust.student.illnesshepler.Edit_Userdata;
 
 public class MeFragment extends Fragment {
     View view, statusBarBackground;
+    ImageView imageView;
+    FileUtil fileUtil;
 
     @Nullable
     @Override
@@ -32,6 +41,11 @@ public class MeFragment extends Fragment {
         ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
+
+        imageView=(ImageView)view.findViewById(R.id.imageView);
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        if(all.get(0).getUser_Image_Uri()!=null)
+            imageView.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
 
 
         final Intent intent = new Intent(getContext(), Edit_Userdata.class);

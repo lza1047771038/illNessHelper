@@ -1,0 +1,11 @@
+<?xml version ="1.0" encoding ="utf-8"?>
+<litepal>
+    <!--数据库名称-->
+    <dbname value="litepal_User_Information" />
+    <!--数据库版本号-->
+    <version value="1" />
+    <!--表-->
+    <list>
+        <mapping class="wust.student.illnesshepler.User_Information_LitePal.User_information" />
+    </list>
+</litepal>

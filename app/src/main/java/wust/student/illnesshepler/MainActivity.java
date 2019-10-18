@@ -12,12 +12,15 @@ import android.drm.DrmStore;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.litepal.LitePal;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ import wust.student.illnesshepler.Fragments.ChatFragment;
 import wust.student.illnesshepler.Fragments.ClassFragment;
 import wust.student.illnesshepler.Fragments.HomeFragment;
 import wust.student.illnesshepler.Fragments.MeFragment;
+import wust.student.illnesshepler.User_Information_LitePal.User_information;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LitePal.initialize(this);
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -134,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        litepal_init();//初始化数据库
+         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+
+        Log.i("test_LitePal","数据库数为：id = " + all.get(0).get_Id() + ",name = " + all.get(0).getUser_Name()+ ",age = " + all.get(0).getUser_Age()+",uri="+all.get(0).getUser_Image_Uri());
+
     }
 
     private long oldMillions = 0;
@@ -161,6 +172,17 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
+    private void litepal_init(){
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        if(all.size()==0) {
+            User_information user_information = new User_information();
+            user_information.setUser_Name("XXX");
+            user_information.setUser_Age("0");
+            user_information.setUser_Image_Uri(null);
+            user_information.save();
         }
     }
 }
