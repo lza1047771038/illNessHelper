@@ -7,7 +7,7 @@ import okhttp3.RequestBody;
 
 public class Httputil {
 
-    final static String getTheme = "http://192.168.1.110:8080/theme_request";
+    final static String getTheme = "http://192.168.1.106:8080/theme_request";
 
     /**
      * 发送theme请求
