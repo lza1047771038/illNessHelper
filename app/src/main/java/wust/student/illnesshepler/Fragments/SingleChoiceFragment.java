@@ -27,22 +27,22 @@ import wust.student.illnesshepler.R;
 public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheckedChangeListener {
     public View view;
     public TextView title;
-    public TextView puestionPosition;
-    public TextView puestionNum;
-    public RadioGroup radioGroup;
-    public RadioButton mOptiona;
-    public RadioButton mOptionb;
-    public RadioButton mOptionc;
-    public RadioButton mOptiond;
-    public RadioButton mOptione;
-    public RadioButton mOptionf;
-    public RadioButton mOptiong;
-    public RadioButton mOptionh;
-    public RadioButton mOptioni;
-    public RadioButton mOptionj;
-    public int position1;
-    public int num;
-    public SingleQuestion msingleQuestion;
+    private TextView puestionPosition;
+    private TextView puestionNum;
+    private RadioGroup radioGroup;
+    private RadioButton mOptiona;
+    private RadioButton mOptionb;
+    private RadioButton mOptionc;
+    private RadioButton mOptiond;
+    private RadioButton mOptione;
+    private RadioButton mOptionf;
+    private RadioButton mOptiong;
+    private RadioButton mOptionh;
+    private RadioButton mOptioni;
+    private RadioButton mOptionj;
+    private int position1;
+    private int num;
+    private SingleQuestion msingleQuestion;
 
     public static SingleChoiceFragment newInstance(SingleQuestion info,int postion,int num) {
         SingleChoiceFragment fragment = new SingleChoiceFragment();
@@ -92,7 +92,7 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
         return view;
     }
 
-    public void initview() {
+    private void initview() {
         title = (TextView) view.findViewById(R.id.singgile_title);
         radioGroup = view.findViewById(R.id.radio_grop);
         mOptiona = view.findViewById(R.id.optiona);
@@ -117,16 +117,16 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
         try {
             Log.d("test","sssssssssssssssssssssssssssssssssssssssssss");
         switch (checkedId) {
-            case R.id.optiona:if(msingleQuestion.A_next!=0) { display(msingleQuestion.A_next-1);msingleQuestion.A_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","A");   mOptiona.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionb:if(msingleQuestion.B_next!=0) { display(msingleQuestion.B_next-1);msingleQuestion.B_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","B");  mOptionb.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionc:if(msingleQuestion.C_next!=0) { display(msingleQuestion.C_next-1);msingleQuestion.C_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","C");  mOptionc.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optiond:if(msingleQuestion.D_next!=0) { display(msingleQuestion.D_next-1);msingleQuestion.D_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","D");  mOptiond.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optione:if(msingleQuestion.E_next!=0) { display(msingleQuestion.E_next-1);msingleQuestion.E_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","E");  mOptione.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionf:if(msingleQuestion.F_next!=0) { display(msingleQuestion.F_next-1);msingleQuestion.F_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","F");  mOptionf.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optiong:if(msingleQuestion.G_next!=0) { display(msingleQuestion.G_next-1);msingleQuestion.G_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","G");  mOptiong.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionh:if(msingleQuestion.H_next!=0) { display(msingleQuestion.H_next-1);msingleQuestion.H_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","H");  mOptionh.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optioni:if(msingleQuestion.I_next!=0) { display(msingleQuestion.I_next-1);msingleQuestion.I_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","I");  mOptioni.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionj:if(msingleQuestion.J_next!=0) { display(msingleQuestion.J_next-1);msingleQuestion.J_next=0; }else {display(Investigation.mViewPager.getCurrentItem()+1); } Investigation.jsonObject.put(position1+".","J");  mOptionj.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optiona:if(msingleQuestion.A_next!=0) { display(msingleQuestion.A_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","A");   mOptiona.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optionb:if(msingleQuestion.B_next!=0) { display(msingleQuestion.B_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","B");  mOptionb.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optionc:if(msingleQuestion.C_next!=0) { display(msingleQuestion.C_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","C");  mOptionc.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optiond:if(msingleQuestion.D_next!=0) { display(msingleQuestion.D_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","D");  mOptiond.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optione:if(msingleQuestion.E_next!=0) { display(msingleQuestion.E_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","E");  mOptione.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optionf:if(msingleQuestion.F_next!=0) { display(msingleQuestion.F_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","F");  mOptionf.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optiong:if(msingleQuestion.G_next!=0) { display(msingleQuestion.G_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","G");  mOptiong.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optionh:if(msingleQuestion.H_next!=0) { display(msingleQuestion.H_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","H");  mOptionh.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optioni:if(msingleQuestion.I_next!=0) { display(msingleQuestion.I_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","I");  mOptioni.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
+            case R.id.optionj:if(msingleQuestion.J_next!=0) { display(msingleQuestion.J_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","J");  mOptionj.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
         }
 
         } catch (JSONException e) {
@@ -134,7 +134,7 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
         }
     }
 
-    public void display(final int position)
+    private void display(final int position)
     {
         new Handler().postDelayed(new Runnable() {
             @Override

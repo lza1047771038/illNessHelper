@@ -71,7 +71,7 @@ public class Investigation extends AppCompatActivity {
         }
 
         SharedPreferences preferences = getSharedPreferences("SurveyInfo", Context.MODE_PRIVATE);
-        String cache = preferences.getString("S", null);
+        String cache = preferences.getString("SurveyType", null);
         if (cache != null) {
             testinfo = GsonUtils.handleMessages1(cache);
             if (testinfo != null) {
@@ -81,17 +81,6 @@ public class Investigation extends AppCompatActivity {
             }
         }
         else {
-
-//            cache="{\"SingleQuestion\": [{\"id\": 20, \"title\": \"\\u4f60\\u559c\\u6b22\\u4ec0\\u4e48\\u8fd0\\u52a8\\uff1f\", \"type\": \"20191022\", \"themeid\": \"20191022\", \"selectionA\": \"\\u4e52\\u4e53\\u7403\", \"selectionB\": \"\\u7bee\\u7403\", \"selectionC\": \"\\u8db3\\u7403\", \"selectionD\": \"\\u6392\\u7403\", \"selectionE\": \"\\u7f51\\u7403\", \"selectionF\": \"\", \"selectionG\": \"\", \"selectionH\": \"\", \"selectionI\": \"\", \"selectionJ\": \"\", \"A_next\": 6, \"B_next\": 0, \"C_next\": 0, \"D_next\": 0, \"E_next\": 0, \"F_next\": 0, \"G_next\": 0, \"H_next\": 0, \"I_next\": 0, \"J_next\": 0}, {\"id\": 21, \"title\": \"\\u4f60\\u559c\\u6b22\\u4ec0\\u4e48\\u4e13\\u4e1a\\uff1f\", \"type\": \"20191022\", \"themeid\": \"20191022\", \"selectionA\": \"\\u8ba1\\u7b97\\u673a\\u79d1\\u5b66\\u4e0e\\u6280\\u672f\", \"selectionB\": \"\\u7f51\\u7edc\\u5de5\\u7a0b\", \"selectionC\": \"\\u8f6f\\u4ef6\\u5de5\\u7a0b\", \"selectionD\": \"\\u4fe1\\u606f\\u5b89\\u5168\", \"selectionE\": \"\\u5a92\\u4f53\", \"selectionF\": \"\\u6570\\u5b66\", \"selectionG\": \"\", \"selectionH\": \"\", \"selectionI\": \"\", \"selectionJ\": \"\", \"A_next\": 0, \"B_next\": 0, \"C_next\": 0, \"D_next\": 0, \"E_next\": 0, \"F_next\": 0, \"G_next\": 0, \"H_next\": 0, \"I_next\": 0, \"J_next\": 0}, {\"id\": 22, \"title\": \"\\u4f60\\u559c\\u6b22\\u4ec0\\u4e48\\u6b4c\\uff1f\", \"type\": \"20191022\", \"themeid\": \"20191022\", \"selectionA\": \"\\u6d41\\u884c\", \"selectionB\": \"\\u7235\\u58eb\", \"selectionC\": \"\\u53e4\\u5178\", \"selectionD\": \"\", \"selectionE\": \"\", \"selectionF\": \"\", \"selectionG\": \"\", \"selectionH\": \"\", \"selectionI\": \"\", \"selectionJ\": \"\", \"A_next\": 4, \"B_next\": 0, \"C_next\": 0, \"D_next\": 0, \"E_next\": 0, \"F_next\": 0, \"G_next\": 0, \"H_next\": 0, \"I_next\": 0, \"J_next\": 0}], \"MutipleQuestion\": [{\"id\": 2, \"type\": \"20191022\", \"title\": \"\\u4f60\\u559c\\u6b22\\u4ec0\\u4e48\\u6837\\u7684\\u5973\\u5b69\\u5b50\\uff1f\", \"selectionA\": \"\\u6e29\\u67d4\", \"selectionB\": \"\\u4f53\\u8d34\", \"selectionC\": \"\\u5584\\u826f\", \"selectionD\": \"\\u53ef\\u7231\", \"selectionE\": \"\\u6d3b\\u6cfc\", \"selectionF\": \"\", \"selectionG\": \"\", \"selectionH\": \"\", \"selectionI\": \"\", \"selectionJ\": \"\"}, {\"id\": 3, \"type\": \"20191022\", \"title\": \"\\u5b66\\u6821\\u751f\\u6d3b\\u600e\\u4e48\\u6837\\uff1f\", \"selectionA\": \"\\u4e00\\u822c\\u822c\", \"selectionB\": \"\\u8fd8\\u597d\", \"selectionC\": \"\\u633a\\u6ee1\\u610f\\u7684\", \"selectionD\": \"\\u5f88\\u6ee1\\u610f\", \"selectionE\": \"\\u975e\\u5e38\\u6ee1\\u610f\", \"selectionF\": \"\", \"selectionG\": \"\", \"selectionH\": \"\", \"selectionI\": \"\", \"selectionJ\": \"\"}], \"ManualQuestion\": [{\"id\": 2, \"type\": \"20191022\", \"title\": \"\\u9488\\u5bf9\\u5b66\\u6821\\u7684\\u5b89\\u5168\\u4fdd\\u536b\\uff0c\\u4f60\\u6709\\u4ec0\\u4e48\\u770b\\u6cd5\\uff1f\"}]}\n";
-//            testinfo= GsonUtils.handleMessages1(cache);
-////                testinfo = GsonUtils.handleMessages1(result);
-//            Log.d("test","s"+testinfo.data1.size() + "");
-//            Log.d("test","s"+testinfo.data2.size() + "");
-//            Log.d("test",""+testinfo.data3.size() + "");
-//            Log.d("test",""+mlist.size() + "");
-//            mlist.addAll(testinfo.data1);
-//            mlist.addAll(testinfo.data2);
-//            mlist.addAll(testinfo.data3);
             requestThemes();
         }
 
@@ -114,7 +103,6 @@ public class Investigation extends AppCompatActivity {
         {
             case R.id.menu_submit :
                 Toast.makeText(this, "json:"+jsonObject, Toast.LENGTH_LONG).show();
-//                Log.d("test","s"+jsonObject + "");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -132,22 +120,16 @@ public class Investigation extends AppCompatActivity {
                 String result=response.body().string();
                 SharedPreferences preferences = getSharedPreferences("SurveyInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("SurveyType"+"20191017", result);
-                editor.apply();
+                editor.putString("SurveyType", result);
 
                 testinfo= GsonUtils.handleMessages1(result);
-//                testinfo = GsonUtils.handleMessages1(result);
-                Log.d("test","s"+testinfo.data1.size() + "");
-                Log.d("test","s"+testinfo.data2.size() + "");
-                Log.d("test",""+testinfo.data3.size() + "");
-                Log.d("test",""+mlist.size() + "");
                 mlist.addAll(testinfo.data1);
                 mlist.addAll(testinfo.data2);
                 mlist.addAll(testinfo.data3);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        Log.d("test","ssssssssssssssssshhhhhhhhhhhhhhhhhhh");
                         mAdapter.notifyDataSetChanged();
                     }
                 });
