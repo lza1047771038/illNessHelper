@@ -7,7 +7,8 @@ import okhttp3.RequestBody;
 
 public class Httputil {
 
-    final static String getTheme = "http://192.168.1.106:8080/theme_request";
+    final static String getTheme = "http://192.168.1.102:8080/theme_request";
+    final static String getSurvey = "http://192.168.1.102:8080/Survey";
 
     /**
      * 发送theme请求
@@ -23,5 +24,12 @@ public class Httputil {
         client.newCall(request).enqueue(callback);
     }
 
-
+    public static void sendOKHttpRequestGetSurvey(okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .add("type","20191022")
+                .build();
+        Request request = new Request.Builder().url(getSurvey).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
 }

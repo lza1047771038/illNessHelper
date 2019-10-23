@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+            android:background="@drawable/invastigation_bg"
+    tools:context=".Investigation"
+    android:fitsSystemWindows="true">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+    <!--<androidx.appcompat.widget.Toolbar
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <RelativeLayout
+            android:id="@+id/invastibation_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_keyboard_arrow_left_black_36dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/testcolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="4dp"
+                app:contentPadding="5dp"
+                app:contentPaddingLeft="10dp"
+                app:contentPaddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/number_of_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textColor="#333"
+                    android:textSize="18dp" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>-->
+
+
+</RelativeLayout>
