@@ -199,8 +199,12 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getContext(), "已为你加载8条新内容", Toast.LENGTH_SHORT).show();
-                            updateRecyclerView();
+                            if(themeInfo.data.size()==0){
+                                Toast.makeText(getContext(), "暂无更多数据", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getContext(), "已为你加载8条新内容", Toast.LENGTH_SHORT).show();
+                                updateRecyclerView();
+                            }
                             refreshLayout.setRefreshing(false);
                         }
                     });
