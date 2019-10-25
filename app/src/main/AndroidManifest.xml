@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Investigation" android:theme="@style/Investigation"/>
+        <activity android:name=".InvestigationList"/>
         <activity
             android:name=".StartActivity"
             android:theme="@style/StartActivity">

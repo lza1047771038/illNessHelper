@@ -29,9 +29,6 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.InvestigationAdapter;
 import wust.student.illnesshepler.Bean.BaseQuestion;
-import wust.student.illnesshepler.Bean.ManualQuestion;
-import wust.student.illnesshepler.Bean.MutipleQuestion;
-import wust.student.illnesshepler.Bean.SingleQuestion;
 import wust.student.illnesshepler.Bean.Test;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
@@ -152,7 +149,13 @@ public class Investigation extends AppCompatActivity {
         Httputil.sendOKHttpRequestGetSurvey(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Toast.makeText(getContext(), "似乎出现了一些问题", Toast.LENGTH_SHORT).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "无网络连接，已退出", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
             }
 
             @Override
