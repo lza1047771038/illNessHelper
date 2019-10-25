@@ -4,11 +4,13 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import wust.student.illnesshepler.Investigation;
 
 public class Httputil {
 
     final static String getTheme = "http://192.168.1.102:8080/theme_request";
     final static String getSurvey = "http://192.168.1.102:8080/Survey";
+    final static String getSurvey_List = "http://192.168.1.102:8080/Survey_List";
 
     /**
      * 发送theme请求
@@ -27,9 +29,17 @@ public class Httputil {
     public static void sendOKHttpRequestGetSurvey(okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
-                .add("type","20191022")
+                .add("type", Investigation.type)
                 .build();
         Request request = new Request.Builder().url(getSurvey).post(build).build();
         client.newCall(request).enqueue(callback);
     }
+    public static void sendOKHttpRequest3(okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .build();
+        Request request = new Request.Builder().url(getTheme).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+
 }

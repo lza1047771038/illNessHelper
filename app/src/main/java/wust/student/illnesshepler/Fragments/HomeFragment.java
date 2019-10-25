@@ -1,11 +1,13 @@
 package wust.student.illnesshepler.Fragments;
 
+import android.content.Intent;
 import android.graphics.Outline;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,16 +22,20 @@ import com.youth.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import wust.student.illnesshepler.InvestigationList;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.GlideImageLoader;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private View view, statusBarBackground;
     private Banner banner;
     private TabLayout tabLayout;
-
+    private TextView sruvey;
+    private TextView libraries;
+    private TextView doctors;
+    private TextView tools;
 
     private List<String> images = new ArrayList<>();
     private List<String> title = new ArrayList<>();
@@ -48,6 +54,16 @@ public class HomeFragment extends Fragment {
 
         banner = view.findViewById(R.id.banner);
         statusBarBackground = view.findViewById(R.id.statusBarBackground);
+
+        sruvey    =(TextView)view.findViewById(R.id.survey   );
+        libraries =(TextView)view.findViewById(R.id.libraries);
+        doctors   =(TextView)view.findViewById(R.id.doctors  );
+        tools     =(TextView)view.findViewById(R.id.tools    );
+
+        sruvey   .setOnClickListener(this);
+        libraries.setOnClickListener(this);
+        doctors  .setOnClickListener(this);
+        tools    .setOnClickListener(this);
         ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
@@ -89,4 +105,17 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.survey    :
+                    Intent intent=new Intent(getActivity().getApplicationContext(), InvestigationList.class);
+                    startActivity(intent);
+                ; break;
+            case R.id.libraries :  Toast.makeText(getContext(), "你点击了调查", Toast.LENGTH_SHORT).show(); break;
+            case R.id.doctors   :  Toast.makeText(getContext(), "你点击了调查", Toast.LENGTH_SHORT).show(); break;
+            case R.id.tools     :  Toast.makeText(getContext(), "你点击了调查", Toast.LENGTH_SHORT).show(); break;
+        }
+    }
 }
