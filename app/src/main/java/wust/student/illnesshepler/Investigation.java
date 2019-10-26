@@ -72,41 +72,6 @@ public class Investigation extends AppCompatActivity {
             drawable.setAlpha(0);
             actionBar.setBackgroundDrawable(drawable);
         }
-//        for (int i = 0; i < 2; i++) {
-//            SingleQuestion singleQuestion = new SingleQuestion();
-//            singleQuestion.title = "单选标题" + i;
-//            singleQuestion.optiona = "第一个选项";
-//            singleQuestion.optionb = "第二个选项";
-//            singleQuestion.optionc = "第三个选项";
-//            singleQuestion.optiond = "第四个选项";
-//            singleQuestion.optione = "第五个选项";
-//            singleQuestion.optionf = "";
-//            singleQuestion.optiong = "";
-//            singleQuestion.optionh = "";
-//            singleQuestion.optioni = "";
-//            singleQuestion.optionj = "";
-//            mlist.add(singleQuestion);
-//        }
-//        for (int i = 0; i < 2; i++) {
-//            MutipleQuestion mutipleQuestion = new MutipleQuestion();
-//            mutipleQuestion.title = "多选标题" + i;
-//            mutipleQuestion.optiona = "多选第一个选项";
-//            mutipleQuestion.optionb = "多选第二个选项";
-//            mutipleQuestion.optionc = "多选第三个选项";
-//            mutipleQuestion.optiond = "多选第四个选项";
-//            mutipleQuestion.optione = "多选第五个选项";
-//            mutipleQuestion.optionf = "多选第六个选项";
-//            mutipleQuestion.optiong = "多选第七个选项";
-//            mutipleQuestion.optionh = "多选第八个选项";
-//            mutipleQuestion.optioni = "多选第九个选项";
-//            mutipleQuestion.optionj = "多选第十个选项";
-//            mlist.add(mutipleQuestion);
-//        }
-//            for (int i = 0; i < 2; i++) {
-//            ManualQuestion manualQuestion=new ManualQuestion();
-//            manualQuestion.title="填空标题"+i;
-//            mlist.add(manualQuestion);
-//        }
         SharedPreferences preferences = getSharedPreferences("SurveyInfo", Context.MODE_PRIVATE);
         String cache = preferences.getString("type", null);
         if (cache != null) {

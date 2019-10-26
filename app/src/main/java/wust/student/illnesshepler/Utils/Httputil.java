@@ -26,6 +26,14 @@ public class Httputil {
         client.newCall(request).enqueue(callback);
     }
 
+    public static void sendOkHttpRequestSurvey_List(okhttp3.Callback callback){
+        OkHttpClient client=new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .build();
+        Request request = new Request.Builder().url(getSurvey_List).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+
     public static void sendOKHttpRequestGetSurvey(okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()

@@ -27,6 +27,7 @@ public class GsonUtils {
         }
         return null;
     }
+
     public static Test handleMessages1(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
@@ -36,6 +37,7 @@ public class GsonUtils {
         }
         return null;
     }
+
     public static GetInvaestigationList handleMessages2(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);

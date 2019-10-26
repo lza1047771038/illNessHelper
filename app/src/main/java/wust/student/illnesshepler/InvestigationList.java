@@ -40,15 +40,16 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
     public RecyclerView recyclerView;
     public GetInvaestigationList getInvaestigationList;
     public InvestigationListAdapter investigationListAdapter;
-    List<GetInvaestigationList> mlist = new ArrayList<>();
+    List<GetInvaestigationList.Item> mlist = new ArrayList<>();
     ActionBar actionBar;
     Drawable drawable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_investigation_list);
 
-       recyclerView=(RecyclerView)findViewById(R.id.in_recycle);
+        recyclerView = (RecyclerView) findViewById(R.id.in_recycle);
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -57,7 +58,7 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        StatusBarUtil.setStatusBarDarkTheme(this,true);
+        StatusBarUtil.setStatusBarDarkTheme(this, true);
         drawable = getDrawable(R.color.white);
 
         actionBar = getSupportActionBar();
@@ -68,15 +69,10 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
             actionBar.setBackgroundDrawable(drawable);
         }
 
-        for (int i = 0; i <15; i++) {
-            GetInvaestigationList temp=new GetInvaestigationList();
-            temp.intype="2019102"+i;
-            temp.intitle="问卷调查"+i;
-            mlist.add(temp);
-        }
-        getdata();
         initlayout();
+        getdata();
     }
+
 
     private void initlayout() {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -86,27 +82,36 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
         investigationListAdapter.setOnItemClickListener(this);  //监听
         recyclerView.setAdapter(investigationListAdapter);
     }
-    public  void getdata()
-    {
-        Httputil.sendOKHttpRequest3(new Callback() {
+
+    public void getdata() {
+        Httputil.sendOkHttpRequestSurvey_List(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Looper.prepare();
-                Toast.makeText(InvestigationList.this, "似乎出现了一些问题,无法连接至服务器", Toast.LENGTH_SHORT).show();
-                Looper.loop();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(InvestigationList.this, "似乎出了一些问题", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
-                getInvaestigationList=  GsonUtils.handleMessages2(result);
+                Log.d("tag123Survey_List",result);
+                getInvaestigationList = GsonUtils.handleMessages2(result);
                 if (getInvaestigationList != null) {
-                    SharedPreferences preferences = getSharedPreferences("ServylistInfo", Context.MODE_PRIVATE);
+                    /*SharedPreferences preferences = getSharedPreferences("ServylistInfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(getInvaestigationList.intype, result);
-                    editor.apply();
-                    mlist.add(getInvaestigationList);
-                    mlist.notifyAll();
+                    editor.putString(getInvaestigationList.data., result);
+                    editor.apply();*/
+                    mlist.addAll(getInvaestigationList.data);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            investigationListAdapter.notifyDataSetChanged();
+                        }
+                    });
                 }
 
             }
@@ -114,13 +119,13 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
     }
 
     @Override
-    public void OnItemClick( int position) {
-        Toast.makeText(getContext(),"posion:"+position+"\n"+"type"+mlist.get(position).intype, Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(this,Investigation.class);
-        Bundle bundle=new Bundle();
-        bundle.putString("type",mlist.get(position).intype+"");
+    public void OnItemClick(int position) {
+        Toast.makeText(getContext(), "posion:" + position + "\n" + "type" + mlist.get(position).intype, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, Investigation.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("type", mlist.get(position).intype + "");
         intent.putExtras(bundle);
-        Log.d("test1",""+mlist.get(position).intype);
+        Log.d("test1", "" + mlist.get(position).intype);
         startActivity(intent);
     }
 }

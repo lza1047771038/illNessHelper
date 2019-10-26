@@ -17,9 +17,9 @@ import wust.student.illnesshepler.InvestigationList;
 import wust.student.illnesshepler.R;
 
 public class InvestigationListAdapter extends RecyclerView.Adapter<InvestigationListAdapter.ViewHolder> {
-    List<GetInvaestigationList> mlist;
+    private List<GetInvaestigationList.Item> mlist;
 
-    public InvestigationListAdapter(List<GetInvaestigationList> mlist) {
+    public InvestigationListAdapter(List<GetInvaestigationList.Item> mlist) {
         this.mlist = mlist;
     }
 
@@ -32,7 +32,7 @@ public class InvestigationListAdapter extends RecyclerView.Adapter<Investigation
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d("test1",mlist.get(position).intitle);
+//        Log.d("test1",mlist.get(position).intitle);
             holder.inTitle.setText(mlist.get(position).intitle);
             holder.inType.setText(mlist.get(position).intype);
             holder.inYear.setText((mlist.get(position).intype).substring(0,4)+"年");
@@ -44,10 +44,10 @@ public class InvestigationListAdapter extends RecyclerView.Adapter<Investigation
                 }
             });
     }
-    public static interface OnItemClickListener{
+    public interface OnItemClickListener{
         void OnItemClick(int position);
     }
-    InvestigationListAdapter.OnItemClickListener onItemClickListener=null;
+    private InvestigationListAdapter.OnItemClickListener onItemClickListener=null;
 
     public void setOnItemClickListener(InvestigationListAdapter.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
