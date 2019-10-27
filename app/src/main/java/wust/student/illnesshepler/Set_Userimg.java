@@ -8,12 +8,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.litepal.LitePal;
@@ -21,6 +23,7 @@ import org.litepal.LitePal;
 import java.io.File;
 import java.util.List;
 
+import wust.student.illnesshepler.Fragments.MeFragment;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.User_Information_LitePal.User_information;
 import wust.student.illnesshepler.Utils.FileUtil;
@@ -34,6 +37,7 @@ public class Set_Userimg extends AppCompatActivity {
     Uri uri;
     ImageView user_img;
     FileUtil fileUtil;
+    String Tag="checkpoint";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +56,6 @@ public class Set_Userimg extends AppCompatActivity {
                 startActivityForResult(intent,1);
             }
         });
-
-        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if(all.get(0).getUser_Image_Uri()!=null)
-            user_img.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -95,4 +95,11 @@ public class Set_Userimg extends AppCompatActivity {
         LitePal.updateAll(User_information.class,values);
     }
 
+    public void onStart(){
+        super.onStart();
+        Log.d(Tag,"onReStart_Set");
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        if(all.get(0).getUser_Image_Uri()!=null)
+            user_img.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+    }
 }

@@ -79,14 +79,6 @@ public class Edit_Userdata extends AppCompatActivity {
         user_image=(ImageView)findViewById(R.id.user_img);
         input=v.findViewById(R.id.input);
 
-        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if(all.get(0).get_Id()==1){
-            user_name.setText(all.get(0).getUser_Name());
-            user_age.setText(all.get(0).getUser_Age());
-            if(all.get(0).getUser_Image_Uri()!=null)
-                user_image.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
-        }
-
         User_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,11 +174,25 @@ public class Edit_Userdata extends AppCompatActivity {
         }
         return true;
     }
-
-
     public void UpData(String name,String data){
         ContentValues values=new ContentValues();
         values.put(name,data);
         LitePal.updateAll(User_information.class,values);
+    }
+
+    public void setUesrdata(){
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        if(all.get(0).get_Id()==1){
+            user_name.setText(all.get(0).getUser_Name());
+            user_age.setText(all.get(0).getUser_Age());
+            if(all.get(0).getUser_Image_Uri()!=null)
+                user_image.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+        }
+    }
+
+    public void onStart(){
+        super.onStart();
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        setUesrdata();
     }
 }

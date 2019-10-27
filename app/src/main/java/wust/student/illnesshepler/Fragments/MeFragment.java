@@ -1,7 +1,9 @@
 package wust.student.illnesshepler.Fragments;
 
-import android.content.Intent;
+import
+        android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ public class MeFragment extends Fragment {
     View view, statusBarBackground;
     ImageView imageView;
     FileUtil fileUtil;
+    String Tag="checkpoint";
 
     @Nullable
     @Override
@@ -42,19 +45,26 @@ public class MeFragment extends Fragment {
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
 
-        imageView=(ImageView)view.findViewById(R.id.imageView);
-        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if(all.get(0).getUser_Image_Uri()!=null)
-            imageView.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
-
-
         final Intent intent = new Intent(getContext(), Edit_Userdata.class);
-        ConstraintLayout Edit_information=(ConstraintLayout)view.findViewById(R.id.Edit_information);
+        ConstraintLayout Edit_information = (ConstraintLayout) view.findViewById(R.id.Edit_information);
         Edit_information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(intent);
             }
         });
+    }
+
+    private void setImageView(){
+        imageView = (ImageView) view.findViewById(R.id.imageView);
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        if (all.get(0).getUser_Image_Uri() != null)
+            imageView.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+    }
+
+    public void onStart(){
+        super.onStart();
+        Log.d(Tag,"Me_onStart");
+        setImageView();
     }
 }
