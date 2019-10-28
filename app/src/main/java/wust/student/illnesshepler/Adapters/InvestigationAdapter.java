@@ -13,10 +13,13 @@ import java.util.List;
 import wust.student.illnesshepler.Bean.BaseQuestion;
 import wust.student.illnesshepler.Bean.ManualQuestion;
 import wust.student.illnesshepler.Bean.MutipleQuestion;
+import wust.student.illnesshepler.Bean.Problem;
 import wust.student.illnesshepler.Bean.SingleQuestion;
 import wust.student.illnesshepler.Fragments.ManualQuestionFragment;
 import wust.student.illnesshepler.Fragments.MutipleQuestionFragment;
+import wust.student.illnesshepler.Fragments.ScoolInfo;
 import wust.student.illnesshepler.Fragments.SingleChoiceFragment;
+import wust.student.illnesshepler.Investigation;
 
 public class InvestigationAdapter extends FragmentStatePagerAdapter {
     public List<BaseQuestion> mlist;
@@ -34,16 +37,17 @@ public class InvestigationAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         if (mlist.get(position) instanceof SingleQuestion) {
             Log.d("test", (mlist.get(position) instanceof SingleQuestion) + "单选" + position);
-            return SingleChoiceFragment.newInstance((SingleQuestion) mlist.get(position), position + 1, getCount());
+            return SingleChoiceFragment.newInstance((SingleQuestion) mlist.get(position), position + 1- Investigation.problemnum, getCount()-Investigation.problemnum);
         } else if (mlist.get(position) instanceof MutipleQuestion) {
 
             Log.d("test", (mlist.get(position) instanceof MutipleQuestion) + "多选" + position);
-            return MutipleQuestionFragment.newInstance((MutipleQuestion) mlist.get(position), position + 1, getCount());
+            return MutipleQuestionFragment.newInstance((MutipleQuestion) mlist.get(position), position + 1- Investigation.problemnum ,getCount()-Investigation.problemnum);
         } else if (mlist.get(position) instanceof ManualQuestion) {
             Log.d("test", (mlist.get(position) instanceof ManualQuestion) + "填空" + position);
-            return ManualQuestionFragment.newInstance((ManualQuestion) mlist.get(position), position + 1, getCount());
+            return ManualQuestionFragment.newInstance((ManualQuestion) mlist.get(position), position + 1- Investigation.problemnum, getCount()-Investigation.problemnum);
         }
-        return null;
+        return ScoolInfo.newInstance((Problem) mlist.get(position));
+
     }
 
 

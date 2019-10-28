@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.LongDef;
@@ -32,20 +33,20 @@ public class InvestigationListAdapter extends RecyclerView.Adapter<Investigation
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-//        Log.d("test1",mlist.get(position).intitle);
             holder.inTitle.setText(mlist.get(position).intitle);
             holder.inType.setText(mlist.get(position).intype);
-            holder.inYear.setText((mlist.get(position).intype).substring(0,4)+"年");
             holder.inMonth.setText(mlist.get(position).intype.substring(4,6)+"月"+mlist.get(position).intype.substring(6,8)+"号");
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.OnItemClick(position);
+                    notifyItemChanged(position);
                 }
             });
     }
     public interface OnItemClickListener{
         void OnItemClick(int position);
+
     }
     private InvestigationListAdapter.OnItemClickListener onItemClickListener=null;
 
@@ -63,12 +64,14 @@ public class InvestigationListAdapter extends RecyclerView.Adapter<Investigation
         TextView inMonth;
         TextView inTitle;
         TextView inType;
+        LinearLayout linearLayout;
         public ViewHolder(@NonNull View view) {
             super(view);
             inYear=view.findViewById(R.id.in_year);
             inMonth=view.findViewById(R.id.in_month);
             inTitle=view.findViewById(R.id.in_title);
             inType=view.findViewById(R.id.in_type);
+            linearLayout=view.findViewById(R.id.linear);
         }
     }
 }

@@ -9,7 +9,7 @@ import wust.student.illnesshepler.Investigation;
 public class Httputil {
 
     final static String getTheme = "http://192.168.1.102:8080/theme_request";
-    final static String getSurvey = "http://192.168.1.102:8080/Survey";
+    final static String getSurvey = "http://192.168.1.102:8080/Survey_Response";
     final static String getSurvey_List = "http://192.168.1.102:8080/Survey_List";
 
     /**
@@ -34,10 +34,10 @@ public class Httputil {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void sendOKHttpRequestGetSurvey(okhttp3.Callback callback) {
+    public static void sendOKHttpRequestGetSurvey(String type,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
-                .add("type", Investigation.type)
+                .add("type", type)
                 .build();
         Request request = new Request.Builder().url(getSurvey).post(build).build();
         client.newCall(request).enqueue(callback);

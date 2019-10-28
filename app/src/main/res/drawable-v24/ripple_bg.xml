@@ -2,7 +2,15 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="#E0E0E0"><!--涟漪背景色 -->
 
-    <item android:drawable="@android:color/white">
+    <item>
+        <selector>
+            <!-- 未点击背景图-->
+            <item
+                android:drawable="@color/white"
+                android:state_pressed="false" />
+            <!-- 点击背景图-->
+        </selector>
     </item>
+
 
 </ripple>

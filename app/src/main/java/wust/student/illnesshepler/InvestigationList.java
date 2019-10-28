@@ -1,10 +1,12 @@
 package wust.student.illnesshepler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,9 +14,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +32,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.InvestigationListAdapter;
-import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Bean.GetInvaestigationList;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
@@ -43,11 +47,12 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
     List<GetInvaestigationList.Item> mlist = new ArrayList<>();
     ActionBar actionBar;
     Drawable drawable;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_investigation_list);
+
+
 
         recyclerView = (RecyclerView) findViewById(R.id.in_recycle);
 
@@ -75,6 +80,18 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
 
 
     private void initlayout() {
+        //暂时别删掉 没有服务器的时候测试用    艾科
+//        for (int i = 0; i < 10; i++) {
+//            GetInvaestigationList.Item item=new GetInvaestigationList.Item();
+//            item.intitle="title";
+//            item.intype="20191017";
+//            item.num=1;
+//            item.problem1="test";
+//            item.problem2="test";
+//            item.problem3="test";
+//            mlist.add(item);
+//        }
+
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(manager);
@@ -105,7 +122,9 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString(getInvaestigationList.data., result);
                     editor.apply();*/
+
                     mlist.addAll(getInvaestigationList.data);
+                    Log.d("test","testtttt"+mlist.get(0).intitle);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -120,12 +139,28 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
 
     @Override
     public void OnItemClick(int position) {
-        Toast.makeText(getContext(), "posion:" + position + "\n" + "type" + mlist.get(position).intype, Toast.LENGTH_SHORT).show();
+
         Intent intent = new Intent(this, Investigation.class);
         Bundle bundle = new Bundle();
-        bundle.putString("type", mlist.get(position).intype + "");
+        bundle.putInt("num", mlist.get(position).num);
+        bundle.putString("problem1", mlist.get(position).problem1 + "");
+        bundle.putString("problem2", mlist.get(position).problem2  + "");
+        bundle.putString("problem3", mlist.get(position).problem3 + "");
         intent.putExtras(bundle);
-        Log.d("test1", "" + mlist.get(position).intype);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+                default:
+                    break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -139,7 +139,7 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Investigation.mViewPager.setCurrentItem(position);
+                Investigation.mViewPager.setCurrentItem(position+Investigation.problemnum);
             }
         },500);
 
