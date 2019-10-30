@@ -1,6 +1,11 @@
 package wust.student.illnesshepler.Utils;
 
+import org.json.JSONObject;
+
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -11,6 +16,7 @@ public class Httputil {
     final static String getTheme = "http://192.168.1.102:8080/theme_request";
     final static String getSurvey = "http://192.168.1.102:8080/Survey_Response";
     final static String getSurvey_List = "http://192.168.1.102:8080/Survey_List";
+    final static String Survey_Result = "http://192.168.1.102:8080/Survey_Result";
 
     /**
      * 发送theme请求
@@ -42,11 +48,17 @@ public class Httputil {
         Request request = new Request.Builder().url(getSurvey).post(build).build();
         client.newCall(request).enqueue(callback);
     }
-    public static void sendOKHttpRequest3(okhttp3.Callback callback) {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody build = new FormBody.Builder()
+    public static void sendokhttpSurveyResult(String type, JSONObject json ,okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(5,TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
                 .build();
-        Request request = new Request.Builder().url(getTheme).post(build).build();
+        RequestBody build = new FormBody.Builder()
+                .add("type",type)
+                .add("result", String.valueOf(json))
+                .build();
+        Request request = new Request.Builder().url(Survey_Result).post(build).build();
         client.newCall(request).enqueue(callback);
     }
 

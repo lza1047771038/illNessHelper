@@ -36,7 +36,10 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.InvestigationAdapter;
 import wust.student.illnesshepler.Bean.BaseQuestion;
+import wust.student.illnesshepler.Bean.ManualQuestion;
+import wust.student.illnesshepler.Bean.MutipleQuestion;
 import wust.student.illnesshepler.Bean.Problem;
+import wust.student.illnesshepler.Bean.SingleQuestion;
 import wust.student.illnesshepler.Bean.Test;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
@@ -62,17 +65,73 @@ public class Investigation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         Bundle bundle=this.getIntent().getExtras();
-        type= bundle.getString("type","00");
+        type=bundle.getString("type","error");
+        problem=new Problem();
+        problem.num=bundle.getInt("num",0);
+        Log.d("test","num:"+bundle.getInt("num",0)+"");
+        problemnum=bundle.getInt("num",0);
+        problem.problem1=bundle.getString("problem1","");
+        problem.problem2=bundle.getString("problem2","");
+        problem.problem3=bundle.getString("problem3","");
+
+
+//        type= bundle.getString("type","00");
+//        for (int i = 0; i < 5; i++) {
+//            SingleQuestion s=new SingleQuestion();
+//            s.title="单选"+i;
+//            s.optiona="A";
+//            s.optionb="A";
+//            s.optionc="A";
+//            s.optiond="A";
+//            s.optione="A";
+//            s.optionf="";
+//            s.optiong="";
+//            s.optionh="";
+//            s.optioni="";
+//            s.optionj="";
+//
+//            s.A_next=0;
+//            s.B_next=0;
+//            s.C_next=0;
+//            s.D_next=0;
+//            s.E_next=0;
+//            s.F_next=0;
+//            s.G_next=0;
+//            s.H_next=0;
+//            s.I_next=0;
+//            s.J_next=0;
+//            mlist.add(s);
+//        }
+//        for (int i = 0; i < 5; i++) {
+//            MutipleQuestion m=new MutipleQuestion();
+//            m.title="多选"+i;
+//            m.optiona="A";
+//            m.optionb="A";
+//            m.optionc="A";
+//            m.optiond="A";
+//            m.optione="A";
+//            m.optionf="A";
+//            m.optiong="A";
+//            m.optionh="A";
+//            m.optioni="A";
+//            m.optionj="A";
+//            mlist.add(m);
+//        }
+//        for (int i = 0; i < 3; i++) {
+//            ManualQuestion ma=new ManualQuestion();
+//            ma.title="填空"+i;
+//            mlist.add(ma);
+//        }
+//
 
         try {
+            Investigation.jsonObject.put("submitTime","");
+            Investigation.jsonObject.put("useTime","");
             Investigation.jsonObject.put("problem1","");
             Investigation.jsonObject.put("problem2","");
             Investigation.jsonObject.put("problem3","");
-            Investigation.jsonObject.put("submitTime","");
-            Investigation.jsonObject.put("useTime","");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -98,6 +157,7 @@ public class Investigation extends AppCompatActivity {
             drawable.setAlpha(0);
             actionBar.setBackgroundDrawable(drawable);
         }
+
 //        SharedPreferences preferences = getSharedPreferences("SurveyInfo", Context.MODE_PRIVATE);
 //        String cache = preferences.getString("type", null);
 //        if (cache != null) {
@@ -116,12 +176,7 @@ public class Investigation extends AppCompatActivity {
         mAdapter = new InvestigationAdapter(getSupportFragmentManager(), mlist);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(mlist.size());
-        problem=new Problem();
-        problem.num=bundle.getInt("num",0);
-        problemnum=bundle.getInt("num",0);
-        problem.problem1=bundle.getString("problem1","");
-        problem.problem2=bundle.getString("problem2","");
-        problem.problem3=bundle.getString("problem3","");
+
     }
 
     @Override
@@ -136,27 +191,8 @@ public class Investigation extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.menu_submit :
-                endtime=System.currentTimeMillis();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                try {
-                if( endtime-starttime>0)
-                {
-                        jsonObject.put("submitTime",""+format.format(endtime));
-                        jsonObject.put("useTime",""+(endtime-starttime)/1000);
-                }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Log.d("test",jsonObject.toString());
-                Toast.makeText(this, "json:"+jsonObject, Toast.LENGTH_LONG).show();
-                promptDialog = new PromptDialog(this);
-                promptDialog.showLoading("正在提交",true);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        promptDialog.showSuccess("成功",true);
-                    }
-                },2000);
+                Log.d("test",jsonObject+"");
+                    submit();
                 break;
             case android.R.id.home:
                 MaterialDialog dialog = new MaterialDialog.Builder(this)
@@ -184,6 +220,8 @@ public class Investigation extends AppCompatActivity {
     }
 
     public void requestThemes() {
+
+
         Httputil.sendOKHttpRequestGetSurvey(type,new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -191,7 +229,7 @@ public class Investigation extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(getContext(), "无网络连接，已退出", Toast.LENGTH_SHORT).show();
-                        finish();
+//                        finish();
                     }
                 });
             }
@@ -207,6 +245,7 @@ public class Investigation extends AppCompatActivity {
                 testinfo= GsonUtils.handleMessages1(result);
                 if(problemnum!=0) {
                     mlist.add(problem);
+                    Log.d("test","tru");
                 }
                 mlist.addAll(testinfo.data1);
                 mlist.addAll(testinfo.data2);
@@ -222,5 +261,66 @@ public class Investigation extends AppCompatActivity {
         });
 
 
+    }
+    public void submit()
+    {
+        endtime=System.currentTimeMillis();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
+        try {
+            if( endtime-starttime>0)
+            {
+                jsonObject.put("submitTime",""+format.format(endtime));
+                jsonObject.put("useTime",""+(endtime-starttime)/1000);
+            }
+        } catch (JSONException e) {
+            Toast.makeText(getContext(), "提交时间错误，请提交反馈", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+
+        }
+        promptDialog = new PromptDialog(this);
+        promptDialog.showLoading("正在提交",true);
+
+        Httputil.sendokhttpSurveyResult(type, jsonObject, new Callback() {
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        promptDialog.showError("网络连接错误！！");
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    String result=response.body().string();
+                    Log.d("test","result    :"+result);
+                    if(result.equals("1"))
+                    {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                promptDialog.showSuccess("提交成功！谢谢参与！");
+                            }
+                        });
+                    }
+                    else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                promptDialog.showSuccess("提交失败！同时提交人数多，请片刻后重试");
+                            }
+                        });
+                    }
+            }
+        });
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                promptDialog.showSuccess("成功",true);
+//            }
+//        },2000);
     }
 }

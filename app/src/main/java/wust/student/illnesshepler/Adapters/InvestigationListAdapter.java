@@ -36,7 +36,7 @@ public class InvestigationListAdapter extends RecyclerView.Adapter<Investigation
             holder.inTitle.setText(mlist.get(position).intitle);
             holder.inType.setText(mlist.get(position).intype);
             holder.inMonth.setText(mlist.get(position).intype.substring(4,6)+"月"+mlist.get(position).intype.substring(6,8)+"号");
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.OnItemClick(position);

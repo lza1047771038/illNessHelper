@@ -86,9 +86,9 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
 //            item.intitle="title";
 //            item.intype="20191017";
 //            item.num=1;
-//            item.problem1="test";
-//            item.problem2="test";
-//            item.problem3="test";
+//            item.problem1="test1";
+//            item.problem2="test2";
+//            item.problem3="test3";
 //            mlist.add(item);
 //        }
 
@@ -142,10 +142,12 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
 
         Intent intent = new Intent(this, Investigation.class);
         Bundle bundle = new Bundle();
+        bundle.putString("type",mlist.get(position).intype+"");
         bundle.putInt("num", mlist.get(position).num);
         bundle.putString("problem1", mlist.get(position).problem1 + "");
         bundle.putString("problem2", mlist.get(position).problem2  + "");
         bundle.putString("problem3", mlist.get(position).problem3 + "");
+        Log.d("test", "       "+mlist.get(position).num +"problem1");
         intent.putExtras(bundle);
         startActivity(intent);
     }
