@@ -124,7 +124,7 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
                     editor.apply();*/
 
                     mlist.addAll(getInvaestigationList.data);
-                    Log.d("test","testtttt"+mlist.get(0).intitle);
+//                    Log.d("test","testtttt"+mlist.get(0).intitle);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

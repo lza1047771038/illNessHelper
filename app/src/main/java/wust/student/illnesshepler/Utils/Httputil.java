@@ -13,10 +13,10 @@ import wust.student.illnesshepler.Investigation;
 
 public class Httputil {
 
-    final static String getTheme = "http://192.168.1.102:8080/theme_request";
-    final static String getSurvey = "http://192.168.1.102:8080/Survey_Response";
-    final static String getSurvey_List = "http://192.168.1.102:8080/Survey_List";
-    final static String Survey_Result = "http://192.168.1.102:8080/Survey_Result";
+    final static String getTheme = "http://47.100.93.91/theme_request";
+    final static String getSurvey = "http://47.100.93.91/Survey_Response";
+    final static String getSurvey_List = "http://47.100.93.91/Survey_List";
+    final static String Survey_Result = "http://47.100.93.91/Survey_Result";
 
     /**
      * 发送theme请求
