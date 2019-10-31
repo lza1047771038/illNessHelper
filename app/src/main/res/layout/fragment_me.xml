@@ -24,7 +24,7 @@
             android:clickable="true"
             android:focusable="true">
 
-            <ImageView
+            <wust.student.illnesshepler.Utils.RoundImageView
                 android:id="@+id/imageView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"

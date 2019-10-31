@@ -20,7 +20,7 @@
         <LinearLayout
             android:id="@+id/edit_user_img"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/ripple_bg"
             android:orientation="horizontal"
             android:padding="5dp">
@@ -38,11 +38,11 @@
                 android:gravity="right"
                 android:orientation="vertical">
 
-                <ImageView
+                <wust.student.illnesshepler.Utils.RoundImageView
                     android:id="@+id/user_img"
                     android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/background_shape" />
+                    android:layout_height="80dp"
+                    android:src="@drawable/head" />
             </LinearLayout>
         </LinearLayout>
 

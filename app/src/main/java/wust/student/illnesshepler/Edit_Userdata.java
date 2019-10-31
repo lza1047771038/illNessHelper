@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.lang.UProperty;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.litepal.LitePal;
 
-import java.io.File;
 import java.util.List;
 
 import wust.student.illnesshepler.User_Information_LitePal.User_information;
