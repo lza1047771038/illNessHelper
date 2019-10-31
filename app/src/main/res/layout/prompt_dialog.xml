@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/prompt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="温馨提示"
+            android:textColor="#000"
+            android:layout_marginBottom="10dp"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/prompt_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提示内容"
+            android:layout_marginLeft="15dp"
+            android:textColor="#3D3B3B"
+            android:layout_marginBottom="10dp"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/prompt_begin"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="#85D0DF"
+            android:layout_marginBottom="30dp"
+            android:text="开始答题"
+            android:textColor="#FFF" />
+    </LinearLayout>
+</LinearLayout>
