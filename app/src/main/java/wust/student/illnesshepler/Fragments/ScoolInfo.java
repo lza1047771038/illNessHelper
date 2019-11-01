@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class ScoolInfo extends Fragment {
         answer1=view.findViewById(R.id.answer1);
         answer2=view.findViewById(R.id.answer2);
         answer3=view.findViewById(R.id.answer3);
+
         answer1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -63,6 +65,7 @@ public class ScoolInfo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("test", "ss"+s);
                 try {
                     Investigation.jsonObject.put("problem1",s);
                 } catch (JSONException e) {
@@ -84,7 +87,9 @@ public class ScoolInfo extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
+                    Log.d("test", "s3   ；"+s);
                     Investigation.jsonObject.put("problem2",s);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -92,11 +97,7 @@ public class ScoolInfo extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                try {
-                    Investigation.jsonObject.put("problem3",s);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
             }
         });
         answer3.addTextChangedListener(new TextWatcher() {
@@ -107,7 +108,11 @@ public class ScoolInfo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                try {
+                    Investigation.jsonObject.put("problem3",s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -118,8 +123,8 @@ public class ScoolInfo extends Fragment {
 
         mproblem=(Problem)getArguments().getSerializable("info");
         problem1.setText(mproblem.problem1);
-        if(!mproblem.problem2.equals("")) problem2.setText(mproblem.problem2);else { problem2.setVisibility(View.GONE); answer1.setVisibility(View.GONE); }
-        if(!mproblem.problem3.equals("")) problem3.setText(mproblem.problem3);else { problem3.setVisibility(View.GONE); answer2.setVisibility(View.GONE); }
+        if(!mproblem.problem2.equals("")) problem2.setText(mproblem.problem2);else { problem2.setVisibility(View.GONE); answer2.setVisibility(View.GONE); }
+        if(!mproblem.problem3.equals("")) problem3.setText(mproblem.problem3);else { problem3.setVisibility(View.GONE); answer3.setVisibility(View.GONE); }
     }
 
     @Override

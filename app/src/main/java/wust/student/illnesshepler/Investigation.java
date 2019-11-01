@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +43,7 @@ import wust.student.illnesshepler.Bean.MutipleQuestion;
 import wust.student.illnesshepler.Bean.Problem;
 import wust.student.illnesshepler.Bean.SingleQuestion;
 import wust.student.illnesshepler.Bean.Test;
+import wust.student.illnesshepler.Utils.Dialog_prompt;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
@@ -66,7 +68,8 @@ public class Investigation extends AppCompatActivity {
     Handler handler;
     public boolean temp1 = false;
     public boolean temp2 = false;
-
+    private Dialog_prompt dialog_prompt;
+    private int[] v = new int[]{R.id.prompt_begin, R.id.prompt_text};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,54 +93,65 @@ public class Investigation extends AppCompatActivity {
             drawable.setAlpha(0);
             actionBar.setBackgroundDrawable(drawable);
         }
-
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mAdapter = new InvestigationAdapter(getSupportFragmentManager(), mlist);
         bundle = this.getIntent().getExtras();
 
+
         //从InvastigationList中取出type以及3个问题
-                //初始化json 数据
-                type = bundle.getString("type", "error");
-                problem = new Problem();
-                problem.num = bundle.getInt("num", 0);
-                Log.d("test", "num:" + bundle.getInt("num", 0) + "");
-                problemnum = bundle.getInt("num", 0);
-                problem.problem1 = bundle.getString("problem1", "");
-                problem.problem2 = bundle.getString("problem2", "");
-                problem.problem3 = bundle.getString("problem3", "");
+        //初始化json 数据
+        type = bundle.getString("type", "error");
+        problem = new Problem();
+        problem.num = bundle.getInt("num", 0);
+        Log.d("test", "num:" + bundle.getInt("num", 0) + "");
+        problemnum = bundle.getInt("num", 0);
+        problem.problem1 = bundle.getString("problem1", "");
+        problem.problem2 = bundle.getString("problem2", "");
+        problem.problem3 = bundle.getString("problem3", "");
 
-                try {
-                    Investigation.jsonObject.put("submitTime", "");
-                    Investigation.jsonObject.put("useTime", "");
+        try {
+            Investigation.jsonObject.put("id", "");
+            Investigation.jsonObject.put("submitTime", "");
+            Investigation.jsonObject.put("useTime", "");
 
-                    if (!problem.problem1.equals("")) {
-                        Investigation.jsonObject.put("problem1", "");
-                    }
-                    if (!problem.problem2.equals("")) {
-                        Investigation.jsonObject.put("problem2", "");
-                    }
-                    if (!problem.problem3.equals("")) {
-                        Investigation.jsonObject.put("problem3", "");
-                    }
+            if (!problem.problem1.equals("")) {
+                Investigation.jsonObject.put("problem1", "");
+            }
+            if (!problem.problem2.equals("")) {
+                Log.d("test", "p2");
+                Investigation.jsonObject.put("problem2", "");
+            }
+            if (!problem.problem3.equals("")) {
+                Investigation.jsonObject.put("problem3", "");
+            }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         //请求网络数据
         promptDialog = new PromptDialog(this);
         promptDialog.showLoading("正在加载请稍后");
-
-                requestThemes();
-
         //请求数据
-                    initlayout();
+        requestThemes();
+        int waittime =500+(int)(Math.random()*1000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initlayout();
+            }
+        },waittime);
+
 
     }
 
     public void initlayout() {
         promptDialog.showSuccess("加载完成");
+        dialog_prompt = new Dialog_prompt(this, R.layout.prompt_dialog, v,bundle.getString("problem1", ""));
+//        dialog_prompt.settext("测试标题\n换行测试");
+        dialog_prompt.show();
+
         //开始回答问卷调查时间
         starttime = System.currentTimeMillis();
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mAdapter = new InvestigationAdapter(getSupportFragmentManager(), mlist);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(mlist.size());
     }
@@ -156,28 +170,18 @@ public class Investigation extends AppCompatActivity {
                 submit();
                 break;
             case android.R.id.home:
-                MaterialDialog dialog = new MaterialDialog.Builder(this)
-                        .title("您确认要退出吗")
-                        .content("点击确认推出")
-                        .positiveText("确认")
-                        .negativeText("取消")
-                        .negativeColor(getColor(R.color.optioncolorcolor))
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                finish();
-                            }
-                        })
-                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
+                showexitdilog();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            showexitdilog();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void requestThemes() {
@@ -201,6 +205,7 @@ public class Investigation extends AppCompatActivity {
                 testinfo = GsonUtils.handleMessages1(result);
                 if (problemnum != 0) {
                     mlist.add(problem);
+                    Log.d("test", "haveporoblem");
                 }
                 mlist.addAll(testinfo.data1);
                 mlist.addAll(testinfo.data2);
@@ -218,53 +223,91 @@ public class Investigation extends AppCompatActivity {
 
     public void submit() {
         endtime = System.currentTimeMillis();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         try {
             if (endtime - starttime > 0) {
                 jsonObject.put("submitTime", "" + format.format(endtime));
                 jsonObject.put("useTime", "" + (endtime - starttime) / 1000);
             }
         } catch (JSONException e) {
-            Toast.makeText(getContext(), "获取时间错误，请提交反馈", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "错误编号：002，请提您提交反馈给我们", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
 
         }
         promptDialog = new PromptDialog(this);
         promptDialog.showLoading("正在提交", true);
-
-        Httputil.sendokhttpSurveyResult(type, jsonObject, new Callback() {
-
+        int submittime =500+(int)(Math.random()*1000);
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                runOnUiThread(new Runnable() {
+            public void run() {
+                Httputil.sendokhttpSurveyResult(type, jsonObject, new Callback() {
+
                     @Override
-                    public void run() {
-                        promptDialog.showError("网络连接错误！！");
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                promptDialog.showError("网络连接错误！！");
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        String result = response.body().string();
+                        Log.d("test", "result    :" + result);
+                        if (result.equals("1")) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    promptDialog.showSuccess("提交成功！谢谢参与！");
+                                }
+                            });
+                        } else if(result.equals("0")){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    promptDialog.showError("提交失败！同时提交人数多，请片刻后重试");
+                                }
+                            });
+                        }
+                        else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    promptDialog.showError("提交失败！！请您提交反馈给我们\n" +
+                                            "错误编号：001");
+                                }
+                            });
+                        }
                     }
                 });
-
             }
+        },submittime);
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String result = response.body().string();
-                Log.d("test", "result    :" + result);
-                if (result.equals("1")) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            promptDialog.showSuccess("提交成功！谢谢参与！");
-                        }
-                    });
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            promptDialog.showSuccess("提交失败！同时提交人数多，请片刻后重试");
-                        }
-                    });
-                }
-            }
-        });
+    }
+
+    public void showexitdilog()
+    {
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .title("您确认要退出吗")
+                .content("点击确认推出")
+                .positiveText("确认")
+                .negativeText("取消")
+                .negativeColor(getColor(R.color.optioncolorcolor))
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 }

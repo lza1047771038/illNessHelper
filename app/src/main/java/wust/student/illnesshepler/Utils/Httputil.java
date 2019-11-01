@@ -13,10 +13,10 @@ import wust.student.illnesshepler.Investigation;
 
 public class Httputil {
 
-    final static String getTheme = "http://47.100.93.91/theme_request";
-    final static String getSurvey = "http://47.100.93.91/Survey_Response";
-    final static String getSurvey_List = "http://47.100.93.91/Survey_List";
-    final static String Survey_Result = "http://47.100.93.91/Survey_Result";
+    final static String getTheme = "http://47.100.93.91:8996/theme_request";
+    final static String getSurvey = "http://47.100.93.91:8996/Survey_Response";
+    final static String getSurvey_List = "http://47.100.93.91:8996/Survey_List";
+    final static String Survey_Result = "http://47.100.93.91:8996/Survey_Result";
 
     /**
      * 发送theme请求
@@ -50,9 +50,6 @@ public class Httputil {
     }
     public static void sendokhttpSurveyResult(String type, JSONObject json ,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(5, TimeUnit.SECONDS)
-                .writeTimeout(5,TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
                 .build();
         RequestBody build = new FormBody.Builder()
                 .add("type",type)

@@ -73,14 +73,14 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
             drawable.setAlpha(0);
             actionBar.setBackgroundDrawable(drawable);
         }
-
-        initlayout();
         getdata();
+        initlayout();
+
     }
 
 
     private void initlayout() {
-        //暂时别删掉 没有服务器的时候测试用    艾科
+//        暂时别删掉 没有服务器的时候测试用    艾科
 //        for (int i = 0; i < 10; i++) {
 //            GetInvaestigationList.Item item=new GetInvaestigationList.Item();
 //            item.intitle="title";
@@ -115,7 +115,7 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
-                Log.d("tag123Survey_List",result);
+                Log.d("test",result);
                 getInvaestigationList = GsonUtils.handleMessages2(result);
                 if (getInvaestigationList != null) {
                     /*SharedPreferences preferences = getSharedPreferences("ServylistInfo", Context.MODE_PRIVATE);

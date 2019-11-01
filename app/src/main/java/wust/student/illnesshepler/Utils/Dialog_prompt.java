@@ -3,6 +3,8 @@ package wust.student.illnesshepler.Utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
@@ -23,8 +25,9 @@ public class Dialog_prompt extends Dialog {
     private Button prompt_begin;
     String text = "具体内容";
 
-    public Dialog_prompt(@NonNull Context context, int themeResId, int[] listenedItem) {
+    public Dialog_prompt(@NonNull Context context, int themeResId, int[] listenedItem,String text) {
         super(context);
+        this.text=text;
         this.context = context;
         this.layoutResID = themeResId;
         this.listenedItem = listenedItem;
@@ -35,6 +38,7 @@ public class Dialog_prompt extends Dialog {
         super.onCreate(savedInstanceState);
         //提前设置Dialog的一些样式
         Window dialogWindow = getWindow();
+        dialogWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogWindow.setGravity(Gravity.CENTER);//设置dialog显示居中
         dialogWindow.setWindowAnimations(0);//设置动画效果
         setContentView(layoutResID);
