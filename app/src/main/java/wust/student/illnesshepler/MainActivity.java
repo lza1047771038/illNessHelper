@@ -3,11 +3,17 @@ package wust.student.illnesshepler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.drm.DrmStore;
 import android.graphics.Color;
 import android.os.Build;
@@ -34,6 +40,8 @@ import wust.student.illnesshepler.User_Information_LitePal.User_information;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
+import static org.litepal.LitePalApplication.getContext;
+
 public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
@@ -50,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         LitePal.initialize(this);
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -63,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         StatusBarUtil.setStatusBarDarkTheme(this, true);
         setContentView(R.layout.activity_main);
 
-        ActionBar actionBar=getSupportActionBar();
-        if(actionBar!=null){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
             actionBar.hide();
         }
 
@@ -141,9 +150,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         litepal_init();//初始化数据库
-         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-
-        Log.i("test_LitePal","数据库数为：id = " + all.get(0).get_Id() + ",name = " + all.get(0).getUser_Name()+ ",age = " + all.get(0).getUser_Age()+",uri="+all.get(0).getUser_Image_Uri());
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
 
     }
 
@@ -175,9 +182,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void litepal_init(){
+    private void litepal_init() {
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if(all.size()==0) {
+        if (all.size() == 0) {
             User_information user_information = new User_information();
             user_information.setUser_Name("XXX");
             user_information.setUser_Age("0");
@@ -185,4 +192,5 @@ public class MainActivity extends AppCompatActivity {
             user_information.save();
         }
     }
+
 }
