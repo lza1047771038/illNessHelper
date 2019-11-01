@@ -3,12 +3,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
+    android:background="#FFF"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFF"
         android:orientation="vertical">
 
         <ImageView
@@ -38,8 +38,10 @@
 
         <Button
             android:id="@+id/prompt_begin"
-            android:layout_width="260dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
             android:layout_gravity="center"
             android:background="#85D0DF"
             android:layout_marginBottom="30dp"

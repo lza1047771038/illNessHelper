@@ -24,7 +24,7 @@ public class Dialog_prompt extends Dialog {
     String text = "具体内容";
 
     public Dialog_prompt(@NonNull Context context, int themeResId, int[] listenedItem) {
-        super(context, R.style.Dialog_prompt);
+        super(context);
         this.context = context;
         this.layoutResID = themeResId;
         this.listenedItem = listenedItem;
