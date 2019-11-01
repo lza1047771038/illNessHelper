@@ -69,7 +69,7 @@ public class Investigation extends AppCompatActivity {
     public boolean temp1 = false;
     public boolean temp2 = false;
     private Dialog_prompt dialog_prompt;
-    private int[] v = new int[]{R.id.prompt_begin, R.id.prompt_text};
+    private int[] v = new int[]{R.id.prompt_begin, R.id.prompt_text,R.id.calcel_btn};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,14 +146,33 @@ public class Investigation extends AppCompatActivity {
 
     public void initlayout() {
         promptDialog.showSuccess("加载完成");
-        dialog_prompt = new Dialog_prompt(this, R.layout.prompt_dialog, v,bundle.getString("problem1", ""));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog_prompt = new Dialog_prompt(Investigation.this, R.layout.prompt_dialog, v,problem.problem1 = bundle.getString("problem1", ""));
 //        dialog_prompt.settext("测试标题\n换行测试");
-        dialog_prompt.show();
+                dialog_prompt.setCancelable(false);
+                dialog_prompt.setOnButtonClickedListener(new Dialog_prompt.onBtnClickListener() {
+                    @Override
+                    public void onpositiveButtonClicked() {
+                        //开始回答问卷调查时间
+                        starttime = System.currentTimeMillis();
+                        mViewPager.setAdapter(mAdapter);
+                        mViewPager.setOffscreenPageLimit(mlist.size());
+                        dialog_prompt.dismiss();
+                    }
 
-        //开始回答问卷调查时间
-        starttime = System.currentTimeMillis();
-        mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(mlist.size());
+                    @Override
+                    public void onCancelButtonClicked() {
+                        finish();
+                    }
+                });
+                dialog_prompt.show();
+
+            }
+        },1000);
+
+
     }
 
     @Override
@@ -262,6 +281,13 @@ public class Investigation extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     promptDialog.showSuccess("提交成功！谢谢参与！");
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            finish();
+                                        }
+                                    },1000);
+
                                 }
                             });
                         } else if(result.equals("0")){

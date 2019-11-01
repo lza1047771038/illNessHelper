@@ -147,6 +147,7 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
         bundle.putString("problem1", mlist.get(position).problem1 + "");
         bundle.putString("problem2", mlist.get(position).problem2  + "");
         bundle.putString("problem3", mlist.get(position).problem3 + "");
+        bundle.putString("warning", mlist.get(position).warning + "");
         Log.d("test", "       "+mlist.get(position).num +"problem1");
         intent.putExtras(bundle);
         startActivity(intent);

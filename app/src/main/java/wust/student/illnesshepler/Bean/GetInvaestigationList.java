@@ -26,5 +26,7 @@ public class GetInvaestigationList {
         public String problem2;
         @SerializedName("problem3")
         public String problem3;
+        @SerializedName("warning")
+        public String warning;
     }
 }
