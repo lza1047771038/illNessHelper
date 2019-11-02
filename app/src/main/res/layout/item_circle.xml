@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:paddingLeft="10dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/Linearlyout_oneTOthree">
 
             <ImageView
