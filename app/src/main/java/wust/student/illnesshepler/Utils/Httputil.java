@@ -17,6 +17,8 @@ public class Httputil {
     final static String getSurvey = "http://47.100.93.91:8996/Survey_Response";
     final static String getSurvey_List = "http://47.100.93.91:8996/Survey_List";
     final static String Survey_Result = "http://47.100.93.91:8996/Survey_Result";
+    final static String NotificationList = "http://47.100.93.91:8996/NotificationList";
+    final static String login = "http://47.100.93.91:8996/login";
 
     /**
      * 发送theme请求
@@ -56,6 +58,22 @@ public class Httputil {
                 .add("result", String.valueOf(json))
                 .build();
         Request request = new Request.Builder().url(Survey_Result).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void sendokhttpNotificationList(okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+        RequestBody build = new FormBody.Builder()
+                .build();
+        Request request = new Request.Builder().url(NotificationList).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void sendokhttplogin(okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+        RequestBody build = new FormBody.Builder()
+                .build();
+        Request request = new Request.Builder().url(NotificationList).post(build).build();
         client.newCall(request).enqueue(callback);
     }
 

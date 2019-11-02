@@ -149,7 +149,7 @@ public class Investigation extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                dialog_prompt = new Dialog_prompt(Investigation.this, R.layout.prompt_dialog, v,problem.problem1 = bundle.getString("problem1", ""));
+                dialog_prompt = new Dialog_prompt(Investigation.this, R.layout.prompt_dialog, v,problem.problem1 = bundle.getString("warning", ""));
 //        dialog_prompt.settext("测试标题\n换行测试");
                 dialog_prompt.setCancelable(false);
                 dialog_prompt.setOnButtonClickedListener(new Dialog_prompt.onBtnClickListener() {
