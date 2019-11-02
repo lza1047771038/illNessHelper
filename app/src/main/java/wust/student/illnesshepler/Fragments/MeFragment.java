@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,14 +19,17 @@ import org.litepal.LitePal;
 import java.util.List;
 
 import wust.student.illnesshepler.R;
+import wust.student.illnesshepler.UploadTweet;
 import wust.student.illnesshepler.User_Information_LitePal.User_information;
 import wust.student.illnesshepler.Utils.FileUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 import wust.student.illnesshepler.Edit_Userdata;
 
-public class MeFragment extends Fragment {
+public class MeFragment extends Fragment implements View.OnClickListener {
     View view, statusBarBackground;
     ImageView imageView;
+    TextView AdministratorEntry;
+
     FileUtil fileUtil;
     String Tag = "checkpoint";
 
@@ -44,6 +48,10 @@ public class MeFragment extends Fragment {
         ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
+
+        AdministratorEntry=(TextView)view.findViewById(R.id.administrator_entry);
+
+        AdministratorEntry.setOnClickListener(this);
 
         final Intent intent = new Intent(getContext(), Edit_Userdata.class);
         ConstraintLayout Edit_information = (ConstraintLayout) view.findViewById(R.id.Edit_information);
@@ -68,4 +76,9 @@ public class MeFragment extends Fragment {
         setImageView();
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent=new Intent(view.getContext(), UploadTweet.class);
+        startActivity(intent);
+    }
 }

@@ -48,5 +48,5 @@ dependencies {
     implementation 'com.github.limxing:Android-PromptDialog:1.1.3'
     implementation 'com.afollestad.material-dialogs:commons:0.9.1.0'
     //富文本
-    implementation 'jp.wasabeef:richeditor-android:1.2.2'
+    implementation 'com.github.RexSuper:RichEditor:1.0.5'
 }
