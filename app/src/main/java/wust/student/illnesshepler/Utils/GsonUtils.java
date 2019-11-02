@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import wust.student.illnesshepler.Bean.GetInvaestigationList;
 import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Bean.Test;
+import wust.student.illnesshepler.Bean.Tweets;
 
 public class GsonUtils {
 
@@ -42,5 +43,13 @@ public class GsonUtils {
         }
         return null;
     }
-
+    public static Tweets handleMessages3(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            return new Gson().fromJson(jsonObject.toString(), Tweets.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
