@@ -2,6 +2,7 @@ package wust.student.illnesshepler.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -24,13 +25,19 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.JsonArray;
 import com.stx.xhb.xbanner.XBanner;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.LogRecord;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -39,6 +46,7 @@ import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.InvestigationListAdapter;
 import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.Tweets;
+import wust.student.illnesshepler.Investigation;
 import wust.student.illnesshepler.InvestigationList;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.GsonUtils;
@@ -68,6 +76,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
     public TweetsListAdapter tweetsListAdapter;
     public Tweets tweets;
+
+    public List<String> idlist=new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -99,8 +109,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
+
         getdata();
-        layoutInit();
+
+
     }
     public void getdata(){
         Httputil.sendokhttpNotificationList(new Callback() {
@@ -112,27 +124,49 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
-                Log.d("test",result);
+                Log.d("test","run"+result);
+
                 tweets= GsonUtils.handleMessages3(result);
                 mlist.addAll(tweets.data);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        layoutInit();
                         tweetsListAdapter.notifyDataSetChanged();
                     }
                 });
             }
+
         });
-//        for (int i = 0; i < 8; i++) {
-//            Tweets tweets=new Tweets();
-//            tweets.title="这是推文标题"+(i+1);
-//            tweets.auther="艾克";
-//            tweets.visitNum=i*34;
-//            tweets.imageUrl="http://47.100.93.91:8996/MediaFiles/mediaImages/de8394d1b5492cb065574cbbc1c589e8.jpg";
-//            mlist.add(tweets);
-//        }
+
     }
+    //    public void getUserName(String id,int postion) {
+//
+//        Httputil.sendokhttpqueryForUserInfo(id,new Callback() {
+//            @Override
+//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                idlist.add("null");
+//                Log.d("test","null ");
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//
+//                String result = response.body().string();
+//                Log.d("test",result);
+//                try {
+//                    JSONObject jsonObject = new JSONObject(result);
+//                    Log.d("test","jj"+jsonObject.getString("username"));
+//                    idlist.add(jsonObject.getString("username"));
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
     private void layoutInit() {
+        Log.d("test","run2");
 //        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);  //圆点指示器和标题其他默认
         images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/de8394d1b5492cb065574cbbc1c589e8.jpg");
         images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/9f52537a7a5583e2ac542c12d486f532.jpg");

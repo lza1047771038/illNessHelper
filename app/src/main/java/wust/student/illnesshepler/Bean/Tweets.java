@@ -26,5 +26,7 @@ public class Tweets {
         public String imageUrl;
         @SerializedName("visit_num")
         public int visitNum;
+        @SerializedName("username")
+        public String username;
     }
 }
