@@ -50,9 +50,7 @@ public class StartActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(context, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
                 mPermissionList.add(permissions[i]);
             }
-        if (mPermissionList.isEmpty()) {
-            Toast.makeText(context,"授权成功",Toast.LENGTH_SHORT).show();
-        } else {
+        if (!mPermissionList.isEmpty()) {
             String[] permission = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
             ActivityCompat.requestPermissions(activity, permission, REQUEST_CODE);
             mPermissionList.clear();
