@@ -15,13 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Investigation" android:theme="@style/Investigation"/>
-        <activity android:name=".InvestigationList"/>
+        <activity
+            android:name=".Investigation"
+            android:theme="@style/Investigation" />
+        <activity android:name=".InvestigationList" />
         <activity
             android:name=".StartActivity"
             android:theme="@style/StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

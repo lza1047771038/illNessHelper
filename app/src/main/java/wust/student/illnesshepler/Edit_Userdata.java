@@ -87,7 +87,7 @@ public class Edit_Userdata extends AppCompatActivity {
         User_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(user_name.getText().toString());
+                input.setHint(user_name.getText().toString());
                 username_edit();
             }
         });
@@ -95,7 +95,7 @@ public class Edit_Userdata extends AppCompatActivity {
         User_age.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(user_age.getText().toString());
+                input.setHint(user_age.getText().toString());
                 userage_edit();
             }
         });
