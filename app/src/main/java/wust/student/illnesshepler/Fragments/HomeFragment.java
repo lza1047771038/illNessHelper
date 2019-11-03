@@ -2,51 +2,38 @@ package wust.student.illnesshepler.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.fragment.app.Fragment;
 
-//import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.JsonArray;
 import com.stx.xhb.xbanner.XBanner;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.LogRecord;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
-import wust.student.illnesshepler.Adapters.InvestigationListAdapter;
 import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.Tweets;
-import wust.student.illnesshepler.Investigation;
 import wust.student.illnesshepler.InvestigationList;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.GsonUtils;
@@ -54,30 +41,28 @@ import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.ScreenUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
-import static org.litepal.LitePalApplication.getContext;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, TweetsListAdapter.OnItemClickListener {
 
-    public View view, statusBarBackground;
-    public XBanner mXBanner;
-    public TabLayout tabLayout;
-    public LinearLayout sruvey;
-    public LinearLayout libraries;
-    public LinearLayout doctors;
-    public LinearLayout tools;
-    public LinearLayout tweet_linear;
+    private View view, statusBarBackground;
+    private XBanner mXBanner;
+    private LinearLayout sruvey;
+    private LinearLayout libraries;
+    private LinearLayout doctors;
+    private LinearLayout tools;
 
-    public RecyclerView twRecyclerView;
+    private RecyclerView twRecyclerView;
 
 
-    public List<String> images = new ArrayList<>();
-    public List<String> title = new ArrayList<>();
-    public List<Tweets.Item> mlist=new ArrayList<>();
+    private List<String> images = new ArrayList<>();
+    private List<String> title = new ArrayList<>();
+    private List<Tweets.Item> mlist = new ArrayList<>();
 
-    public TweetsListAdapter tweetsListAdapter;
-    public Tweets tweets;
+    private TweetsListAdapter tweetsListAdapter;
+    private Tweets tweets;
 
-    public List<String> idlist=new ArrayList<>();
+    private List<String> idlist = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,7 +73,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        tabLayout = view.findViewById(R.id.tabLayout);
         statusBarBackground = view.findViewById(R.id.statusBarBackground);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(view.getContext()) / 2);
         mXBanner = (XBanner) view.findViewById(R.id.xbanner);
@@ -99,7 +83,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         doctors = (LinearLayout) view.findViewById(R.id.doctors);
         tools = (LinearLayout) view.findViewById(R.id.tools);
 
-        twRecyclerView=(RecyclerView)view.findViewById(R.id.tweets_recycle) ;
+        twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
 
         sruvey.setOnClickListener(this);
         libraries.setOnClickListener(this);
@@ -114,7 +98,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
 
     }
-    public void getdata(){
+
+    private void getdata() {
         Httputil.sendokhttpNotificationList(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -123,23 +108,36 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String result = response.body().string();
-                Log.d("test","run"+result);
+                try {
+                    String result = response.body().string();
+                    Log.d("test", "run" + result);
 
-                tweets= GsonUtils.handleMessages3(result);
-                mlist.addAll(tweets.data);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        layoutInit();
-                        tweetsListAdapter.notifyDataSetChanged();
-                    }
-                });
+
+                    tweets = GsonUtils.handleMessages3(result);
+                    //空引用异常检测
+                    if (tweets == null)
+                        throw new NullPointerException();
+                    mlist.addAll(tweets.data);
+                    //activity异常检测
+                    if (getActivity() == null)
+                        throw new NullPointerException();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            layoutInit();
+                            tweetsListAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                    Log.d("test", "产生空对象的操作");
+                }
             }
 
         });
 
     }
+
     //    public void getUserName(String id,int postion) {
 //
 //        Httputil.sendokhttpqueryForUserInfo(id,new Callback() {
@@ -166,7 +164,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 //        });
 //    }
     private void layoutInit() {
-        Log.d("test","run2");
+        Log.d("test", "run2");
 //        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);  //圆点指示器和标题其他默认
         images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/de8394d1b5492cb065574cbbc1c589e8.jpg");
         images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/9f52537a7a5583e2ac542c12d486f532.jpg");
@@ -192,7 +190,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         twRecyclerView.setLayoutManager(manager);
-        tweetsListAdapter = new TweetsListAdapter(getContext(),mlist);
+        tweetsListAdapter = new TweetsListAdapter(getContext(), mlist);
         tweetsListAdapter.setOnItemClickListener(this);  //监听
         twRecyclerView.setAdapter(tweetsListAdapter);
 
@@ -203,9 +201,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.survey:
-                Intent intent = new Intent(getActivity().getApplicationContext(), InvestigationList.class);
+                Intent intent = new Intent(getActivity(), InvestigationList.class);
                 startActivity(intent);
-                ;
                 break;
             case R.id.libraries:
                 Toast.makeText(getContext(), "你点击了资料", Toast.LENGTH_SHORT).show();
@@ -221,6 +218,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
     @Override
     public void OnItemClick(int position) {
-        Toast.makeText(getContext(), "你点击了第"+position+"个item  ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "你点击了第" + position + "个item  ", Toast.LENGTH_SHORT).show();
     }
 }

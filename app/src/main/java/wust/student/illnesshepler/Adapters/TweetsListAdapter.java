@@ -34,8 +34,8 @@ import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 
 public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.ViewHolder> {
-    public List<Tweets.Item> mlist;
-    public Context mcontext;
+    private List<Tweets.Item> mlist;
+    private Context mcontext;
 
 
     public TweetsListAdapter(Context context, List<Tweets.Item> mlist) {
@@ -55,12 +55,7 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Vi
         holder.title.setText(mlist.get(position).title);
         holder.auther.setText(mlist.get(position).username);
         holder.visitNum.setText(mlist.get(position).visitNum + "");
-//        if(mlist.get(position).imageUrl==null) {
-//            holder.cardView.setVisibility(View.GONE);
-//        }
-//        else{
         Glide.with(mcontext).load(mlist.get(position).imageUrl).apply(new RequestOptions().transforms(new CenterCrop())).into(holder.imageView);
-//        }
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +81,6 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Vi
     }
 
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public TextView auther;
@@ -102,7 +96,7 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Vi
             visitNum = itemView.findViewById(R.id.tweet_visit_num);
             imageView = itemView.findViewById(R.id.tweet_image);
             linearLayout = itemView.findViewById(R.id.tweet_linearlayout);
-            cardView=itemView.findViewById(R.id.tweet_image_card);
+            cardView = itemView.findViewById(R.id.tweet_image_card);
         }
     }
 }

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -23,8 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp" />
 
-            <include
-                layout="@layout/chatviewtitle" />
+            <include layout="@layout/chatviewtitle" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chat_recyclerView"
@@ -35,5 +32,4 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

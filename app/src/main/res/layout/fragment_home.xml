@@ -5,34 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <View
         android:id="@+id/statusBarBackground"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="@color/white" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:text="武汉科技大学"
-            android:textSize="20dp"
-            android:textColor="#333"/>
+            android:textColor="#333"
+            android:textSize="20dp" />
 
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
 
 
             <LinearLayout
@@ -56,13 +59,12 @@
                     app:pointsContainerBackground="@drawable/shape_round_8dp"
                     app:pointsPosition="RIGHT" />
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-
+                    android:baselineAligned="false"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -87,7 +89,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="问卷"
-                            android:textSize="12dp" />
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -113,7 +115,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="资料"
-                            android:textSize="12dp" />
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -139,7 +141,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="专家"
-                            android:textSize="12dp" />
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -165,7 +167,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="工具"
-                            android:textSize="12dp" />
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -175,8 +177,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ripple_bg"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -184,12 +188,13 @@
                     android:layout_height="60dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingLeft="10dp"
                         android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
                         android:text="为你推荐"
                         android:textColor="#333"
                         android:textSize="18sp" />
@@ -197,8 +202,8 @@
                     <TextView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/ripple_bg_noborder"
                         android:layout_marginRight="15dp"
+                        android:background="@drawable/ripple_bg_noborder"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
@@ -206,12 +211,15 @@
                         android:textColor="#333" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dbdbdb" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tweets_recycle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
 

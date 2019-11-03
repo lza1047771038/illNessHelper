@@ -69,7 +69,8 @@ public class Investigation extends AppCompatActivity {
     public boolean temp1 = false;
     public boolean temp2 = false;
     private Dialog_prompt dialog_prompt;
-    private int[] v = new int[]{R.id.prompt_begin, R.id.prompt_text,R.id.calcel_btn};
+    private int[] v = new int[]{R.id.prompt_begin, R.id.prompt_text, R.id.calcel_btn};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +104,6 @@ public class Investigation extends AppCompatActivity {
         type = bundle.getString("type", "error");
         problem = new Problem();
         problem.num = bundle.getInt("num", 0);
-        Log.d("test", "num:" + bundle.getInt("num", 0) + "");
         problemnum = bundle.getInt("num", 0);
         problem.problem1 = bundle.getString("problem1", "");
         problem.problem2 = bundle.getString("problem2", "");
@@ -118,7 +118,6 @@ public class Investigation extends AppCompatActivity {
                 Investigation.jsonObject.put("problem1", "");
             }
             if (!problem.problem2.equals("")) {
-                Log.d("test", "p2");
                 Investigation.jsonObject.put("problem2", "");
             }
             if (!problem.problem3.equals("")) {
@@ -133,13 +132,13 @@ public class Investigation extends AppCompatActivity {
         promptDialog.showLoading("正在加载请稍后");
         //请求数据
         requestThemes();
-        int waittime =500+(int)(Math.random()*1000);
+        int waittime = 500 + (int) (Math.random() * 1000);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 initlayout();
             }
-        },waittime);
+        }, waittime);
 
 
     }
@@ -149,7 +148,7 @@ public class Investigation extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                dialog_prompt = new Dialog_prompt(Investigation.this, R.layout.prompt_dialog, v,problem.problem1 = bundle.getString("warning", ""));
+                dialog_prompt = new Dialog_prompt(Investigation.this, R.layout.prompt_dialog, v, bundle.getString("warning", ""));
 //        dialog_prompt.settext("测试标题\n换行测试");
                 dialog_prompt.setCancelable(false);
                 dialog_prompt.setOnButtonClickedListener(new Dialog_prompt.onBtnClickListener() {
@@ -170,7 +169,7 @@ public class Investigation extends AppCompatActivity {
                 dialog_prompt.show();
 
             }
-        },1000);
+        }, 1000);
 
 
     }
@@ -211,7 +210,6 @@ public class Investigation extends AppCompatActivity {
                     @Override
                     public void run() {
                         promptDialog.showSuccess("无网络连接，已退出");
-//                        Toast.makeText(getContext(), "无网络连接，已退出", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -232,7 +230,6 @@ public class Investigation extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("test", "ssssssssssssssssshhhhhhhhhhhhhhhhhhh");
                         mAdapter.notifyDataSetChanged();
                     }
                 });
@@ -255,7 +252,7 @@ public class Investigation extends AppCompatActivity {
         }
         promptDialog = new PromptDialog(this);
         promptDialog.showLoading("正在提交", true);
-        int submittime =500+(int)(Math.random()*1000);
+        int submittime = 500 + (int) (Math.random() * 1000);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -274,48 +271,36 @@ public class Investigation extends AppCompatActivity {
 
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        String result = response.body().string();
+                        final String result = response.body().string();
                         Log.d("test", "result    :" + result);
-                        if (result.equals("1")) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (result.equals("1")) {
                                     promptDialog.showSuccess("提交成功！谢谢参与！");
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             finish();
                                         }
-                                    },1000);
-
-                                }
-                            });
-                        } else if(result.equals("0")){
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
+                                    }, 1000);
+                                } else if (result.equals("0")) {
                                     promptDialog.showError("提交失败！同时提交人数多，请片刻后重试");
-                                }
-                            });
-                        }
-                        else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
+                                } else {
                                     promptDialog.showError("提交失败！！请您提交反馈给我们\n" +
                                             "错误编号：001");
                                 }
-                            });
-                        }
+                            }
+                        });
                     }
                 });
             }
-        },submittime);
+        }, submittime);
 
     }
 
-    public void showexitdilog()
-    {
+    public void showexitdilog() {
         MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title("您确认要退出吗")
                 .content("点击确认推出")

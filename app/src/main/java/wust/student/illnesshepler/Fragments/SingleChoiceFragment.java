@@ -1,22 +1,16 @@
 package wust.student.illnesshepler.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import org.json.JSONException;
 
@@ -44,12 +38,12 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
     private int num;
     private SingleQuestion msingleQuestion;
 
-    public static SingleChoiceFragment newInstance(SingleQuestion info,int postion,int num) {
+    public static SingleChoiceFragment newInstance(SingleQuestion info, int postion, int num) {
         SingleChoiceFragment fragment = new SingleChoiceFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("info", info);
-        bundle.putInt("position",postion);
-        bundle.putInt("num",num);
+        bundle.putInt("position", postion);
+        bundle.putInt("num", num);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -59,20 +53,22 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
         super.onActivityCreated(savedInstanceState);
         initview();
 
-        msingleQuestion = (SingleQuestion) getArguments().getSerializable("info");
-        position1=getArguments().getInt("position");
-        num=getArguments().getInt("num");
-        title.setText(msingleQuestion.title);
-        puestionPosition.setText(position1+"");
-        puestionNum.setText("/"+num);
-
         try {
-            Investigation.jsonObject.put(position1+".","");
-        } catch (JSONException e) {
+            msingleQuestion = (SingleQuestion) getArguments().getSerializable("info");
+            if (msingleQuestion == null)
+                throw new NullPointerException();
+            position1 = getArguments().getInt("position");
+            num = getArguments().getInt("num");
+            title.setText(msingleQuestion.title);
+            puestionPosition.setText(position1 + "");
+            puestionNum.setText("/" + num);
+
+            Investigation.jsonObject.put(position1 + ".", "");
+        } catch (NullPointerException | JSONException e) {
             e.printStackTrace();
         }
 
-       if (!msingleQuestion.optiona.equals("")) mOptiona.setText(msingleQuestion.optiona);else{ mOptiona.setVisibility(View.GONE); }
+        if (!msingleQuestion.optiona.equals("")) mOptiona.setText(msingleQuestion.optiona);else{ mOptiona.setVisibility(View.GONE); }
        if (!msingleQuestion.optionb.equals("")) mOptionb.setText(msingleQuestion.optionb);else{ mOptionb.setVisibility(View.GONE); }
        if (!msingleQuestion.optionc.equals("")) mOptionc.setText(msingleQuestion.optionc);else{ mOptionc.setVisibility(View.GONE); }
        if (!msingleQuestion.optiond.equals("")) mOptiond.setText(msingleQuestion.optiond);else{ mOptiond.setVisibility(View.GONE); }
@@ -93,7 +89,7 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
     }
 
     private void initview() {
-        title = (TextView) view.findViewById(R.id.singgile_title);
+        title = view.findViewById(R.id.singgile_title);
         radioGroup = view.findViewById(R.id.radio_grop);
         mOptiona = view.findViewById(R.id.optiona);
         mOptionb = view.findViewById(R.id.optionb);
@@ -115,7 +111,6 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         restcolor();
         try {
-            Log.d("test","sssssssssssssssssssssssssssssssssssssssssss");
         switch (checkedId) {
             case R.id.optiona:if(msingleQuestion.A_next!=0) { display(msingleQuestion.A_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","A");   mOptiona.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
             case R.id.optionb:if(msingleQuestion.B_next!=0) { display(msingleQuestion.B_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","B");  mOptionb.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
@@ -134,14 +129,13 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
         }
     }
 
-    private void display(final int position)
-    {
+    private void display(final int position) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Investigation.mViewPager.setCurrentItem(position+Investigation.problemnum);
+                Investigation.mViewPager.setCurrentItem(position + Investigation.problemnum);
             }
-        },500);
+        }, 500);
 
     }
 

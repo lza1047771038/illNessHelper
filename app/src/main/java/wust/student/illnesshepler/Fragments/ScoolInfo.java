@@ -21,18 +21,18 @@ import wust.student.illnesshepler.Investigation;
 import wust.student.illnesshepler.R;
 
 
-
 public class ScoolInfo extends Fragment {
-   public View view;
-   public TextView problem1;
-   public TextView problem2;
-   public TextView problem3;
+    public View view;
+    private TextView problem1;
+    private TextView problem2;
+    private TextView problem3;
 
-   public EditText answer1;
-   public EditText answer2;
-   public EditText answer3;
+    private EditText answer1;
+    private EditText answer2;
+    private EditText answer3;
 
-   public Problem mproblem;
+    private Problem mproblem;
+
     public ScoolInfo() {
         // Required empty public constructor
     }
@@ -50,12 +50,12 @@ public class ScoolInfo extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        problem1=view.findViewById(R.id.problem1);
-        problem2=view.findViewById(R.id.problem2);
-        problem3=view.findViewById(R.id.problem3);
-        answer1=view.findViewById(R.id.answer1);
-        answer2=view.findViewById(R.id.answer2);
-        answer3=view.findViewById(R.id.answer3);
+        problem1 = view.findViewById(R.id.problem1);
+        problem2 = view.findViewById(R.id.problem2);
+        problem3 = view.findViewById(R.id.problem3);
+        answer1 = view.findViewById(R.id.answer1);
+        answer2 = view.findViewById(R.id.answer2);
+        answer3 = view.findViewById(R.id.answer3);
 
         answer1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -65,9 +65,8 @@ public class ScoolInfo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("test", "ss"+s);
                 try {
-                    Investigation.jsonObject.put("problem1",s);
+                    Investigation.jsonObject.put("problem1", s);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -87,9 +86,7 @@ public class ScoolInfo extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
-                    Log.d("test", "s3   ；"+s);
-                    Investigation.jsonObject.put("problem2",s);
-
+                    Investigation.jsonObject.put("problem2", s);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -109,7 +106,7 @@ public class ScoolInfo extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
-                    Investigation.jsonObject.put("problem3",s);
+                    Investigation.jsonObject.put("problem3", s);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -121,10 +118,18 @@ public class ScoolInfo extends Fragment {
             }
         });
 
-        mproblem=(Problem)getArguments().getSerializable("info");
+        mproblem = (Problem) getArguments().getSerializable("info");
         problem1.setText(mproblem.problem1);
-        if(!mproblem.problem2.equals("")) problem2.setText(mproblem.problem2);else { problem2.setVisibility(View.GONE); answer2.setVisibility(View.GONE); }
-        if(!mproblem.problem3.equals("")) problem3.setText(mproblem.problem3);else { problem3.setVisibility(View.GONE); answer3.setVisibility(View.GONE); }
+        if (!mproblem.problem2.equals("")) problem2.setText(mproblem.problem2);
+        else {
+            problem2.setVisibility(View.GONE);
+            answer2.setVisibility(View.GONE);
+        }
+        if (!mproblem.problem3.equals("")) problem3.setText(mproblem.problem3);
+        else {
+            problem3.setVisibility(View.GONE);
+            answer3.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -132,12 +137,12 @@ public class ScoolInfo extends Fragment {
         super.onCreate(savedInstanceState);
 
 
+    }
 
-}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.fragment_scool_info, container, false);
+        view = inflater.inflate(R.layout.fragment_scool_info, container, false);
         return view;
     }
 

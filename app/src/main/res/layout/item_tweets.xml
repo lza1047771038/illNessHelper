@@ -9,9 +9,12 @@
         android:id="@+id/tweet_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginLeft="0dp"
-        android:orientation="horizontal">
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/tweet_image_card"
@@ -58,8 +61,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="12dp"
-                    android:text="作者" />
+                    android:text="作者"
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/tweet_visit_num"
@@ -67,8 +70,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:textSize="12dp"
-                    android:text="浏览量" />
+                    android:text="浏览量"
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -79,8 +82,9 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#dbdbdb"/>
+        android:background="#dbdbdb" />
 </LinearLayout>

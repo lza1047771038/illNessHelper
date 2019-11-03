@@ -24,22 +24,22 @@ import wust.student.illnesshepler.R;
 
 public class MutipleQuestionFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
     View view;
-    public TextView title;
-    public TextView puestionPosition;
-    public TextView puestionNum;
-    public CheckBox mOptiona;
-    public CheckBox  mOptionb;
-    public CheckBox  mOptionc;
-    public CheckBox  mOptiond;
-    public CheckBox  mOptione;
-    public CheckBox  mOptionf;
-    public CheckBox  mOptiong;
-    public CheckBox  mOptionh;
-    public CheckBox  mOptioni;
-    public CheckBox  mOptionj;
-    public int position1;
-    public int num;
-    public MutipleQuestion mMutipleQuestion;
+    private TextView title;
+    private TextView puestionPosition;
+    private TextView puestionNum;
+    private CheckBox mOptiona;
+    private CheckBox  mOptionb;
+    private CheckBox  mOptionc;
+    private CheckBox  mOptiond;
+    private CheckBox  mOptione;
+    private CheckBox  mOptionf;
+    private CheckBox  mOptiong;
+    private CheckBox  mOptionh;
+    private CheckBox  mOptioni;
+    private CheckBox  mOptionj;
+    private int position1;
+    private int num;
+    private MutipleQuestion mMutipleQuestion;
 
 
     public MutipleQuestionFragment() {
