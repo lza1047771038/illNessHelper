@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,10 +37,21 @@ import com.bumptech.glide.request.transition.Transition;
 import com.rex.editor.view.RichEditorNew;
 
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import wust.student.illnesshepler.Utils.Dialog_prompt;
+import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.ImageUtil;
 import wust.student.illnesshepler.Utils.ScreenUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
@@ -59,16 +72,12 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     private TextView text_color;
     private TextView font_b;
     private Spinner textSize;
-    boolean Bold_flog=false;
-    private int color[]={Color.RED,Color.BLUE,Color.YELLOW};
-
+    boolean Bold_flog = false;
+    List<String> names = new ArrayList<String>() ;
     //    public String html="<img src=\"content://media/external/images/media/270642\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><div style=\"text-align: center;\">哈哈哈<img src=\"content://media/external/images/media/221012\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 100%;\"></div><div style=\"text-align: center;\">傻逼</div><div style=\"text-align: center;\"><img src=\"content://media/external/images/media/258545\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 100%;\"></div><br>\n";
     public String html = "<img src=\"content://media/external/images/media/258545\" alt=\"picvision\" 72\"=\"\" width=\"72\"><br><br>";
     public int size = 2;
-    List<String> names = new ArrayList<String>() {{
-        add("http://47.100.93.91:8996/MediaFiles/mediaImages/de8394d1b5492cb065574cbbc1c589e8.jpg");
-        add("http://47.100.93.91:8996/MediaFiles/mediaImages/1.jpg");
-    }};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +104,6 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         }
 
 
-
         initlayout();
 
 
@@ -108,6 +116,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tweet_action_bar, menu);
@@ -126,31 +135,55 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         }
         return super.onOptionsItemSelected(item);
     }
-    public void submit()
-    {
-        html=richEditor.getHtml();
-        List<String> imglist = richEditor.getAllSrcAndHref();
 
+    public void submit() {
+        long submittime = System.currentTimeMillis();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        final String themeid="NFT"+format.format(submittime);
+        html = richEditor.getHtml();
+        final List<String> imglist = richEditor.getAllSrcAndHref();
+        Httputil.ImagesUpload(themeid, imglist, new Callback() {
 
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d("test", "ImagesUpload   onFailure :");
+            }
 
-                html = richEditor.getHtml() + "";
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+               String result = response.body().string();
 
-                for (int i = 0; i < imglist.size(); i++) {
-                    html = html.replaceAll(imglist.get(i), names.get(i));
+                try {
+                    JSONObject imageurl = new JSONObject(result);
+                    JSONArray allimageurl=imageurl.getJSONArray("ImageList");
+                    for (int i = 0; i < allimageurl.length(); i++) {
+                        names.add(allimageurl.get(i).toString());
+                        Log.d("test",  allimageurl.get(i).toString());
+                    }
+                    html = richEditor.getHtml() + "";
+                    Log.d("test", "before  html :" + html);
+                    for (int i = 0; i < imglist.size(); i++) {
+                        html = html.replaceAll(imglist.get(i), names.get(i));
+                        Log.d("test", "after  html :" + html);
+                    }
+                } catch (JSONException e) {
+
                 }
+                Log.d("test", "ImagesUpload   result :" + result);
+            }
+        });
+
     }
+
     public void initlayout() {
 
-         handler=new Handler(new Handler.Callback() {
+        handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                if(msg.what==1)
-                {
+                if (msg.what == 1) {
                     Log.d("test", "msg1" + msg.arg1);
                     richEditor.setTextBackgroundColor(msg.arg1);
-                }
-                else
-                {
+                } else {
                     Log.d("test", "msg2" + msg.arg1);
                     richEditor.setTextColor(msg.arg1);
                 }
@@ -184,7 +217,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[] item = getResources().getStringArray(R.array.test_size);
-                size=Integer.valueOf(item[position].toString());
+                size = Integer.valueOf(item[position].toString());
                 richEditor.setFontSize(size);
             }
 
@@ -220,18 +253,16 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
             case R.id.font_b:
 
                 richEditor.setBold();
-                if(Bold_flog==false) {
+                if (Bold_flog == false) {
                     Log.d("test", "Bold_flog " + false);
                     font_b.getPaint().setFakeBoldText(true);
                     font_b.setTextColor(getResources().getColor(R.color.optioncolorcolor));
-                    Bold_flog=true;
-                }
-                else if(Bold_flog==true)
-                {
+                    Bold_flog = true;
+                } else if (Bold_flog == true) {
                     Log.d("test", "Bold_flog  " + true);
                     font_b.getPaint().setFakeBoldText(false);
                     font_b.setTextColor(getResources().getColor(R.color.darkgray));
-                    Bold_flog=false;
+                    Bold_flog = false;
                 }
 //                richEditor.loadRichEditorCode(html);
                 break;
@@ -289,10 +320,11 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
     public void showdilog(String flog) {
-                new ColorChooserDialog.Builder(UploadTweet.this, R.string.app_name)
+        new ColorChooserDialog.Builder(UploadTweet.this, R.string.app_name)
                 .titleSub(R.string.input_hint)  // title of dialog when viewing shades of a color
-               .tag(flog)
+                .tag(flog)
                 .accentMode(false)  // when true, will display accent palette instead of primary palette
                 .doneButton(R.string.md_done)  // changes label of the done button
                 .cancelButton(R.string.md_cancel)  // changes label of the cancel button
@@ -302,6 +334,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 .show();
 
     }
+
     public void showtestsizedilog() {
         new MaterialDialog.Builder(this)
                 .title("标题")
@@ -312,30 +345,32 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        size=Integer.valueOf(text.toString());
+                        size = Integer.valueOf(text.toString());
 
-                        Toast.makeText(UploadTweet.this, size+"", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadTweet.this, size + "", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .show();
 
     }
+
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, int selectedColor) {
-        if(dialog.tag().equals("background")) {
-            Message message=new Message();
-            message.what=1;
-            message.arg1=selectedColor;
+        if (dialog.tag().equals("background")) {
+            Message message = new Message();
+            message.what = 1;
+            message.arg1 = selectedColor;
             handler.sendMessage(message);
         }
-        if(dialog.tag().equals("text_color")) {
-            Message message=new Message();
-            message.what=2;
-            message.arg1=selectedColor;
+        if (dialog.tag().equals("text_color")) {
+            Message message = new Message();
+            message.what = 2;
+            message.arg1 = selectedColor;
             handler.sendMessage(message);
         }
 
     }
+
     public void showexitdilog() {
         MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title("您确认要退出吗")
