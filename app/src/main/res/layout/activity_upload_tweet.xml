@@ -5,55 +5,148 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UploadTweet">
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_above="@+id/hsv"
-        android:layout_marginBottom="10dp">
-    <com.rex.editor.view.RichEditorNew
-        android:id="@+id/richEditor"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textbiaotidsc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="标题:"/>
 
-        android:layout_margin="10dp" />
-    </androidx.cardview.widget.CardView>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:hint="请输入标题，文字大小固定为20"
+                    android:layout_marginRight="15dp"
+                    android:layout_toEndOf="@+id/textbiaotidsc"
+                    android:background="@drawable/edit_text_style" />
+
+            </RelativeLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/hsv"
+                android:layout_marginBottom="10dp">
+
+                <com.rex.editor.view.RichEditorNew
+                    android:id="@+id/richEditor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
     <HorizontalScrollView
         android:id="@+id/hsv"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
         android:background="#f1f1f1">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:paddingRight="15dp">
 
-            <TextView
-                android:id="@+id/upload_tupian"
-                android:layout_width="90dp"
+            <ImageView
+                android:id="@+id/upload_img"
+                android:layout_width="60dp"
                 android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:gravity="center"
-                android:text="图片"
-                android:textColor="@android:color/white"
-                android:textSize="13sp" />
+                android:src="@drawable/font_img_icon" />
 
             <TextView
-                android:id="@+id/upload_jiacu"
-                android:layout_width="90dp"
+                android:id="@+id/font_b"
+                android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:gravity="center"
-                android:text="加粗"
-                android:textColor="@android:color/white"
-                android:textSize="13sp" />
+                android:text="B"
+                android:textColor="@color/darkgray"
+                android:textSize="24sp" />
+
+            <Spinner
+                android:id="@+id/test_size"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:entries="@array/test_size"
+                android:background="@drawable/spnner_style"
+                android:gravity="center"
+                android:spinnerMode="dialog"
+                android:textColor="@color/darkgray"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/upload_left"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:src="@drawable/font_right_icon" />
+
+            <ImageView
+                android:id="@+id/upload_center"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+
+                android:gravity="center"
+                android:src="@drawable/font_center_icon" />
+
+            <ImageView
+                android:id="@+id/upload_right"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:src="@drawable/font_left_icon" />
+
+            <TextView
+                android:id="@+id/text_color"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="A"
+                android:textColor="@color/darkgray"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/text_backgrond"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:src="@drawable/font_textbacgoundr" />
         </LinearLayout>
     </HorizontalScrollView>
 

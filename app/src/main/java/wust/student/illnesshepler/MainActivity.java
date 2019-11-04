@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.litepal.LitePal;
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         LitePal.initialize(this);
 
         if (Build.VERSION.SDK_INT >= 21) {

@@ -3,4 +3,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="input_hint">选择颜色</string>
+    <string name="input_title">选择颜色</string>
+
+    <string name="md_back">返回</string>
+    <string name="md_cancel">取消</string>
+    <string name="md_choose">选择</string>
+    <string name="md_custom">自定义</string>
+    <string name="md_done">确定</string>
+    <string name="md_error">错误</string>
+    <string name="md_presets">预设</string>
+    <string name="md_storage_per">Your app has not been granted the READ_EXTERNAL_STORAGE permission.</string>
+    <string name="new_folder_zi">New Folder</string>
 </resources>
