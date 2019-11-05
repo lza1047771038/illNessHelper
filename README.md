@@ -14,13 +14,26 @@
     
     //网络连接库
     implementation 'com.squareup.okhttp3:okhttp:4.0.1'
+
     //第三方数据库Litepal
     implementation 'org.litepal.android:core:2.0.0'
-    //RecyclerView
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    //jsons数据解析库
-    implementation 'com.google.code.gson:gson:2.8.5'
-    //eventBus
-    implementation 'org.greenrobot:eventbus:3.1.1'
+
+    //图片轮播
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.xiaohaibin:XBanner:1.7.0'
+
+    //底部导航栏
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    //RecyclerView加载动画
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.7'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    //下拉框
+    implementation 'com.github.limxing:Android-PromptDialog:1.1.3'
+    implementation 'com.afollestad.material-dialogs:core:0.9.1.0'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.1.0'
+    //富文本
+    implementation 'com.github.RexSuper:RichEditor:1.0.5'
+    //自定义下拉刷新控件
+    implementation 'com.yalantis:phoenix:1.2.3'
     
-  两个依赖，抽空看一下这两个的用法
