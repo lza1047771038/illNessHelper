@@ -75,6 +75,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //绑定和初始化控件
+        initlayout();
+        //请求服务器数据 数据和控件绑定在onResponse 里调用setadapter（）
+        getdata();
+    }
+
+    public void initlayout(){
         statusBarBackground = view.findViewById(R.id.statusBarBackground);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(view.getContext()) / 2);
         mXBanner = (XBanner) view.findViewById(R.id.xbanner);
@@ -91,56 +98,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
         twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
 
-        sruvey.setOnClickListener(this);
-        libraries.setOnClickListener(this);
-        doctors.setOnClickListener(this);
-        tools.setOnClickListener(this);
-        getdata();
-
-
-    }
-
-    private void getdata() {
-        Httputil.sendokhttpNotificationList(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Toast.makeText(getContext(), "onFailure", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try {
-                    String result = response.body().string();
-                    Log.d("test", "run" + result);
-
-
-                    tweets = GsonUtils.handleMessages3(result);
-                    //空引用异常检测
-                    if (tweets == null)
-                        throw new NullPointerException();
-
-                    mlist.addAll(tweets.data);
-                    //activity异常检测
-                    if (getActivity() == null)
-                        throw new NullPointerException();
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            layoutInit();
-                            tweetsListAdapter.notifyDataSetChanged();
-                        }
-                    });
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                    Log.d("test", "产生空对象的操作");
-                }
-            }
-
-        });
-
-    }
-
-    private void layoutInit() {
         Log.d("test", "run2");
 //        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);  //圆点指示器和标题其他默认
         images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/de8394d1b5492cb065574cbbc1c589e8.jpg");
@@ -163,6 +120,53 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         mXBanner.setAutoPlayAble(images.size() > 1);
         mXBanner.setIsClipChildrenMode(true);
         mXBanner.setData(images, title);
+
+
+        sruvey.setOnClickListener(this);
+        libraries.setOnClickListener(this);
+        doctors.setOnClickListener(this);
+        tools.setOnClickListener(this);
+    }
+
+    private void getdata() {
+        Httputil.sendokhttpNotificationList(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Toast.makeText(getContext(), "onFailure", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try {
+                    String result = response.body().string();
+                    Log.d("test", "run" + result);
+                    tweets = GsonUtils.handleMessages3(result);
+                    //空引用异常检测
+                    if (tweets == null)
+                        throw new NullPointerException();
+
+                    mlist.addAll(tweets.data);
+                    //activity异常检测
+                    if (getActivity() == null)
+                        throw new NullPointerException();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setadapter();
+                            tweetsListAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                    Log.d("test", "产生空对象的操作");
+                }
+            }
+
+        });
+
+    }
+
+    private void setadapter() {
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);

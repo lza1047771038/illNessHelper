@@ -109,8 +109,9 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
             actionBar.setTitle("推文编辑");
             actionBar.setBackgroundDrawable(drawable);
         }
-
+//初始化控件
         initlayout();
+        //通过handeler判断完成网络数据
         handlemesgge();
     }
 
@@ -137,6 +138,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         text_backgrond.setOnClickListener(this);
         text_color.setOnClickListener(this);
         font_b.setOnClickListener(this);
+
         textSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -156,15 +158,15 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                if (msg.what == 1) {
+                if (msg.what == 1) {  //设置北京颜色
                     Log.d("test", "msg1" + msg.arg1);
                     richEditor.setTextBackgroundColor(msg.arg1);
                 }
-                if (msg.what == 2) {
+                if (msg.what == 2) { //字体颜色
                     Log.d("test", "msg2" + msg.arg1);
                     richEditor.setTextColor(msg.arg1);
                 }
-                if (msg.what == 3) {
+                if (msg.what == 3) {  //图片上传完成
 //                    Toast.makeText(UploadTweet.this, "result" + msg.obj.toString(), Toast.LENGTH_SHORT).show();
                     try {
                         JSONObject imageurl = new JSONObject(msg.obj.toString());
@@ -183,7 +185,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                         html = html.replaceAll(imglist.get(i), names.get(i));
                         Log.d("test", "after  html :" + html);
                     }
-
+                    //第二次发送数据 发送编辑推文信息
                     secondsubmit(html);
                 }
                 return false;
@@ -201,6 +203,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_submit:
+                //第一次发送请求多图片上传
                 submit();
                 break;
             case android.R.id.home:
@@ -210,6 +213,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         return super.onOptionsItemSelected(item);
     }
 
+    //第一次发送请求多图片上传
     public void submit() {
         submittime = System.currentTimeMillis();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -240,7 +244,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
 
     }
 
-
+    //第二次发送数据 发送编辑推文信息
     public void secondsubmit(String contains) {
         String title = update_title.getText().toString();
         Httputil.NotificationPost(themeid, MainActivity.authorid, title, contains, submittime + "", new Callback() {
@@ -251,11 +255,11 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                final String result=response.body().string();
+                final String result = response.body().string();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("test",result);
+                        Log.d("test", result);
                         if (result.equals("1"))
                             Toast.makeText(UploadTweet.this, "成功", Toast.LENGTH_SHORT).show();
                         else if (result.equals("0"))
@@ -309,23 +313,24 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 }
 //                richEditor.loadRichEditorCode(tttt);
                 break;
-            case R.id.test_size:
-                showtestsizedilog();
-                richEditor.setFontSize(size);
-                break;
+//            case R.id.test_size:
+//                showtestsizedilog();
+//                richEditor.setFontSize(size);
+//                break;
 
         }
 
 
     }
 
-
+    //选择图片
     public void InsertImg() {
         Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
         intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intentToPickPic, 100);
     }
 
+    //选择图片回调  以及压缩插入图片
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -366,6 +371,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    //调用dialog
     public void showdilog(String flog) {
         new ColorChooserDialog.Builder(UploadTweet.this, R.string.app_name)
                 .titleSub(R.string.input_hint)  // title of dialog when viewing shades of a color
@@ -380,25 +386,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void showtestsizedilog() {
-        new MaterialDialog.Builder(this)
-                .title("标题")
-                .positiveText("确认")
-                .negativeText("取消")
-                .autoDismiss(true)//自动消失
-                .items(R.array.test_size)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        size = Integer.valueOf(text.toString());
-
-                        Toast.makeText(UploadTweet.this, size + "", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .show();
-
-    }
-
+    //选中颜色的颜色
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, int selectedColor) {
         if (dialog.tag().equals("background")) {
@@ -416,6 +404,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    //退出确认框
     public void showexitdilog() {
         MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title("您确认要退出吗")
