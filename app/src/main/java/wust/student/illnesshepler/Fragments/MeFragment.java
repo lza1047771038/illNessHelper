@@ -33,7 +33,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     User_information information;
 
     FileUtil fileUtil;
-    String Tag = "checkpoint";
 
     @Nullable
     @Override
@@ -80,7 +79,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
     public void onStart() {
         super.onStart();
-        Log.d(Tag, "Me_onStart");
         setImageView();
         setUserName();
     }

@@ -1,49 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ShowTweet">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/show_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="标题"
-            android:textColor="@color/optioncolorcolor"
-            android:textSize="20dp" />
-
-        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#dbdbdb" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="标题"
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="10dp">
+
+            <wust.student.illnesshepler.Utils.RoundImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
 
             <TextView
-                android:id="@+id/auther_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="作者"
-                android:textColor="@color/optioncolorcolor"
-                android:textSize="14dp" />
+                android:text="作者"/>
+
         </LinearLayout>
 
         <com.rex.editor.view.RichEditorNew
@@ -51,5 +40,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="0dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="热门评论"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:layout_margin="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
-</ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="bottom"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="5dp">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="编写评论"
+                android:padding="10dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/likes" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/share" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

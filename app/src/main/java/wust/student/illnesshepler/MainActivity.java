@@ -3,11 +3,17 @@ package wust.student.illnesshepler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +40,13 @@ import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    String[] permissions = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+    };
+    int REQUEST_CODE = 123;
+
     ViewPager viewPager;
     BottomNavigationView bottom_navigation;
 
@@ -52,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LitePal.initialize(this);
+
+        getAuthorize(MainActivity.this,MainActivity.this);
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -182,6 +197,21 @@ public class MainActivity extends AppCompatActivity {
             user_information.setUser_Age("0");
             user_information.setUser_Image_Uri(null);
             user_information.save();
+        }
+    }
+
+    public void getAuthorize(Context context, Activity activity) {
+        List<String> mPermissionList = new ArrayList<>();// 声明一个集合，在后面的代码中用来存储用户拒绝授权的权
+        mPermissionList.clear();
+        for (String s : permissions)
+            if (ContextCompat.checkSelfPermission(context, s) != PackageManager.PERMISSION_GRANTED) {
+                mPermissionList.add(s);
+            }
+        if (!mPermissionList.isEmpty()) {
+            String[] permission = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
+            ActivityCompat.requestPermissions(activity, permission, REQUEST_CODE);
+            mPermissionList.clear();
+            Toast.makeText(context,"授权失败，可能造成无法进入的问题",Toast.LENGTH_SHORT).show();
         }
     }
 

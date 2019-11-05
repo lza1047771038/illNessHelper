@@ -64,7 +64,7 @@ public class RoundImageView extends ImageView {
      * @author caizhiming
      */
     private Bitmap getCircleBitmap(Bitmap bitmap, int pixels) {
-        bitmap=centerSquareScaleBitmap(bitmap,480);
+        bitmap = centerSquareScaleBitmap(bitmap, 140);
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
@@ -74,8 +74,8 @@ public class RoundImageView extends ImageView {
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(color);
         int x = bitmap.getWidth();
-
         canvas.drawCircle(x / 2, x / 2, x / 2, paint);
+
         paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
