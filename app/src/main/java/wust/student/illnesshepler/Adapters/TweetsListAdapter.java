@@ -54,6 +54,7 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Vi
     public void onBindViewHolder(@NonNull TweetsListAdapter.ViewHolder holder, final int position) {
         holder.title.setText(mlist.get(position).title);
         holder.auther.setText(mlist.get(position).username);
+        Log.d("test", "adapter num:"+mlist.get(position).visitNum);
         holder.visitNum.setText(mlist.get(position).visitNum + "");
         Glide.with(mcontext).load(mlist.get(position).imageUrl).apply(new RequestOptions().transforms(new CenterCrop())).into(holder.imageView);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {

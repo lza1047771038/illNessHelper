@@ -24,7 +24,7 @@ public class Tweets {
         public String post_time;
         @SerializedName("image")
         public String imageUrl;
-        @SerializedName("visit_num")
+        @SerializedName("number")
         public int visitNum;
         @SerializedName("username")
         public String username;

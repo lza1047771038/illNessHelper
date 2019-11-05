@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.LoginFilter;
@@ -23,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -72,10 +74,15 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     private TextView text_color;
     private TextView font_b;
     private Spinner textSize;
+    private EditText update_title;
+
     boolean Bold_flog = false;
-    List<String> names = new ArrayList<String>() ;
-    List<String> imglist =new ArrayList<String>() ;
+    private String themeid;
+    private long submittime;
+    List<String> names = new ArrayList<String>();
+    List<String> imglist = new ArrayList<String>();
     //    public String html="<img src=\"content://media/external/images/media/270642\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><div style=\"text-align: center;\">哈哈哈<img src=\"content://media/external/images/media/221012\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 100%;\"></div><div style=\"text-align: center;\">傻逼</div><div style=\"text-align: center;\"><img src=\"content://media/external/images/media/258545\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 100%;\"></div><br>\n";
+    public String tttt = "after  html :<img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/54cc3fd68eb6644175419a39382b5a84.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/228bdd2e476d628885ea3100de24d2f4.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/f3ffe4996c7109ac607ee01e5238f6bd.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/e94f62598173c0edac6cecec7f8a7ebe.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><div style=\"text-align: center;\"><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/2c67a1fd9632deddcc271525c8e00b85.png\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 35%;\"></div><br>\n";
     public String html = "";
     public int size = 2;
 
@@ -104,109 +111,17 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         }
 
         initlayout();
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tweet_action_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_submit:
-                submit();
-                break;
-            case android.R.id.home:
-                showexitdilog();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void submit() {
-        long submittime = System.currentTimeMillis();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        final String themeid="NFT"+format.format(submittime);
-        html = richEditor.getHtml();
-        imglist = richEditor.getAllSrcAndHref();
-        Httputil.ImagesUpload(themeid, imglist, new Callback() {
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.d("test", "ImagesUpload   onFailure :");
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-               String result = response.body().string();
-
-                Message message=new Message();
-                message.what=3;
-                message.obj=result;
-                handler.sendMessage(message);
-                Log.d("test", "ImagesUpload   result :" + result);
-            }
-
-
-        });
-
-
-
-
+        handlemesgge();
     }
 
     public void initlayout() {
-
-        handler = new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(@NonNull Message msg) {
-                if (msg.what == 1) {
-                    Log.d("test", "msg1" + msg.arg1);
-                    richEditor.setTextBackgroundColor(msg.arg1);
-                } if(msg.what==2) {
-                    Log.d("test", "msg2" + msg.arg1);
-                    richEditor.setTextColor(msg.arg1);
-                }
-                if(msg.what==3)
-                {
-                    Toast.makeText(UploadTweet.this, "result"+msg.obj.toString(), Toast.LENGTH_SHORT).show();
-                    try {
-                        JSONObject imageurl = new JSONObject(msg.obj.toString());
-                        JSONArray allimageurl=imageurl.getJSONArray("ImageList");
-                        names.clear();
-                        for (int i = 0; i < allimageurl.length(); i++) {
-                            names.add(allimageurl.get(i).toString());
-                            Log.d("test",  allimageurl.get(i).toString());
-                        }
-
-                    } catch (JSONException e) {
-
-                    }
-                    html = richEditor.getHtml() + "";
-                    Log.d("test", "before  html :" + html);
-                    Log.d("test", " imglist.size(); :" + imglist.size());
-                    Log.d("test", " names.size(); :" + names.size());
-
-                    for (int i = 0; i < imglist.size(); i++) {
-                        html = html.replaceAll(imglist.get(i), names.get(i));
-                        Log.d("test", "after  html :" + html);
-                    }
-
-                }
-                return false;
-            }
-        });
-
-
         richEditor = findViewById(R.id.richEditor);
         richEditor.setPadding(10, 10, 10, 10);
         richEditor.setFontSize(size);
         richEditor.setHint("请输入正文");
         textSize = (Spinner) findViewById(R.id.test_size);
 
+        update_title = (EditText) findViewById(R.id.update_title);
         upload_img = (ImageView) findViewById(R.id.upload_img);
         upload_right = (ImageView) findViewById(R.id.upload_right);
         upload_left = (ImageView) findViewById(R.id.upload_left);
@@ -234,6 +149,125 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+        });
+    }
+
+    public void handlemesgge() {
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                if (msg.what == 1) {
+                    Log.d("test", "msg1" + msg.arg1);
+                    richEditor.setTextBackgroundColor(msg.arg1);
+                }
+                if (msg.what == 2) {
+                    Log.d("test", "msg2" + msg.arg1);
+                    richEditor.setTextColor(msg.arg1);
+                }
+                if (msg.what == 3) {
+//                    Toast.makeText(UploadTweet.this, "result" + msg.obj.toString(), Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject imageurl = new JSONObject(msg.obj.toString());
+                        JSONArray allimageurl = imageurl.getJSONArray("ImageList");
+                        names.clear();
+                        for (int i = 0; i < allimageurl.length(); i++) {
+                            names.add(allimageurl.get(i).toString());
+                            Log.d("test", allimageurl.get(i).toString());
+                        }
+
+                    } catch (JSONException e) {
+
+                    }
+                    html = richEditor.getHtml() + "";
+                    for (int i = 0; i < imglist.size(); i++) {
+                        html = html.replaceAll(imglist.get(i), names.get(i));
+                        Log.d("test", "after  html :" + html);
+                    }
+
+                    secondsubmit(html);
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tweet_action_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_submit:
+                submit();
+                break;
+            case android.R.id.home:
+                showexitdilog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void submit() {
+        submittime = System.currentTimeMillis();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        themeid = "NFT" + format.format(submittime);
+        html = richEditor.getHtml();
+        imglist = richEditor.getAllSrcAndHref();
+        Httputil.ImagesUpload(themeid, imglist, new Callback() {
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d("test", "ImagesUpload   onFailure :");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String result = response.body().string();
+
+                Message message = new Message();
+                message.what = 3;
+                message.obj = result;
+                handler.sendMessage(message);
+                Log.d("test", "ImagesUpload   result :" + result);
+            }
+
+
+        });
+
+
+    }
+
+
+    public void secondsubmit(String contains) {
+        String title = update_title.getText().toString();
+        Httputil.NotificationPost(themeid, MainActivity.authorid, title, contains, submittime + "", new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                final String result=response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("test",result);
+                        if (result.equals("1"))
+                            Toast.makeText(UploadTweet.this, "成功", Toast.LENGTH_SHORT).show();
+                        else if (result.equals("0"))
+                            Toast.makeText(UploadTweet.this, "失败", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(UploadTweet.this, "Eror", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+
         });
     }
 
@@ -273,7 +307,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                     font_b.setTextColor(getResources().getColor(R.color.darkgray));
                     Bold_flog = false;
                 }
-//                richEditor.loadRichEditorCode(html);
+//                richEditor.loadRichEditorCode(tttt);
                 break;
             case R.id.test_size:
                 showtestsizedilog();
@@ -311,7 +345,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                     Glide.with(this).asBitmap().load(uri).into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
-                            bitmap = ImageUtil.compressBmpToFile(bitmap, file + "/" + name, 1024); //压缩图片 为1024
+                            bitmap = ImageUtil.compressBmpToFile(bitmap, file + "/" + name, 500); //压缩图片 为1024
                             int width = bitmap.getWidth();
                             int screenwdith = (ScreenUtil.getScreenWidth(UploadTweet.this));
                             int temp = ScreenUtil.px2sp(UploadTweet.this, screenwdith);
@@ -319,7 +353,9 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                             Toast.makeText(getApplication(), width + "/" + screenwdith + "=" + path, Toast.LENGTH_LONG).show();
                             if (bili < 100) {
                                 String style = "margin-top:10px;max-width:" + bili + "%;";
+                                richEditor.setAlignCenter();
                                 richEditor.insertImage("" + file + "/" + name, "picvision", style);
+                                richEditor.setAlignLeft();
                             } else {
                                 richEditor.insertImage("" + file + "/" + name);
                             }

@@ -15,13 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UploadTweet">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ShowTweet"></activity>
+        <activity android:name=".UploadTweet"></activity>
         <activity
             android:name=".Investigation"
             android:theme="@style/Investigation" />
@@ -29,12 +24,16 @@
         <activity
             android:name=".StartActivity"
             android:theme="@style/StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Edit_Userdata" />
         <activity android:name=".Set_Userimg" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ThemeDetailActivity"/>
+        <activity android:name=".ThemeDetailActivity" />
     </application>
 
 </manifest>

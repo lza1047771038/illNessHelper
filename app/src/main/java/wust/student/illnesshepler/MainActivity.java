@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     ChatFragment chat = new ChatFragment();
     MeFragment me = new MeFragment();
 
+    static String authorid="13972008325";
+    static String authorname="13147163155";
+    static String user_image="hahah";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

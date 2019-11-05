@@ -24,6 +24,7 @@ public class Httputil {
     final static String Survey_Result = "http://47.100.93.91:8996/Survey_Result";
     final static String NotificationList = "http://47.100.93.91:8996/NotificationList";
     final static String ImagesUpload = "http://47.100.93.91:8996/ImagesUpload";
+    final static String NotificationPost = "http://47.100.93.91:8996/NotificationPost";
 
 
     /**
@@ -108,5 +109,17 @@ public class Httputil {
         Log.d("test", "ImagesUpload   result :" );
         client.newCall(request).enqueue(callback);
     }
-
+    public static void NotificationPost(String themeid,String authorid,String title,String contains,String posttime, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+        RequestBody build = new FormBody.Builder()
+                .add("themeid", themeid)
+                .add("authorid", authorid)
+                .add("title", title)
+                .add("contains", contains)
+                .add("posttime", posttime)
+                .build();
+        Request request = new Request.Builder().url(NotificationPost).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
 }

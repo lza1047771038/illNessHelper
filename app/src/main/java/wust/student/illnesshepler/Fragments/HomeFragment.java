@@ -117,6 +117,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
                     //空引用异常检测
                     if (tweets == null)
                         throw new NullPointerException();
+
                     mlist.addAll(tweets.data);
                     //activity异常检测
                     if (getActivity() == null)

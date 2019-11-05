@@ -54,7 +54,7 @@ public class ImageUtil {
                 bmp.compress(Bitmap.CompressFormat.PNG, options-10, fos);
             }
             else {
-                bmp.compress(Bitmap.CompressFormat.JPEG, options - 10, fos);
+                bmp.compress(Bitmap.CompressFormat.JPEG, options, fos);
             }
             fos.flush();
             fos.close();
