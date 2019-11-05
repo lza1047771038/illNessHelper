@@ -18,6 +18,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import wust.student.illnesshepler.Login_Enrol.Login;
+
 public class StartActivity extends AppCompatActivity {
 
 
@@ -36,7 +38,7 @@ public class StartActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(StartActivity.this, MainActivity.class));
+                startActivity(new Intent(StartActivity.this, Login.class));
                 finish();
             }
         }, 1000);

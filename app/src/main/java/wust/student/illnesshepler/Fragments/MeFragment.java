@@ -28,7 +28,9 @@ import wust.student.illnesshepler.Edit_Userdata;
 public class MeFragment extends Fragment implements View.OnClickListener {
     View view, statusBarBackground;
     ImageView imageView;
-    TextView AdministratorEntry;
+    TextView AdministratorEntry,User_Name;
+
+    User_information information;
 
     FileUtil fileUtil;
     String Tag = "checkpoint";
@@ -63,6 +65,12 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    private void setUserName(){
+        User_Name=(TextView)view.findViewById(R.id.User_Name);
+        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        User_Name.setText(all.get(0).getUser_Name());
+    }
+
     private void setImageView() {
         imageView = (ImageView) view.findViewById(R.id.imageView);
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
@@ -74,6 +82,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         super.onStart();
         Log.d(Tag, "Me_onStart");
         setImageView();
+        setUserName();
     }
 
     @Override
