@@ -100,21 +100,10 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("推文编辑");
-            drawable.setAlpha(0);
             actionBar.setBackgroundDrawable(drawable);
         }
 
-
         initlayout();
-
-
-//        textSize.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                size= Integer.parseInt(textSize.getItemAtPosition(position).toString());
-//            }
-//        });
-
 
     }
 

@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UploadTweet"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".UploadTweet">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,31 +15,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
                 <TextView
                     android:id="@+id/textbiaotidsc"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:textSize="20dp"
-                    android:text="标题:"/>
+                    android:text="标题:"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="15dp"
-                    android:hint="请输入标题，文字大小固定为20"
                     android:layout_marginRight="15dp"
                     android:layout_toEndOf="@+id/textbiaotidsc"
-                    android:background="@drawable/edit_text_style" />
+                    android:background="@drawable/edit_text_style"
+                    android:hint="请输入标题，文字大小固定为20" />
 
             </RelativeLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,17 +75,17 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="15dp"
-            android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:paddingRight="15dp">
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp">
 
             <ImageView
                 android:id="@+id/upload_img"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
+                android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:gravity="center"
                 android:src="@drawable/font_img_icon" />
 
             <TextView
@@ -96,8 +101,8 @@
                 android:id="@+id/test_size"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:entries="@array/test_size"
                 android:background="@drawable/spnner_style"
+                android:entries="@array/test_size"
                 android:gravity="center"
                 android:spinnerMode="dialog"
                 android:textColor="@color/darkgray"
@@ -107,28 +112,28 @@
                 android:id="@+id/upload_left"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
+                android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:gravity="center"
                 android:src="@drawable/font_right_icon" />
 
             <ImageView
                 android:id="@+id/upload_center"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-
                 android:gravity="center"
+                android:paddingTop="5dp"
+
+                android:paddingBottom="5dp"
                 android:src="@drawable/font_center_icon" />
 
             <ImageView
                 android:id="@+id/upload_right"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
+                android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:gravity="center"
                 android:src="@drawable/font_left_icon" />
 
             <TextView
@@ -144,9 +149,9 @@
                 android:id="@+id/text_backgrond"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
+                android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:gravity="center"
                 android:src="@drawable/font_textbacgoundr" />
         </LinearLayout>
     </HorizontalScrollView>
