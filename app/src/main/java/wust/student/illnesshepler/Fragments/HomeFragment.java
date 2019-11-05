@@ -2,6 +2,7 @@ package wust.student.illnesshepler.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.stx.xhb.xbanner.XBanner;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,12 +49,14 @@ import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, TweetsListAdapter.OnItemClickListener {
 
-    private View view,statusBarBackground;
+    private Handler handler = new Handler();
+    private View view, statusBarBackground;
     private XBanner mXBanner;
     private LinearLayout sruvey;
     private LinearLayout libraries;
     private LinearLayout doctors;
     private LinearLayout tools;
+    private PullToRefreshView refreshView;
 
     private RecyclerView twRecyclerView;
 
@@ -81,18 +85,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         getdata();
     }
 
-    public void initlayout(){
+    private void initlayout() {
         statusBarBackground = view.findViewById(R.id.statusBarBackground);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(view.getContext()) / 2);
         mXBanner = (XBanner) view.findViewById(R.id.xbanner);
         mXBanner.setLayoutParams(layoutParams);
-
+        refreshView = view.findViewById(R.id.refreshLayout);
         sruvey = (LinearLayout) view.findViewById(R.id.survey);
         libraries = (LinearLayout) view.findViewById(R.id.libraries);
         doctors = (LinearLayout) view.findViewById(R.id.doctors);
         tools = (LinearLayout) view.findViewById(R.id.tools);
 
-        LinearLayout.LayoutParams params =(LinearLayout.LayoutParams ) statusBarBackground.getLayoutParams();
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
 
@@ -120,12 +124,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         mXBanner.setAutoPlayAble(images.size() > 1);
         mXBanner.setIsClipChildrenMode(true);
         mXBanner.setData(images, title);
-
+        setadapter();
 
         sruvey.setOnClickListener(this);
         libraries.setOnClickListener(this);
         doctors.setOnClickListener(this);
         tools.setOnClickListener(this);
+        refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getdata();
+            }
+        });
     }
 
     private void getdata() {
@@ -137,31 +147,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try {
-                    String result = response.body().string();
-                    Log.d("test", "run" + result);
-                    tweets = GsonUtils.handleMessages3(result);
-                    //空引用异常检测
-                    if (tweets == null)
-                        throw new NullPointerException();
-
-                    mlist.addAll(tweets.data);
-                    //activity异常检测
-                    if (getActivity() == null)
-                        throw new NullPointerException();
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setadapter();
-                            tweetsListAdapter.notifyDataSetChanged();
-                        }
-                    });
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                    Log.d("test", "产生空对象的操作");
-                }
+                String result = response.body().string();
+                Log.d("test", "run" + result);
+                tweets = GsonUtils.handleMessages3(result);
+                mlist.clear();
+                mlist.addAll(tweets.data);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tweetsListAdapter.notifyDataSetChanged();
+                        refreshView.setRefreshing(false);
+                    }
+                });
             }
-
         });
 
     }
