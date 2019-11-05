@@ -13,8 +13,22 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+    signingConfigs {
+        debug {
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('F:/Android.keystore/keys0.jks')
+            storePassword '123456'
         }
     }
 }

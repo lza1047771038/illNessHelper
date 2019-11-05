@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,20 +20,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import org.litepal.LitePal;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import wust.student.illnesshepler.Fragments.MeFragment;
-import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.User_Information_LitePal.User_information;
+import wust.student.illnesshepler.Bean.User_information;
 import wust.student.illnesshepler.Utils.FileUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 

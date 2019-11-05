@@ -22,7 +22,7 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
-import wust.student.illnesshepler.User_Information_LitePal.User_information;
+import wust.student.illnesshepler.Bean.User_information;
 import wust.student.illnesshepler.Utils.FileUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 

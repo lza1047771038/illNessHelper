@@ -9,11 +9,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import wust.student.illnesshepler.Bean.BaseQuestion;
-import wust.student.illnesshepler.Bean.ManualQuestion;
-import wust.student.illnesshepler.Bean.MutipleQuestion;
-import wust.student.illnesshepler.Bean.Problem;
-import wust.student.illnesshepler.Bean.SingleQuestion;
+import wust.student.illnesshepler.SurveyQuestions.BaseQuestion;
+import wust.student.illnesshepler.SurveyQuestions.ManualQuestion;
+import wust.student.illnesshepler.SurveyQuestions.MutipleQuestion;
+import wust.student.illnesshepler.SurveyQuestions.Problem;
+import wust.student.illnesshepler.SurveyQuestions.SingleQuestion;
 import wust.student.illnesshepler.SurveyQuestions.ManualQuestionFragment;
 import wust.student.illnesshepler.SurveyQuestions.MutipleQuestionFragment;
 import wust.student.illnesshepler.SurveyQuestions.ScoolInfo;

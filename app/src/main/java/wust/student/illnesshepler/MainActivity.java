@@ -3,28 +3,19 @@ package wust.student.illnesshepler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.drm.DrmStore;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.litepal.LitePal;
@@ -37,11 +28,9 @@ import wust.student.illnesshepler.Fragments.ChatFragment;
 import wust.student.illnesshepler.Fragments.ClassFragment;
 import wust.student.illnesshepler.Fragments.HomeFragment;
 import wust.student.illnesshepler.Fragments.MeFragment;
-import wust.student.illnesshepler.User_Information_LitePal.User_information;
+import wust.student.illnesshepler.Bean.User_information;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
-
-import static org.litepal.LitePalApplication.getContext;
 
 public class MainActivity extends AppCompatActivity {
 

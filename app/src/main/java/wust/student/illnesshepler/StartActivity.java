@@ -48,9 +48,9 @@ public class StartActivity extends AppCompatActivity {
     public void getAuthorize(Context context, Activity activity) {
         List<String> mPermissionList = new ArrayList<>();// 声明一个集合，在后面的代码中用来存储用户拒绝授权的权
         mPermissionList.clear();
-        for (int i = 0; i < permissions.length; i++)
-            if (ContextCompat.checkSelfPermission(context, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
-                mPermissionList.add(permissions[i]);
+        for (String s : permissions)
+            if (ContextCompat.checkSelfPermission(context, s) != PackageManager.PERMISSION_GRANTED) {
+                mPermissionList.add(s);
             }
         if (!mPermissionList.isEmpty()) {
             String[] permission = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组

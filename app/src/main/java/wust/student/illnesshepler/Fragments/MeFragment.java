@@ -20,15 +20,15 @@ import java.util.List;
 
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.UploadTweet;
-import wust.student.illnesshepler.User_Information_LitePal.User_information;
+import wust.student.illnesshepler.Bean.User_information;
 import wust.student.illnesshepler.Utils.FileUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 import wust.student.illnesshepler.Edit_Userdata;
 
 public class MeFragment extends Fragment implements View.OnClickListener {
-    View view, statusBarBackground;
-    ImageView imageView;
-    TextView AdministratorEntry,User_Name;
+    private View view, statusBarBackground;
+    private ImageView imageView;
+    private TextView AdministratorEntry,User_Name;
 
     User_information information;
 

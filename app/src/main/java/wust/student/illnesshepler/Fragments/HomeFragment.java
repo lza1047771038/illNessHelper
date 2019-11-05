@@ -49,7 +49,6 @@ import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, TweetsListAdapter.OnItemClickListener {
 
-    private Handler handler = new Handler();
     private View view, statusBarBackground;
     private XBanner mXBanner;
     private LinearLayout sruvey;
@@ -102,8 +101,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
         twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
 
-        Log.d("test", "run2");
-//        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);  //圆点指示器和标题其他默认
         images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/de8394d1b5492cb065574cbbc1c589e8.jpg");
         images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/9f52537a7a5583e2ac542c12d486f532.jpg");
         images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/1.jpg");  //图片路径

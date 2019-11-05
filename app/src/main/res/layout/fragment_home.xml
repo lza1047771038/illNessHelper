@@ -52,7 +52,6 @@
                         app:isShowNumberIndicator="false"
                         app:isShowTips="true"
                         app:pageChangeDuration="800"
-                        app:pointsContainerBackground="@drawable/shape_round_8dp"
                         app:pointsPosition="RIGHT" />
 
                     <LinearLayout
@@ -173,7 +172,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/ripple_bg"
                     android:clickable="true"
                     android:focusable="true"

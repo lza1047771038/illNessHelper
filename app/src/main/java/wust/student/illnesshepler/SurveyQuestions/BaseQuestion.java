@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.Bean;
+package wust.student.illnesshepler.SurveyQuestions;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.User_Information_LitePal;
+package wust.student.illnesshepler.Bean;
 
 import android.net.Uri;
 import org.litepal.crud.LitePalSupport;

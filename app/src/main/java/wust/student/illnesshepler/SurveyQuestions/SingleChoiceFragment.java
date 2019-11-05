@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import org.json.JSONException;
 
-import wust.student.illnesshepler.Bean.SingleQuestion;
 import wust.student.illnesshepler.Investigation;
 import wust.student.illnesshepler.R;
 

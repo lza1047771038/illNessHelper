@@ -1,8 +1,12 @@
-package wust.student.illnesshepler.Bean;
+package wust.student.illnesshepler.SurveyQuestions;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import wust.student.illnesshepler.SurveyQuestions.ManualQuestion;
+import wust.student.illnesshepler.SurveyQuestions.MutipleQuestion;
+import wust.student.illnesshepler.SurveyQuestions.SingleQuestion;
 
 public class Test {
     @SerializedName("title")

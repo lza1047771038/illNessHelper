@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 
-import wust.student.illnesshepler.Bean.ManualQuestion;
 import wust.student.illnesshepler.Investigation;
 import wust.student.illnesshepler.R;
 

@@ -6,6 +6,6 @@
     <version value="1" />
     <!--表-->
     <list>
-        <mapping class="wust.student.illnesshepler.User_Information_LitePal.User_information" />
+        <mapping class="wust.student.illnesshepler.Bean.User_information" />
     </list>
 </litepal>

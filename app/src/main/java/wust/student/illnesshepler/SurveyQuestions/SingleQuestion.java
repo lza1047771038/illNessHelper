@@ -1,8 +1,10 @@
-package wust.student.illnesshepler.Bean;
+package wust.student.illnesshepler.SurveyQuestions;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+
+import wust.student.illnesshepler.SurveyQuestions.BaseQuestion;
 
 public class SingleQuestion extends BaseQuestion implements Serializable {
 
