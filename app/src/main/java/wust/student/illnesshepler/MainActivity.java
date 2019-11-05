@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-        StatusBarUtil.setStatusBarDarkTheme(this, true);
+
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();

@@ -85,6 +85,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     }
 
     private void initlayout() {
+//        StatusBarUtil.setStatusBarDarkTheme(getActivity(), true);
         statusBarBackground = view.findViewById(R.id.statusBarBackground);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(view.getContext()) / 2);
         mXBanner = (XBanner) view.findViewById(R.id.xbanner);

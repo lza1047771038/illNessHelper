@@ -19,20 +19,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
                 <View
                     android:id="@+id/statusBarBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" />
+                    android:layout_height="0dp"
+                    android:background="@color/green" />
 
-                <androidx.appcompat.widget.Toolbar
+                <!--<androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:title="武汉科技大学" />
+                    android:background="@color/green"
+                    app:title="青春彩虹伞"
+                    app:titleTextColor="@color/white" />-->
+                <include layout="@layout/detailedtitle"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -49,7 +50,7 @@
                         app:isClipChildrenMode="true"
                         app:isHandLoop="true"
                         app:isShowIndicatorOnlyOne="true"
-                        app:isShowNumberIndicator="false"
+                        app:isShowNumberIndicator="true"
                         app:isShowTips="true"
                         app:pageChangeDuration="800"
                         app:pointsPosition="RIGHT" />
@@ -213,8 +214,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/tweets_recycle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:focusableInTouchMode="false" />
+                            android:layout_height="wrap_content" />
                     </androidx.core.widget.NestedScrollView>
 
                 </LinearLayout>
