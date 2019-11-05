@@ -74,8 +74,9 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     private Spinner textSize;
     boolean Bold_flog = false;
     List<String> names = new ArrayList<String>() ;
+    List<String> imglist =new ArrayList<String>() ;
     //    public String html="<img src=\"content://media/external/images/media/270642\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><div style=\"text-align: center;\">哈哈哈<img src=\"content://media/external/images/media/221012\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 100%;\"></div><div style=\"text-align: center;\">傻逼</div><div style=\"text-align: center;\"><img src=\"content://media/external/images/media/258545\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 100%;\"></div><br>\n";
-    public String html = "<img src=\"content://media/external/images/media/258545\" alt=\"picvision\" 72\"=\"\" width=\"72\"><br><br>";
+    public String html = "";
     public int size = 2;
 
 
@@ -141,7 +142,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         final String themeid="NFT"+format.format(submittime);
         html = richEditor.getHtml();
-        final List<String> imglist = richEditor.getAllSrcAndHref();
+        imglist = richEditor.getAllSrcAndHref();
         Httputil.ImagesUpload(themeid, imglist, new Callback() {
 
             @Override
@@ -153,25 +154,18 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                String result = response.body().string();
 
-                try {
-                    JSONObject imageurl = new JSONObject(result);
-                    JSONArray allimageurl=imageurl.getJSONArray("ImageList");
-                    for (int i = 0; i < allimageurl.length(); i++) {
-                        names.add(allimageurl.get(i).toString());
-                        Log.d("test",  allimageurl.get(i).toString());
-                    }
-                    html = richEditor.getHtml() + "";
-                    Log.d("test", "before  html :" + html);
-                    for (int i = 0; i < imglist.size(); i++) {
-                        html = html.replaceAll(imglist.get(i), names.get(i));
-                        Log.d("test", "after  html :" + html);
-                    }
-                } catch (JSONException e) {
-
-                }
+                Message message=new Message();
+                message.what=3;
+                message.obj=result;
+                handler.sendMessage(message);
                 Log.d("test", "ImagesUpload   result :" + result);
             }
+
+
         });
+
+
+
 
     }
 
@@ -183,9 +177,35 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 if (msg.what == 1) {
                     Log.d("test", "msg1" + msg.arg1);
                     richEditor.setTextBackgroundColor(msg.arg1);
-                } else {
+                } if(msg.what==2) {
                     Log.d("test", "msg2" + msg.arg1);
                     richEditor.setTextColor(msg.arg1);
+                }
+                if(msg.what==3)
+                {
+                    Toast.makeText(UploadTweet.this, "result"+msg.obj.toString(), Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject imageurl = new JSONObject(msg.obj.toString());
+                        JSONArray allimageurl=imageurl.getJSONArray("ImageList");
+                        names.clear();
+                        for (int i = 0; i < allimageurl.length(); i++) {
+                            names.add(allimageurl.get(i).toString());
+                            Log.d("test",  allimageurl.get(i).toString());
+                        }
+
+                    } catch (JSONException e) {
+
+                    }
+                    html = richEditor.getHtml() + "";
+                    Log.d("test", "before  html :" + html);
+                    Log.d("test", " imglist.size(); :" + imglist.size());
+                    Log.d("test", " names.size(); :" + names.size());
+
+                    for (int i = 0; i < imglist.size(); i++) {
+                        html = html.replaceAll(imglist.get(i), names.get(i));
+                        Log.d("test", "after  html :" + html);
+                    }
+
                 }
                 return false;
             }
