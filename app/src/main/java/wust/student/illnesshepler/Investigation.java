@@ -86,12 +86,11 @@ public class Investigation extends AppCompatActivity {
         setContentView(R.layout.activity_investigation);
         StatusBarUtil.setStatusBarDarkTheme(this, true);
         //标题栏
-        drawable = getDrawable(R.color.white);
+        drawable = getDrawable(android.R.color.transparent);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("问卷调查");
-            drawable.setAlpha(0);
             actionBar.setBackgroundDrawable(drawable);
         }
         mViewPager = (ViewPager) findViewById(R.id.viewpager);

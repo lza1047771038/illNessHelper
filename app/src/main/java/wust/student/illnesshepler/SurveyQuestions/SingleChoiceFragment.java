@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.Fragments;
+package wust.student.illnesshepler.SurveyQuestions;
 
 import android.os.Bundle;
 import android.os.Handler;

@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +47,7 @@ import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, TweetsListAdapter.OnItemClickListener {
 
-    private View view, statusBarBackground;
+    private View view,statusBarBackground;
     private XBanner mXBanner;
     private LinearLayout sruvey;
     private LinearLayout libraries;
@@ -52,7 +55,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     private LinearLayout tools;
 
     private RecyclerView twRecyclerView;
-
 
     private List<String> images = new ArrayList<>();
     private List<String> title = new ArrayList<>();
@@ -83,17 +85,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         doctors = (LinearLayout) view.findViewById(R.id.doctors);
         tools = (LinearLayout) view.findViewById(R.id.tools);
 
+        LinearLayout.LayoutParams params =(LinearLayout.LayoutParams ) statusBarBackground.getLayoutParams();
+        params.height = StatusBarUtil.getStatusBarHeight(getContext());
+        statusBarBackground.setLayoutParams(params);
+
         twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
 
         sruvey.setOnClickListener(this);
         libraries.setOnClickListener(this);
         doctors.setOnClickListener(this);
         tools.setOnClickListener(this);
-
-        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);
-
         getdata();
 
 
@@ -139,31 +140,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
     }
 
-    //    public void getUserName(String id,int postion) {
-//
-//        Httputil.sendokhttpqueryForUserInfo(id,new Callback() {
-//            @Override
-//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-//                idlist.add("null");
-//                Log.d("test","null ");
-//            }
-//
-//            @Override
-//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-//
-//                String result = response.body().string();
-//                Log.d("test",result);
-//                try {
-//                    JSONObject jsonObject = new JSONObject(result);
-//                    Log.d("test","jj"+jsonObject.getString("username"));
-//                    idlist.add(jsonObject.getString("username"));
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
     private void layoutInit() {
         Log.d("test", "run2");
 //        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);  //圆点指示器和标题其他默认

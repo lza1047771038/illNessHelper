@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.Fragments;
+package wust.student.illnesshepler.SurveyQuestions;
 
 import android.os.Bundle;
 
@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

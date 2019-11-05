@@ -1,42 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollViews"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/statusBarBackground"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="@color/white" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/white">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:text="武汉科技大学"
-            android:textColor="#333"
-            android:textSize="20dp" />
-
-    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <View
+                android:id="@+id/statusBarBackground"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:title="武汉科技大学" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -176,11 +166,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/ripple_bg"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/ripple_bg"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -211,19 +201,16 @@
                         android:textColor="#333" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#dbdbdb" />
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tweets_recycle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="350dp" />
             </LinearLayout>
 
 
         </LinearLayout>
 
     </ScrollView>
+
+
 </LinearLayout>

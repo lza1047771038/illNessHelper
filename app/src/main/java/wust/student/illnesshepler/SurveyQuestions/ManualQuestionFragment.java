@@ -1,7 +1,5 @@
-package wust.student.illnesshepler.Fragments;
+package wust.student.illnesshepler.SurveyQuestions;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -9,20 +7,15 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
 import wust.student.illnesshepler.Bean.ManualQuestion;
-import wust.student.illnesshepler.Bean.SingleQuestion;
 import wust.student.illnesshepler.Investigation;
 import wust.student.illnesshepler.R;
 

@@ -1,6 +1,5 @@
 package wust.student.illnesshepler.Adapters;
 
-import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -15,10 +14,10 @@ import wust.student.illnesshepler.Bean.ManualQuestion;
 import wust.student.illnesshepler.Bean.MutipleQuestion;
 import wust.student.illnesshepler.Bean.Problem;
 import wust.student.illnesshepler.Bean.SingleQuestion;
-import wust.student.illnesshepler.Fragments.ManualQuestionFragment;
-import wust.student.illnesshepler.Fragments.MutipleQuestionFragment;
-import wust.student.illnesshepler.Fragments.ScoolInfo;
-import wust.student.illnesshepler.Fragments.SingleChoiceFragment;
+import wust.student.illnesshepler.SurveyQuestions.ManualQuestionFragment;
+import wust.student.illnesshepler.SurveyQuestions.MutipleQuestionFragment;
+import wust.student.illnesshepler.SurveyQuestions.ScoolInfo;
+import wust.student.illnesshepler.SurveyQuestions.SingleChoiceFragment;
 import wust.student.illnesshepler.Investigation;
 
 public class InvestigationAdapter extends FragmentStatePagerAdapter {

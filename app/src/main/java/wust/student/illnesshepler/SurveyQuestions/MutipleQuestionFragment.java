@@ -1,24 +1,20 @@
-package wust.student.illnesshepler.Fragments;
+package wust.student.illnesshepler.SurveyQuestions;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import org.json.JSONException;
 
 import wust.student.illnesshepler.Bean.MutipleQuestion;
-import wust.student.illnesshepler.Bean.SingleQuestion;
 import wust.student.illnesshepler.Investigation;
 import wust.student.illnesshepler.R;
 
