@@ -40,7 +40,8 @@
                     android:layout_marginRight="15dp"
                     android:layout_toEndOf="@+id/textbiaotidsc"
                     android:background="@drawable/edit_text_style"
-                    android:hint="请输入标题，文字大小固定为20" />
+                    android:hint="请输入标题，文字大小固定为20"
+                    android:textColor="@android:color/black" />
 
             </RelativeLayout>
 
