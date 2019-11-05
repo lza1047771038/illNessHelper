@@ -37,4 +37,3 @@
     //自定义下拉刷新控件
     implementation 'com.yalantis:phoenix:1.2.3'
     
-  两个依赖，抽空看一下这两个的用法
