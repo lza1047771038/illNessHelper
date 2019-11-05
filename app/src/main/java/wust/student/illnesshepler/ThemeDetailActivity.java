@@ -1,19 +1,16 @@
 package wust.student.illnesshepler;
 
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ScrollView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
@@ -24,13 +21,14 @@ public class ThemeDetailActivity extends AppCompatActivity {
     ActionBar actionBar;
     Drawable drawable;
     Window window;
+    Toolbar toolbar;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.NoAppTheme);
 
-        StatusBarUtil.setStatusBarDarkTheme(this, true);
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -46,6 +44,8 @@ public class ThemeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.themedetailactivity);
 
         Init();
+
+        setSupportActionBar(toolbar);
         RootLayoutInit();
 
     }
@@ -55,49 +55,36 @@ public class ThemeDetailActivity extends AppCompatActivity {
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int x, int y, int x1, int y1) {
-                if (y >= 0 && y < 400) {
-                    double que = (double) y % 400.0 / 400.0;
-                    drawable.setAlpha((int) (que * 255));
-                    actionBar.setBackgroundDrawable(drawable);
-
-                    window.setStatusBarColor(Color.argb((int) (que * 255), 255, 255, 255));
-                } else if (y >= 400 && y < 500) {
-                    drawable.setAlpha(255);
-                    actionBar.setBackgroundDrawable(drawable);
-                    window.setStatusBarColor(Color.argb(255, 255, 255, 255));
-                } else if (y < 0) {
-                    drawable.setAlpha(0);
-                    actionBar.setBackgroundDrawable(drawable);
-                    window.setStatusBarColor(Color.argb(0, 255, 255, 255));
+                int screen_height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+                if (y <= screen_height / 3f) {
+                    toolbar.setAlpha(y / (screen_height / 3f));
                 }
             }
         });
+
+
     }
 
-    public void RootLayoutInit(){
-        statusBarBackground = findViewById(R.id.statusBarBackground);
-        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(this);
-        statusBarBackground.setLayoutParams(params);
+    public void RootLayoutInit() {
 
+        toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
 
-        scrollView.setPadding(0, scrollView.getPaddingTop(), 0, 0);
+        scrollView.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
 
-        drawable = getDrawable(R.color.white);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("动态");
-            drawable.setAlpha(0);
-            actionBar.setBackgroundDrawable(drawable);
         }
 
-
         setLayoutSettings();
+
     }
 
 
     private void Init() {
         scrollView = findViewById(R.id.scrollViews);
+        toolbar =(Toolbar) findViewById(R.id.toolbar);
+        toolbar.setAlpha(0);
     }
 }

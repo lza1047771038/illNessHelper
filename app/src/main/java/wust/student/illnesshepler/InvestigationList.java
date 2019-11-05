@@ -61,7 +61,7 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            getWindow().setStatusBarColor(Color.WHITE);
         }
         StatusBarUtil.setStatusBarDarkTheme(this, true);
         drawable = getDrawable(R.color.white);
@@ -70,7 +70,6 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("问卷调查");
-            drawable.setAlpha(0);
             actionBar.setBackgroundDrawable(drawable);
         }
         getdata();

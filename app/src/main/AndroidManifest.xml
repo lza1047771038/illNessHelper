@@ -34,7 +34,7 @@
         <activity android:name=".Edit_Userdata" />
         <activity android:name=".Set_Userimg" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ThemeDetailActivity" />
+        <activity android:name=".ThemeDetailActivity"/>
     </application>
 
 </manifest>

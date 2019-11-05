@@ -11,6 +11,16 @@
         <item name="android:textColorPrimary">@color/darkgray</item>
     </style>
 
+    <style name="NoAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/gray</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/darkgray</item>
+    </style>
+
 
     <style name="StartActivity" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
@@ -19,6 +29,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@drawable/postcard</item>
     </style>
+
     <style name="Investigation" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -27,8 +38,9 @@
         <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/darkgray</item>
     </style>
+
     <style name="DialogAnimations" parent="android:Animation">
-        <item name="android:windowEnterAnimation" >@anim/slide_bottom_in</item>
-        <item name="android:windowExitAnimation" >@anim/slide_bottom_out</item>
+        <item name="android:windowEnterAnimation">@anim/slide_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom_out</item>
     </style>
 </resources>
