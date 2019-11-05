@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,7 +68,7 @@ public class Edit_Userdata extends AppCompatActivity {
 
 
         LinearLayout User_img=(LinearLayout)findViewById(R.id.edit_user_img);
-        LinearLayout User_age=(LinearLayout)findViewById(R.id.edit_user_age);
+        final LinearLayout User_age=(LinearLayout)findViewById(R.id.edit_user_age);
         LinearLayout User_integra=(LinearLayout)findViewById(R.id.edit_user_integral);
         LinearLayout User_name=(LinearLayout)findViewById(R.id.edit_user_name);
 
@@ -95,8 +96,7 @@ public class Edit_Userdata extends AppCompatActivity {
         User_age.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setHint(user_age.getText().toString());
-                userage_edit();
+                userage_edit(user_age.getText().toString());
             }
         });
     }
@@ -131,25 +131,31 @@ public class Edit_Userdata extends AppCompatActivity {
         builder.show();
     }
 
-    public void userage_edit(){
-        builder.setTitle("修改年龄");
-        if(v.getParent()!=null){
-            ViewGroup vg=(ViewGroup)v.getParent();
-            vg.removeView(v);
-        }
+    public void userage_edit(String age){
+        final int[] newAge = new int[1];
+        int oldAge=Integer.parseInt(age);
+        View v_age_dialog=getLayoutInflater().inflate(R.layout.item_dialog_age,null);
+        NumberPicker numberPicker_age=v_age_dialog.findViewById(R.id.input);
+        numberPicker_age.setMinValue(0);
+        numberPicker_age.setMaxValue(70);
+        numberPicker_age.setValue(oldAge);
+        numberPicker_age.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                newAge[0] =newVal;
+            }
+        });
 
-        builder.setView(v);
+
+        builder.setView(v_age_dialog);
 
         builder.setPositiveButton("修改", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(isNumericZidai(input.getText().toString())) {
-                    user_age.setText(input.getText().toString());
-                    UpData("User_Age",input.getText().toString());
-                    Toast.makeText(Edit_Userdata.this, "已经修改年龄", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    Toast.makeText(Edit_Userdata.this, "年龄只能是数字奥", Toast.LENGTH_SHORT).show();
+                    user_age.setText(Integer.toString(newAge[0]));
+                    UpData("User_Age",Integer.toString(newAge[0]));
+                    Toast.makeText(Edit_Userdata.this, "修改后的年龄："+newAge[0], Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -162,15 +168,6 @@ public class Edit_Userdata extends AppCompatActivity {
         builder.show();
     }
 
-    public static boolean isNumericZidai(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            System.out.println(str.charAt(i));
-            if (!Character.isDigit(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
     public void UpData(String name,String data){
         ContentValues values=new ContentValues();
         values.put(name,data);
