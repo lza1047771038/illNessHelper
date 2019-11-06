@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/tweet_linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="106dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
@@ -19,7 +19,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/tweet_image_card"
             android:layout_width="110dp"
-            android:layout_height="74dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_vertical"
             app:cardCornerRadius="5dp"
             app:cardElevation="0dp">
@@ -35,27 +35,30 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tweet_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/linearxxx"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="13dp"
+                android:layout_marginBottom="3dp"
                 android:paddingStart="10dp"
                 android:text="标题"
-                android:textColor="@color/optioncolorcolor"
+                android:textColor="#333"
                 android:textSize="16dp" />
 
             <LinearLayout
+                android:id="@+id/linearxxx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="13dp"
-                android:paddingStart="10dp"
+                android:paddingStart="8dp"
                 android:orientation="horizontal">
 
                 <TextView

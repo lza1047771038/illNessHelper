@@ -52,7 +52,7 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull TweetsListAdapter.ViewHolder holder, final int position) {
-        holder.title.setText(mlist.get(position).title);
+        holder.title.setText(formattitle(mlist.get(position).title));
         holder.auther.setText(mlist.get(position).username);
         Log.d("test", "adapter num:"+mlist.get(position).visitNum);
         holder.visitNum.setText(mlist.get(position).visitNum + "");
@@ -99,5 +99,14 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Vi
             linearLayout = itemView.findViewById(R.id.tweet_linearlayout);
             cardView = itemView.findViewById(R.id.tweet_image_card);
         }
+    }
+    public String formattitle(String title)
+    {
+        String temp=title;
+        if (title.length()>40)
+        {
+            temp=temp.substring(0,35)+"···";
+        }
+        return temp;
     }
 }

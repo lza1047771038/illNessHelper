@@ -25,6 +25,7 @@ public class Httputil {
     final static String NotificationList = "http://47.100.93.91:8996/NotificationList";
     final static String ImagesUpload = "http://47.100.93.91:8996/ImagesUpload";
     final static String NotificationPost = "http://47.100.93.91:8996/NotificationPost";
+    final static String NotificationDetails = "http://47.100.93.91:8996/NotificationDetails";
 
 
     /**
@@ -120,6 +121,15 @@ public class Httputil {
                 .add("posttime", posttime)
                 .build();
         Request request = new Request.Builder().url(NotificationPost).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void NotificationDetails(String themeid, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+        RequestBody build = new FormBody.Builder()
+                .add("themeid", themeid)
+                .build();
+        Request request = new Request.Builder().url(NotificationDetails).post(build).build();
         client.newCall(request).enqueue(callback);
     }
 }

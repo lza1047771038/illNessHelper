@@ -41,6 +41,7 @@ import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.Tweets;
 import wust.student.illnesshepler.InvestigationList;
 import wust.student.illnesshepler.R;
+import wust.student.illnesshepler.ShowTweet;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.ScreenUtil;
@@ -196,5 +197,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     @Override
     public void OnItemClick(int position) {
         Toast.makeText(getContext(), "你点击了第" + position + "个item  ", Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(view.getContext(), ShowTweet.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("themeid", mlist.get(position).themeid);
+        bundle.putString("time",mlist.get(position).post_time);
+       bundle.putString("authername",mlist.get(position).username);
+       bundle.putString("title",mlist.get(position).title);
+       bundle.putInt("number",mlist.get(position).visitNum);
+       intent.putExtras(bundle);
+       startActivity(intent);
     }
 }
