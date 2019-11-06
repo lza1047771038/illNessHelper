@@ -84,6 +84,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     //    public String html="<img src=\"content://media/external/images/media/270642\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><div style=\"text-align: center;\">哈哈哈<img src=\"content://media/external/images/media/221012\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 100%;\"></div><div style=\"text-align: center;\">傻逼</div><div style=\"text-align: center;\"><img src=\"content://media/external/images/media/258545\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 100%;\"></div><br>\n";
     public String tttt = "after  html :<img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/54cc3fd68eb6644175419a39382b5a84.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/228bdd2e476d628885ea3100de24d2f4.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/f3ffe4996c7109ac607ee01e5238f6bd.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/e94f62598173c0edac6cecec7f8a7ebe.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><div style=\"text-align: center;\"><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/2c67a1fd9632deddcc271525c8e00b85.png\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 35%;\"></div><br>\n";
     public String html = "";
+    public String headerimage ;
     public int size = 2;
 
 
@@ -171,6 +172,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                     try {
                         JSONObject imageurl = new JSONObject(msg.obj.toString());
                         JSONArray allimageurl = imageurl.getJSONArray("ImageList");
+                        headerimage=allimageurl.get(0).toString()+"";
                         names.clear();
                         for (int i = 0; i < allimageurl.length(); i++) {
                             names.add(allimageurl.get(i).toString());
@@ -220,6 +222,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         themeid = "NFT" + format.format(submittime);
         html = richEditor.getHtml();
         imglist = richEditor.getAllSrcAndHref();
+
         Httputil.ImagesUpload(themeid, imglist, new Callback() {
 
             @Override
@@ -247,7 +250,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     //第二次发送数据 发送编辑推文信息
     public void secondsubmit(String contains) {
         String title = update_title.getText().toString();
-        Httputil.NotificationPost(themeid, MainActivity.authorid, title, contains, submittime + "", new Callback() {
+        Httputil.NotificationPost(themeid, MainActivity.authorid, title, contains,submittime + "",headerimage , new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 

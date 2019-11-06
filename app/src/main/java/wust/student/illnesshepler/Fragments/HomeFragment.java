@@ -125,8 +125,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         mXBanner.setAutoPlayAble(images.size() > 1);
         mXBanner.setIsClipChildrenMode(true);
         mXBanner.setData(images, title);
-        setadapter();
 
+        setadapter();
         sruvey.setOnClickListener(this);
         libraries.setOnClickListener(this);
         doctors.setOnClickListener(this);
@@ -155,7 +155,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
-                Log.d("test", "run" + result);
+                Log.d("test", "Home result" + result);
                 tweets = GsonUtils.handleMessages3(result);
                 mlist.clear();
                 mlist.addAll(tweets.data);
@@ -164,8 +164,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
                     public void run() {
                         tweetsListAdapter.notifyDataSetChanged();
                         refreshView.setRefreshing(false);
+
                     }
                 });
+
             }
         });
 

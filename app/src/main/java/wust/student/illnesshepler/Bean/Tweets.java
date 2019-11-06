@@ -22,7 +22,7 @@ public class Tweets {
         public String auther;
         @SerializedName("post_time")
         public String post_time;
-        @SerializedName("image")
+        @SerializedName("headerimage")
         public String imageUrl;
         @SerializedName("number")
         public int visitNum;

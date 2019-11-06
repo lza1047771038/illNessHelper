@@ -110,7 +110,7 @@ public class Httputil {
         Log.d("test", "ImagesUpload   result :" );
         client.newCall(request).enqueue(callback);
     }
-    public static void NotificationPost(String themeid,String authorid,String title,String contains,String posttime, okhttp3.Callback callback) {
+    public static void NotificationPost(String themeid,String authorid,String title,String contains,String posttime,String headerimage ,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
         RequestBody build = new FormBody.Builder()
@@ -119,6 +119,7 @@ public class Httputil {
                 .add("title", title)
                 .add("contains", contains)
                 .add("posttime", posttime)
+                .add("headerimage",headerimage)
                 .build();
         Request request = new Request.Builder().url(NotificationPost).post(build).build();
         client.newCall(request).enqueue(callback);
