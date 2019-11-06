@@ -13,13 +13,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <wust.student.illnesshepler.Utils.RoundImageView
+            <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/UserImage"/>
+                android:id="@+id/UserImage"
+                android:src="@drawable/postcard"/>
 
             <TextView
                 android:id="@+id/UserName"

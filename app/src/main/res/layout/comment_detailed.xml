@@ -32,25 +32,9 @@
         android:textColor="#000"
         android:textSize="16sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="8条回复"
-            android:textSize="10sp"
-            android:textColor="@color/blue"/>
-
-        <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:src="@drawable/icon_arrow"
-            android:layout_gravity="center_vertical"/>
-
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/comments"/>
 
 </LinearLayout>
