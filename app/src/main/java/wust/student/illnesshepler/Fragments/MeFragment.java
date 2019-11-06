@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,8 +29,8 @@ import wust.student.illnesshepler.Edit_Userdata;
 public class MeFragment extends Fragment implements View.OnClickListener {
     private View view, statusBarBackground;
     private ImageView imageView;
-    private TextView AdministratorEntry,User_Name;
-
+    private TextView User_Name;
+    private RelativeLayout AdministratorEntry;
     User_information information;
 
     FileUtil fileUtil;
@@ -50,7 +51,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
 
-        AdministratorEntry=(TextView)view.findViewById(R.id.administrator_entry);
+        AdministratorEntry=(RelativeLayout) view.findViewById(R.id.administrator_entry);
 
         AdministratorEntry.setOnClickListener(this);
 
