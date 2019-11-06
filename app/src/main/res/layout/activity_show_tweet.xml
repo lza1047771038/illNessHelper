@@ -2,18 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ScrollView
+        android:id="@+id/scrollViews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/linearLayout2"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="0dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:overScrollMode="always">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -23,8 +28,8 @@
                 android:id="@+id/show_tweet_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="2dp"
                 android:paddingLeft="10dp"
@@ -101,10 +106,19 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/show_tweet_comment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="?attr/actionBarSize"/>
 
         </LinearLayout>
     </ScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow"
+        app:title="哈哈"
+        app:titleTextColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -112,22 +126,29 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="1dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="100"
             app:cardCornerRadius="25dp"
             app:cardElevation="0dp">
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="0dp"
                 android:background="@drawable/searchview_cornerbackground"
                 android:hint="写评论"
-                android:padding="10dp" />
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
 
         </androidx.cardview.widget.CardView>
 
@@ -135,6 +156,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:src="@drawable/likes" />
 
         <ImageView
@@ -142,6 +164,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:src="@drawable/share" />
 
     </LinearLayout>

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +58,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     private LinearLayout doctors;
     private LinearLayout tools;
     private PullToRefreshView refreshView;
+    private NestedScrollView scrollView;
 
     private RecyclerView twRecyclerView;
 
@@ -86,8 +88,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     }
 
     private void initlayout() {
-//        StatusBarUtil.setStatusBarDarkTheme(getActivity(), true);
         statusBarBackground = view.findViewById(R.id.statusBarBackground);
+        scrollView = view.findViewById(R.id.scrollViews);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(view.getContext()) / 2);
         mXBanner = (XBanner) view.findViewById(R.id.xbanner);
         mXBanner.setLayoutParams(layoutParams);
@@ -129,6 +131,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         libraries.setOnClickListener(this);
         doctors.setOnClickListener(this);
         tools.setOnClickListener(this);
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                StatusBarUtil.setStatusBarDarkTheme(getActivity(), scrollY > 250);
+            }
+        });
         refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
