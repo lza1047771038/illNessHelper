@@ -47,7 +47,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:AutoPlayTime="3000"
-                        app:isAutoPlay="true"
                         app:isClipChildrenMode="true"
                         app:isHandLoop="true"
                         app:isShowIndicatorOnlyOne="true"
@@ -216,8 +215,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/tweets_recycle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:focusableInTouchMode="false"/>
+                            android:layout_height="wrap_content"/>
                     </androidx.core.widget.NestedScrollView>
 
                 </LinearLayout>
