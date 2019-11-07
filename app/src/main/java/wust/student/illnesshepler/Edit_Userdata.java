@@ -137,7 +137,7 @@ public class Edit_Userdata extends AppCompatActivity {
         View v_age_dialog=getLayoutInflater().inflate(R.layout.item_dialog_age,null);
         NumberPicker numberPicker_age=v_age_dialog.findViewById(R.id.input);
         numberPicker_age.setMinValue(0);
-        numberPicker_age.setMaxValue(70);
+        numberPicker_age.setMaxValue(100);
         numberPicker_age.setValue(oldAge);
         numberPicker_age.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
