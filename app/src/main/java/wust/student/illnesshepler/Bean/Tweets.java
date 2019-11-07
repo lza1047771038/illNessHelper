@@ -28,5 +28,7 @@ public class Tweets {
         public int visitNum;
         @SerializedName("username")
         public String username;
+        @SerializedName("type")
+        public String uploadtype;
     }
 }

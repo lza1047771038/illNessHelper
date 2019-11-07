@@ -15,10 +15,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.text.LoginFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +50,6 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import wust.student.illnesshepler.Utils.Dialog_prompt;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.ImageUtil;
 import wust.student.illnesshepler.Utils.ScreenUtil;
@@ -85,6 +82,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     public String tttt = "after  html :<img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/54cc3fd68eb6644175419a39382b5a84.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/228bdd2e476d628885ea3100de24d2f4.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/f3ffe4996c7109ac607ee01e5238f6bd.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/e94f62598173c0edac6cecec7f8a7ebe.jpg\" alt=\"picvision\" style=\"margin-top:10px;max-width:100%;\"><br><div style=\"text-align: center;\"><img src=\"http://47.100.93.91:8996/MediaFiles/mediaImages/2c67a1fd9632deddcc271525c8e00b85.png\" alt=\"picvision\" style=\"margin-top: 10px; max-width: 35%;\"></div><br>\n";
     public String html = "";
     public String headerimage ;
+    private String uploadtype="0";
     public int size = 2;
 
 
@@ -205,8 +203,36 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_submit:
+                final String[] array = {"普通的推文","首页上方的轮播推文"};
+                MaterialDialog chosedialog = new MaterialDialog.Builder(this)
+                        .title("请选择上传类型")
+                        .content("默认为普通的推文")
+                        .items(array)
+                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                            @Override
+                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                uploadtype=which+"";
+                                Log.d("test", "UploadTweet   选了 :"+which);
+                                return true;
+                            }
+                        })
+                        .positiveText("确认")
+                        .negativeText("取消")
+                        .negativeColor(getColor(R.color.optioncolorcolor))
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                submit();
+                            }
+                        })
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
                 //第一次发送请求多图片上传
-                submit();
                 break;
             case android.R.id.home:
                 showexitdilog();
@@ -250,7 +276,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     //第二次发送数据 发送编辑推文信息
     public void secondsubmit(String contains) {
         String title = update_title.getText().toString();
-        Httputil.NotificationPost(themeid, MainActivity.authorid, title, contains,submittime + "",headerimage , new Callback() {
+        Httputil.NotificationPost(themeid, MainActivity.authorid, title, contains,submittime + "",headerimage ,uploadtype, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 

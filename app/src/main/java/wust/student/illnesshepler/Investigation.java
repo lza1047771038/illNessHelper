@@ -37,7 +37,7 @@ import wust.student.illnesshepler.Adapters.InvestigationAdapter;
 import wust.student.illnesshepler.SurveyQuestions.BaseQuestion;
 import wust.student.illnesshepler.SurveyQuestions.Problem;
 import wust.student.illnesshepler.SurveyQuestions.Test;
-import wust.student.illnesshepler.Utils.Dialog_prompt;
+import wust.student.illnesshepler.Dialogs.Dialog_prompt;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;

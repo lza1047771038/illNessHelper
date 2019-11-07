@@ -3,6 +3,7 @@ package wust.student.illnesshepler.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,13 +64,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     private RecyclerView twRecyclerView;
 
     private List<String> images = new ArrayList<>();
-    private List<String> title = new ArrayList<>();
     private List<Tweets.Item> mlist = new ArrayList<>();
-
+    private List<Tweets.Item> xlist = new ArrayList<>();
+    private Handler handler;
     private TweetsListAdapter tweetsListAdapter;
     private Tweets tweets;
 
-    private List<String> idlist = new ArrayList<>();
 
     @Nullable
     @Override
@@ -83,50 +83,52 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         super.onActivityCreated(savedInstanceState);
         //绑定和初始化控件
         initlayout();
-        //请求服务器数据 数据和控件绑定在onResponse 里调用setadapter（）
+        setadapter();
         getdata();
+
+
+
+        //请求服务器数据 数据和控件绑定在onResponse 里调用setadapter（）
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                switch (msg.what) {
+                    case 1:
+                        setbanner();
+                }
+                return false;
+            }
+        });
+
     }
 
     private void initlayout() {
         statusBarBackground = view.findViewById(R.id.statusBarBackground);
         scrollView = view.findViewById(R.id.scrollViews);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(view.getContext()) / 2);
-        mXBanner = (XBanner) view.findViewById(R.id.xbanner);
-        mXBanner.setLayoutParams(layoutParams);
+
         refreshView = view.findViewById(R.id.refreshLayout);
         sruvey = (LinearLayout) view.findViewById(R.id.survey);
         libraries = (LinearLayout) view.findViewById(R.id.libraries);
         doctors = (LinearLayout) view.findViewById(R.id.doctors);
         tools = (LinearLayout) view.findViewById(R.id.tools);
-
+        //全屏
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
 
         twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
 
-        images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/de8394d1b5492cb065574cbbc1c589e8.jpg");
-        images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/9f52537a7a5583e2ac542c12d486f532.jpg");
-        images.add("http://47.100.93.91:8996/MediaFiles/mediaImages/1.jpg");  //图片路径
 
-        title.add("第一个图片");
-        title.add("第二个图片");
-        title.add("第三个图片");
-
-        mXBanner.loadImage(new XBanner.XBannerAdapter() {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(view.getContext()) / 2);
+        mXBanner = (XBanner) view.findViewById(R.id.xbanner);
+        mXBanner.setLayoutParams(layoutParams);
+        mXBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
-            public void loadBanner(XBanner banner, Object model, View view, int position) {
-                Glide.with(view.getContext()).load(images.get(position))
-                        .apply(new RequestOptions()
-                                .transforms(new CenterCrop(), new RoundedCorners(16)))
-                        .into((ImageView) view);
+            public void onItemClick(XBanner banner, Object model, View view, int position) {
+                showtweet(position,xlist);
             }
         });
-        mXBanner.setAutoPlayAble(images.size() > 1);
-        mXBanner.setIsClipChildrenMode(true);
-        mXBanner.setData(images, title);
 
-        setadapter();
         sruvey.setOnClickListener(this);
         libraries.setOnClickListener(this);
         doctors.setOnClickListener(this);
@@ -140,7 +142,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getdata();
+                try {
+                    getdata();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -158,7 +164,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
                 Log.d("test", "Home result" + result);
                 tweets = GsonUtils.handleMessages3(result);
                 mlist.clear();
-                mlist.addAll(tweets.data);
+                xlist.clear();
+                for (int i = 0; i < tweets.data.size(); i++) {
+                    if (tweets.data.get(i).uploadtype.equals("1")) {
+                        xlist.add(tweets.data.get(i));
+                    } else {
+                        mlist.add(tweets.data.get(i));
+                    }
+
+                }
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -167,14 +181,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
                     }
                 });
-
+                Message message=new Message();
+                message.what=1;
+                handler.sendMessage(message);
             }
         });
 
     }
 
     private void setadapter() {
-
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         twRecyclerView.setLayoutManager(manager);
@@ -184,7 +199,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
 
     }
+    private void setbanner()
+    {
+        images.clear();
+        for (int i = 0; i < xlist.size(); i++) {
+            images.add(xlist.get(i).imageUrl);
+        }
+        Log.d("test", "HomeFragment images" + images);
+        mXBanner.setAutoPlayAble(images.size() > 1);
+        mXBanner.setIsClipChildrenMode(images.size() > 2);
+        mXBanner.setData(images, null);
+        mXBanner.loadImage(new XBanner.XBannerAdapter() {
+            @Override
+            public void loadBanner(XBanner banner, Object model, View view, int position) {
+                Glide.with(view.getContext()).load(images.get(position))
+                        .apply(new RequestOptions()
+                                .transforms(new CenterCrop(), new RoundedCorners(16)))
+                        .into((ImageView) view);
+            }
+        });
 
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -206,15 +241,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
     @Override
     public void OnItemClick(int position) {
-        Toast.makeText(getContext(), "你点击了第" + position + "个item  ", Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(view.getContext(), ShowTweet.class);
-        Bundle bundle=new Bundle();
-        bundle.putString("themeid", mlist.get(position).themeid);
-        bundle.putString("time",mlist.get(position).post_time);
-       bundle.putString("authername",mlist.get(position).username);
-       bundle.putString("title",mlist.get(position).title);
-       bundle.putInt("number",mlist.get(position).visitNum);
-       intent.putExtras(bundle);
-       startActivity(intent);
+        showtweet(position,mlist);
+    }
+    public void showtweet(int position,List<Tweets.Item> list)
+    {
+        Intent intent = new Intent(view.getContext(), ShowTweet.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("themeid", list.get(position).themeid);
+        bundle.putString("time", list.get(position).post_time);
+        bundle.putString("authername", list.get(position).username);
+        bundle.putString("title", list.get(position).title);
+        bundle.putInt("number", list.get(position).visitNum);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
