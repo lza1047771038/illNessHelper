@@ -41,6 +41,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         holder.contains.setText(list.get(position).contains);
         holder.comments_num.setText(list.get(position).comments_num + "");
         holder.likes.setText(list.get(position).likes + "");
+
         holder.itemView.setTag(position);
         holder.comments_area.setTag(position);
         holder.shares_area.setTag(position);

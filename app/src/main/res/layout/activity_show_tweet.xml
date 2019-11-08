@@ -18,9 +18,11 @@
         android:overScrollMode="always">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
 
@@ -95,6 +97,11 @@
                 android:layout_margin="10dp"
                 android:visibility="visible" />
 
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="10dp"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,14 +111,91 @@
                 android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/show_tweet_comment"
+                android:id="@+id/show_comment_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="?attr/actionBarSize"/>
+                />
 
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:orientation="horizontal">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="100">
+            <EditText
+                android:id="@+id/tweet_post_comment_higth"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="top|left"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/searchview_cornerbackground"
+                android:hint="写评论"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/tweet_post_comment"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/searchview_cornerbackground"
+                android:drawableLeft="@drawable/grey_6018dp"
+                android:hint=" 写评论"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+               />
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tweet_send_comment"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:textSize="18sp"
+            android:textColor="@color/thingray"
+            android:text="发送"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/tweet_collect"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/collect"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/tweet_share"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:src="@drawable/share"
+            android:visibility="visible"/>
+
+    </LinearLayout>
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -120,60 +204,6 @@
         app:title="哈哈"
         app:titleTextColor="@color/white" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="1dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="100"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="0dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/searchview_cornerbackground"
-                android:hint="写评论"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:src="@drawable/collect" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:src="@drawable/share" />
-
-    </LinearLayout>
 
 </RelativeLayout>

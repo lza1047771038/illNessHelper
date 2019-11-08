@@ -26,6 +26,8 @@ public class Httputil {
     final static String ImagesUpload = "http://47.100.93.91:8996/ImagesUpload";
     final static String NotificationPost = "http://47.100.93.91:8996/NotificationPost";
     final static String NotificationDetails = "http://47.100.93.91:8996/NotificationDetails";
+    final static String comment_post = "http://47.100.93.91:8996/comment_post";
+    final static String comment_request = "http://47.100.93.91:8996/comment_request";
 
 
     /**
@@ -132,6 +134,26 @@ public class Httputil {
                 .add("themeid", themeid)
                 .build();
         Request request = new Request.Builder().url(NotificationDetails).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void comment_post(String Themeid,String Userid ,String Contains,okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .add("themeid", Themeid)
+                .add("userid", Userid)
+                .add("contains", Contains)
+                .build();
+        Request request = new Request.Builder().url(comment_post).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void comment_request(String themeid,String page ,String pagesize,okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .add("themeid", themeid)
+                .add("page", page)
+                .add("pagesize", pagesize)
+                .build();
+        Request request = new Request.Builder().url(comment_request).post(build).build();
         client.newCall(request).enqueue(callback);
     }
 }

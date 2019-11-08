@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import wust.student.illnesshepler.Bean.GetInvaestigationList;
 import wust.student.illnesshepler.Bean.GetTheme;
+import wust.student.illnesshepler.Bean.GetTweetComments;
 import wust.student.illnesshepler.SurveyQuestions.Test;
 import wust.student.illnesshepler.Bean.Tweets;
 
@@ -47,6 +48,15 @@ public class GsonUtils {
         try {
             JSONObject jsonObject = new JSONObject(response);
             return new Gson().fromJson(jsonObject.toString(), Tweets.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static GetTweetComments getTweetComments(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            return new Gson().fromJson(jsonObject.toString(), GetTweetComments.class);
         } catch (Exception e) {
             e.printStackTrace();
         }

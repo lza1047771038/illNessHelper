@@ -169,7 +169,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
                     if (tweets.data.get(i).uploadtype.equals("1")) {
                         xlist.add(tweets.data.get(i));
                     } else {
-                        mlist.add(tweets.data.get(i));
+                        if(mlist.size()<=10)
+                        {
+                            mlist.add(tweets.data.get(i));
+                        }
+
                     }
 
                 }
