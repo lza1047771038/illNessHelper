@@ -15,4 +15,7 @@
     <string name="md_presets">预设</string>
     <string name="md_storage_per">Your app has not been granted the READ_EXTERNAL_STORAGE permission.</string>
     <string name="new_folder_zi">New Folder</string>
+
+    <string name="all_reply">全部回复</string>
+    <string name="reply">回复</string>
 </resources>

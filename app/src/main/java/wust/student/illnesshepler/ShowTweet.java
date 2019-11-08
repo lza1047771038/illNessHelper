@@ -228,6 +228,18 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         boolean isOpen = imm.isActive();
                         imm.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
+//                        GetTweetComments temp=new GetTweetComments();
+                        GetTweetComments.Comments temp=new GetTweetComments.Comments();
+                        temp.contains=msg.obj.toString();
+                        temp.username="tempusername(用户登录时放到static 变量)";
+                        temp.time=System.currentTimeMillis()+"";
+                        temp.likes=0;
+                        temp.userimage="temp";
+                        temp.replies=0;
+                        temp.comments_num=0;
+                        clist.add(0, temp);
+                        adapter.notifyDataSetChanged();
+                        recyclerView.getLayoutManager().scrollToPosition(0);
                         break;
                     case 3:
                         Toast.makeText(ShowTweet.this, "发送失败", Toast.LENGTH_SHORT).show();
@@ -330,12 +342,17 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
                 break;
-
+            default:
+                tweetPostCommentHigth.clearFocus();
+                tweetPostComment.clearFocus();
+                InputMethodManager imm2 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm2.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
+                break;
         }
     }
 
     public void sendComment() {
-        String contains = tweetPostCommentHigth.getText().toString();
+        final String contains = tweetPostCommentHigth.getText().toString();
         if (contains.length() == 0) {
         } else {
             if (!SensitiveWordsUtils.contains(contains)) {
@@ -352,12 +369,12 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                         String reslut = response.body().string();
                         Message message = new Message();
-
-                        Log.d("test", "Show Tweet comment_post——reslut" + reslut);
                         if (reslut.equals("1")) {
                             message.what = 2;
+                            message.obj=contains;
                         } else {
                             message.what = 2;
+                            message.obj="null";
                         }
                         handler.sendMessage(message);
                     }
@@ -370,6 +387,10 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void OnItemClick(View view, int position) {
+        tweetPostCommentHigth.clearFocus();
+        tweetPostComment.clearFocus();
+        InputMethodManager imm2 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm2.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
         switch (view.getId()) {
             case R.id.comments_linear:
                 Toast.makeText(ShowTweet.this, "点击了整条评论", Toast.LENGTH_SHORT).show();
