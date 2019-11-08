@@ -6,210 +6,228 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollViews"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/linearLayout2"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:overScrollMode="always">
+        android:fitsSystemWindows="true">
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollViews"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical"
-            tools:ignore="MissingConstraints">
-
-            <TextView
-                android:id="@+id/show_tweet_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="2dp"
-                android:paddingLeft="10dp"
-                android:text="标题"
-                android:textColor="#333"
-                android:textSize="24sp" />
+            android:layout_height="20dp"
+            android:layout_above="@+id/linearLayout2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:overScrollMode="always">
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="0dp"
-                android:paddingLeft="5dp">
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
 
-                <wust.student.illnesshepler.Utils.RoundImageView
-                    android:id="@+id/show_tweet_img"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/postcard" />
+                <TextView
+                    android:id="@+id/show_tweet_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:text="标题"
+                    android:textColor="#333"
+                    android:textSize="24sp" />
 
-                <RelativeLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:paddingLeft="5dp">
+
+                    <wust.student.illnesshepler.Utils.RoundImageView
+                        android:id="@+id/show_tweet_img"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/postcard" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/show_tweet_auther"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="作者"
+                            android:textColor="@color/optioncolorcolor"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/show_tweet_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/show_tweet_auther"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="时间"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dbdbdb" />
+
+                <com.rex.editor.view.RichEditorNew
+                    android:id="@+id/richEditor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:visibility="visible" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="热门评论"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/show_tweet_auther"
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/show_comment_recycler"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="作者"
-                        android:textColor="@color/optioncolorcolor"
-                        android:textSize="14dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/show_tweet_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/show_tweet_auther"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:text="时间"
-                        android:textSize="12sp" />
-                </RelativeLayout>
+                        android:focusableInTouchMode="false" />
+                </androidx.core.widget.NestedScrollView>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#dbdbdb" />
 
-            <com.rex.editor.view.RichEditorNew
-                android:id="@+id/richEditor"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:visibility="visible" />
+        </androidx.core.widget.NestedScrollView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/gray" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="20dp"
-                android:text="热门评论"
-                android:textColor="#000"
-                android:textSize="18sp" />
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="100">
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/show_comment_recycler"
+                <EditText
+                    android:id="@+id/tweet_post_comment_higth"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusableInTouchMode="false" />
-            </androidx.core.widget.NestedScrollView>
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/searchview_cornerbackground"
+                    android:gravity="top|left"
+                    android:hint="写评论"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/tweet_post_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/searchview_cornerbackground"
+                    android:drawableLeft="@drawable/grey_6018dp"
+                    android:hint=" 写评论"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tweet_send_comment"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:layout_marginRight="15dp"
+                android:text="发送"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/tweet_collect"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/collect"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/tweet_share"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/share"
+                android:visibility="visible" />
 
         </LinearLayout>
 
-
-    </androidx.core.widget.NestedScrollView>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@color/white"
-        android:fitsSystemWindows="true"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="100">
-
-            <EditText
-                android:id="@+id/tweet_post_comment_higth"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/searchview_cornerbackground"
-                android:gravity="top|left"
-                android:hint="写评论"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:visibility="gone" />
-
-            <EditText
-                android:id="@+id/tweet_post_comment"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/searchview_cornerbackground"
-                android:drawableLeft="@drawable/grey_6018dp"
-                android:hint=" 写评论"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tweet_send_comment"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:padding="5dp"
-            android:text="发送"
-            android:textColor="@color/thingray"
-            android:textSize="18sp"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/tweet_collect"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:src="@drawable/collect"
-            android:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/tweet_share"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:src="@drawable/share"
-            android:visibility="visible" />
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -218,6 +236,5 @@
         android:background="@color/yellow"
         app:title="哈哈"
         app:titleTextColor="@color/white" />
-
 
 </RelativeLayout>

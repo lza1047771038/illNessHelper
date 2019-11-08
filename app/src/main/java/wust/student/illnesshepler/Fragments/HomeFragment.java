@@ -70,7 +70,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     private TweetsListAdapter tweetsListAdapter;
     private Tweets tweets;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

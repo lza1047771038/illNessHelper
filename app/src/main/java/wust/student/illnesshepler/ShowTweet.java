@@ -86,21 +86,21 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private String html;
     private String number;
     private RecyclerView recyclerView;
-    private int page=1;
+    private int page = 1;
 
     private TweetsCommentAdapter adapter;
 
-    public List<GetTweetComments.Comments> clist= new ArrayList<>();;
+    public List<GetTweetComments.Comments> clist = new ArrayList<>();
+    ;
     private GetTweetComments tweetComments;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.NoAppTheme);
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             decorView.setSystemUiVisibility(option);
             window = getWindow();
             window.setStatusBarColor(Color.TRANSPARENT);
@@ -119,7 +119,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         richEditor = (RichEditorNew) findViewById(R.id.richEditor);
         richEditor.setPadding(10, 10, 10, 10);
 
-        recyclerView=(RecyclerView)findViewById(R.id.show_comment_recycler) ;
+        recyclerView = (RecyclerView) findViewById(R.id.show_comment_recycler);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setAlpha(0);
@@ -232,7 +232,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                     case 3:
                         Toast.makeText(ShowTweet.this, "发送失败", Toast.LENGTH_SHORT).show();
                         break;
-                    case 4 :
+                    case 4:
                         setcommentsdata();
                 }
                 return false;
@@ -249,6 +249,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         themeid = bundle.getString("themeid", "错误");
         number = bundle.getString("number", "错误");
         tweetTitle.setText(title);
+        toolbar.setTitle(title);
         tweetAuther.setText(auther);
         tweetTime.setText(Utils.timeFormat(time));
 
@@ -276,7 +277,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 handler.sendMessage(message);
             }
         });
-        Httputil.comment_request(themeid, page+"", 20+"", new Callback() {
+        Httputil.comment_request(themeid, page + "", 20 + "", new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -286,25 +287,26 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
                 Log.d("test", " Showtweet result comment_request " + result);
-                tweetComments= GsonUtils.getTweetComments(result);
+                tweetComments = GsonUtils.getTweetComments(result);
                 clist.clear();
                 clist.addAll(tweetComments.data);
-                Message message=new Message();
-                message.what=4;
+                Message message = new Message();
+                message.what = 4;
                 handler.sendMessage(message);
 
             }
         });
     }
-public void setcommentsdata()
-{
-    LinearLayoutManager manager = new LinearLayoutManager(this);
-    manager.setOrientation(RecyclerView.VERTICAL);
-    recyclerView.setLayoutManager(manager);
-    adapter = new TweetsCommentAdapter(clist,ShowTweet.this);
-    adapter.setOnItemClickListener(this);
-    recyclerView.setAdapter(adapter);
-}
+
+    public void setcommentsdata() {
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+        adapter = new TweetsCommentAdapter(clist, ShowTweet.this);
+        adapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(adapter);
+    }
+
     public void setdata(String html) {
         Log.d("test", "Showtweet html" + html);
         richEditor.loadRichEditorCode(html);
@@ -368,8 +370,7 @@ public void setcommentsdata()
 
     @Override
     public void OnItemClick(View view, int position) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.comments_linear:
                 Toast.makeText(ShowTweet.this, "点击了整条评论", Toast.LENGTH_SHORT).show();
                 break;
