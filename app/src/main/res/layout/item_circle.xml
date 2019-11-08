@@ -150,7 +150,9 @@
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/likes" />
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/likes_clicks" />
 
                 <TextView
                     android:id="@+id/likes"

@@ -294,7 +294,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                         else if (result.equals("0"))
                             Toast.makeText(UploadTweet.this, "失败", Toast.LENGTH_SHORT).show();
                         else {
-                            Toast.makeText(UploadTweet.this, "Eror", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UploadTweet.this, "Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

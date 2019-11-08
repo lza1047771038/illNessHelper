@@ -3,6 +3,7 @@ package wust.student.illnesshepler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,7 +73,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
     private Toolbar toolbar;
     private LinearLayout linearLayout;
-    private ScrollView scrollView;
+    private NestedScrollView scrollView;
 
     Window window;
 
