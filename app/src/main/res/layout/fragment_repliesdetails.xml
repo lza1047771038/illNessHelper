@@ -8,7 +8,7 @@
     android:focusableInTouchMode="false"
     android:orientation="vertical">
 
-    <wust.student.illnesshepler.CustomViews.MyNestScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="平论内容"
+                    android:text="评论内容"
                     android:textColor="@color/optioncolorcolor"
                     android:textSize="15dp" />
 
@@ -361,7 +361,7 @@
         </LinearLayout>
 
 
-    </wust.student.illnesshepler.CustomViews.MyNestScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <Toolbar
         android:id="@+id/toolbar"
