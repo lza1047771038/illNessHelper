@@ -2,27 +2,39 @@ package wust.student.illnesshepler.Fragments;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.ScreenUtil;
+import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class RepliesDetails extends BottomSheetDialogFragment {
 
@@ -31,35 +43,37 @@ public class RepliesDetails extends BottomSheetDialogFragment {
     private RelativeLayout relativeLayout;
 
     private BottomSheetBehavior bottomSheetBehavior;
-    private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback
-            = new BottomSheetBehavior.BottomSheetCallback() {
 
-        @Override
-        public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            //禁止拖拽，
-            if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                //设置为收缩状态
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            }
-        }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        @Override
-        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-        }
-    };
+    }
 
-    // 创建View
+    @NotNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        View view = View.inflate(getContext(), R.layout.fragment_repliesdetails, null);
+        dialog.setContentView(view);
+
+        return dialog;
+    }
+
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_repliesdetails, container);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_repliesdetails, container, false);
         InitViews();
+
         return view;
     }
 
     private void InitViews() {
         toolbar = view.findViewById(R.id.toolbar);
         nestScrollView = view.findViewById(R.id.scrollViews);
+
         getActivity().setActionBar(toolbar);
         ActionBar actionbar = getActivity().getActionBar();
         if (actionbar != null) {
@@ -70,29 +84,17 @@ public class RepliesDetails extends BottomSheetDialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        Dialog dialog = getDialog();
-
-        if (dialog != null) {
-            View bottomSheet = dialog.findViewById(R.id.design_bottom_sheet);
-            bottomSheet.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+        bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.bottomsheetdialogfragmentbackground));
+        if (getDialog() != null && getDialog().getWindow() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Window window = getDialog().getWindow();
+            window.findViewById(com.google.android.material.R.id.container).setFitsSystemWindows(false);
+            window.findViewById(com.google.android.material.R.id.coordinator).setFitsSystemWindows(false);
+            // dark navigation bar icons
+            View decorView = window.getDecorView();
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
-        final View view = getView();
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                View parent = (View) view.getParent();
-                /*CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) (parent).getLayoutParams();
-                CoordinatorLayout.Behavior behavior = params.getBehavior();
-                bottomSheetBehavior = (BottomSheetBehavior) behavior;
-                bottomSheetBehavior.setBottomSheetCallback(mBottomSheetBehaviorCallback);
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                //设置高度
-                int height = display.getHeight() / 4 * 3;
-                bottomSheetBehavior.setPeekHeight(height);*/
-
-                parent.setBackgroundColor(Color.TRANSPARENT);
-            }
-        });
     }
 
 
@@ -107,12 +109,6 @@ public class RepliesDetails extends BottomSheetDialogFragment {
 
     public void show(@NotNull FragmentManager manager, String tag) {
         super.show(manager, tag);
-    }
-
-    @NotNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
     }
 
 

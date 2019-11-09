@@ -8,7 +8,6 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -19,15 +18,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +31,6 @@ import com.rex.editor.view.RichEditor;
 import com.rex.editor.view.RichEditorNew;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,12 +41,9 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Adapters.TweetsCommentAdapter;
-import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.GetTweetComments;
 import wust.student.illnesshepler.Fragments.RepliesDetails;
-import wust.student.illnesshepler.SurveyQuestions.Problem;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.RoundImageView;
@@ -103,10 +95,10 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         setTheme(R.style.NoAppTheme);
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    |View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
-            window = getWindow();
-            window.setStatusBarColor(Color.TRANSPARENT);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
         StatusBarUtil.setStatusBarDarkTheme(this, true);
@@ -263,7 +255,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         auther = bundle.getString("authername", "错误");
         time = bundle.getString("time", "错误");
         themeid = bundle.getString("themeid", "错误");
-        number = bundle.getString("number", "错误");
+        number = bundle.getInt("number", 0)+"";
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);

@@ -36,7 +36,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             window = getWindow();
-            window.setStatusBarColor(Color.TRANSPARENT);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
         StatusBarUtil.setStatusBarDarkTheme(this, true);

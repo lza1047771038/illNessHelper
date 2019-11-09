@@ -1,25 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/green</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/gray</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/blue</item>
     </style>
 
     <style name="NoAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <!--溢出菜单中的action间的分割线-->
-        <item name="android:dividerHeight">1dp</item>
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/green</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/gray</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/blue</item>
     </style>
 
@@ -43,7 +36,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/gray</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/darkgray</item>
     </style>
 
