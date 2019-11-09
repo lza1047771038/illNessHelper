@@ -2,22 +2,19 @@ package wust.student.illnesshepler.CustomViews;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.MotionEventCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.legacy.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class MyNestScrollView extends NestedScrollView {
+public class MyRecyclerView extends RecyclerView {
+
 
     /**
      * 是否恢复原状
@@ -48,9 +45,17 @@ public class MyNestScrollView extends NestedScrollView {
      */
     private int mTouchSlop;
 
-    public MyNestScrollView(Context context, AttributeSet attrs) {
+
+    public MyRecyclerView(@NonNull Context context) {
+        super(context);
+    }
+
+    public MyRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+    }
+
+    public MyRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     @Override
@@ -189,6 +194,7 @@ public class MyNestScrollView extends NestedScrollView {
         return super.onTouchEvent(event);
     }
 
+
     private boolean isScrollToTop() {
         return !ViewCompat.canScrollVertically(this, -1);
     }
@@ -279,5 +285,4 @@ public class MyNestScrollView extends NestedScrollView {
         this.setPivotY(this.getHeight());
         this.setScaleY(scale);
     }
-
 }

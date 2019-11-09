@@ -115,6 +115,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         richEditor.setPadding(10, 10, 10, 10);
 
         recyclerView = (RecyclerView) findViewById(R.id.show_comment_recycler);
+        recyclerView.setNestedScrollingEnabled(false);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setAlpha(0);

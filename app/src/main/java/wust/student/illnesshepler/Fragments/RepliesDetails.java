@@ -14,6 +14,7 @@ import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -27,6 +28,7 @@ public class RepliesDetails extends BottomSheetDialogFragment {
     private View view, nestScrollView;
     private Toolbar toolbar;
     private RelativeLayout relativeLayout;
+    private RecyclerView mrecyclerView;
 
     private BottomSheetBehavior bottomSheetBehavior;
 
@@ -59,6 +61,8 @@ public class RepliesDetails extends BottomSheetDialogFragment {
     private void InitViews() {
         toolbar = view.findViewById(R.id.toolbar);
         nestScrollView = view.findViewById(R.id.scrollViews);
+        mrecyclerView = view.findViewById(R.id.show_comment_recycler);
+        mrecyclerView.setNestedScrollingEnabled(false);
 
         getActivity().setActionBar(toolbar);
         ActionBar actionbar = getActivity().getActionBar();

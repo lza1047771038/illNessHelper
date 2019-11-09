@@ -196,6 +196,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         twRecyclerView.setLayoutManager(manager);
+        twRecyclerView.setNestedScrollingEnabled(false);
         tweetsListAdapter = new TweetsListAdapter(getContext(), mlist);
         tweetsListAdapter.setOnItemClickListener(this);  //监听
         twRecyclerView.setAdapter(tweetsListAdapter);
