@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusableInTouchMode="false"
     android:fitsSystemWindows="true"
-    android:id="@+id/relativeLayout"
+    android:focusableInTouchMode="false"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout2"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -162,180 +161,206 @@
                     android:focusableInTouchMode="false" />
             </androidx.core.widget.NestedScrollView>
 
-            <Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
 
-            <Toolbar
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/yellow"
-                android:theme="@style/MyToolbarTheme"
-                android:title="评论回复" />
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
         </LinearLayout>
 
 

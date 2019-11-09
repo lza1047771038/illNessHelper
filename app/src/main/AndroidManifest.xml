@@ -18,8 +18,7 @@
         <activity android:name=".ShowTweet"/>
         <activity android:name=".UploadTweet"/>
         <activity
-            android:name=".Investigation"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:name=".Investigation"/>
         <activity android:name=".InvestigationList" />
         <activity
             android:name=".StartActivity"
