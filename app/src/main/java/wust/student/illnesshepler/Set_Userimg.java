@@ -86,7 +86,7 @@ public class Set_Userimg extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (NewBmp != null){
-                    Up_Img_Uri("User_Image_Uri", String.valueOf(BmpToUri(NewBmp)));
+                    Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(NewBmp)));
                     finish();
                 }
                 else
