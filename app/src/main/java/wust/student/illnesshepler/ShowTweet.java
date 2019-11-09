@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -409,14 +408,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             case R.id.comments_image_area:
                 Toast.makeText(ShowTweet.this, "点击了头像", Toast.LENGTH_SHORT).show();
                 break;
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
 }
