@@ -1,6 +1,7 @@
 package wust.student.illnesshepler;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
@@ -49,6 +50,7 @@ import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Adapters.TweetsCommentAdapter;
 import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.GetTweetComments;
+import wust.student.illnesshepler.Fragments.RepliesDetails;
 import wust.student.illnesshepler.SurveyQuestions.Problem;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
@@ -91,8 +93,9 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private TweetsCommentAdapter adapter;
 
     public List<GetTweetComments.Comments> clist = new ArrayList<>();
-    ;
+
     private GetTweetComments tweetComments;
+    private RepliesDetails repliesDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +128,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         toolbar.setAlpha(0);
         toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
         setSupportActionBar(toolbar);
+
 
         linearLayout = findViewById(R.id.linearLayout3);
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) linearLayout.getLayoutParams();
@@ -260,8 +264,11 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         time = bundle.getString("time", "错误");
         themeid = bundle.getString("themeid", "错误");
         number = bundle.getString("number", "错误");
-        tweetTitle.setText(title);
-        toolbar.setTitle(title);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(title);
+        }
         tweetAuther.setText(auther);
         tweetTime.setText(Utils.timeFormat(time));
 
@@ -399,6 +406,11 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 Toast.makeText(ShowTweet.this, "点击了点赞", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tweet_comment_num:
+                if (repliesDetails == null) {
+                    repliesDetails = RepliesDetails.newInstance(123L);
+                }
+                if (!repliesDetails.isAdded())
+                    repliesDetails.show(getSupportFragmentManager(), "Dialog");
                 Toast.makeText(ShowTweet.this, "点击了更多评论", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.comments_image_area:

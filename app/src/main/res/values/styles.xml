@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
@@ -8,17 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/gray</item>
         <item name="android:navigationBarColor">@android:color/white</item>
-        <item name="android:textColorPrimary">@color/darkgray</item>
+        <item name="android:textColorPrimary">@color/blue</item>
     </style>
 
     <style name="NoAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <!--溢出菜单中的action间的分割线-->
+        <item name="android:dividerHeight">1dp</item>
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/green</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/gray</item>
         <item name="android:navigationBarColor">@android:color/white</item>
-        <item name="android:textColorPrimary">@color/darkgray</item>
+        <item name="android:textColorPrimary">@color/blue</item>
+    </style>
+
+    <style name="MyToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">#FFF</item>
+        <item name="colorControlNormal">#FFF</item>
+        <item name="colorControlHighlight">#FFF</item>
     </style>
 
 
