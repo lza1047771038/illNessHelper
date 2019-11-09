@@ -3,6 +3,7 @@ package wust.student.illnesshepler;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -188,5 +189,12 @@ public class Edit_Userdata extends AppCompatActivity {
         super.onStart();
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
         setUesrdata();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 }

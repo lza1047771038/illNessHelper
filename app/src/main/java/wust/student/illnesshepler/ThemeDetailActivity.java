@@ -1,5 +1,6 @@
 package wust.student.illnesshepler;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -86,5 +87,12 @@ public class ThemeDetailActivity extends AppCompatActivity {
         scrollView = findViewById(R.id.scrollViews);
         toolbar =(Toolbar) findViewById(R.id.toolbar);
         toolbar.setAlpha(0);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 }

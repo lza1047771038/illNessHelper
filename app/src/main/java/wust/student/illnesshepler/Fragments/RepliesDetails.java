@@ -2,39 +2,25 @@ package wust.student.illnesshepler.Fragments;
 
 import android.app.ActionBar;
 import android.app.Dialog;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.Utils.ScreenUtil;
-import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class RepliesDetails extends BottomSheetDialogFragment {
 
@@ -86,7 +72,7 @@ public class RepliesDetails extends BottomSheetDialogFragment {
         super.onStart();
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.bottomsheetdialogfragmentbackground));
+        ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.toolbar_round_corner));
         if (getDialog() != null && getDialog().getWindow() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Window window = getDialog().getWindow();
             window.findViewById(com.google.android.material.R.id.container).setFitsSystemWindows(false);
