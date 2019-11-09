@@ -2,22 +2,22 @@ package wust.student.illnesshepler.CustomViews;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 
 import androidx.core.view.MotionEventCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.legacy.view.ViewCompat;
 
 public class MyNestScrollView extends NestedScrollView {
+
+    @Override
+    public void fling(int velocityY) {
+        super.fling(velocityY / 3);
+    }
 
     /**
      * 是否恢复原状
