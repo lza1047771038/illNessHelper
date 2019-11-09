@@ -23,6 +23,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
         app:layout_constraintEnd_toEndOf="@+id/img"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/img"
@@ -32,20 +35,21 @@
 
         <Button
             android:id="@+id/select_img"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:text="选择图片"
-            android:textColor="#000"
+            android:textColor="@color/dark"
+            android:background="@drawable/ripple_bg"
             tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/used_img"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="选择图片"
-            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="使用头像"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/dark"
+            android:background="@drawable/ripple_bg"
             tools:ignore="MissingConstraints" />
     </LinearLayout>
 
