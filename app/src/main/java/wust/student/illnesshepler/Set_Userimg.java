@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,14 +26,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import org.litepal.LitePal;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import wust.student.illnesshepler.Bean.User_information;
 import wust.student.illnesshepler.Utils.FileUtil;
+import wust.student.illnesshepler.Utils.PictureEditor;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 import static org.litepal.LitePalApplication.getContext;
@@ -40,9 +46,13 @@ public class Set_Userimg extends AppCompatActivity {
 
     View statusBarBackground;
     Uri uri;
-    ImageView user_img;
+    ImageView user_img, right_round;
+    Button btn_select_img, btn_used_img;
     FileUtil fileUtil;
     String Tag = "checkpoint";
+    PictureEditor pictureEditor;
+    Bitmap NewBmp = null;
+    LinearLayout linearLayout_roung;
 
     String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -55,9 +65,11 @@ public class Set_Userimg extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set__userimg);
 
-        Button btn_select_img = (Button) findViewById(R.id.select_img);
+        btn_select_img = (Button) findViewById(R.id.select_img);
+        btn_used_img = (Button) findViewById(R.id.used_img);
         user_img = (ImageView) findViewById(R.id.img);
-
+        right_round = (ImageView) findViewById(R.id.right_round);
+        linearLayout_roung = (LinearLayout) findViewById(R.id.linearLayout4);
 
         btn_select_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +79,26 @@ public class Set_Userimg extends AppCompatActivity {
                     intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                     startActivityForResult(intent, 1);
                 }
+            }
+        });
+
+        btn_used_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (NewBmp != null){
+                    Up_Img_Uri("User_Image_Uri", String.valueOf(BmpToUri(NewBmp)));
+                    finish();
+                }
+                else
+                    Toast.makeText(Set_Userimg.this,"请选择图片",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        right_round.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    NewBmp=pictureEditor.rotaingImageView(NewBmp);
+                    user_img.setImageBitmap(pictureEditor.scaleImage(NewBmp,NewBmp.getWidth(),NewBmp.getHeight()));
             }
         });
 
@@ -95,9 +127,15 @@ public class Set_Userimg extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 uri = data.getData();
                 user_img.setImageURI(uri);
+                try {
+                    NewBmp = pictureEditor.getBitmapFormUri(Set_Userimg.this, uri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 FileUtil fileUtil = new FileUtil();
                 String photo_uri = fileUtil.getFileAbsolutePath(this, uri);
                 Up_Img_Uri("User_Image_Uri", photo_uri);
+                linearLayout_roung.setVisibility(View.VISIBLE);
             }
     }
 
@@ -134,22 +172,28 @@ public class Set_Userimg extends AppCompatActivity {
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode==REQUEST_CODE){
+        if (requestCode == REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//允许
                 Toast.makeText(getContext(), "授权成功", Toast.LENGTH_SHORT).show();
                 return;
-            } else if (grantResults[0]==PackageManager.PERMISSION_DENIED){//拒绝
+            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {//拒绝
                 Toast.makeText(getContext(), "授权失败", Toast.LENGTH_SHORT).show();
             }
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+    }
+
+    public Uri BmpToUri(Bitmap bitmap) {
+        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
+        return uri;
     }
 }
