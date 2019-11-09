@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -57,15 +58,18 @@ public class Edit_Userdata extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         StatusBarUtil.setStatusBarDarkTheme(this, true);
+
+        Drawable drawable = getDrawable(R.color.white);
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
-            actionBar.hide();
+            actionBar.setTitle("编辑个人信息");
+            actionBar.setBackgroundDrawable(drawable);
         }
 
-        statusBarBackground = findViewById(R.id.statusBarBackground);
+        /*statusBarBackground = findViewById(R.id.statusBarBackground);
         ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);
+        statusBarBackground.setLayoutParams(params);*/
 
 
         LinearLayout User_img=(LinearLayout)findViewById(R.id.edit_user_img);
