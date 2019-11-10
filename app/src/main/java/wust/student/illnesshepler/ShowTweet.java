@@ -348,9 +348,10 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 Toast.makeText(ShowTweet.this, "点击了点赞", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tweet_comment_num:
-                if (repliesDetails == null) {
-                    repliesDetails = RepliesDetails.newInstance(clist.get(position).person_id+"",clist.get(position).id+"");
-                }
+                if (repliesDetails != null)
+                    repliesDetails=null;
+                    repliesDetails = RepliesDetails.newInstance(clist.get(position));
+
                 if (!repliesDetails.isAdded())
                     repliesDetails.show(getSupportFragmentManager(), "Dialog");
                 Toast.makeText(ShowTweet.this, "点击了更多评论", Toast.LENGTH_SHORT).show();
@@ -371,10 +372,9 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     }
     public void openwritearea()
     {
-        if(writeComment==null)
-        {
-            writeComment=WriteComment.newInstance(themeid);
-        }
+        if(writeComment!=null)
+        writeComment=null;
+            writeComment=WriteComment.newInstance(themeid,"");
         if(!writeComment.isAdded())
         {
             writeComment.show(getSupportFragmentManager(),"WriteDialog");
@@ -384,7 +384,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     {
         if(writeComment==null)
         {
-            writeComment=WriteComment.newInstance1(clist.get(position).id+"",clist.get(position).person_id+"",clist.get(position).person_id+"");
+            writeComment=WriteComment.newInstance1(clist.get(position).id+"",clist.get(position).person_id+"",clist.get(position).person_id+"",clist.get(position).username);
         }
         if(!writeComment.isAdded())
         {

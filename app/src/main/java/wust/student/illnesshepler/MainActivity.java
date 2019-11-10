@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     ChatFragment chat = new ChatFragment();
     MeFragment me = new MeFragment();
 
-    public static String authorid="13972008325";
+    public static String authorid="13147163155";
     public static String authorname="13147163155";
     public static String user_image="hahah";
     @Override

@@ -89,7 +89,8 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
 
     }
     private void InitViews() {
-
+        Bundle args = getArguments();
+        String username= args.getString("username");
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
@@ -122,7 +123,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         });
         send=view.findViewById(R.id.send_comments);
         comments=view.findViewById(R.id.comments_comnains);
-
+        comments.setHint(getResources().getString(R.string.reply)+username+":");
         comments.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -171,23 +172,25 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     }
 
     // 构造方法
-    public static WriteComment newInstance(String themeid) {
+    public static WriteComment newInstance(String themeid,String username) {
         flagsend=true;
         Log.d("test","WriteComment newInstance");
         Bundle args = new Bundle();
         args.putString("themeid", themeid);
+        args.putString("username", username);
         WriteComment fragment = new WriteComment();
         fragment.setArguments(args);
         return fragment;
     }
     // 构造方法
-    public static WriteComment newInstance1(String id,String root,String parentid) {
+    public static WriteComment newInstance1(String id,String root,String parentid,String username) {
         flagsend=false;
         Log.d("test","WriteComment newInstance");
         Bundle args = new Bundle();
         args.putString("id", id);
         args.putString("root", root);
         args.putString("parentid", parentid);
+        args.putString("username", username);
         WriteComment fragment = new WriteComment();
         fragment.setArguments(args);
         return fragment;

@@ -2,6 +2,7 @@ package wust.student.illnesshepler.Fragments;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -21,6 +25,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -39,13 +46,22 @@ import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.ShowTweet;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
+import wust.student.illnesshepler.Utils.Utils;
 
-public class RepliesDetails extends BottomSheetDialogFragment implements TweetsCommentAdapter.OnItemClickListener {
+public class RepliesDetails extends BottomSheetDialogFragment implements TweetsCommentAdapter.OnItemClickListener, View.OnClickListener {
 
     private View view, nestScrollView;
     private Toolbar toolbar;
     private RelativeLayout relativeLayout;
     private RecyclerView mrecyclerView;
+
+    public TextView userName;
+    public TextView time;
+    public TextView contains;
+    public TextView likesNum;
+    public ImageView userImg;
+    public LinearLayout likesArea;
+
     private String root;
     private String id;
     private int page=1;
@@ -54,7 +70,6 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
     private RepliesDetails repliesDetails;
     private WriteComment writeComment;
     private BottomSheetBehavior bottomSheetBehavior;
-
     public TweetsCommentAdapter replyAdapter;
     private GetTweetComments tweetComments;
     public  List<GetTweetComments.Comments> replyList = new ArrayList<>();
@@ -63,7 +78,6 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         super.onCreate(savedInstanceState);
 
     }
-
     @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -80,9 +94,26 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_repliesdetails, container, false);
         InitViews();
+        setdata();
         handlemesgge();
         getdata();
         return view;
+    }
+//        args.putString("root",comments.person_id+"");
+//        args.putString("id",comments.id+"");
+//        args.putString("contains",comments.contains+"");
+//        args.putString("username",comments.username+"");
+//        args.putString("userimage",comments.userimage+"");
+//        args.putString("likes",comments.likes+"");
+//        args.putString("time",comments.time+"");
+    public void setdata()
+    {
+        Bundle bundle = getArguments();
+        userName.setText(bundle.getString("username"));
+       time.setText(Utils.timeFormat(bundle.getString("time")));
+       contains.setText(bundle.getString("contains"));
+       likesNum.setText(bundle.getString("likes"));
+        Glide.with(getContext()).load(bundle.getString("userimage")).apply(new RequestOptions().transforms(new CircleCrop())).error(R.drawable.postcard).into(userImg);
     }
     public void getdata()
     {
@@ -132,7 +163,16 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         mrecyclerView.setAdapter(replyAdapter);
     }
     private void InitViews() {
-        toolbar = view.findViewById(R.id.toolbar);
+        userName=view.findViewById(R.id.reply_auther);
+        time=view.findViewById(R.id.reply_time);
+        contains=view.findViewById(R.id.reply_contains);
+        likesNum=view.findViewById(R.id.reply_likes_num);
+        userImg=view.findViewById(R.id.reply_img);
+        likesArea=view.findViewById(R.id.reply_likes_area);
+
+        likesArea.setOnClickListener(this);
+
+
         nestScrollView = view.findViewById(R.id.scrollViews);
         mrecyclerView = view.findViewById(R.id.show_reply_recycler);
         mrecyclerView.setNestedScrollingEnabled(false);
@@ -142,6 +182,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
         }
+
     }
 
     @Override
@@ -162,10 +203,15 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
 
 
     // 构造方法
-    public static RepliesDetails newInstance(String root,String id) {
+    public static RepliesDetails newInstance(GetTweetComments.Comments comments) {
         Bundle args = new Bundle();
-        args.putString("root",root);
-        args.putString("id",id);
+        args.putString("root",comments.person_id+"");
+        args.putString("id",comments.id+"");
+        args.putString("contains",comments.contains+"");
+        args.putString("username",comments.username+"");
+        args.putString("userimage",comments.userimage+"");
+        args.putString("likes",comments.likes+"");
+        args.putString("time",comments.time+"");
         RepliesDetails fragment = new RepliesDetails();
         fragment.setArguments(args);
         return fragment;
@@ -188,9 +234,8 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
                 Toast.makeText(getContext(), "点击了点赞", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tweet_comment_num:
-                if (repliesDetails == null) {
-                    repliesDetails = RepliesDetails.newInstance(replyList.get(position).person_id+"",replyList.get(position).id+"");
-                }
+//                if (repliesDetails == null)
+                    repliesDetails = RepliesDetails.newInstance(replyList.get(position));
                 if (!repliesDetails.isAdded())
                     repliesDetails.show(getActivity().getSupportFragmentManager(), "Dialog");
                 Toast.makeText(getContext(), "点击了更多评论", Toast.LENGTH_SHORT).show();
@@ -207,12 +252,22 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         {
             //String id,String root,String parentid
             Log.d("test","writeComment==null");
-            writeComment=WriteComment.newInstance1(replyList.get(position).id+"",root,replyList.get(position).person_id+"");
+            writeComment=WriteComment.newInstance1(id+"",root,replyList.get(position).person_id+"",replyList.get(position).username);
         }
         if(!writeComment.isAdded())
         {
             Log.d("test","writeComment.isAdded()");
             writeComment.show(getActivity().getSupportFragmentManager(),"WriteDialog");
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.reply_likes_area:
+                Toast.makeText(getContext(), "点赞了", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 }
