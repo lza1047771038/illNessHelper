@@ -37,6 +37,12 @@ public class StartActivity extends AppCompatActivity {
             }
         }, 1000);
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
 
 }

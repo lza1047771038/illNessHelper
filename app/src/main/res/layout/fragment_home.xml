@@ -1,225 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.yalantis.phoenix.PullToRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.yalantis.phoenix.PullToRefreshView
-        android:id="@+id/refreshLayout"
+    <wust.student.illnesshepler.CustomViews.MyNestScrollView
+        android:id="@+id/scrollViews"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
 
-        <wust.student.illnesshepler.CustomViews.MyNestScrollView
-            android:id="@+id/scrollViews"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="always">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/statusBarBackground"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/green" />
+
+            <!--<androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                app:title="青春彩虹伞"
+                app:titleTextColor="@color/white" />-->
+            <include layout="@layout/detailedtitle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:orientation="vertical">
 
-                <View
-                    android:id="@+id/statusBarBackground"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@color/green" />
-
-                <!--<androidx.appcompat.widget.Toolbar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/green"
-                    app:title="青春彩虹伞"
-                    app:titleTextColor="@color/white" />-->
-                <include layout="@layout/detailedtitle" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <com.stx.xhb.xbanner.XBanner
-                        android:id="@+id/xbanner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:AutoPlayTime="3000"
-                        app:isClipChildrenMode="true"
-                        app:isHandLoop="true"
-                        app:isShowIndicatorOnlyOne="true"
-                        app:isShowNumberIndicator="false"
-                        app:isShowTips="false"
-                        app:pageChangeDuration="800"
-                        app:pointsPosition="CENTER" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:id="@+id/survey"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="@drawable/thiky_white_bg"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/investigation_icon" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="问卷"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/libraries"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="@drawable/thiky_white_bg"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/libirayrs_icon" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="资料"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/doctors"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="@drawable/thiky_white_bg"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/doctor_icon" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="专家"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/tools"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="@drawable/thiky_white_bg"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/tools_icon" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="工具"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
+                <com.stx.xhb.xbanner.XBanner
+                    android:id="@+id/xbanner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/ripple_bg"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
+                    app:AutoPlayTime="3000"
+                    app:isClipChildrenMode="true"
+                    app:isHandLoop="true"
+                    app:isShowIndicatorOnlyOne="true"
+                    app:isShowNumberIndicator="false"
+                    app:isShowTips="false"
+                    app:pageChangeDuration="800"
+                    app:pointsPosition="CENTER" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:id="@+id/survey"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/thiky_white_bg"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/investigation_icon" />
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"
-                            android:text="为你推荐"
-                            android:textColor="#333"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@drawable/ripple_bg_noborder"
-                            android:clickable="true"
-                            android:focusable="true"
                             android:gravity="center"
-                            android:text="more"
-                            android:textColor="#333" />
+                            android:text="问卷"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/tweets_recycle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusableInTouchMode="false"
-                        android:descendantFocusability="blocksDescendants"/>
+                    <LinearLayout
+                        android:id="@+id/libraries"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/thiky_white_bg"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/libirayrs_icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="资料"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/doctors"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/thiky_white_bg"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/doctor_icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="专家"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tools"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/thiky_white_bg"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/tools_icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="工具"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ripple_bg"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="为你推荐"
+                        android:textColor="#333"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/ripple_bg_noborder"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="more"
+                        android:textColor="#333" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tweets_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusableInTouchMode="false" />
 
             </LinearLayout>
 
-        </wust.student.illnesshepler.CustomViews.MyNestScrollView>
+        </LinearLayout>
 
-    </com.yalantis.phoenix.PullToRefreshView>
+    </wust.student.illnesshepler.CustomViews.MyNestScrollView>
 
-</LinearLayout>
+</com.yalantis.phoenix.PullToRefreshView>

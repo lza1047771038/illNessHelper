@@ -14,7 +14,7 @@
         <wust.student.illnesshepler.CustomViews.MyNestScrollView
             android:id="@+id/scrollViews"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="match_parent"
             android:layout_above="@+id/linearLayout2"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -24,14 +24,14 @@
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
             android:clipChildren="false"
-            android:clipToPadding="false">
+            android:clipToPadding="false"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
+                android:focusableInTouchMode="false"
                 android:orientation="vertical"
                 tools:ignore="MissingConstraints">
 
@@ -126,29 +126,27 @@
                     android:id="@+id/show_comment_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="false"
-                    android:descendantFocusability="blocksDescendants" />
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusableInTouchMode="false" />
 
             </LinearLayout>
 
 
         </wust.student.illnesshepler.CustomViews.MyNestScrollView>
 
-<!--        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_above="@id/linearLayout2"
-            android:background="@color/thingray"/>-->
+        <!--        <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_above="@id/linearLayout2"
+                    android:background="@color/thingray"/>-->
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
-            android:translationZ="20dp"
-            android:translationX="20dp"
-            android:translationY="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:translationZ="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -161,13 +159,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="0dp"
                     android:layout_marginRight="15dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
-                    android:focusable="true"
                     android:drawableLeft="@drawable/grey_6018dp"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
                     android:hint=" 写评论"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
