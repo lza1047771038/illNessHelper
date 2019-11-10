@@ -11,7 +11,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViews"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -19,6 +19,7 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
+        android:background="@color/white"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:focusableInTouchMode="true"
@@ -27,7 +28,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ripple_bg"
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical">
@@ -158,202 +158,6 @@
                 android:descendantFocusability="blocksDescendants"
                 android:focusableInTouchMode="false" />
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
 
             <View
                 android:layout_width="match_parent"

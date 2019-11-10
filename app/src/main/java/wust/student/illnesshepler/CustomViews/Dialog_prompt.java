@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.Dialogs;
+package wust.student.illnesshepler.CustomViews;
 
 import android.app.Activity;
 import android.app.Dialog;

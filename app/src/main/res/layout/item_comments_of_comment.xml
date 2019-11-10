@@ -199,7 +199,7 @@
                 android:visibility="gone" />
 
             <EditText
-                android:id="@+id/tweet_post_comment"
+                android:id="@+id/tweet_post_"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
@@ -215,21 +215,6 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tweet_send_comment"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:padding="5dp"
-            android:layout_marginRight="15dp"
-            android:text="发送"
-            android:textColor="@color/dark"
-            android:textSize="18sp"
-            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/tweet_collect"

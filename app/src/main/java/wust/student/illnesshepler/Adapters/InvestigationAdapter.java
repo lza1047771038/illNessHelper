@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
+import wust.student.illnesshepler.Fragments.ToolsFragment;
 import wust.student.illnesshepler.SurveyQuestions.BaseQuestion;
 import wust.student.illnesshepler.SurveyQuestions.ManualQuestion;
 import wust.student.illnesshepler.SurveyQuestions.MutipleQuestion;
@@ -34,16 +35,18 @@ public class InvestigationAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        if (mlist.get(position) instanceof SingleQuestion) {
-            return SingleChoiceFragment.newInstance((SingleQuestion) mlist.get(position), position + 1- Investigation.problemnum, getCount()-Investigation.problemnum);
-        } else if (mlist.get(position) instanceof MutipleQuestion) {
+        if(mlist!=null) {
+            if (mlist.get(position) instanceof SingleQuestion) {
+                return SingleChoiceFragment.newInstance((SingleQuestion) mlist.get(position), position + 1 - Investigation.problemnum, getCount() - Investigation.problemnum);
+            } else if (mlist.get(position) instanceof MutipleQuestion) {
 
-            return MutipleQuestionFragment.newInstance((MutipleQuestion) mlist.get(position), position + 1- Investigation.problemnum ,getCount()-Investigation.problemnum);
-        } else if (mlist.get(position) instanceof ManualQuestion) {
-            return ManualQuestionFragment.newInstance((ManualQuestion) mlist.get(position), position + 1- Investigation.problemnum, getCount()-Investigation.problemnum);
+                return MutipleQuestionFragment.newInstance((MutipleQuestion) mlist.get(position), position + 1 - Investigation.problemnum, getCount() - Investigation.problemnum);
+            } else if (mlist.get(position) instanceof ManualQuestion) {
+                return ManualQuestionFragment.newInstance((ManualQuestion) mlist.get(position), position + 1 - Investigation.problemnum, getCount() - Investigation.problemnum);
+            }
+            return ScoolInfo.newInstance((Problem) mlist.get(position));
         }
-        return ScoolInfo.newInstance((Problem) mlist.get(position));
-
+return ToolsFragment.newInstance();
     }
 
 

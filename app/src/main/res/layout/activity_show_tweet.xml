@@ -134,20 +134,20 @@
 
         </wust.student.illnesshepler.CustomViews.MyNestScrollView>
 
-        <View
+<!--        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_above="@id/linearLayout2"
-            android:background="@color/lowgray" />
-
+            android:background="@color/thingray"/>-->
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:background="@color/white"
+            android:translationZ="20dp"
+            android:translationX="20dp"
+            android:translationY="20dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -156,32 +156,18 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="100">
 
-                <EditText
-                    android:id="@+id/tweet_post_comment_higth"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/searchview_cornerbackground"
-                    android:gravity="top|left"
-                    android:hint="写评论"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="5dp"
-                    android:visibility="gone" />
-
-                <EditText
+                <TextView
                     android:id="@+id/tweet_post_comment"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="0dp"
                     android:layout_marginRight="15dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/grey_6018dp"
                     android:focusable="true"
+                    android:drawableLeft="@drawable/grey_6018dp"
                     android:hint=" 写评论"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
@@ -189,22 +175,6 @@
                     android:paddingBottom="5dp" />
 
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tweet_send_comment"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginRight="15dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="发送"
-                android:textColor="@color/dark"
-                android:textSize="18sp"
-                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/tweet_collect"

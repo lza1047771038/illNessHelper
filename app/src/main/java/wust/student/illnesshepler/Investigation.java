@@ -38,7 +38,7 @@ import wust.student.illnesshepler.Adapters.InvestigationAdapter;
 import wust.student.illnesshepler.SurveyQuestions.BaseQuestion;
 import wust.student.illnesshepler.SurveyQuestions.Problem;
 import wust.student.illnesshepler.SurveyQuestions.Test;
-import wust.student.illnesshepler.Dialogs.Dialog_prompt;
+import wust.student.illnesshepler.CustomViews.Dialog_prompt;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
@@ -65,7 +65,7 @@ public class Investigation extends AppCompatActivity {
     public boolean temp2 = false;
     private Dialog_prompt dialog_prompt;
     private int[] v = new int[]{R.id.prompt_begin, R.id.prompt_text, R.id.calcel_btn};
-
+    private boolean flagLoading=false;//是否在加载
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,12 +138,12 @@ public class Investigation extends AppCompatActivity {
     }
 
     public void initlayout() {
+        flagLoading=false;
         promptDialog.showSuccess("加载完成");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 dialog_prompt = new Dialog_prompt(Investigation.this, R.layout.prompt_dialog, v, bundle.getString("warning", ""));
-//        dialog_prompt.settext("测试标题\n换行测试");
                 dialog_prompt.setCancelable(false);
                 dialog_prompt.setOnButtonClickedListener(new Dialog_prompt.onBtnClickListener() {
                     @Override
@@ -161,7 +161,7 @@ public class Investigation extends AppCompatActivity {
                     }
                 });
                 dialog_prompt.show();
-
+                flagLoading=true;
             }
         }, 1000);
 
@@ -304,7 +304,13 @@ public class Investigation extends AppCompatActivity {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        finish();
+                        if(flagLoading) {
+                            finish();
+                        }
+                        else
+                        {
+                            Toast.makeText(getContext(), "正在加载，请勿退出", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {

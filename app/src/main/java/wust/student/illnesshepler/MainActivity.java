@@ -35,6 +35,7 @@ import wust.student.illnesshepler.Fragments.ClassFragment;
 import wust.student.illnesshepler.Fragments.HomeFragment;
 import wust.student.illnesshepler.Fragments.MeFragment;
 import wust.student.illnesshepler.Bean.User_information;
+import wust.student.illnesshepler.Utils.ScreenUtil;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
@@ -58,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
     ChatFragment chat = new ChatFragment();
     MeFragment me = new MeFragment();
 
-    static String authorid="13972008325";
-    static String authorname="13147163155";
-    static String user_image="hahah";
+    public static String authorid="13972008325";
+    public static String authorname="13147163155";
+    public static String user_image="hahah";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
         bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

@@ -30,4 +30,13 @@ public class ToolsFragment extends Fragment {
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
         statusBarBackground.setLayoutParams(params);
     }
+
+    public static ToolsFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        ToolsFragment fragment = new ToolsFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 }

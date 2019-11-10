@@ -75,7 +75,7 @@ public class RepliesDetails extends BottomSheetDialogFragment {
     public void onStart() {
         super.onStart();
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.toolbar_round_corner));
         if (getDialog() != null && getDialog().getWindow() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Window window = getDialog().getWindow();
@@ -91,7 +91,6 @@ public class RepliesDetails extends BottomSheetDialogFragment {
     // 构造方法
     public static RepliesDetails newInstance(Long feedId) {
         Bundle args = new Bundle();
-        args.putLong("FEED_ID", feedId);
         RepliesDetails fragment = new RepliesDetails();
         fragment.setArguments(args);
         return fragment;

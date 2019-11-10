@@ -37,7 +37,8 @@ public class ScreenUtil {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return (int) ((dp * displayMetrics.density) + 0.5);
     }
-
+    /**
+     * 获取屏幕的宽     */
     public static int getScreenWidth(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
         //((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);

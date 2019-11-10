@@ -18,4 +18,5 @@
 
     <string name="all_reply">全部回复</string>
     <string name="reply">回复</string>
+    <string name="send">发送</string>
 </resources>

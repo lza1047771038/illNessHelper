@@ -67,16 +67,46 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
             e.printStackTrace();
         }
 
-        if (!msingleQuestion.optiona.equals("")) mOptiona.setText(msingleQuestion.optiona);else{ mOptiona.setVisibility(View.GONE); }
-       if (!msingleQuestion.optionb.equals("")) mOptionb.setText(msingleQuestion.optionb);else{ mOptionb.setVisibility(View.GONE); }
-       if (!msingleQuestion.optionc.equals("")) mOptionc.setText(msingleQuestion.optionc);else{ mOptionc.setVisibility(View.GONE); }
-       if (!msingleQuestion.optiond.equals("")) mOptiond.setText(msingleQuestion.optiond);else{ mOptiond.setVisibility(View.GONE); }
-       if (!msingleQuestion.optione.equals("")) mOptione.setText(msingleQuestion.optione);else{ mOptione.setVisibility(View.GONE); }
-       if (!msingleQuestion.optionf.equals("")) mOptionf.setText(msingleQuestion.optionf);else{ mOptionf.setVisibility(View.GONE); }
-       if (!msingleQuestion.optiong.equals("")) mOptiong.setText(msingleQuestion.optiong);else{ mOptiong.setVisibility(View.GONE); }
-       if (!msingleQuestion.optionh.equals("")) mOptionh.setText(msingleQuestion.optionh);else{ mOptionh.setVisibility(View.GONE); }
-       if (!msingleQuestion.optioni.equals("")) mOptioni.setText(msingleQuestion.optioni);else{ mOptioni.setVisibility(View.GONE); }
-       if (!msingleQuestion.optionj.equals("")) mOptionj.setText(msingleQuestion.optionj);else{ mOptionj.setVisibility(View.GONE); }
+        if (!msingleQuestion.optiona.equals("")) mOptiona.setText(msingleQuestion.optiona);
+        else {
+            mOptiona.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optionb.equals("")) mOptionb.setText(msingleQuestion.optionb);
+        else {
+            mOptionb.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optionc.equals("")) mOptionc.setText(msingleQuestion.optionc);
+        else {
+            mOptionc.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optiond.equals("")) mOptiond.setText(msingleQuestion.optiond);
+        else {
+            mOptiond.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optione.equals("")) mOptione.setText(msingleQuestion.optione);
+        else {
+            mOptione.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optionf.equals("")) mOptionf.setText(msingleQuestion.optionf);
+        else {
+            mOptionf.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optiong.equals("")) mOptiong.setText(msingleQuestion.optiong);
+        else {
+            mOptiong.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optionh.equals("")) mOptionh.setText(msingleQuestion.optionh);
+        else {
+            mOptionh.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optioni.equals("")) mOptioni.setText(msingleQuestion.optioni);
+        else {
+            mOptioni.setVisibility(View.GONE);
+        }
+        if (!msingleQuestion.optionj.equals("")) mOptionj.setText(msingleQuestion.optionj);
+        else {
+            mOptionj.setVisibility(View.GONE);
+        }
 
     }
 
@@ -110,18 +140,98 @@ public class SingleChoiceFragment extends Fragment implements RadioGroup.OnCheck
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         restcolor();
         try {
-        switch (checkedId) {
-            case R.id.optiona:if(msingleQuestion.A_next!=0) { display(msingleQuestion.A_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","A");   mOptiona.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionb:if(msingleQuestion.B_next!=0) { display(msingleQuestion.B_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","B");  mOptionb.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionc:if(msingleQuestion.C_next!=0) { display(msingleQuestion.C_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","C");  mOptionc.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optiond:if(msingleQuestion.D_next!=0) { display(msingleQuestion.D_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","D");  mOptiond.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optione:if(msingleQuestion.E_next!=0) { display(msingleQuestion.E_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","E");  mOptione.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionf:if(msingleQuestion.F_next!=0) { display(msingleQuestion.F_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","F");  mOptionf.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optiong:if(msingleQuestion.G_next!=0) { display(msingleQuestion.G_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","G");  mOptiong.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionh:if(msingleQuestion.H_next!=0) { display(msingleQuestion.H_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","H");  mOptionh.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optioni:if(msingleQuestion.I_next!=0) { display(msingleQuestion.I_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","I");  mOptioni.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-            case R.id.optionj:if(msingleQuestion.J_next!=0) { display(msingleQuestion.J_next-1); }else {display(position1); } Investigation.jsonObject.put(position1+".","J");  mOptionj.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));break;
-        }
+            switch (checkedId) {
+                case R.id.optiona:
+                    if (msingleQuestion.A_next != 0) {
+                        display(msingleQuestion.A_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "A");
+                    mOptiona.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optionb:
+                    if (msingleQuestion.B_next != 0) {
+                        display(msingleQuestion.B_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "B");
+                    mOptionb.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optionc:
+                    if (msingleQuestion.C_next != 0) {
+                        display(msingleQuestion.C_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "C");
+                    mOptionc.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optiond:
+                    if (msingleQuestion.D_next != 0) {
+                        display(msingleQuestion.D_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "D");
+                    mOptiond.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optione:
+                    if (msingleQuestion.E_next != 0) {
+                        display(msingleQuestion.E_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "E");
+                    mOptione.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optionf:
+                    if (msingleQuestion.F_next != 0) {
+                        display(msingleQuestion.F_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "F");
+                    mOptionf.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optiong:
+                    if (msingleQuestion.G_next != 0) {
+                        display(msingleQuestion.G_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "G");
+                    mOptiong.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optionh:
+                    if (msingleQuestion.H_next != 0) {
+                        display(msingleQuestion.H_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "H");
+                    mOptionh.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optioni:
+                    if (msingleQuestion.I_next != 0) {
+                        display(msingleQuestion.I_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "I");
+                    mOptioni.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+                case R.id.optionj:
+                    if (msingleQuestion.J_next != 0) {
+                        display(msingleQuestion.J_next - 1);
+                    } else {
+                        display(position1);
+                    }
+                    Investigation.jsonObject.put(position1 + ".", "J");
+                    mOptionj.setBackground(getResources().getDrawable(R.drawable.selected_corner_textview));
+                    break;
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

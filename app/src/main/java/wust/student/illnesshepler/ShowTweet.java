@@ -44,6 +44,7 @@ import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.TweetsCommentAdapter;
 import wust.student.illnesshepler.Bean.GetTweetComments;
 import wust.student.illnesshepler.Fragments.RepliesDetails;
+import wust.student.illnesshepler.Fragments.WriteComment;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.RoundImageView;
@@ -57,10 +58,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private TextView tweetTitle;
     private TextView tweetAuther;
     private TextView tweetTime;
-    private TextView send;
 
-    private EditText tweetPostComment;
-    private EditText tweetPostCommentHigth;
+    private TextView tweetPostComment;
 
     private ImageView collect;
     private ImageView share;
@@ -79,15 +78,16 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private String themeid;
     private String html;
     private String number;
-    private RecyclerView recyclerView;
+
     private int page = 1;
+    public static RecyclerView recyclerView;
+    public static TweetsCommentAdapter adapter;
 
-    private TweetsCommentAdapter adapter;
-
-    public List<GetTweetComments.Comments> clist = new ArrayList<>();
+    public static List<GetTweetComments.Comments> clist = new ArrayList<>();
 
     private GetTweetComments tweetComments;
     private RepliesDetails repliesDetails;
+    private WriteComment writeComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,67 +131,47 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         tweetTitle = (TextView) findViewById(R.id.show_tweet_title);
         tweetAuther = (TextView) findViewById(R.id.show_tweet_auther);
         tweetTime = (TextView) findViewById(R.id.show_tweet_time);
-        send = (TextView) findViewById(R.id.tweet_send_comment);
 
-        tweetPostComment = (EditText) findViewById(R.id.tweet_post_comment);
-        tweetPostCommentHigth = (EditText) findViewById(R.id.tweet_post_comment_higth);
+        tweetPostComment = (TextView) findViewById(R.id.tweet_post_comment);
+//        tweetPostCommentHigth = (EditText) findViewById(R.id.tweet_post_comment_higth);
         collect = (ImageView) findViewById(R.id.tweet_collect);
         share = (ImageView) findViewById(R.id.tweet_share);
 
-
-        tweetPostComment.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    tweetPostComment.setVisibility(View.GONE);
-                    tweetPostCommentHigth.setVisibility(View.VISIBLE);
-                    tweetPostCommentHigth.setFocusableInTouchMode(true);
-                    tweetPostCommentHigth.requestFocus();
-                    send.setVisibility(View.VISIBLE);
-                    collect.setVisibility(View.GONE);
-                    share.setVisibility(View.GONE);
-                }
-            }
-        });
-        tweetPostCommentHigth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    tweetPostComment.setVisibility(View.VISIBLE);
-                    tweetPostCommentHigth.setVisibility(View.GONE);
-                    send.setVisibility(View.GONE);
-                    collect.setVisibility(View.VISIBLE);
-                    share.setVisibility(View.VISIBLE);
-                }
-                if (hasFocus) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(tweetPostCommentHigth, InputMethodManager.SHOW_IMPLICIT);
-                }
-            }
-        });
-        tweetPostCommentHigth.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    send.setTextColor(getColor(R.color.colorPrimary));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        tweetPostComment.setOnClickListener(this);
+//        tweetPostComment.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    tweetPostComment.setVisibility(View.GONE);
+//                    tweetPostCommentHigth.setVisibility(View.VISIBLE);
+//                    tweetPostCommentHigth.setFocusableInTouchMode(true);
+//                    tweetPostCommentHigth.requestFocus();
+//                    send.setVisibility(View.VISIBLE);
+//                    collect.setVisibility(View.GONE);
+//                    share.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+//        tweetPostCommentHigth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (!hasFocus) {
+//                    tweetPostComment.setVisibility(View.VISIBLE);
+//                    tweetPostCommentHigth.setVisibility(View.GONE);
+//                    send.setVisibility(View.GONE);
+//                    collect.setVisibility(View.VISIBLE);
+//                    share.setVisibility(View.VISIBLE);
+//                }
+//                if (hasFocus) {
+//                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                    imm.showSoftInput(tweetPostCommentHigth, InputMethodManager.SHOW_IMPLICIT);
+//                }
+//            }
+//        });
         tweetPostComment.setOnClickListener(this);
         collect.setOnClickListener(this);
         share.setOnClickListener(this);
-        send.setOnClickListener(this);
-        RoundImageView roundImageView = findViewById(R.id.show_tweet_img);
+
 
 
         scrollView = findViewById(R.id.scrollViews);
@@ -216,30 +196,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 switch (msg.what) {
                     case 1:
                         setdata(msg.obj + "");
-                        break;
-                    case 2:
-                        Toast.makeText(ShowTweet.this, "发送成功", Toast.LENGTH_SHORT).show();
-                        tweetPostCommentHigth.setText("");
-                        tweetPostCommentHigth.clearFocus();
-                        tweetPostComment.clearFocus();
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        boolean isOpen = imm.isActive();
-                        imm.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
-//                        GetTweetComments temp=new GetTweetComments();
-                        GetTweetComments.Comments temp=new GetTweetComments.Comments();
-                        temp.contains=msg.obj.toString();
-                        temp.username="tempusername(用户登录时放到static 变量)";
-                        temp.time=System.currentTimeMillis()+"";
-                        temp.likes=0;
-                        temp.userimage="temp";
-                        temp.replies=0;
-                        temp.comments_num=0;
-                        clist.add(0, temp);
-                        adapter.notifyDataSetChanged();
-                        recyclerView.getLayoutManager().scrollToPosition(0);
-                        break;
-                    case 3:
-                        Toast.makeText(ShowTweet.this, "发送失败", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
                         setcommentsdata();
@@ -333,66 +289,56 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tweet_send_comment:
-                sendComment();
-                break;
             case R.id.linearLayout3:
-                tweetPostCommentHigth.clearFocus();
-                tweetPostComment.clearFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
+                break;
+            case R.id.tweet_post_comment:
+                Toast.makeText(ShowTweet.this, "评论", Toast.LENGTH_SHORT).show();
+                openwritearea();
                 break;
             default:
-                tweetPostCommentHigth.clearFocus();
-                tweetPostComment.clearFocus();
-                InputMethodManager imm2 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm2.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
                 break;
         }
     }
 
-    public void sendComment() {
-        final String contains = tweetPostCommentHigth.getText().toString();
-        if (contains.length() == 0) {
-        } else {
-            if (!SensitiveWordsUtils.contains(contains)) {
-                Log.d("test", "Show Tweet comment_post" + themeid);
-                Log.d("test", "Show Tweet comment_post" + MainActivity.authorid);
-                Log.d("test", "Show Tweet comment_post" + contains);
-                Httputil.comment_post(themeid, MainActivity.authorid, contains, new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        String reslut = response.body().string();
-                        Message message = new Message();
-                        if (reslut.equals("1")) {
-                            message.what = 2;
-                            message.obj=contains;
-                        } else {
-                            message.what = 2;
-                            message.obj="null";
-                        }
-                        handler.sendMessage(message);
-                    }
-                });//String Themeid,String Userid ,String Contains,
-            } else {
-                Toast.makeText(ShowTweet.this, "包含铭感词汇，请检查评论内容", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+//    public void sendComment() {
+//        final String contains = tweetPostCommentHigth.getText().toString();
+//        if (contains.length() == 0) {
+//        } else {
+//            if (!SensitiveWordsUtils.contains(contains)) {
+//                Log.d("test", "Show Tweet comment_post" + themeid);
+//                Log.d("test", "Show Tweet comment_post" + MainActivity.authorid);
+//                Log.d("test", "Show Tweet comment_post" + contains);
+//                Httputil.comment_post(themeid, MainActivity.authorid, contains, new Callback() {
+//                    @Override
+//                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                        String reslut = response.body().string();
+//                        Message message = new Message();
+//                        if (reslut.equals("1")) {
+//                            message.what = 2;
+//                            message.obj=contains;
+//                        } else {
+//                            message.what = 2;
+//                            message.obj="null";
+//                        }
+//                        handler.sendMessage(message);
+//                    }
+//                });//String Themeid,String Userid ,String Contains,
+//            } else {
+//                Toast.makeText(ShowTweet.this, "包含铭感词汇，请检查评论内容", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
     @Override
     public void OnItemClick(View view, int position) {
-        tweetPostCommentHigth.clearFocus();
-        tweetPostComment.clearFocus();
-        InputMethodManager imm2 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm2.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
         switch (view.getId()) {
             case R.id.comments_linear:
+                openwritearea();
                 Toast.makeText(ShowTweet.this, "点击了整条评论", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tweet_comment_likes_area:
@@ -409,6 +355,20 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             case R.id.comments_image_area:
                 Toast.makeText(ShowTweet.this, "点击了头像", Toast.LENGTH_SHORT).show();
                 break;
+
+        }
+    }
+    public void openwritearea()
+    {
+        if(writeComment==null)
+        {
+            Log.d("test","writeComment==null");
+            writeComment=WriteComment.newInstance(themeid);
+        }
+        if(!writeComment.isAdded())
+        {
+            Log.d("test","writeComment.isAdded()");
+            writeComment.show(getSupportFragmentManager(),"WriteDialog");
         }
     }
 }
