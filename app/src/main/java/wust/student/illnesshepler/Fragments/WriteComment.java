@@ -100,15 +100,15 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         GetTweetComments.Comments temp=new GetTweetComments.Comments();
 
                         temp.contains=msg.obj.toString();
-                        temp.username="tempusername(用户登录时放到static 变量)";
+                        temp.username=MainActivity.authorname;
                         temp.time=System.currentTimeMillis()+"";
                         temp.likes=0;
-                        temp.userimage="temp";
+                        temp.userimage=MainActivity.user_image;
                         temp.replies=0;
                         temp.comments_num=0;
                         ShowTweet.clist.add(0, temp);
                         ShowTweet.adapter.notifyDataSetChanged();
-                        ShowTweet.recyclerView.getLayoutManager().scrollToPosition(0);
+//                        ShowTweet.recyclerView.getLayoutManager().scrollToPosition(0);
                         comments.setText("");
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                         break;
@@ -116,6 +116,23 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         Toast.makeText(getContext(), "发送失败", Toast.LENGTH_SHORT).show();
                     case 4:
                         Toast.makeText(getContext(), "回复成功", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        Toast.makeText(getContext(), "发送成功", Toast.LENGTH_SHORT).show();
+                        GetTweetComments.Comments temp1=new GetTweetComments.Comments();
+
+                        temp1.contains=msg.obj.toString();
+                        temp1.username=MainActivity.authorname;
+                        temp1.time=System.currentTimeMillis()+"";
+                        temp1.likes=0;
+                        temp1.userimage=MainActivity.user_image;
+                        temp1.replies=0;
+                        temp1.comments_num=0;
+                        RepliesDetails.replyList.add(0, temp1);
+                        RepliesDetails.replyAdapter.notifyDataSetChanged();
+//                        RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
+                        comments.setText("");
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                         break;
                 }
                 return false;
@@ -246,7 +263,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         Log.d("test", "onResponse()   " + reslut);
                         Message message = new Message();
                         if (reslut.equals("1")) {
-                            message.what = 2;
+                            message.what = 5;
                             message.obj = contains;
                         } else {
                             message.what = 3;

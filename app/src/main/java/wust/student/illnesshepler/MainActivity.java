@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
     MeFragment me = new MeFragment();
 
     public static String authorid="13147163155";
-    public static String authorname="13147163155";
-    public static String user_image="hahah";
+    public static String authorname="登录用户的用户名";
+    public static String user_image="登录的头像地址";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

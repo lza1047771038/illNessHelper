@@ -51,7 +51,12 @@ public class TweetsCommentAdapter extends RecyclerView.Adapter<TweetsCommentAdap
        holder.tweet_comment_time.setText(Utils.timeFormat(mlist.get(position).time));
         holder.tweet_comment_contains.setText(mlist.get(position).contains);
        holder.tweet_comment_likes_num.setText(mlist.get(position).likes+"");
-       holder.tweet_comment_num.setText(mlist.get(position).replies+" 条回复>");
+       if(mlist.get(position).replies==0){
+           holder.tweet_comment_num.setVisibility(View.GONE);
+       }
+       else {
+           holder.tweet_comment_num.setText(mlist.get(position).replies + " 条回复>");
+       }
         Glide.with(mcontext).load(mlist.get(position).userimage).apply(new RequestOptions().transforms(new CircleCrop())).error(R.drawable.postcard).into(holder.tweet_comment_img);
 //        Glide.with(mcontext).load(mlist.get(position).userimage).apply(new RequestOptions().transform(new CircleCrop())).into(holder.tweet_comment_img);
         holder.comments_image_area.setTag(position);

@@ -53,7 +53,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
     private View view, nestScrollView;
     private Toolbar toolbar;
     private RelativeLayout relativeLayout;
-    private RecyclerView mrecyclerView;
+    public static RecyclerView mrecyclerView;
 
     public TextView userName;
     public TextView time;
@@ -70,9 +70,10 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
     private RepliesDetails repliesDetails;
     private WriteComment writeComment;
     private BottomSheetBehavior bottomSheetBehavior;
-    public TweetsCommentAdapter replyAdapter;
+
+    public static TweetsCommentAdapter replyAdapter;
+    public  static List<GetTweetComments.Comments> replyList = new ArrayList<>();
     private GetTweetComments tweetComments;
-    public  List<GetTweetComments.Comments> replyList = new ArrayList<>();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,13 +100,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         getdata();
         return view;
     }
-//        args.putString("root",comments.person_id+"");
-//        args.putString("id",comments.id+"");
-//        args.putString("contains",comments.contains+"");
-//        args.putString("username",comments.username+"");
-//        args.putString("userimage",comments.userimage+"");
-//        args.putString("likes",comments.likes+"");
-//        args.putString("time",comments.time+"");
+
     public void setdata()
     {
         Bundle bundle = getArguments();
@@ -120,7 +115,6 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         Bundle args = getArguments();
         root = args.getString("root", "null");
         id = args.getString("id", "null");
-        Log.d("test","root:"+root+"    id:"+id);
         Httputil.reply_request(root, id, page+"", pagesize+"", new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
