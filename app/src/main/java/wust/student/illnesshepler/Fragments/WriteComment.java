@@ -51,6 +51,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     private String themeid;
     private Handler handler;
     private BottomSheetBehavior bottomSheetBehavior;
+    public static boolean flagsend=true;
     public WriteComment writeComment;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,21 +83,10 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     public void focous()
     {
         comments.requestFocus();
-
-
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
         imm.showSoftInput(comments, InputMethodManager.SHOW_IMPLICIT);
-//        Window dialogWindow = dialog.getWindow();
-////设置软键盘弹出模式
-//        dialogWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-//        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-
-//
-//        InputMethodManager imm2 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm2.hideSoftInputFromWindow(tweetPostCommentHigth.getWindowToken(), 0);
     }
     private void InitViews() {
 
@@ -123,6 +113,8 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         break;
                     case 3:
                         Toast.makeText(getContext(), "发送失败", Toast.LENGTH_SHORT).show();
+                    case 4:
+                        Toast.makeText(getContext(), "回复成功", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return false;
@@ -178,9 +170,9 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         }
     }
 
-
     // 构造方法
     public static WriteComment newInstance(String themeid) {
+        flagsend=true;
         Log.d("test","WriteComment newInstance");
         Bundle args = new Bundle();
         args.putString("themeid", themeid);
@@ -188,6 +180,19 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         fragment.setArguments(args);
         return fragment;
     }
+    // 构造方法
+    public static WriteComment newInstance1(String id,String root,String parentid) {
+        flagsend=false;
+        Log.d("test","WriteComment newInstance");
+        Bundle args = new Bundle();
+        args.putString("id", id);
+        args.putString("root", root);
+        args.putString("parentid", parentid);
+        WriteComment fragment = new WriteComment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     public void show(@NotNull FragmentManager manager, String tag) {
         Log.d("test","WriteComment newInstance");
@@ -199,9 +204,55 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         switch (v.getId())
         {
             case R.id.send_comments :
+                Log.d("test","click_send"+flagsend);
+                if(flagsend)
                 sendcomment();
-
+                else
+                {
+                    sendreply();
+                }
                 break;
+        }
+    }
+    public void sendreply()
+    {
+
+        Bundle args = getArguments();
+        String id=args.getString("id");
+        String root=args.getString("root");
+        String parentid= args.getString("parentid");
+        final String contains = comments.getText().toString();
+        Log.d("test","sendreply()   "+id);
+        Log.d("test","sendreply()root   "+root);
+        Log.d("test","sendreply()authorid   "+ MainActivity.authorid);
+        Log.d("test","sendreply()parentid   "+parentid);
+        Log.d("test","sendreply()   "+contains);
+        if (contains.length() == 0) {
+        }
+           else {
+            if (true) {
+                Httputil.reply_post(contains, MainActivity.authorid, id, root, parentid, new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        String reslut = response.body().string();
+                        Log.d("test", "onResponse()   " + reslut);
+                        Message message = new Message();
+                        if (reslut.equals("1")) {
+                            message.what = 2;
+                            message.obj = contains;
+                        } else {
+                            message.what = 3;
+                            message.obj = "null";
+                        }
+                        handler.sendMessage(message);
+                    }
+                });
+            }
         }
     }
     public void sendcomment()

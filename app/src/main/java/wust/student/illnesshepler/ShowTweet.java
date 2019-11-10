@@ -200,6 +200,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                         break;
                     case 4:
                         setcommentsdata();
+                        break;
                 }
                 return false;
             }
@@ -339,7 +340,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     public void OnItemClick(View view, int position) {
         switch (view.getId()) {
             case R.id.comments_linear:
-                openwritearea();
+                openwritearea2(position);
+
                 Toast.makeText(ShowTweet.this, "点击了整条评论", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tweet_comment_likes_area:
@@ -347,7 +349,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.tweet_comment_num:
                 if (repliesDetails == null) {
-                    repliesDetails = RepliesDetails.newInstance(123L);
+                    repliesDetails = RepliesDetails.newInstance(clist.get(position).person_id+"",clist.get(position).id+"");
                 }
                 if (!repliesDetails.isAdded())
                     repliesDetails.show(getSupportFragmentManager(), "Dialog");
@@ -371,12 +373,21 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     {
         if(writeComment==null)
         {
-            Log.d("test","writeComment==null");
             writeComment=WriteComment.newInstance(themeid);
         }
         if(!writeComment.isAdded())
         {
-            Log.d("test","writeComment.isAdded()");
+            writeComment.show(getSupportFragmentManager(),"WriteDialog");
+        }
+    }
+    public void openwritearea2(int position)
+    {
+        if(writeComment==null)
+        {
+            writeComment=WriteComment.newInstance1(clist.get(position).id+"",clist.get(position).person_id+"",clist.get(position).person_id+"");
+        }
+        if(!writeComment.isAdded())
+        {
             writeComment.show(getSupportFragmentManager(),"WriteDialog");
         }
     }

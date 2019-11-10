@@ -27,7 +27,9 @@ public class Httputil {
     final static String NotificationPost = "http://47.100.93.91:8996/NotificationPost";
     final static String NotificationDetails = "http://47.100.93.91:8996/NotificationDetails";
     final static String comment_post = "http://47.100.93.91:8996/comment_post";
+    final static String reply_post = "http://47.100.93.91:8996/reply_post";
     final static String comment_request = "http://47.100.93.91:8996/comment_request";
+    final static String reply_request = "http://47.100.93.91:8996/reply_request";
 
 
     /**
@@ -154,6 +156,28 @@ public class Httputil {
                 .add("pagesize", pagesize)
                 .build();
         Request request = new Request.Builder().url(comment_request).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void reply_request(String root,String id,String page ,String pagesize,okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .add("root", root)
+                .add("id", id)
+                .build();
+        Request request = new Request.Builder().url(reply_request).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void    reply_post(String contains,String userid,String id ,String root,String parentid,okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .add("contains", contains)
+                .add("userid", userid)
+                .add("id", id)
+                .add("root", root)
+                .add("parentid", parentid)
+                .build();
+        Request request = new Request.Builder().url(reply_post).post(build).build();
         client.newCall(request).enqueue(callback);
     }
 }

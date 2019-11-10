@@ -152,7 +152,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/show_comment_recycler"
+                android:id="@+id/show_reply_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:descendantFocusability="blocksDescendants"
