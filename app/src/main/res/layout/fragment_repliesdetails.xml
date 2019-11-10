@@ -57,7 +57,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/reply_auther"
@@ -68,7 +69,7 @@
                         android:layout_marginTop="5dp"
                         android:text="作者"
                         android:textColor="@color/backgroud"
-                        android:textSize="12dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -79,9 +80,10 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:text="时间"
                         android:textColor="@color/backgroud"
-                        android:textSize="10sp" />
+                        android:textSize="12sp" />
 
                     <LinearLayout
                         android:id="@+id/reply_likes_area"
@@ -122,17 +124,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="55dp"
                 android:layout_marginRight="10dp"
-
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/reply_contains"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:text="评论内容"
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+                    android:text="平论内容"
                     android:textColor="@color/optioncolorcolor"
-                    android:textSize="15dp" />
+                    android:textSize="16sp" />
 
 
             </LinearLayout>
@@ -145,10 +147,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="15dp"
                 android:text="@string/all_reply"
                 android:textColor="@color/dark"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
 
             <androidx.recyclerview.widget.RecyclerView

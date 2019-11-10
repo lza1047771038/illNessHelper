@@ -29,11 +29,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -176,14 +178,13 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
         }
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.toolbar_round_corner));
         if (getDialog() != null && getDialog().getWindow() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Window window = getDialog().getWindow();
@@ -193,6 +194,15 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
             View decorView = window.getDecorView();
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
+    }
+
+    @Override
+    public void setupDialog(@NotNull final Dialog dialog, int style) {
+        super.setupDialog(dialog, style);
+
+        // This should do the job
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
     }
 
 

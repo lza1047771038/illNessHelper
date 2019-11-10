@@ -5,8 +5,10 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Scroller;
 
 import androidx.core.view.MotionEventCompat;
 import androidx.core.widget.NestedScrollView;
@@ -16,8 +18,9 @@ public class MyNestScrollView extends NestedScrollView {
 
     @Override
     public void fling(int velocityY) {
-        super.fling(velocityY / 5 * 3);
+        super.fling(velocityY > 6000 ? 6000 : velocityY / 7 * 5);
     }
+
 
     /**
      * 是否恢复原状

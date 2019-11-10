@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="false">
 
     <wust.student.illnesshepler.CustomViews.MyNestScrollView
         android:id="@+id/scrollViews"
@@ -16,12 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <View
-                android:id="@+id/statusBarBackground"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/green" />
 
             <!--<androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"

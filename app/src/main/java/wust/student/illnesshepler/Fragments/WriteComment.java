@@ -129,7 +129,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         temp1.replies=0;
                         temp1.comments_num=0;
                         RepliesDetails.replyList.add(0, temp1);
-                        RepliesDetails.replyAdapter.notifyDataSetChanged();
+//                        RepliesDetails.replyAdapter.notifyDataSetChanged();
 //                        RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
                         comments.setText("");
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);

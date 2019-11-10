@@ -112,7 +112,8 @@ public class Set_Userimg extends AppCompatActivity {
         StatusBarUtil.setStatusBarDarkTheme(this, true);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.hide();
+            actionBar.setBackgroundDrawable(getDrawable(R.color.white));
+            actionBar.setTitle("设置头像");
         }
 
         statusBarBackground = findViewById(R.id.statusBarBackground);

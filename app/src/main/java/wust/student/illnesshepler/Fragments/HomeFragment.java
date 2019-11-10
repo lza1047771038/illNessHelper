@@ -52,12 +52,13 @@ import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, TweetsListAdapter.OnItemClickListener {
 
-    private View view, statusBarBackground;
+    private View view;
     private XBanner mXBanner;
     private LinearLayout sruvey;
     private LinearLayout libraries;
     private LinearLayout doctors;
     private LinearLayout tools;
+    private LinearLayout toolbar;
     private PullToRefreshView refreshView;
     private NestedScrollView scrollView;
 
@@ -86,7 +87,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         getdata();
 
 
-
         //请求服务器数据 数据和控件绑定在onResponse 里调用setadapter（）
         handler = new Handler(new Handler.Callback() {
             @Override
@@ -102,19 +102,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
     }
 
     private void initlayout() {
-        statusBarBackground = view.findViewById(R.id.statusBarBackground);
         scrollView = view.findViewById(R.id.scrollViews);
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(getContext()), 0, 0);
 
         refreshView = view.findViewById(R.id.refreshLayout);
         sruvey = (LinearLayout) view.findViewById(R.id.survey);
         libraries = (LinearLayout) view.findViewById(R.id.libraries);
         doctors = (LinearLayout) view.findViewById(R.id.doctors);
         tools = (LinearLayout) view.findViewById(R.id.tools);
-        //全屏
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) statusBarBackground.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);
-
         twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
 
 
@@ -124,7 +120,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         mXBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
-                showtweet(position,xlist);
+                showtweet(position, xlist);
             }
         });
 
@@ -168,8 +164,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
                     if (tweets.data.get(i).uploadtype.equals("1")) {
                         xlist.add(tweets.data.get(i));
                     } else {
-                        if(mlist.size()<=10)
-                        {
+                        if (mlist.size() <= 10) {
                             mlist.add(tweets.data.get(i));
                         }
 
@@ -184,8 +179,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
                     }
                 });
-                Message message=new Message();
-                message.what=1;
+                Message message = new Message();
+                message.what = 1;
                 handler.sendMessage(message);
             }
         });
@@ -203,8 +198,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
 
     }
-    private void setbanner()
-    {
+
+    private void setbanner() {
         images.clear();
         for (int i = 0; i < xlist.size(); i++) {
             images.add(xlist.get(i).imageUrl);
@@ -224,6 +219,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         });
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -245,10 +241,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
     @Override
     public void OnItemClick(int position) {
-        showtweet(position,mlist);
+        showtweet(position, mlist);
     }
-    public void showtweet(int position,List<Tweets.Item> list)
-    {
+
+    public void showtweet(int position, List<Tweets.Item> list) {
         Intent intent = new Intent(view.getContext(), ShowTweet.class);
         Bundle bundle = new Bundle();
         bundle.putString("themeid", list.get(position).themeid);
