@@ -383,9 +383,9 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     public void openwritearea2(int position)
     {
         if(writeComment==null)
-        {
-            writeComment=WriteComment.newInstance1(clist.get(position).id+"",clist.get(position).person_id+"",clist.get(position).person_id+"",clist.get(position).username);
-        }
+        writeComment=null;
+            writeComment=WriteComment.newInstance1(clist.get(position).id+"",clist.get(position).person_id+"",clist.get(position).person_id+"",clist.get(position).username,true,clist.get(position).replies,position);
+
         if(!writeComment.isAdded())
         {
             writeComment.show(getSupportFragmentManager(),"WriteDialog");

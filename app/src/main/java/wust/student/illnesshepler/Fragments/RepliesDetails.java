@@ -253,11 +253,11 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
     public void openwritearea(int position)
     {
         if(writeComment==null)
-        {
+        writeComment=null;
             //String id,String root,String parentid
             Log.d("test","writeComment==null");
-            writeComment=WriteComment.newInstance1(id+"",root,replyList.get(position).person_id+"",replyList.get(position).username);
-        }
+            writeComment=WriteComment.newInstance1(id+"",root,replyList.get(position).person_id+"",userName.getText().toString(),false,0,0);
+
         if(!writeComment.isAdded())
         {
             Log.d("test","writeComment.isAdded()");

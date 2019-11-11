@@ -52,6 +52,8 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     private Handler handler;
     private BottomSheetBehavior bottomSheetBehavior;
     public static boolean flagsend=true;
+    public static boolean flag;
+    public static int replyNum;
     public WriteComment writeComment;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +93,9 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     private void InitViews() {
         Bundle args = getArguments();
         String username= args.getString("username");
+        flag=args.getBoolean("flag");
+        replyNum=args.getInt("replyNum");
+        final int postion =args.getInt("postion");
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
@@ -98,7 +103,6 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                     case 2:
                         Toast.makeText(getContext(), "发送成功", Toast.LENGTH_SHORT).show();
                         GetTweetComments.Comments temp=new GetTweetComments.Comments();
-
                         temp.contains=msg.obj.toString();
                         temp.username=MainActivity.authorname;
                         temp.time=System.currentTimeMillis()+"";
@@ -120,17 +124,23 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                     case 5:
                         Toast.makeText(getContext(), "发送成功", Toast.LENGTH_SHORT).show();
                         GetTweetComments.Comments temp1=new GetTweetComments.Comments();
-
-                        temp1.contains=msg.obj.toString();
-                        temp1.username=MainActivity.authorname;
-                        temp1.time=System.currentTimeMillis()+"";
-                        temp1.likes=0;
-                        temp1.userimage=MainActivity.user_image;
-                        temp1.replies=0;
-                        temp1.comments_num=0;
-                        RepliesDetails.replyList.add(0, temp1);
-//                        RepliesDetails.replyAdapter.notifyDataSetChanged();
-//                        RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
+                        if(!flag) {
+                            temp1.contains = msg.obj.toString();
+                            temp1.username = MainActivity.authorname;
+                            temp1.time = System.currentTimeMillis() + "";
+                            temp1.likes = 0;
+                            temp1.userimage = MainActivity.user_image;
+                            temp1.replies = 0;
+                            temp1.comments_num = 0;
+                            RepliesDetails.replyList.add(0, temp1);
+                            RepliesDetails.replyAdapter.notifyDataSetChanged();
+                            RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
+                        }
+                        else {
+                            ShowTweet.clist.get(postion).replies=replyNum+1;
+                            ShowTweet.adapter.notifyDataSetChanged();
+                            ShowTweet.recyclerView.getLayoutManager().scrollToPosition(postion);
+                        }
                         comments.setText("");
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                         break;
@@ -200,7 +210,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         return fragment;
     }
     // 构造方法
-    public static WriteComment newInstance1(String id,String root,String parentid,String username) {
+    public static WriteComment newInstance1(String id,String root,String parentid,String username,boolean flag,int replyNum,int position) {
         flagsend=false;
         Log.d("test","WriteComment newInstance");
         Bundle args = new Bundle();
@@ -208,6 +218,9 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         args.putString("root", root);
         args.putString("parentid", parentid);
         args.putString("username", username);
+        args.putBoolean("flag",flag);
+        args.putInt("replyNum",replyNum);
+        args.putInt("position",position);
         WriteComment fragment = new WriteComment();
         fragment.setArguments(args);
         return fragment;
@@ -242,11 +255,6 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         String root=args.getString("root");
         String parentid= args.getString("parentid");
         final String contains = comments.getText().toString();
-        Log.d("test","sendreply()   "+id);
-        Log.d("test","sendreply()root   "+root);
-        Log.d("test","sendreply()authorid   "+ MainActivity.authorid);
-        Log.d("test","sendreply()parentid   "+parentid);
-        Log.d("test","sendreply()   "+contains);
         if (contains.length() == 0) {
         }
            else {
