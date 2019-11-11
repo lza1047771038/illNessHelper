@@ -9,11 +9,14 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -71,6 +74,7 @@ public class Set_Userimg extends AppCompatActivity {
         right_round = (ImageView) findViewById(R.id.right_round);
         linearLayout_roung = (LinearLayout) findViewById(R.id.linearLayout4);
 
+
         btn_select_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,20 +89,20 @@ public class Set_Userimg extends AppCompatActivity {
         btn_used_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (NewBmp != null){
+                if (NewBmp != null) {
+                    NewBmp = pictureEditor.getBitMapFromImageView(user_img);
                     Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(NewBmp)));
                     finish();
-                }
-                else
-                    Toast.makeText(Set_Userimg.this,"请选择图片",Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(Set_Userimg.this, "请选择图片", Toast.LENGTH_SHORT).show();
             }
         });
 
         right_round.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    NewBmp=pictureEditor.rotaingImageView(NewBmp);
-                    user_img.setImageBitmap(pictureEditor.scaleImage(NewBmp,NewBmp.getWidth(),NewBmp.getHeight()));
+                NewBmp = pictureEditor.rotaingImageView(pictureEditor.getBitMapFromImageView(user_img));
+                user_img.setImageBitmap(pictureEditor.scaleImage(NewBmp, NewBmp.getWidth(), NewBmp.getHeight()));
             }
         });
 
@@ -127,16 +131,19 @@ public class Set_Userimg extends AppCompatActivity {
         if (requestCode == 1)
             if (resultCode == RESULT_OK) {
                 uri = data.getData();
-                user_img.setImageURI(uri);
+                Bitmap photoBmp;
+                try {
+                    photoBmp = pictureEditor.getBitmapFormUri(this, uri);
+                    user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, user_img.getWidth(), user_img.getHeight()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 try {
                     NewBmp = pictureEditor.getBitmapFormUri(Set_Userimg.this, uri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                FileUtil fileUtil = new FileUtil();
-                String photo_uri = fileUtil.getFileAbsolutePath(this, uri);
-                Up_Img_Uri("User_Image_Uri", photo_uri);
-                linearLayout_roung.setVisibility(View.VISIBLE);
             }
     }
 
@@ -149,10 +156,11 @@ public class Set_Userimg extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-        Log.d(Tag, "onReStart_Set");
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if (all.get(0).getUser_Image_Uri() != null)
-            user_img.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+        if (all.get(0).getUser_Image_Uri() != null) {
+            Bitmap photoBmp=fileUtil.getBitmap(all.get(0).getUser_Image_Uri());
+            user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, photoBmp.getWidth(), photoBmp.getHeight()));
+        }
     }
 
     public boolean getAuthorize(Context context, Activity activity) {
