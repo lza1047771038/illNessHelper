@@ -173,8 +173,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_round_corner"
+        android:background="@drawable/bottomsheetdialogfragmentbackground"
         android:theme="@style/MyToolbarTheme"
+        android:elevation="10dp"
         android:title="评论回复" />
 
 </RelativeLayout>

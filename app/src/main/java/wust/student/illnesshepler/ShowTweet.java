@@ -1,5 +1,24 @@
 package wust.student.illnesshepler;
 
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,26 +26,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rex.editor.view.RichEditor;
 import com.rex.editor.view.RichEditorNew;
@@ -48,8 +47,6 @@ import wust.student.illnesshepler.Fragments.RepliesDetails;
 import wust.student.illnesshepler.Fragments.WriteComment;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
-import wust.student.illnesshepler.Utils.RoundImageView;
-import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 import wust.student.illnesshepler.Utils.Utils;
 
@@ -184,7 +181,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                     toolbar.setAlpha(scrollY / (screen_height / 4f));
 
                 }
-                StatusBarUtil.setStatusBarDarkTheme(ShowTweet.this, scrollY < 400);
             }
         });
 

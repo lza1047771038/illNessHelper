@@ -150,7 +150,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         Httputil.sendokhttpNotificationList(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Toast.makeText(getContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override

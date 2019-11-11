@@ -11,6 +11,18 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    repositories {
+
+        flatDir {
+
+            dirs 'libs'
+
+        }
+
+    }
+
+
     buildTypes {
         release {
             minifyEnabled true
@@ -18,7 +30,7 @@ android {
         }
         debug {
             signingConfig signingConfigs.debug
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -27,7 +39,7 @@ android {
         debug {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('D:/Android.keystore/keys0.jks')
+            storeFile file('F:/Android.keystore/keys0.jks')
             storePassword '123456'
         }
     }
@@ -66,4 +78,5 @@ dependencies {
     implementation 'com.github.RexSuper:RichEditor:1.0.5'
     //自定义下拉刷新控件
     implementation 'com.yalantis:phoenix:1.2.3'
+    //毛玻璃背景特效
 }

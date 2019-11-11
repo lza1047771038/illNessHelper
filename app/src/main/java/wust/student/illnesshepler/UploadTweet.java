@@ -280,7 +280,12 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         Httputil.NotificationPost(themeid, MainActivity.authorid, title, contains,submittime + "",headerimage ,uploadtype, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(UploadTweet.this, "onFailure", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override

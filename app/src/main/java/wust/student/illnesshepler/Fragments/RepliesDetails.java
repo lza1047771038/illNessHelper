@@ -103,7 +103,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         return view;
     }
 
-    public void setdata()
+    private void setdata()
     {
         Bundle bundle = getArguments();
         userName.setText(bundle.getString("username"));
@@ -112,7 +112,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
        likesNum.setText(bundle.getString("likes"));
         Glide.with(getContext()).load(bundle.getString("userimage")).apply(new RequestOptions().transforms(new CircleCrop())).error(R.drawable.postcard).into(userImg);
     }
-    public void getdata()
+    private void getdata()
     {
         Bundle args = getArguments();
         root = args.getString("root", "null");
@@ -137,7 +137,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
             }
         });
     }
-    public void handlemesgge() {
+    private void handlemesgge() {
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
@@ -150,7 +150,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
             }
         });
     }
-    public void setcommentsdata() {
+    private void setcommentsdata() {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         mrecyclerView.setLayoutManager(manager);
@@ -185,7 +185,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         super.onStart();
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.toolbar_round_corner));
+        ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.bottomsheetdialogfragmentbackground));
         if (getDialog() != null && getDialog().getWindow() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Window window = getDialog().getWindow();
             window.findViewById(com.google.android.material.R.id.container).setFitsSystemWindows(false);
@@ -250,7 +250,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
 
         }
     }
-    public void openwritearea(int position)
+    private void openwritearea(int position)
     {
         if(writeComment==null)
         writeComment=null;

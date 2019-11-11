@@ -200,11 +200,14 @@
 
     </RelativeLayout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/yellow"
-        android:theme="@style/MyToolbarTheme" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:theme="@style/MyToolbarTheme"
+            android:elevation="10dp"/>
+
 
 </RelativeLayout>
