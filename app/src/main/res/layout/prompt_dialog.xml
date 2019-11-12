@@ -19,7 +19,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFF"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -71,7 +70,7 @@
                         android:paddingRight="30dp"
                         android:text="开始答题"
                         android:textColor="#FFF"
-                        android:textSize="18dp"/>
+                        android:textSize="18sp"/>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
