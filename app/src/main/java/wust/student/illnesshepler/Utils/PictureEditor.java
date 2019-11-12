@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.widget.ImageView;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -114,5 +116,10 @@ public class PictureEditor {
         input.close();
 
         return compressImage(bitmap);//再进行质量压缩
+    }
+
+    public static Bitmap getBitMapFromImageView(ImageView img){
+        Bitmap NewBmp=((BitmapDrawable) img.getDrawable()).getBitmap();
+        return NewBmp;
     }
 }
