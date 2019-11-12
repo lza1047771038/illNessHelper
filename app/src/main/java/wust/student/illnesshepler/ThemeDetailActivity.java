@@ -88,11 +88,4 @@ public class ThemeDetailActivity extends AppCompatActivity {
         toolbar =(Toolbar) findViewById(R.id.toolbar);
         toolbar.setAlpha(0);
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-    }
 }

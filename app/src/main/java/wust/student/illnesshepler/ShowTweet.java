@@ -1,8 +1,11 @@
 package wust.student.illnesshepler;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -45,6 +48,7 @@ import wust.student.illnesshepler.Adapters.TweetsCommentAdapter;
 import wust.student.illnesshepler.Bean.GetTweetComments;
 import wust.student.illnesshepler.Fragments.RepliesDetails;
 import wust.student.illnesshepler.Fragments.WriteComment;
+import wust.student.illnesshepler.Utils.BlurUtils;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
@@ -94,7 +98,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    |View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
@@ -171,15 +175,13 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         share.setOnClickListener(this);
 
 
-
         scrollView = findViewById(R.id.scrollViews);
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 int screen_height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
-                if (scrollY <= screen_height / 2f) {
-                    toolbar.setAlpha(scrollY / (screen_height / 4f));
-
+                if (scrollY <= screen_height / 4f) {
+                    toolbar.setAlpha(scrollY / (screen_height / 8f));
                 }
             }
         });
@@ -204,18 +206,19 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     }
 
     public void getdata() {
-        Bundle bundle = this.getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
 
         title = bundle.getString("title", "错误");
         auther = bundle.getString("authername", "错误");
         time = bundle.getString("time", "错误");
         themeid = bundle.getString("themeid", "错误");
-        number = bundle.getInt("number", 0)+"";
+        number = bundle.getInt("number", 0) + "";
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(title);
         }
+        tweetTitle.setText(title);
         tweetAuther.setText(auther);
         tweetTime.setText(Utils.timeFormat(time));
 
@@ -262,6 +265,19 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
             }
         });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.half_transparentbitmap);
+                final BitmapDrawable drawable = new BitmapDrawable(BlurUtils.blur(ShowTweet.this, bitmap));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        toolbar.setBackground(drawable);
+                    }
+                });
+            }
+        }).start();
     }
 
     public void setcommentsdata() {
@@ -345,8 +361,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.tweet_comment_num:
                 if (repliesDetails != null)
-                    repliesDetails=null;
-                    repliesDetails = RepliesDetails.newInstance(clist.get(position));
+                    repliesDetails = null;
+                repliesDetails = RepliesDetails.newInstance(clist.get(position));
 
                 if (!repliesDetails.isAdded())
                     repliesDetails.show(getSupportFragmentManager(), "Dialog");
@@ -366,25 +382,23 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
-    public void openwritearea()
-    {
-        if(writeComment!=null)
-        writeComment=null;
-            writeComment=WriteComment.newInstance(themeid,"");
-        if(!writeComment.isAdded())
-        {
-            writeComment.show(getSupportFragmentManager(),"WriteDialog");
+
+    public void openwritearea() {
+        if (writeComment != null)
+            writeComment = null;
+        writeComment = WriteComment.newInstance(themeid, "");
+        if (!writeComment.isAdded()) {
+            writeComment.show(getSupportFragmentManager(), "WriteDialog");
         }
     }
-    public void openwritearea2(int position)
-    {
-        if(writeComment==null)
-        writeComment=null;
-            writeComment=WriteComment.newInstance1(clist.get(position).id+"",clist.get(position).person_id+"",clist.get(position).person_id+"",clist.get(position).username,true,clist.get(position).replies,position);
 
-        if(!writeComment.isAdded())
-        {
-            writeComment.show(getSupportFragmentManager(),"WriteDialog");
+    public void openwritearea2(int position) {
+        if (writeComment == null)
+            writeComment = null;
+        writeComment = WriteComment.newInstance1(clist.get(position).id + "", clist.get(position).person_id + "", clist.get(position).person_id + "", clist.get(position).username, true, clist.get(position).replies, position);
+
+        if (!writeComment.isAdded()) {
+            writeComment.show(getSupportFragmentManager(), "WriteDialog");
         }
     }
 }

@@ -206,6 +206,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            app:title="标题"
             android:theme="@style/MyToolbarTheme"
             android:elevation="10dp"/>
 

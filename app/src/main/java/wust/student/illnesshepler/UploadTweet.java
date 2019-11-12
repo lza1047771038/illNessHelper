@@ -461,14 +461,4 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 })
                 .show();
     }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-    }
-
 }

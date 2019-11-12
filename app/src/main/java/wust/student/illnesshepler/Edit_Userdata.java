@@ -194,11 +194,4 @@ public class Edit_Userdata extends AppCompatActivity {
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
         setUesrdata();
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-    }
 }

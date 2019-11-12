@@ -3,11 +3,13 @@ package wust.student.illnesshepler.Fragments;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +51,7 @@ import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.ShowTweet;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
+import wust.student.illnesshepler.Utils.StatusBarUtil;
 import wust.student.illnesshepler.Utils.Utils;
 
 public class RepliesDetails extends BottomSheetDialogFragment implements TweetsCommentAdapter.OnItemClickListener, View.OnClickListener {
@@ -66,35 +70,21 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
 
     private String root;
     private String id;
-    private int page=1;
-    private int pagesize=20;
+    private int page = 1;
+    private int pagesize = 20;
     private Handler handler;
     private RepliesDetails repliesDetails;
     private WriteComment writeComment;
     private BottomSheetBehavior bottomSheetBehavior;
 
     public static TweetsCommentAdapter replyAdapter;
-    public  static List<GetTweetComments.Comments> replyList = new ArrayList<>();
+    public static List<GetTweetComments.Comments> replyList = new ArrayList<>();
     private GetTweetComments tweetComments;
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-    @NotNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        View view = View.inflate(getContext(), R.layout.fragment_repliesdetails, null);
-        dialog.setContentView(view);
-
-        return dialog;
-    }
-
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup
+            container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_repliesdetails, container, false);
         InitViews();
         setdata();
@@ -103,21 +93,20 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         return view;
     }
 
-    private void setdata()
-    {
+    private void setdata() {
         Bundle bundle = getArguments();
         userName.setText(bundle.getString("username"));
-       time.setText(Utils.timeFormat(bundle.getString("time")));
-       contains.setText(bundle.getString("contains"));
-       likesNum.setText(bundle.getString("likes"));
+        time.setText(Utils.timeFormat(bundle.getString("time")));
+        contains.setText(bundle.getString("contains"));
+        likesNum.setText(bundle.getString("likes"));
         Glide.with(getContext()).load(bundle.getString("userimage")).apply(new RequestOptions().transforms(new CircleCrop())).error(R.drawable.postcard).into(userImg);
     }
-    private void getdata()
-    {
+
+    private void getdata() {
         Bundle args = getArguments();
         root = args.getString("root", "null");
         id = args.getString("id", "null");
-        Httputil.reply_request(root, id, page+"", pagesize+"", new Callback() {
+        Httputil.reply_request(root, id, page + "", pagesize + "", new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -125,7 +114,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String result=response.body().string();
+                String result = response.body().string();
                 tweetComments = GsonUtils.getTweetComments(result);
                 replyList.clear();
                 replyList.addAll(tweetComments.data);
@@ -133,10 +122,11 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
                 message.what = 4;
                 handler.sendMessage(message);
 
-                Log.d("test","reply_request:"+result);
+                Log.d("test", "reply_request:" + result);
             }
         });
     }
+
     private void handlemesgge() {
         handler = new Handler(new Handler.Callback() {
             @Override
@@ -150,6 +140,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
             }
         });
     }
+
     private void setcommentsdata() {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
@@ -158,13 +149,14 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
         replyAdapter.setOnItemClickListener(this);
         mrecyclerView.setAdapter(replyAdapter);
     }
+
     private void InitViews() {
-        userName=view.findViewById(R.id.reply_auther);
-        time=view.findViewById(R.id.reply_time);
-        contains=view.findViewById(R.id.reply_contains);
-        likesNum=view.findViewById(R.id.reply_likes_num);
-        userImg=view.findViewById(R.id.reply_img);
-        likesArea=view.findViewById(R.id.reply_likes_area);
+        userName = view.findViewById(R.id.reply_auther);
+        time = view.findViewById(R.id.reply_time);
+        contains = view.findViewById(R.id.reply_contains);
+        likesNum = view.findViewById(R.id.reply_likes_num);
+        userImg = view.findViewById(R.id.reply_img);
+        likesArea = view.findViewById(R.id.reply_likes_area);
 
         likesArea.setOnClickListener(this);
 
@@ -192,7 +184,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
             window.findViewById(com.google.android.material.R.id.coordinator).setFitsSystemWindows(false);
             // dark navigation bar icons
             View decorView = window.getDecorView();
-            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
     }
 
@@ -209,13 +201,13 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
     // 构造方法
     public static RepliesDetails newInstance(GetTweetComments.Comments comments) {
         Bundle args = new Bundle();
-        args.putString("root",comments.person_id+"");
-        args.putString("id",comments.id+"");
-        args.putString("contains",comments.contains+"");
-        args.putString("username",comments.username+"");
-        args.putString("userimage",comments.userimage+"");
-        args.putString("likes",comments.likes+"");
-        args.putString("time",comments.time+"");
+        args.putString("root", comments.person_id + "");
+        args.putString("id", comments.id + "");
+        args.putString("contains", comments.contains + "");
+        args.putString("username", comments.username + "");
+        args.putString("userimage", comments.userimage + "");
+        args.putString("likes", comments.likes + "");
+        args.putString("time", comments.time + "");
         RepliesDetails fragment = new RepliesDetails();
         fragment.setArguments(args);
         return fragment;
@@ -239,7 +231,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
                 break;
             case R.id.tweet_comment_num:
 //                if (repliesDetails == null)
-                    repliesDetails = RepliesDetails.newInstance(replyList.get(position));
+                repliesDetails = RepliesDetails.newInstance(replyList.get(position));
                 if (!repliesDetails.isAdded())
                     repliesDetails.show(getActivity().getSupportFragmentManager(), "Dialog");
                 Toast.makeText(getContext(), "点击了更多评论", Toast.LENGTH_SHORT).show();
@@ -250,25 +242,23 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
 
         }
     }
-    private void openwritearea(int position)
-    {
-        if(writeComment==null)
-        writeComment=null;
-            //String id,String root,String parentid
-            Log.d("test","writeComment==null");
-            writeComment=WriteComment.newInstance1(id+"",root,replyList.get(position).person_id+"",userName.getText().toString(),false,0,0);
 
-        if(!writeComment.isAdded())
-        {
-            Log.d("test","writeComment.isAdded()");
-            writeComment.show(getActivity().getSupportFragmentManager(),"WriteDialog");
+    private void openwritearea(int position) {
+        if (writeComment == null)
+            writeComment = null;
+        //String id,String root,String parentid
+        Log.d("test", "writeComment==null");
+        writeComment = WriteComment.newInstance1(id + "", root, replyList.get(position).person_id + "", userName.getText().toString(), false, 0, 0);
+
+        if (!writeComment.isAdded()) {
+            Log.d("test", "writeComment.isAdded()");
+            writeComment.show(getActivity().getSupportFragmentManager(), "WriteDialog");
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.reply_likes_area:
                 Toast.makeText(getContext(), "点赞了", Toast.LENGTH_SHORT).show();
                 break;

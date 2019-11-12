@@ -48,11 +48,11 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
     List<GetInvaestigationList.Item> mlist = new ArrayList<>();
     ActionBar actionBar;
     Drawable drawable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_investigation_list);
-
 
 
         recyclerView = (RecyclerView) findViewById(R.id.in_recycle);
@@ -115,7 +115,7 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
-                Log.d("test",result);
+                Log.d("test", result);
                 getInvaestigationList = GsonUtils.handleMessages2(result);
                 if (getInvaestigationList != null) {
                     /*SharedPreferences preferences = getSharedPreferences("ServylistInfo", Context.MODE_PRIVATE);
@@ -142,13 +142,13 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
 
         Intent intent = new Intent(this, Investigation.class);
         Bundle bundle = new Bundle();
-        bundle.putString("type",mlist.get(position).intype+"");
+        bundle.putString("type", mlist.get(position).intype + "");
         bundle.putInt("num", mlist.get(position).num);
         bundle.putString("problem1", mlist.get(position).problem1 + "");
-        bundle.putString("problem2", mlist.get(position).problem2  + "");
+        bundle.putString("problem2", mlist.get(position).problem2 + "");
         bundle.putString("problem3", mlist.get(position).problem3 + "");
         bundle.putString("warning", mlist.get(position).warning + "");
-        Log.d("test", "       "+mlist.get(position).num +"problem1");
+        Log.d("test", "       " + mlist.get(position).num + "problem1");
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -156,22 +156,14 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
-                default:
-                    break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-    }
 }
