@@ -52,6 +52,7 @@
             android:layout_height="50dp"
             android:text="使用头像"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@color/dark"
             android:background="@drawable/ripple_bg"
             tools:ignore="MissingConstraints" />

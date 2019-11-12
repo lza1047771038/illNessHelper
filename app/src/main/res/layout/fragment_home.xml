@@ -18,18 +18,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--<androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/green"
-                app:title="青春彩虹伞"
-                app:titleTextColor="@color/white" />-->
             <include layout="@layout/detailedtitle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:orientation="vertical">
 
                 <com.stx.xhb.xbanner.XBanner
@@ -164,7 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/ripple_bg"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
                 android:orientation="vertical">

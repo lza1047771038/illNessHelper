@@ -21,7 +21,9 @@
         <activity
             android:name=".UploadTweet"
             android:screenOrientation="portrait" />
-        <activity android:name=".Investigation" />
+        <activity android:name=".Investigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Investigation"/>
         <activity
             android:name=".InvestigationList"
             android:screenOrientation="portrait" />
