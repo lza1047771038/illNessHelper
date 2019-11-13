@@ -12,7 +12,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 19
-        renderscriptSupportModeEnabled true
+        renderscriptSupportModeEnabled true    // Enable RS support
     }
 
     repositories {
@@ -33,7 +33,7 @@ android {
         }
         debug {
             signingConfig signingConfigs.debug
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -82,4 +82,5 @@ dependencies {
     //自定义下拉刷新控件
     implementation 'com.yalantis:phoenix:1.2.3'
     //毛玻璃背景特效
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 }

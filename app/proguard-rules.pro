@@ -32,3 +32,16 @@
 -keep class * extends org.litepal.crud.LitePalSupport {
     *;
 }
+
+-keep class android.support.v8.renderscript.** { *; }
+-keep class androidx.renderscript.** { *; }
+
+-keep class com.stx.xhb.xbanner.**{*;}
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+

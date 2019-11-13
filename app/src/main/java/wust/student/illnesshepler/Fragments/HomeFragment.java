@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +24,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.tabs.TabLayout;
 import com.stx.xhb.xbanner.XBanner;
 import com.yalantis.phoenix.PullToRefreshView;
 
@@ -50,7 +47,8 @@ import wust.student.illnesshepler.Utils.ScreenUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 
-public class HomeFragment extends Fragment implements View.OnClickListener, TweetsListAdapter.OnItemClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener,
+        TweetsListAdapter.OnItemClickListener {
 
     private View view;
     private XBanner mXBanner;
@@ -73,7 +71,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home, container, false);
         return view;
     }
@@ -103,8 +102,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
 
     private void initlayout() {
         scrollView = view.findViewById(R.id.scrollViews);
-        toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(getContext()), 0, 0);
+        toolbar = view.findViewById(R.id.RainBowTitle);
+        RelativeLayout.LayoutParams params =
+                (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setMargins(0, StatusBarUtil.getStatusBarHeight(getContext()), 0, 0);
+        toolbar.setLayoutParams(params);
+
 
         refreshView = view.findViewById(R.id.refreshLayout);
         sruvey = (LinearLayout) view.findViewById(R.id.survey);
@@ -114,7 +117,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
 
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(view.getContext()) / 2);
+        LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        ScreenUtil.getScreenWidth(view.getContext()) / 2);
         mXBanner = (XBanner) view.findViewById(R.id.xbanner);
         mXBanner.setLayoutParams(layoutParams);
         mXBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
@@ -130,8 +135,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Twee
         tools.setOnClickListener(this);
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                StatusBarUtil.setStatusBarDarkTheme(getActivity(), scrollY > 250);
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY,
+                                       int oldScrollX, int oldScrollY) {
+                refreshView.setEnabled(scrollY <= 0);
             }
         });
         refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {

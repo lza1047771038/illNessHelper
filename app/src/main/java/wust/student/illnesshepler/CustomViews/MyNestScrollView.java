@@ -56,7 +56,7 @@ public class MyNestScrollView extends NestedScrollView {
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
-    @Override
+    /*@Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         int action = MotionEventCompat.getActionMasked(event);
         if (isRestoring && action == MotionEvent.ACTION_DOWN) {
@@ -216,9 +216,9 @@ public class MyNestScrollView extends NestedScrollView {
         }
     }
 
-    /**
+    *//**
      * 根据滑动的距离计算缩放的比例
-     */
+     *//*
     private float calculateRate(float distance) {
         float originalDragPercent = distance / (getResources().getDisplayMetrics().heightPixels);
         float dragPercent = Math.min(1f, originalDragPercent);
@@ -227,11 +227,11 @@ public class MyNestScrollView extends NestedScrollView {
         return 1 + rate / 5f;
     }
 
-    /**
+    *//**
      * 具体动画
      *
      * @param isPullRestore
-     */
+     *//*
     private void animateRestore(final boolean isPullRestore) {
         ValueAnimator animator = ValueAnimator.ofFloat(mScale, 1f);
         animator.setDuration(300);
@@ -281,6 +281,6 @@ public class MyNestScrollView extends NestedScrollView {
     private void push(float scale) {
         this.setPivotY(this.getHeight());
         this.setScaleY(scale);
-    }
+    }*/
 
 }

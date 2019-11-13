@@ -17,9 +17,9 @@
     </style>
 
     <style name="MyToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:textColorPrimary">@color/colorPrimary</item>
-        <item name="colorControlNormal">@color/colorPrimary</item>
-        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/darkgray</item>
+        <item name="colorControlNormal">@color/darkgray</item>
+        <item name="colorControlHighlight">@color/darkgray</item>
     </style>
 
 

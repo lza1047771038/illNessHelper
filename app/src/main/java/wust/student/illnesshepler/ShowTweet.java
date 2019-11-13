@@ -4,11 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +26,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.mmin18.widget.RealtimeBlurView;
 import com.rex.editor.view.RichEditor;
 import com.rex.editor.view.RichEditorNew;
 
@@ -54,7 +51,8 @@ import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 import wust.student.illnesshepler.Utils.Utils;
 
-public class ShowTweet extends AppCompatActivity implements View.OnClickListener, TweetsCommentAdapter.OnItemClickListener {
+public class ShowTweet extends AppCompatActivity implements View.OnClickListener,
+        TweetsCommentAdapter.OnItemClickListener {
 
     RichEditorNew richEditor;
     private TextView tweetTitle;
@@ -67,6 +65,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private ImageView share;
 
     private Toolbar toolbar;
+    private RealtimeBlurView blurView;
     private LinearLayout linearLayout;
     private NestedScrollView scrollView;
 
@@ -120,10 +119,11 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         recyclerView.setNestedScrollingEnabled(false);
 
         toolbar = findViewById(R.id.toolbar);
+        blurView = findViewById(R.id.toolbar1);
         toolbar.setAlpha(0);
+        blurView.setAlpha(0);
         toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
         setSupportActionBar(toolbar);
-
 
         linearLayout = findViewById(R.id.linearLayout3);
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) linearLayout.getLayoutParams();
@@ -165,7 +165,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 //                    share.setVisibility(View.VISIBLE);
 //                }
 //                if (hasFocus) {
-//                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                    InputMethodManager imm = (InputMethodManager) getSystemService
+//                    (INPUT_METHOD_SERVICE);
 //                    imm.showSoftInput(tweetPostCommentHigth, InputMethodManager.SHOW_IMPLICIT);
 //                }
 //            }
@@ -178,10 +179,13 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         scrollView = findViewById(R.id.scrollViews);
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                int screen_height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX,
+                                       int oldScrollY) {
+                int screen_height =
+                        getApplicationContext().getResources().getDisplayMetrics().heightPixels;
                 if (scrollY <= screen_height / 4f) {
                     toolbar.setAlpha(scrollY / (screen_height / 8f));
+                    blurView.setAlpha(scrollY / (screen_height / 8f));
                 }
             }
         });
@@ -217,6 +221,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(title);
+
         }
         tweetTitle.setText(title);
         tweetAuther.setText(auther);
@@ -268,8 +273,10 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.half_transparentbitmap);
-                final BitmapDrawable drawable = new BitmapDrawable(BlurUtils.blur(ShowTweet.this, bitmap));
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                        R.mipmap.half_transparentbitmap);
+                final BitmapDrawable drawable = new BitmapDrawable(BlurUtils.blur(ShowTweet.this,
+                        bitmap));
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -277,7 +284,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                     }
                 });
             }
-        }).start();
+        });
     }
 
     public void setcommentsdata() {
@@ -329,7 +336,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 //                    }
 //
 //                    @Override
-//                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                    public void onResponse(@NotNull Call call, @NotNull Response response)
+//                    throws IOException {
 //                        String reslut = response.body().string();
 //                        Message message = new Message();
 //                        if (reslut.equals("1")) {
@@ -395,7 +403,9 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     public void openwritearea2(int position) {
         if (writeComment == null)
             writeComment = null;
-        writeComment = WriteComment.newInstance1(clist.get(position).id + "", clist.get(position).person_id + "", clist.get(position).person_id + "", clist.get(position).username, true, clist.get(position).replies, position);
+        writeComment = WriteComment.newInstance1(clist.get(position).id + "",
+                clist.get(position).person_id + "", clist.get(position).person_id + "",
+                clist.get(position).username, true, clist.get(position).replies, position);
 
         if (!writeComment.isAdded()) {
             writeComment.show(getSupportFragmentManager(), "WriteDialog");

@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/green"
-    android:orientation="vertical">
+    android:background="@color/green">
 
     <LinearLayout
+        android:id="@+id/RainBowTitle"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/circle" />
+            android:src="@mipmap/wust" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,11 +30,11 @@
             android:text="青春彩虹伞"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
 
         <ImageView
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -43,8 +44,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/RainBowSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/RainBowTitle"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
@@ -54,7 +57,7 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/corner_textview"
+            android:background="@drawable/searchview_cornerbackground"
             android:padding="5dp"
             android:text="彩虹搜索"
             android:textAlignment="center"
@@ -62,4 +65,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
