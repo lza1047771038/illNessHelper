@@ -120,8 +120,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
         toolbar = findViewById(R.id.toolbar);
         blurView = findViewById(R.id.toolbar1);
-        toolbar.setAlpha(0);
-        blurView.setAlpha(0);
+//        toolbar.setAlpha(0);
+//        blurView.setAlpha(0);
         toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
         setSupportActionBar(toolbar);
 
@@ -184,8 +184,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 int screen_height =
                         getApplicationContext().getResources().getDisplayMetrics().heightPixels;
                 if (scrollY <= screen_height / 4f) {
-                    toolbar.setAlpha(scrollY / (screen_height / 8f));
-                    blurView.setAlpha(scrollY / (screen_height / 8f));
+//                    toolbar.setAlpha(scrollY / (screen_height / 8f));
+//                    blurView.setAlpha(scrollY / (screen_height / 8f));
                 }
             }
         });

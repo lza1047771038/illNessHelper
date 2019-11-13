@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/bottom_navigation"
         android:layout_alignBottom="@+id/bottom_navigation"
-        app:realtimeBlurRadius="33dp"
-        app:realtimeOverlayColor="#2DFFEBF2" />
+        app:realtimeBlurRadius="25dp"
+        app:realtimeOverlayColor="#00FFFFFF"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

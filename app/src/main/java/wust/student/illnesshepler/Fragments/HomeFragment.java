@@ -169,30 +169,39 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                 String result = response.body().string();
                 Log.d("test", "Home result" + result);
                 tweets = GsonUtils.handleMessages3(result);
-                mlist.clear();
-                xlist.clear();
-                for (int i = 0; i < tweets.data.size(); i++) {
-                    if (tweets.data.get(i).uploadtype.equals("1")) {
-                        xlist.add(tweets.data.get(i));
-                    } else {
-                        if (mlist.size() <= 10) {
-                            mlist.add(tweets.data.get(i));
+                if (tweets != null) {
+                    mlist.clear();
+                    xlist.clear();
+                    for (int i = 0; i < tweets.data.size(); i++) {
+                        if (tweets.data.get(i).uploadtype.equals("1")) {
+                            xlist.add(tweets.data.get(i));
+                        } else {
+                            if (mlist.size() <= 10) {
+                                mlist.add(tweets.data.get(i));
+                            }
+
                         }
 
                     }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tweetsListAdapter.notifyDataSetChanged();
+                            refreshView.setRefreshing(false);
 
+                        }
+                    });
+                    Message message = new Message();
+                    message.what = 1;
+                    handler.sendMessage(message);
+                } else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(), "无法连接至服务器", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tweetsListAdapter.notifyDataSetChanged();
-                        refreshView.setRefreshing(false);
-
-                    }
-                });
-                Message message = new Message();
-                message.what = 1;
-                handler.sendMessage(message);
             }
         });
 
