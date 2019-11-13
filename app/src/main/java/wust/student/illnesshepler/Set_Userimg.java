@@ -34,7 +34,9 @@ import androidx.core.content.FileProvider;
 import org.litepal.LitePal;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +93,7 @@ public class Set_Userimg extends AppCompatActivity {
             public void onClick(View v) {
                 if (NewBmp != null) {
                     NewBmp = pictureEditor.getBitMapFromImageView(user_img);
-                    Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(NewBmp)));
+                    Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(Set_Userimg.this,NewBmp)));
                     finish();
                 } else
                     Toast.makeText(Set_Userimg.this, "请选择图片", Toast.LENGTH_SHORT).show();
@@ -193,8 +195,16 @@ public class Set_Userimg extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public Uri BmpToUri(Bitmap bitmap) {
-        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
-        return uri;
+    public Uri BmpToUri(Context c,Bitmap bitmap) {
+
+        File path = new File(c.getCacheDir() + File.separator + System.currentTimeMillis());
+        try {
+            OutputStream os = new FileOutputStream(path);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.close();
+            return Uri.fromFile(path);
+        } catch (Exception ignored) {
+        }
+        return null;
     }
 }
