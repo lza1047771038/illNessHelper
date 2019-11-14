@@ -54,10 +54,10 @@ public class Set_Userimg extends AppCompatActivity {
     ImageView user_img, right_round;
     Button btn_select_img, btn_used_img;
     FileUtil fileUtil;
-    String Tag = "checkpoint";
     PictureEditor pictureEditor;
     Bitmap NewBmp = null;
     LinearLayout linearLayout_roung;
+    boolean isRequest = true;
 
     String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -93,7 +93,7 @@ public class Set_Userimg extends AppCompatActivity {
             public void onClick(View v) {
                 if (NewBmp != null) {
                     NewBmp = pictureEditor.getBitMapFromImageView(user_img);
-                    Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(Set_Userimg.this,NewBmp)));
+                    Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(Set_Userimg.this, NewBmp)));
                     finish();
                 } else
                     Toast.makeText(Set_Userimg.this, "请选择图片", Toast.LENGTH_SHORT).show();
@@ -134,6 +134,7 @@ public class Set_Userimg extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 uri = data.getData();
                 Bitmap photoBmp;
+                isRequest = false;
                 try {
                     photoBmp = pictureEditor.getBitmapFormUri(this, uri);
                     user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, user_img.getWidth(), user_img.getHeight()));
@@ -152,16 +153,18 @@ public class Set_Userimg extends AppCompatActivity {
     private void Up_Img_Uri(String name, String uri1) {
         ContentValues values = new ContentValues();
         values.put(name, uri1);
-        Log.d("test_LitePal", "Up_Img_Uri:" + uri1);
         LitePal.updateAll(User_information.class, values);
     }
 
     public void onStart() {
         super.onStart();
-        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if (all.get(0).getUser_Image_Uri() != null) {
-            Bitmap photoBmp=fileUtil.getBitmap(all.get(0).getUser_Image_Uri());
-            user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, photoBmp.getWidth(), photoBmp.getHeight()));
+        if (isRequest) {
+            List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+            if (all.get(0).getUser_Image_Uri() != null) {
+                Bitmap photoBmp = fileUtil.getBitmap(all.get(0).getUser_Image_Uri());
+                user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, photoBmp.getWidth(), photoBmp.getHeight()));
+            }
+            isRequest=true;
         }
     }
 
@@ -195,7 +198,7 @@ public class Set_Userimg extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public Uri BmpToUri(Context c,Bitmap bitmap) {
+    public Uri BmpToUri(Context c, Bitmap bitmap) {
 
         File path = new File(c.getCacheDir() + File.separator + System.currentTimeMillis());
         try {
