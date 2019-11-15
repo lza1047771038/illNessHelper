@@ -65,7 +65,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private ImageView share;
 
     private Toolbar toolbar;
-    private RealtimeBlurView blurView;
+//    private RealtimeBlurView blurView;
     private LinearLayout linearLayout;
     private NestedScrollView scrollView;
 
@@ -119,7 +119,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         recyclerView.setNestedScrollingEnabled(false);
 
         toolbar = findViewById(R.id.toolbar);
-        blurView = findViewById(R.id.toolbar1);
+//        blurView = findViewById(R.id.toolbar1);
 //        toolbar.setAlpha(0);
 //        blurView.setAlpha(0);
         toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);

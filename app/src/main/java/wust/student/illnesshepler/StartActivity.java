@@ -35,7 +35,7 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(new Intent(StartActivity.this, MainActivity.class));
                 finish();
             }
-        }, 1000);
+        }, 1500);
     }
 
 }

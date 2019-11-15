@@ -203,20 +203,21 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
-    <com.github.mmin18.widget.RealtimeBlurView
+    <!--<com.github.mmin18.widget.RealtimeBlurView
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/toolbar"
         android:layout_alignBottom="@+id/toolbar"
         app:realtimeBlurRadius="25dp"
-        app:realtimeOverlayColor="#00FFFFFF"/>
+        app:realtimeOverlayColor="#7f55AF7B"/>-->
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
+        android:background="@color/green"
         android:theme="@style/MyToolbarTheme"
         app:title="标题" />
 
