@@ -12,11 +12,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +39,7 @@ import wust.student.illnesshepler.Fragments.ClassFragment;
 import wust.student.illnesshepler.Fragments.HomeFragment;
 import wust.student.illnesshepler.Fragments.MeFragment;
 import wust.student.illnesshepler.Bean.User_information;
+import wust.student.illnesshepler.Login_Enrol.Enrol;
 import wust.student.illnesshepler.Utils.ScreenUtil;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
@@ -59,15 +63,22 @@ public class MainActivity extends AppCompatActivity {
     ClassFragment classes = new ClassFragment();
     ChatFragment chat = new ChatFragment();
     MeFragment me = new MeFragment();
-
-    public static String authorid="13147163155";
-    public static String authorname="登录用户的用户名";
-    public static String user_image="登录的头像地址";
+    public final static String ImagesDruaction= Environment.getExternalStorageDirectory().getPath() + "/illnesshepler" + "/Images";  //本地保存图片的路径
+    public static boolean isLogin=false;
+    public static String userId="未登录";
+    public static String userName="未登录";
+    public static String user_image="";
+    public static String password="null";
+    public static String phoneid="未登录";
+    public static int userAge=0;
+    public static int userType=0;
+    public static int type=0;
+    public static int user_coin=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LitePal.initialize(this);
-
+        setUserInfo();
         getAuthorize(MainActivity.this,MainActivity.this);
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -80,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_main);
+
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -157,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        litepal_init();//初始化数据库
-        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+//        litepal_init();//初始化数据库
+//        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
 
     }
 
@@ -173,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -182,18 +196,45 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-
-
-    private void litepal_init() {
+// editor.putBoolean("isLogin",true);
+//            editor.putString("userId", userId);
+//            editor.putString("userImagePath", userImagePath);
+//            editor.putString("username", username);
+//            editor.putString("password", password);
+//            editor.putString("phoneid", phoneid);
+//            editor.putInt("userType", userType);
+//            editor.putInt("type", type);
+//            editor.putInt("age", age);
+//            editor.putInt("age", age);
+//            editor.putInt("coin", coin);
+    public void setUserInfo()
+    {
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if (all.size() == 0) {
-            User_information user_information = new User_information();
-            user_information.setUser_Name("XXX");
-            user_information.setUser_Age("0");
-            user_information.setUser_Image_Uri(null);
-            user_information.save();
+        Log.d("test",all.toString()+"");
+        if(all.size()!=0)
+        {
+            isLogin=all.get(0).isLogin();
+            userId =    all.get(0).getUserId();
+            userName =  all.get(0).getUser_Name();
+            user_image =all.get(0).getUser_Image_Uri();
+            password =  all.get(0).getPassword();
+            phoneid =   all.get(0).getPhoneid();
+            userType =  all.get(0).getUserType();
+            type =      all.get(0).getType();
+            userAge =   Integer.parseInt(all.get(0).getUser_Age());
+            user_coin = all.get(0).getUser_coin();
         }
     }
+//    private void litepal_init() {
+//        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+//        if (all.size() == 0) {
+//            User_information user_information = new User_information();
+//            user_information.setUser_Name("XXX");
+//            user_information.setUser_Age("0");
+//            user_information.setUser_Image_Uri(null);
+//            user_information.save();
+//        }
+//    }
 
     public void getAuthorize(Context context, Activity activity) {
         List<String> mPermissionList = new ArrayList<>();// 声明一个集合，在后面的代码中用来存储用户拒绝授权的权

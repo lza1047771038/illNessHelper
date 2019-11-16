@@ -1,5 +1,7 @@
 package wust.student.illnesshepler;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -223,48 +225,72 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         tweetTitle.setText(title);
         tweetAuther.setText(auther);
         tweetTime.setText(Utils.timeFormat(time));
-
+        SharedPreferences sp=ShowTweet.this.getSharedPreferences("ShowTweets", Context.MODE_PRIVATE);
+        String result=sp.getString(themeid,null);
+        if(result!=null)
+        {
+            analysisTweetJson(result);
+        }
+        else
         Httputil.NotificationDetails(themeid, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                SharedPreferences sp=ShowTweet.this.getSharedPreferences("ShowTweets", Context.MODE_PRIVATE);
+                String result=sp.getString(themeid,null);
+                if(result!=null)
+                {
+                    analysisTweetJson(result);
+                }
+                else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ShowTweet.this, getResources().getString(R.string.connect_fail), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
+                SharedPreferences sp=ShowTweet.this.getSharedPreferences("ShowTweets", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(themeid, result);
+                editor.apply();
                 Log.d("test", " Showtweet result" + result);
-                try {
-
-                    JSONObject tokenInfo = new JSONObject(result);
-                    html = tokenInfo.getString("contains");
-
-                } catch (JSONException e) {
-
-                }
-                Message message = new Message();
-                message.what = 1;
-                message.obj = html;
-                handler.sendMessage(message);
+                analysisTweetJson(result);
             }
         });
         Httputil.comment_request(themeid, page + "", 20 + "", new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                SharedPreferences sp=ShowTweet.this.getSharedPreferences("TweetsComment", Context.MODE_PRIVATE);
+                String result=sp.getString(themeid,null);
+                Log.d("test", " Showtweet result comment_request " + result);
+                if(result!=null)
+                {
+                    analysisCommentJson(result);
+                }
+                else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ShowTweet.this, getResources().getString(R.string.connect_fail), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
                 Log.d("test", " Showtweet result comment_request " + result);
-                tweetComments = GsonUtils.getTweetComments(result);
-                clist.clear();
-                clist.addAll(tweetComments.data);
-                Message message = new Message();
-                message.what = 4;
-                handler.sendMessage(message);
-
+                SharedPreferences sp=ShowTweet.this.getSharedPreferences("TweetsComment", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(themeid, result);
+                editor.apply();
+                analysisCommentJson(result);
             }
         });
         new Thread(new Runnable() {
@@ -283,7 +309,30 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             }
         });
     }
+    public void analysisTweetJson(String result)
+    {
+        try {
+            JSONObject tokenInfo = new JSONObject(result);
+            html = tokenInfo.getString("contains");
 
+        } catch (JSONException e) {
+
+        }
+        Message message = new Message();
+        message.what = 1;
+        message.obj = html;
+        handler.sendMessage(message);
+    }
+    public void  analysisCommentJson(String result)
+    {
+        tweetComments = GsonUtils.getTweetComments(result);
+        clist.clear();
+        clist.addAll(tweetComments.data);
+        Message message = new Message();
+        message.what = 4;
+        handler.sendMessage(message);
+
+    }
     public void setcommentsdata() {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(RecyclerView.VERTICAL);

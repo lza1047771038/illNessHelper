@@ -16,7 +16,20 @@
     <string name="md_storage_per">Your app has not been granted the READ_EXTERNAL_STORAGE permission.</string>
     <string name="new_folder_zi">New Folder</string>
 
+    <string name="connect_fail">网络连接失败</string>
+
     <string name="all_reply">全部回复</string>
     <string name="reply">回复</string>
     <string name="send">发送</string>
+    <string name="enter_id_hint">请输入6到20位以内的数字作为账号</string>
+    <string name="enter_psd_hint">请输入密码</string>
+    <string name="confrim_psd_hint">请再次输入密码</string>
+    <string name="registe_id_wrong">账号应大于6位，小于20位</string>
+    <string name="registe_psd_wrong">密码应大于6位，小于20位</string>
+    <string name="registe_dif_psd">两次密码不一致，请重新输入</string>
+    <string name="registe_denyed">改账号已被注册</string>
+    <string name="registe_succeed">注册成功</string>
+    <string name="wrong_password">密码或账号错误</string>
+
+
 </resources>

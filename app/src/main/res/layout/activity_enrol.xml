@@ -29,20 +29,36 @@
 
 
             <EditText
+                android:id="@+id/regist_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/edit_text_style"
-                android:hint="手机号"
+                android:hint="@string/enter_id_hint"
+                android:inputType="number"
+                android:maxLength="20"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/regist_psd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/edit_text_style"
-                android:hint="请输入密码>6位的字母数字组合"
-                android:textSize="16sp" />
+                android:hint="@string/enter_psd_hint"
+                android:inputType="textPassword"
+                android:textSize="16sp"
+                android:maxLength="20"/>
+            <EditText
+                android:id="@+id/regist_confrim_psd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/edit_text_style"
+                android:hint="@string/confrim_psd_hint"
+                android:inputType="textPassword"
+                android:textSize="16sp"
+                android:maxLength="20"/>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -60,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#8BC34A"
+                    android:foreground="@drawable/thiky_white_bg"
                     android:text="注册"
                     android:textColor="#FFF"
                     android:textSize="20sp" />

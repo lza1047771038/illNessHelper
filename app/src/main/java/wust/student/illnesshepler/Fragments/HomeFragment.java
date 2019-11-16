@@ -1,6 +1,8 @@
 package wust.student.illnesshepler.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -87,6 +89,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         getdata();
 
 
+
+
         //请求服务器数据 数据和控件绑定在onResponse 里调用setadapter（）
         handler = new Handler(new Handler.Callback() {
             @Override
@@ -160,7 +164,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Message message=new Message();
                         Toast.makeText(getContext(), "无法连接至服务器，请稍后重试", Toast.LENGTH_SHORT).show();
+                        SharedPreferences sp=getActivity().getSharedPreferences("Tweets", Context.MODE_PRIVATE);
+                        String result=sp.getString("tweets_result","");
+                        if(result.equals("")||result==null)
+                        {
+                            message.what=2;
+                        }
+                        else {
+                            analysisJson(result);
+                        }
                         refreshView.setRefreshing(false);
                     }
                 });
@@ -169,44 +183,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
+                SharedPreferences sp=getActivity().getSharedPreferences("Tweets", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("tweets_result", result);
+                editor.apply();
                 Log.d("test", "Home result" + result);
-                tweets = GsonUtils.handleMessages3(result);
-                if (tweets != null) {
-                    mlist.clear();
-                    xlist.clear();
-                    for (int i = 0; i < tweets.data.size(); i++) {
-                        if (tweets.data.get(i).uploadtype.equals("1")) {
-                            xlist.add(tweets.data.get(i));
-                        } else {
-                            if (mlist.size() <= 10) {
-                                mlist.add(tweets.data.get(i));
-                            }
-
-                        }
-
-                    }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tweetsListAdapter.notifyDataSetChanged();
-                            refreshView.setRefreshing(false);
-
-                        }
-                    });
-                    Message message = new Message();
-                    message.what = 1;
-                    handler.sendMessage(message);
-                } else {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getContext(), "无法连接至服务器", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
+                analysisJson(result);
             }
         });
 
+    }
+
+    public void analysisJson(String result)
+    {
+        tweets = GsonUtils.handleMessages3(result);
+        if (tweets != null) {
+            mlist.clear();
+            xlist.clear();
+            for (int i = 0; i < tweets.data.size(); i++) {
+                if (tweets.data.get(i).uploadtype.equals("1")) {
+                    xlist.add(tweets.data.get(i));
+                } else {
+                    mlist.add(tweets.data.get(i));
+                }
+            }
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tweetsListAdapter.notifyDataSetChanged();
+                    refreshView.setRefreshing(false);
+                }
+            });
+            Message message = new Message();
+            message.what = 1;
+            handler.sendMessage(message);
+        }
     }
 
     private void setadapter() {

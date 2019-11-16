@@ -95,7 +95,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         String username= args.getString("username");
         flag=args.getBoolean("flag");
         replyNum=args.getInt("replyNum");
-        final int postion =args.getInt("postion");
+        final int postion =args.getInt("position");
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
@@ -104,7 +104,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         Toast.makeText(getContext(), "发送成功", Toast.LENGTH_SHORT).show();
                         GetTweetComments.Comments temp=new GetTweetComments.Comments();
                         temp.contains=msg.obj.toString();
-                        temp.username=MainActivity.authorname;
+                        temp.username=MainActivity.userName;
                         temp.time=System.currentTimeMillis()+"";
                         temp.likes=0;
                         temp.userimage=MainActivity.user_image;
@@ -118,6 +118,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         break;
                     case 3:
                         Toast.makeText(getContext(), "发送失败", Toast.LENGTH_SHORT).show();
+                        break;
                     case 4:
                         Toast.makeText(getContext(), "回复成功", Toast.LENGTH_SHORT).show();
                         break;
@@ -126,7 +127,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         GetTweetComments.Comments temp1=new GetTweetComments.Comments();
                         if(!flag) {
                             temp1.contains = msg.obj.toString();
-                            temp1.username = MainActivity.authorname;
+                            temp1.username = MainActivity.userName;
                             temp1.time = System.currentTimeMillis() + "";
                             temp1.likes = 0;
                             temp1.userimage = MainActivity.user_image;
@@ -259,7 +260,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         }
            else {
             if (true) {
-                Httputil.reply_post(contains, MainActivity.authorid, id, root, parentid, new Callback() {
+                Httputil.reply_post(contains, MainActivity.userId, id, root, parentid, new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -292,7 +293,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         }else{
             if(true) //敏感词汇
             {
-                Httputil.comment_post(themeid, MainActivity.authorid, contains, new Callback() {
+                Httputil.comment_post(themeid, MainActivity.userId, contains, new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         Message message = new Message();

@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -30,6 +31,9 @@ public class Httputil {
     final static String reply_post = "http://47.100.93.91:8996/reply_post";
     final static String comment_request = "http://47.100.93.91:8996/comment_request";
     final static String reply_request = "http://47.100.93.91:8996/reply_request";
+    final static String register = "http://47.100.93.91:8996/register";
+    final static String login = "http://47.100.93.91:8996/login";
+    final static String updateUserInfo ="Http://47.100.93.91:8996/update";
 
 
     /**
@@ -98,7 +102,12 @@ public class Httputil {
         OkHttpClient client = new OkHttpClient.Builder().build();
         MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder();
         multipartBodyBuilder.setType(MultipartBody.FORM);
-        multipartBodyBuilder.addFormDataPart("themeid", themeid);
+        if(themeid.equals(""))
+        {
+
+        }else {
+            multipartBodyBuilder.addFormDataPart("themeid", themeid);
+        }
         if (pathList != null) {
             for (int i = 0; i < pathList.size(); i++) {
                 File file = new File(pathList.get(i));
@@ -178,6 +187,38 @@ public class Httputil {
                 .add("parentid", parentid)
                 .build();
         Request request = new Request.Builder().url(reply_post).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void register(String userid, String password,okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .add("userid", userid)
+                .add("password", password)
+                .build();
+        Request request = new Request.Builder().url(register).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void login(String userid, String password,okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .add("userid", userid)
+                .add("password", password)
+                .build();
+        Request request = new Request.Builder().url(login).post(build).build();
+        client.newCall(request).enqueue(callback);
+    }
+//    userid,username,age,coin,userimagepath
+    public static void updateUserInfo(String userid, String username, int age, int coin, String userimagepath ,okhttp3.Callback callback)
+    {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody build = new FormBody.Builder()
+                .add("userid", userid)
+                .add("username", username)
+                .add("age", age+"")
+                .add("coin", coin+"")
+                .add("userimagepath", userimagepath)
+                .build();
+        Request request = new Request.Builder().url(login).post(build).build();
         client.newCall(request).enqueue(callback);
     }
 }

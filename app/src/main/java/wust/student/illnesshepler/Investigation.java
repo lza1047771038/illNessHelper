@@ -203,7 +203,7 @@ public class Investigation extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        promptDialog.showSuccess("无网络连接，已退出");
+                        promptDialog.showError("无网络连接，已退出");
                         finish();
                     }
                 });

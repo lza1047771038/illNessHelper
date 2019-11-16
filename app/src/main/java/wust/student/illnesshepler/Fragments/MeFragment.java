@@ -18,10 +18,17 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+
 import org.litepal.LitePal;
 
 import java.util.List;
 
+import wust.student.illnesshepler.MainActivity;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.UploadTweet;
 import wust.student.illnesshepler.Bean.User_information;
@@ -68,15 +75,16 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
     private void setUserName(){
         User_Name=(TextView)view.findViewById(R.id.User_Name);
-        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        User_Name.setText(all.get(0).getUser_Name());
+//        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        User_Name.setText(MainActivity.userName);
     }
 
     private void setImageView() {
         imageView = (ImageView) view.findViewById(R.id.imageView);
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
         if (all.get(0).getUser_Image_Uri() != null) {
-            imageView.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+//            imageView.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+            Glide.with(this).load(all.get(0).getUser_Image_Uri()).apply(new RequestOptions().transforms(new CenterCrop())).into(imageView);
             BlurBackground(all);
         }
     }
@@ -85,7 +93,17 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final Bitmap blurbitmap = BlurUtils.blur(getContext(),fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+                Bitmap  bitmap1=null;
+                FutureTarget<Bitmap> bitmap = Glide.with(getActivity())
+                        .asBitmap()
+                        .load(MainActivity.user_image)
+                        .submit();
+                try{
+                   bitmap1 = bitmap.get();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                final Bitmap blurbitmap = BlurUtils.blur(getContext(),bitmap1);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

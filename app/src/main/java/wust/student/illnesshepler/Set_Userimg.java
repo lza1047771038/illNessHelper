@@ -14,6 +14,8 @@ import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -31,6 +33,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.LitePal;
 
 import java.io.File;
@@ -40,15 +51,22 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.leefeng.promptlibrary.PromptDialog;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
 import wust.student.illnesshepler.Bean.User_information;
 import wust.student.illnesshepler.Utils.FileUtil;
+import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.PictureEditor;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 import static org.litepal.LitePalApplication.getContext;
 
 public class Set_Userimg extends AppCompatActivity {
-
+    private Handler handler;
+    PromptDialog promptDialog;
     View statusBarBackground;
     Uri uri;
     ImageView user_img, right_round;
@@ -93,18 +111,37 @@ public class Set_Userimg extends AppCompatActivity {
             public void onClick(View v) {
                 if (NewBmp != null) {
                     NewBmp = pictureEditor.getBitMapFromImageView(user_img);
-                    Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(Set_Userimg.this, NewBmp)));
-                    finish();
+                    upLoadImage(fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(Set_Userimg.this, NewBmp)));
+
+//                    Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(Set_Userimg.this, NewBmp)));
+//                    finish();
                 } else
                     Toast.makeText(Set_Userimg.this, "请选择图片", Toast.LENGTH_SHORT).show();
             }
         });
+//暂时停用，等写好下载图片的功能的时候再打开
+//        right_round.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NewBmp = pictureEditor.rotaingImageView(pictureEditor.getBitMapFromImageView(user_img));
+//                user_img.setImageBitmap(pictureEditor.scaleImage(NewBmp, NewBmp.getWidth(), NewBmp.getHeight()));
+//            }
+//        });
 
-        right_round.setOnClickListener(new View.OnClickListener() {
+        handler = new Handler(new Handler.Callback() {
             @Override
-            public void onClick(View v) {
-                NewBmp = pictureEditor.rotaingImageView(pictureEditor.getBitMapFromImageView(user_img));
-                user_img.setImageBitmap(pictureEditor.scaleImage(NewBmp, NewBmp.getWidth(), NewBmp.getHeight()));
+            public boolean handleMessage(@NonNull Message msg) {
+                switch (msg.what) {
+
+                    case 1:
+                        promptDialog.showSuccess("上传成功");
+                        finish();
+                        break;
+                    case 2:
+                        promptDialog.showError("上传失败，请稍后重试");
+                        break;
+                }
+                return false;
             }
         });
 
@@ -137,7 +174,8 @@ public class Set_Userimg extends AppCompatActivity {
                 isRequest = false;
                 try {
                     photoBmp = pictureEditor.getBitmapFormUri(this, uri);
-                    user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, user_img.getWidth(), user_img.getHeight()));
+                    Glide.with(this).load(uri).into(user_img);
+//                    user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, user_img.getWidth(), user_img.getHeight()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -150,10 +188,49 @@ public class Set_Userimg extends AppCompatActivity {
             }
     }
 
+    public void upLoadImage(String url) {
+        promptDialog = new PromptDialog(this);
+        promptDialog.showLoading("正在上传，请勿退出");
+        List<String> pathList = new ArrayList<>();
+        pathList.clear();
+        pathList.add(url);
+        Httputil.ImagesUpload("", pathList, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String ressult = response.body().string();
+
+                Message message = new Message();
+                message.what = 2;
+                handler.sendMessage(message);
+
+                try {
+                    JSONObject imageurl = new JSONObject(ressult);
+                    JSONArray allimageurl = imageurl.getJSONArray("ImageList");
+                    String url = allimageurl.get(0).toString() + "";
+                    MainActivity.user_image=url;
+                    Up_Img_Uri("User_Image_Uri",url);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("test", "result" + ressult);
+            }
+        });
+
+    }
+
     private void Up_Img_Uri(String name, String uri1) {
         ContentValues values = new ContentValues();
         values.put(name, uri1);
         LitePal.updateAll(User_information.class, values);
+        Message message = new Message();
+        message.what = 1;
+        handler.sendMessage(message);
     }
 
     public void onStart() {
@@ -161,10 +238,11 @@ public class Set_Userimg extends AppCompatActivity {
         if (isRequest) {
             List<User_information> all = LitePal.findAll(User_information.class);//查询功能
             if (all.get(0).getUser_Image_Uri() != null) {
-                Bitmap photoBmp = fileUtil.getBitmap(all.get(0).getUser_Image_Uri());
-                user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, photoBmp.getWidth(), photoBmp.getHeight()));
+                Glide.with(this).load(all.get(0).getUser_Image_Uri()).apply(new RequestOptions().transforms(new CenterCrop())).into(user_img);
+//                Bitmap photoBmp = fileUtil.getBitmap(all.get(0).getUser_Image_Uri());
+//                user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, photoBmp.getWidth(), photoBmp.getHeight()));
             }
-            isRequest=true;
+            isRequest = true;
         }
     }
 
