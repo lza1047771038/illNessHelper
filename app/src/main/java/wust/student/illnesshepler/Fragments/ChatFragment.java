@@ -2,11 +2,13 @@ package wust.student.illnesshepler.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Bean.Posting;
+import wust.student.illnesshepler.CustomViews.MyRecyclerView;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
@@ -41,15 +44,17 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
     private GetTheme themeInfo;
 
     private View view;
-    private RecyclerView recyclerView;
+    private MyRecyclerView recyclerView;
     private ThemeAdapter themeAdapter;
     private SwipeRefreshLayout refreshLayout;
+    private LinearLayout linearLayout;
 
     List<Posting> themeList = new ArrayList<>();
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_chat, container, false);
         setHasOptionsMenu(true);
 
@@ -59,22 +64,20 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        View statusBarBackground = view.findViewById(R.id.statusBarBackground);
-        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);
 
-
+        linearLayout = view.findViewById(R.id.toolbar);
+        linearLayout.setPadding(0, StatusBarUtil.getStatusBarHeight(getContext()), 0, 0);
         recyclerView = view.findViewById(R.id.chat_recyclerView);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         layoutInit();
 
-        SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo",
+                Context.MODE_PRIVATE);
         String cache = preferences.getString("ThemeCache", null);
         if (cache != null) {
             themeInfo = GsonUtils.handleMessages(cache);
             if (themeInfo != null) {
-                themeList.addAll(0,themeInfo.data);
+                themeList.addAll(0, themeInfo.data);
                 updateRecyclerView();
             }
         }
@@ -86,8 +89,8 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
         posting.likes = 3;
         posting.theme_id = "1234567890";
         posting.time = "1234567890";
-
-        themeList.add(posting);
+        for (int i = 0; i < 10; i++)
+            themeList.add(posting);
 
     }
 
@@ -133,28 +136,17 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
         themeAdapter = new ThemeAdapter(themeList);
         themeAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(themeAdapter);
-        //占用空间，用空间换取性能，提高滑动流畅性
-        recyclerView.setItemViewCacheSize(50);
-        recyclerView.setDrawingCacheEnabled(true);
-        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        recyclerView.setHasFixedSize(true);
+
         recyclerView.getItemAnimator().setAddDuration(200);
         recyclerView.getItemAnimator().setRemoveDuration(200);
         recyclerView.getItemAnimator().setMoveDuration(200);
         recyclerView.getItemAnimator().setChangeDuration(200);
 
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
-                refreshLayout.setEnabled(topRowVerticalPosition >= 0);
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX,
+                                       int oldScrollY) {
+                refreshLayout.setEnabled(scrollY <= 0);
             }
         });
 
@@ -191,7 +183,8 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
                 Log.d("tag123request", result);
                 themeInfo = GsonUtils.handleMessages(result);
                 if (themeInfo != null) {
-                    SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo", Context.MODE_PRIVATE);
+                    SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo"
+                            , Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("ThemeCache", result);
                     editor.apply();
@@ -199,9 +192,9 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(themeInfo.data.size()==0){
+                            if (themeInfo.data.size() == 0) {
                                 Toast.makeText(getContext(), "暂无更多数据", Toast.LENGTH_SHORT).show();
-                            }else{
+                            } else {
                                 Toast.makeText(getContext(), "已为你加载8条新内容", Toast.LENGTH_SHORT).show();
                                 updateRecyclerView();
                             }
@@ -222,22 +215,21 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
 
     @Override
     public void OnItemClick(View view, int position) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.comments_area:
-                Toast.makeText(getContext(),"点击了评论:" + position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "点击了评论:" + position, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.shares_area:
-                Toast.makeText(getContext(),"点击了分享:" + position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "点击了分享:" + position, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.likes_area:
-                Toast.makeText(getContext(),"点击了点赞:" + position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "点击了点赞:" + position, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.hole_area:
-                Toast.makeText(getContext(),"整个item:" + position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "整个item:" + position, Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Toast.makeText(getContext(),"点击了item:" + position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "点击了item:" + position, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

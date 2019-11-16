@@ -17,44 +17,45 @@
         android:id="@+id/img"
         android:layout_width="400dp"
         android:layout_height="400dp"
-        android:layout_marginTop="45dp"
-        android:src="@drawable/icon_me"
         android:layout_marginLeft="0dp"
+        android:layout_marginTop="45dp"
         android:layout_marginRight="0dp"
-        tools:ignore="MissingConstraints"
-        android:contentDescription="TODO" />
+        android:contentDescription="TODO"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_me"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginLeft="80dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="80dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@+id/img"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/img"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        android:layout_marginTop="20dp"
         tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/select_img"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@drawable/ripple_bg"
             android:text="选择图片"
             android:textColor="@color/dark"
-            android:background="@drawable/ripple_bg"
             tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/used_img"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="使用头像"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:textColor="@color/dark"
             android:background="@drawable/ripple_bg"
+            android:text="使用头像"
+            android:textColor="@color/dark"
             tools:ignore="MissingConstraints" />
     </LinearLayout>
 

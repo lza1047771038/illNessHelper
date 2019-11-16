@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import wust.student.illnesshepler.CustomViews.MyViewPager;
 import wust.student.illnesshepler.Fragments.ChatFragment;
 import wust.student.illnesshepler.Fragments.ClassFragment;
 import wust.student.illnesshepler.Fragments.HomeFragment;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     };
     int REQUEST_CODE = 123;
 
-    ViewPager viewPager;
+    MyViewPager viewPager;
     BottomNavigationView bottom_navigation;
 
     List<Fragment> fragmentList = new ArrayList<>();
@@ -72,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    |View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }

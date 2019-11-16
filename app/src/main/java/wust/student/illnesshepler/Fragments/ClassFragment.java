@@ -26,9 +26,9 @@ public class ClassFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        statusBarBackground = view.findViewById(R.id.statusBarBackground);
+        /*statusBarBackground = view.findViewById(R.id.statusBarBackground);
         ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);
+        statusBarBackground.setLayoutParams(params);*/
     }
 }

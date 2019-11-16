@@ -16,11 +16,11 @@ public class BlurUtils {
     /**
      * 图片缩放比例
      */
-    private static final float SCALE_DEGREE = 0.01f;
+    private static final float SCALE_DEGREE = 0.12f;
     /**
      * 最大模糊度（在0.0到25.0之间）
      */
-    private static final float BLUR_RADIUS = 25f;
+    private static final float BLUR_RADIUS = 12f;
 
     /**
      * 模糊图片

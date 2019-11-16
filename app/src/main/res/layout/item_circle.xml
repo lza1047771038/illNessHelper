@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:background="@drawable/shadow_background"
     app:cardCornerRadius="4dp">
 
     <LinearLayout
@@ -65,19 +66,19 @@
 
 
         <LinearLayout
+            android:id="@+id/Linearlyout_oneTOthree"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:paddingLeft="10dp"
-            android:visibility="gone"
-            android:id="@+id/Linearlyout_oneTOthree">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/picture1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:visibility="gone"
-                android:src="@drawable/wenhao"/>
+                android:src="@drawable/wenhao"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/picture2"
@@ -85,8 +86,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingLeft="3dp"
-                android:visibility="gone"
-                android:src="@drawable/wenhao"/>
+                android:src="@drawable/wenhao"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/picture3"
@@ -94,24 +95,24 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingLeft="3dp"
-                android:visibility="gone"
-                android:src="@drawable/wenhao"/>
+                android:src="@drawable/wenhao"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Linearlyout_fourTOsix"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:paddingLeft="10dp"
-            android:visibility="gone"
-            android:id="@+id/Linearlyout_fourTOsix">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/picture4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:visibility="gone"
-                android:src="@drawable/wenhao"/>
+                android:src="@drawable/wenhao"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/picture5"
@@ -119,8 +120,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingLeft="3dp"
-                android:visibility="gone"
-                android:src="@drawable/wenhao"/>
+                android:src="@drawable/wenhao"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/picture6"
@@ -128,8 +129,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingLeft="3dp"
-                android:visibility="gone"
-                android:src="@drawable/wenhao"/>
+                android:src="@drawable/wenhao"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -157,8 +158,8 @@
                 <TextView
                     android:id="@+id/likes"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="3"
                     android:textColor="#CCC" />
             </LinearLayout>
@@ -213,4 +214,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</RelativeLayout>

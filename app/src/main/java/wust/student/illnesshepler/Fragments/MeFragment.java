@@ -1,7 +1,10 @@
 package wust.student.illnesshepler.Fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +25,14 @@ import java.util.List;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.UploadTweet;
 import wust.student.illnesshepler.Bean.User_information;
+import wust.student.illnesshepler.Utils.BlurUtils;
 import wust.student.illnesshepler.Utils.FileUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 import wust.student.illnesshepler.Edit_Userdata;
 
 public class MeFragment extends Fragment implements View.OnClickListener {
-    private View view, statusBarBackground;
-    private ImageView imageView;
+    private View view;
+    private ImageView imageView,MybackgroundImageView;
     private TextView User_Name;
     private RelativeLayout AdministratorEntry;
     User_information information;
@@ -45,18 +49,15 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        MybackgroundImageView = view.findViewById(R.id.Mybackground);
 
-        statusBarBackground = view.findViewById(R.id.statusBarBackground);
-        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);
 
         AdministratorEntry=(RelativeLayout) view.findViewById(R.id.administrator_entry);
 
         AdministratorEntry.setOnClickListener(this);
 
         final Intent intent = new Intent(getContext(), Edit_Userdata.class);
-        ConstraintLayout Edit_information = (ConstraintLayout) view.findViewById(R.id.Edit_information);
+        RelativeLayout Edit_information = (RelativeLayout) view.findViewById(R.id.Edit_information);
         Edit_information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,8 +75,25 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private void setImageView() {
         imageView = (ImageView) view.findViewById(R.id.imageView);
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if (all.get(0).getUser_Image_Uri() != null)
+        if (all.get(0).getUser_Image_Uri() != null) {
             imageView.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+            BlurBackground(all);
+        }
+    }
+
+    private void BlurBackground(final List<User_information> all){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Bitmap blurbitmap = BlurUtils.blur(getContext(),fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MybackgroundImageView.setImageBitmap(blurbitmap);
+                    }
+                });
+            }
+        }).start();
     }
 
     public void onStart() {

@@ -96,13 +96,10 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         setTheme(R.style.NoAppTheme);
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-
-        StatusBarUtil.setStatusBarDarkTheme(this, true);
 
         setContentView(R.layout.activity_show_tweet);
 
@@ -220,7 +217,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(title);
+            actionBar.setTitle("动态");
 
         }
         tweetTitle.setText(title);

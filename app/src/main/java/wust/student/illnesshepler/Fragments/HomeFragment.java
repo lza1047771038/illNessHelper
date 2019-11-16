@@ -38,6 +38,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.Tweets;
+import wust.student.illnesshepler.CustomViews.MyNestScrollView;
 import wust.student.illnesshepler.InvestigationList;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.ShowTweet;
@@ -48,7 +49,7 @@ import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener,
-        TweetsListAdapter.OnItemClickListener {
+        TweetsListAdapter.OnItemClickListener, MyNestScrollView.MyScrollViewListener {
 
     private View view;
     private XBanner mXBanner;
@@ -159,7 +160,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "无法连接至服务器，请稍后重试", Toast.LENGTH_SHORT).show();
+                        refreshView.setRefreshing(false);
                     }
                 });
             }
@@ -264,7 +266,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         showtweet(position, mlist);
     }
 
-    public void showtweet(int position, List<Tweets.Item> list) {
+    private void showtweet(int position, List<Tweets.Item> list) {
         Intent intent = new Intent(view.getContext(), ShowTweet.class);
         Bundle bundle = new Bundle();
         bundle.putString("themeid", list.get(position).themeid);
@@ -274,5 +276,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         bundle.putInt("number", list.get(position).visitNum);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onScrollChanged(MyNestScrollView scrollView, int x, int y, int oldx, int oldy) {
+
     }
 }

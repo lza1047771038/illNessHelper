@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="false">
 
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refreshLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="false">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <wust.student.illnesshepler.CustomViews.MyRecyclerView
+            android:id="@+id/chat_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:focusable="true"
+            android:overScrollMode="never"
+            android:paddingTop="80dp"
+            android:paddingBottom="?attr/actionBarSize" />
 
-            <View
-                android:id="@+id/statusBarBackground"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp" />
+        <include layout="@layout/chatviewtitle" />
+    </RelativeLayout>
 
-            <include layout="@layout/chatviewtitle" />
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/chat_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:focusable="true" />
-        </LinearLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-</LinearLayout>
