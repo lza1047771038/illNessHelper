@@ -13,59 +13,49 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import wust.student.illnesshepler.Adapters.CourseAdapter;
 import wust.student.illnesshepler.Adapters.HomeWorkAdapter;
 import wust.student.illnesshepler.Bean.Data_HomeWork;
-import wust.student.illnesshepler.Bean.Data_course;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.Utils.StatusBarUtil;
 
-public class ClassFragment extends Fragment {
-
-    private CourseAdapter adapter;
-    private List<Data_course> list;
+public class HomeworkFragment extends Fragment {
+    private HomeWorkAdapter adapter;
+    private List<Data_HomeWork> list;
     private RecyclerView recyclerView;
-    View view, statusBarBackground;
-
+    View view;
 
     @Nullable
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view=LayoutInflater.from(getContext()).inflate(R.layout.fragment_class,container,false);
+        view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_homework, container, false);
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        /*statusBarBackground = view.findViewById(R.id.statusBarBackground);
-        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);*/
 
-        recyclerView = view.findViewById(R.id.classes);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        recyclerView = view.findViewById(R.id.recycler);
         initData();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter = new CourseAdapter(list, getContext());
+        adapter = new HomeWorkAdapter(list, getContext());
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(CourseClickListener);
-
+        adapter.setOnItemClickListener(HomeWorkClickListener);
     }
 
     private void initData(){
         list =new ArrayList<>();
-        list.add(new Data_course("第一次作业","开发者",null));
-        list.add(new Data_course("第二次作业","开发者",null));
-        list.add(new Data_course("第三次作业","开发者",null));
-        list.add(new Data_course("第四次作业","开发者",null));
-        list.add(new Data_course("第五次作业","开发者",null));
+        list.add(new Data_HomeWork("第一次作业","开发者",false));
+        list.add(new Data_HomeWork("第二次作业","开发者",false));
+        list.add(new Data_HomeWork("第三次作业","开发者",true));
+        list.add(new Data_HomeWork("第四次作业","开发者",true));
+        list.add(new Data_HomeWork("第五次作业","开发者",false));
     }
 
-    private HomeWorkAdapter.OnItemClickListener CourseClickListener=new HomeWorkAdapter.OnItemClickListener() {
+    private HomeWorkAdapter.OnItemClickListener HomeWorkClickListener=new HomeWorkAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View v, HomeWorkAdapter.ViewName viewName, int position) {
             switch (v.getId()) {
