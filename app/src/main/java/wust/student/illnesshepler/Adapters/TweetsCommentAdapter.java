@@ -1,10 +1,6 @@
 package wust.student.illnesshepler.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +9,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
 import wust.student.illnesshepler.Bean.GetTweetComments;
-import wust.student.illnesshepler.Bean.Tweets;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.ShowTweet;
 import wust.student.illnesshepler.Utils.Utils;
 
 public class TweetsCommentAdapter extends RecyclerView.Adapter<TweetsCommentAdapter.ViewHolder> implements View.OnClickListener {

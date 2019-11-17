@@ -1,20 +1,17 @@
 package wust.student.illnesshepler.Adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import wust.student.illnesshepler.Bean.GetInvaestigationList;
-import wust.student.illnesshepler.InvestigationList;
 import wust.student.illnesshepler.R;
 
 public class InvestigationListAdapter extends RecyclerView.Adapter<InvestigationListAdapter.ViewHolder> {

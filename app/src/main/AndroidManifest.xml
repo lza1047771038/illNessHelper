@@ -16,19 +16,19 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ShowTweet"
+            android:name=".Activities.Tweets.ShowTweet"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UploadTweet"
+            android:name=".Activities.Administrator.UploadTweet"
             android:screenOrientation="portrait" />
-        <activity android:name=".Investigation"
+        <activity android:name=".Activities.Survey.Investigation"
             android:screenOrientation="portrait"
             android:theme="@style/Investigation"/>
         <activity
-            android:name=".InvestigationList"
+            android:name=".Activities.Survey.InvestigationList"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StartActivity"
+            android:name=".Activities.StartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StartActivity">
             <intent-filter>
@@ -37,23 +37,23 @@
             </intent-filter>
             </activity>
         <activity
-            android:name=".Edit_Userdata"
+            android:name=".Activities.SetUserInfo.Edit_Userdata"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Set_Userimg"
+            android:name=".Activities.SetUserInfo.Set_Userimg"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ThemeDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Login_Enrol.Login"
+            android:name=".Activities.LoginAndRegister.LoginActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".Login_Enrol.Enrol"
+            android:name=".Activities.LoginAndRegister.Enrol"
             android:screenOrientation="portrait" />
     </application>
 

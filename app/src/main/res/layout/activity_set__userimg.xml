@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:padding="15dp"
-    tools:context=".Set_Userimg">
+    tools:context=".Activities.SetUserInfo.Set_Userimg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:padding="15dp"
-        tools:context=".Set_Userimg">
+        tools:context=".Activities.SetUserInfo.Set_Userimg">
 
         <View
             android:id="@+id/statusBarBackground"

@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import wust.student.illnesshepler.Bean.GetInvaestigationList;
 import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Bean.GetTweetComments;
-import wust.student.illnesshepler.SurveyQuestions.Test;
+import wust.student.illnesshepler.Bean.SurveyQuestions.Test;
 import wust.student.illnesshepler.Bean.Tweets;
 
 public class GsonUtils {

@@ -9,17 +9,17 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import wust.student.illnesshepler.Fragments.ToolsFragment;
-import wust.student.illnesshepler.SurveyQuestions.BaseQuestion;
-import wust.student.illnesshepler.SurveyQuestions.ManualQuestion;
-import wust.student.illnesshepler.SurveyQuestions.MutipleQuestion;
-import wust.student.illnesshepler.SurveyQuestions.Problem;
-import wust.student.illnesshepler.SurveyQuestions.SingleQuestion;
-import wust.student.illnesshepler.SurveyQuestions.ManualQuestionFragment;
-import wust.student.illnesshepler.SurveyQuestions.MutipleQuestionFragment;
-import wust.student.illnesshepler.SurveyQuestions.ScoolInfo;
-import wust.student.illnesshepler.SurveyQuestions.SingleChoiceFragment;
-import wust.student.illnesshepler.Investigation;
+import wust.student.illnesshepler.Activities.Fragments.ToolsFragment;
+import wust.student.illnesshepler.Bean.SurveyQuestions.BaseQuestion;
+import wust.student.illnesshepler.Bean.SurveyQuestions.ManualQuestion;
+import wust.student.illnesshepler.Bean.SurveyQuestions.MutipleQuestion;
+import wust.student.illnesshepler.Bean.SurveyQuestions.Problem;
+import wust.student.illnesshepler.Bean.SurveyQuestions.SingleQuestion;
+import wust.student.illnesshepler.Bean.SurveyQuestions.ManualQuestionFragment;
+import wust.student.illnesshepler.Bean.SurveyQuestions.MutipleQuestionFragment;
+import wust.student.illnesshepler.Bean.SurveyQuestions.ScoolInfo;
+import wust.student.illnesshepler.Bean.SurveyQuestions.SingleChoiceFragment;
+import wust.student.illnesshepler.Activities.Survey.Investigation;
 
 public class InvestigationAdapter extends FragmentStatePagerAdapter {
     private List<BaseQuestion> mlist;

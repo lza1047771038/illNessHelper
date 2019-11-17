@@ -16,8 +16,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import wust.student.illnesshepler.UploadTweet;
-
 public class ImageUtil {
 
     public static String getRealPathFromURI(Context context,Uri contentUri) { //传入图片uri地址
