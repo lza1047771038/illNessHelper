@@ -1,16 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.yalantis.phoenix.PullToRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="false">
 
-    <RelativeLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/RainBowTitle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fitsSystemWindows="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="88dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@mipmap/wust" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:text="青春彩虹伞"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="22dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/bell_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/RainBowSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/searchview_cornerbackground"
+                    android:padding="7dp"
+                    android:text="彩虹搜索"
+                    android:textAlignment="center"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <wust.student.illnesshepler.CustomViews.MyNestScrollView
             android:id="@+id/scrollViews"
@@ -18,9 +89,9 @@
             android:layout_height="match_parent"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingTop="100dp"
-            android:paddingBottom="?attr/actionBarSize">
+            android:overScrollMode="always"
+            android:paddingBottom="?attr/actionBarSize"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -212,8 +283,5 @@
         </wust.student.illnesshepler.CustomViews.MyNestScrollView>
 
 
-        <include layout="@layout/detailedtitle" />
-    </RelativeLayout>
-
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </com.yalantis.phoenix.PullToRefreshView>

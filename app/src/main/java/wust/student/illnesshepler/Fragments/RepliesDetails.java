@@ -184,7 +184,7 @@ public class RepliesDetails extends BottomSheetDialogFragment implements TweetsC
             window.findViewById(com.google.android.material.R.id.coordinator).setFitsSystemWindows(false);
             // dark navigation bar icons
             View decorView = window.getDecorView();
-            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
     }
 

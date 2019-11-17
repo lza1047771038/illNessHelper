@@ -47,7 +47,6 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
     private MyRecyclerView recyclerView;
     private ThemeAdapter themeAdapter;
     private SwipeRefreshLayout refreshLayout;
-    private LinearLayout linearLayout;
 
     List<Posting> themeList = new ArrayList<>();
 
@@ -65,8 +64,6 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        linearLayout = view.findViewById(R.id.toolbar);
-        linearLayout.setPadding(0, StatusBarUtil.getStatusBarHeight(getContext()), 0, 0);
         recyclerView = view.findViewById(R.id.chat_recyclerView);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         layoutInit();

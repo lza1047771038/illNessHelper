@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.appbar.AppBarLayout;
 import com.stx.xhb.xbanner.XBanner;
 import com.yalantis.phoenix.PullToRefreshView;
 
@@ -59,7 +60,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private LinearLayout libraries;
     private LinearLayout doctors;
     private LinearLayout tools;
-    private LinearLayout toolbar;
     private PullToRefreshView refreshView;
     private NestedScrollView scrollView;
 
@@ -107,11 +107,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     private void initlayout() {
         scrollView = view.findViewById(R.id.scrollViews);
-        toolbar = view.findViewById(R.id.RainBowTitle);
-        RelativeLayout.LayoutParams params =
-                (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-        params.setMargins(0, StatusBarUtil.getStatusBarHeight(getContext()), 0, 0);
-        toolbar.setLayoutParams(params);
 
 
         refreshView = view.findViewById(R.id.refreshLayout);

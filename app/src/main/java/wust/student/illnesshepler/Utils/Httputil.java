@@ -220,7 +220,7 @@ public class Httputil {
                 .add("coin", coin+"")
                 .add("userimagepath", userimagepath)
                 .build();
-        Request request = new Request.Builder().url(login).post(build).build();
+        Request request = new Request.Builder().url(updateUserInfo).post(build).build();
         client.newCall(request).enqueue(callback);
     }
 }

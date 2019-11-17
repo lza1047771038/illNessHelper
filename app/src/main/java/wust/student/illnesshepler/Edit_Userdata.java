@@ -138,7 +138,7 @@ public void handleMessge()
             switch (msg.what)
             {
                 case 1:
-                promptDialog.showSuccess("修改成功");
+//                promptDialog.showSuccess("修改成功");
                     break;
                 case 2:
                     MainActivity.userName=temp_name;
