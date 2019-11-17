@@ -140,8 +140,7 @@ public void handleMessge()
             {
                 case 1:
                 promptDialog.showSuccess("修改成功");
-                Intent intent=new Intent(Edit_Userdata.this,MainActivity.class);
-                startActivity(intent);
+                finish();
                     break;
                 case 2:
                     MainActivity.userInfo.setUser_Name(temp_name);
