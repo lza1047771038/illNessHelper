@@ -13,7 +13,7 @@ public class User_information extends LitePalSupport {
     private String User_Name;
     public String password;
     public String phoneid;
-    private String User_Age;
+    private int User_Age;
     private String User_Image_Uri=null;
     private int id;
     public int userType;
@@ -97,7 +97,7 @@ public class User_information extends LitePalSupport {
         this.User_Name = name;
     }
 
-    public void setUser_Age(String age) {
+    public void setUser_Age(int age) {
         this.User_Age = age;
     }
 
@@ -109,7 +109,7 @@ public class User_information extends LitePalSupport {
         return User_Name;
     }
 
-    public String getUser_Age() {
+    public int getUser_Age() {
         return User_Age;
     }
 

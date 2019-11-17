@@ -184,11 +184,12 @@ public class Enrol extends AppCompatActivity implements View.OnClickListener {
             info.setId(1);
             info.setUserId(userId+"");
             info.setPassword(password);
+            info.setUser_Name(username);
             info.setUser_Image_Uri(userImagePath);
             info.setPhoneid(phoneid);
             info.setUserType(userType);
             info.setType(type);
-            info.setUser_Age(age+"");
+            info.setUser_Age(age);
             info.setUser_coin(coin);
             info.save();
             Message message=new Message();

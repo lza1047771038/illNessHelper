@@ -76,27 +76,28 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private void setUserName(){
         User_Name=(TextView)view.findViewById(R.id.User_Name);
 //        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        User_Name.setText(MainActivity.userName);
+        User_Name.setText(MainActivity.userInfo.getUser_Name());
     }
 
     private void setImageView() {
         imageView = (ImageView) view.findViewById(R.id.imageView);
-        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if (all.get(0).getUser_Image_Uri() != null) {
+//        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
+        if (MainActivity.userInfo.getUser_Image_Uri() != null) {
 //            imageView.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
-            Glide.with(this).load(all.get(0).getUser_Image_Uri()).apply(new RequestOptions().transforms(new CenterCrop())).into(imageView);
-            BlurBackground(all);
+
+            Glide.with(this).load(MainActivity.userInfo.getUser_Image_Uri()).apply(new RequestOptions().transforms(new CenterCrop())).into(imageView);
+            BlurBackground();
         }
     }
 
-    private void BlurBackground(final List<User_information> all){
+    private void BlurBackground(){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Bitmap  bitmap1=null;
                 FutureTarget<Bitmap> bitmap = Glide.with(getActivity())
                         .asBitmap()
-                        .load(MainActivity.user_image)
+                        .load(MainActivity.userInfo.getUser_Image_Uri())
                         .submit();
                 try{
                    bitmap1 = bitmap.get();

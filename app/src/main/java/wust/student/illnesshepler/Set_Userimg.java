@@ -212,7 +212,7 @@ public class Set_Userimg extends AppCompatActivity {
                     JSONObject imageurl = new JSONObject(ressult);
                     JSONArray allimageurl = imageurl.getJSONArray("ImageList");
                     String url = allimageurl.get(0).toString() + "";
-                    MainActivity.user_image=url;
+                    MainActivity.userInfo.setUser_Image_Uri(url);
                     Up_Img_Uri("User_Image_Uri",url);
                 } catch (JSONException e) {
                     e.printStackTrace();

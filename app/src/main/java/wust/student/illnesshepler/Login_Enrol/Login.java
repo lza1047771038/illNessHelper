@@ -130,7 +130,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             JSONObject jsonObject = new JSONObject(result);
             JSONObject userInfo = new JSONObject(jsonObject.getString("data"));
             String userId = userInfo.get("userId").toString();
-            String userImagePath = "http://47.100.93.91:8996/MediaFiles/mediaImages/f4df44b1e1636c80cd8b9e7005657c09.jpg";
+            String userImagePath =userInfo.getString("");;
             String  username = userInfo.getString("username");
             String password = userInfo.getString("password");
             String phoneid = userInfo.getString("phoneid");
@@ -153,7 +153,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             info.setPhoneid(phoneid);
             info.setUserType(userType);
             info.setType(type);
-            info.setUser_Age(age + "");
+            info.setUser_Age(age);
             info.setUser_coin(coin);
             info.save();
 

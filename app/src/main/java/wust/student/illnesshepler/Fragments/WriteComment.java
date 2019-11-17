@@ -106,10 +106,10 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         Toast.makeText(getContext(), "发送成功", Toast.LENGTH_SHORT).show();
                         GetTweetComments.Comments temp = new GetTweetComments.Comments();
                         temp.contains = msg.obj.toString();
-                        temp.username = MainActivity.userName;
+                        temp.username = MainActivity.userInfo.getUser_Name();
                         temp.time = System.currentTimeMillis() + "";
                         temp.likes = 0;
-                        temp.userimage = MainActivity.user_image;
+                        temp.userimage = MainActivity.userInfo.getUser_Name();
                         temp.replies = 0;
                         temp.comments_num = 0;
                         ShowTweet.clist.add(0, temp);
@@ -129,10 +129,10 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         GetTweetComments.Comments temp1 = new GetTweetComments.Comments();
                         if (!flag) {
                             temp1.contains = msg.obj.toString();
-                            temp1.username = MainActivity.userName;
+                            temp1.username = MainActivity.userInfo.getUser_Name();
                             temp1.time = System.currentTimeMillis() + "";
                             temp1.likes = 0;
-                            temp1.userimage = MainActivity.user_image;
+                            temp1.userimage =  MainActivity.userInfo.getUser_Name();
                             temp1.replies = 0;
                             temp1.comments_num = 0;
                             RepliesDetails.replyList.add(0, temp1);
@@ -239,7 +239,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_comments:
-                if (MainActivity.isLogin) {
+                if (MainActivity.userInfo.isLogin()) {
                     if (flagsend) {
                         sendcomment();
                     } else {
@@ -263,7 +263,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         if (contains.length() == 0) {
         } else {
             if (true) {
-                Httputil.reply_post(contains, MainActivity.userId, id, root, parentid,MainActivity.phoneid, new Callback() {
+                Httputil.reply_post(contains, MainActivity.userInfo.getUserId(), id, root, parentid, MainActivity.userInfo.getPhoneid(), new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -300,7 +300,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         } else {
             if (true) //敏感词汇
             {
-                Httputil.comment_post(themeid, MainActivity.userId, contains,MainActivity.phoneid, new Callback() {
+                Httputil.comment_post(themeid, MainActivity.userInfo.getUserId(), contains,MainActivity.userInfo.getPhoneid(), new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         Message message = new Message();

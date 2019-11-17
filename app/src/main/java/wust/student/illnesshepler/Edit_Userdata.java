@@ -66,6 +66,7 @@ public class Edit_Userdata extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit__userdata);
+        promptDialog = new PromptDialog(this);
 
         v=getLayoutInflater().inflate(R.layout.dialoglayout,null);
 
@@ -138,16 +139,18 @@ public void handleMessge()
             switch (msg.what)
             {
                 case 1:
-//                promptDialog.showSuccess("修改成功");
+                promptDialog.showSuccess("修改成功");
+                Intent intent=new Intent(Edit_Userdata.this,MainActivity.class);
+                startActivity(intent);
                     break;
                 case 2:
-                    MainActivity.userName=temp_name;
-                    MainActivity.userAge=temp_age;
-                    UpData("User_Age",Integer.toString(temp_age));
+                    MainActivity.userInfo.setUser_Name(temp_name);
+                    MainActivity.userInfo.setUser_Age(temp_age);
+                    UpDataInt("User_Age",temp_age);
                     UpData("User_Name",temp_name);
                     user_name.setText(temp_name);
                     user_age.setText(temp_age+"");
-//                    promptDialog.showError("修改失败请重试");
+                    promptDialog.showError("修改失败请重试");
                     break;
             }
             return false;
@@ -169,9 +172,9 @@ public void handleMessge()
             public void onClick(DialogInterface dialog, int which) {
                 name[0] =input.getText().toString();
                 user_name.setText(name[0]);
-                MainActivity.userName=name[0];
+                MainActivity.userInfo.setUser_Name(name[0]);
                 UpData("User_Name",name[0]);
-                Toast.makeText(Edit_Userdata.this,"已经修改用户名",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Edit_Userdata.this,"已经修改用户名",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -207,7 +210,7 @@ public void handleMessge()
             @Override
             public void onClick(DialogInterface dialog, int which) {
                     user_age.setText(Integer.toString(newAge[0]));
-                    MainActivity.userAge=newAge[0];
+                     MainActivity.userInfo.setUser_Age(newAge[0]);
                     UpData("User_Age",Integer.toString(newAge[0]));
                     Toast.makeText(Edit_Userdata.this, "修改后的年龄："+newAge[0], Toast.LENGTH_SHORT).show();
 
@@ -229,25 +232,30 @@ public void handleMessge()
         values.put(name,data);
         LitePal.updateAll(User_information.class,values);
     }
-
+public void UpDataInt(String name,int data)
+{
+    ContentValues values=new ContentValues();
+    values.put(name,data);
+    LitePal.updateAll(User_information.class,values);
+}
     public void setUesrdata(){
 //        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if(MainActivity.isLogin){
-            if(MainActivity.userName!=null)
+        if(MainActivity.userInfo.isLogin()){
+            if(MainActivity.userInfo.getUser_Name()!=null)
             {
-                temp_name=MainActivity.userName;
-                user_name.setText(MainActivity.userName);
+                temp_name=MainActivity.userInfo.getUser_Name();
+                user_name.setText(MainActivity.userInfo.getUser_Name());
             }
             else
             {
                 temp_name="";
                 user_name.setText("请修改用户名");
             }
-            temp_age=MainActivity.userAge;
-            user_age.setText(MainActivity.userAge+"");
-            if(MainActivity.user_image!=null) {
+            temp_age=MainActivity.userInfo.getUser_Age();
+            user_age.setText(MainActivity.userInfo.getUser_Age()+"");
+            if(MainActivity.userInfo.getUser_Image_Uri()!=null) {
 //                user_image.setImageBitmap(fileUtil.getBitmap(all.get(0).getUser_Image_Uri()));
-                Glide.with(this).load(MainActivity.user_image).apply(new RequestOptions().transforms(new CenterCrop())).into(user_image);
+                Glide.with(this).load(MainActivity.userInfo.getUser_Image_Uri()).apply(new RequestOptions().transforms(new CenterCrop())).into(user_image);
             }
         }
     }
@@ -269,13 +277,7 @@ public void handleMessge()
     }
     public void changeUserinfo()
     {
-        Log.d("test","updateUserInfo result"+MainActivity.userId+"\n"
-                +MainActivity.userId+"\n"
-                +MainActivity.userName+"\n"
-                +MainActivity.userAge+"\n"
-                +MainActivity.user_coin+"\n"
-                +MainActivity.user_image+"\n");
-        Httputil.updateUserInfo(MainActivity.userId, MainActivity.userName, MainActivity.userAge, MainActivity.user_coin, MainActivity.user_image, new Callback() {
+        Httputil.updateUserInfo(MainActivity.userInfo.getUserId(), MainActivity.userInfo.getUser_Name(), MainActivity.userInfo.getUser_Age(), MainActivity.userInfo.getUser_coin(), MainActivity.userInfo.getUser_Image_Uri(), new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Message message=new Message();

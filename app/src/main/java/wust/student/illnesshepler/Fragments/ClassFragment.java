@@ -20,6 +20,7 @@ import wust.student.illnesshepler.Adapters.CourseAdapter;
 import wust.student.illnesshepler.Adapters.HomeWorkAdapter;
 import wust.student.illnesshepler.Bean.Data_HomeWork;
 import wust.student.illnesshepler.Bean.Data_course;
+import wust.student.illnesshepler.CustomViews.MyRecyclerView;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
@@ -27,7 +28,7 @@ public class ClassFragment extends Fragment {
 
     private CourseAdapter adapter;
     private List<Data_course> list;
-    private RecyclerView recyclerView;
+    private MyRecyclerView recyclerView;
     View view, statusBarBackground;
 
 
@@ -47,6 +48,7 @@ public class ClassFragment extends Fragment {
         statusBarBackground.setLayoutParams(params);*/
 
         recyclerView = view.findViewById(R.id.classes);
+        recyclerView.setNestedScrollingEnabled(false);
         initData();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

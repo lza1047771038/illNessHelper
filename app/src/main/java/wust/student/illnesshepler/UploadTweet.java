@@ -274,7 +274,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     //第二次发送数据 发送编辑推文信息
     public void secondsubmit(String contains) {
         String title = update_title.getText().toString();
-        Httputil.NotificationPost(themeid, MainActivity.userId, title, contains,submittime + "",headerimage ,uploadtype, new Callback() {
+        Httputil.NotificationPost(themeid,MainActivity.userInfo.getUserId(), title, contains,submittime + "",headerimage ,uploadtype, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 runOnUiThread(new Runnable() {
