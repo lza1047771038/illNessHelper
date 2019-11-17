@@ -147,12 +147,13 @@ public class Httputil {
         Request request = new Request.Builder().url(NotificationDetails).post(build).build();
         client.newCall(request).enqueue(callback);
     }
-    public static void comment_post(String Themeid,String Userid ,String Contains,okhttp3.Callback callback) {
+    public static void comment_post(String Themeid,String Userid ,String Contains,String phoneid,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
                 .add("themeid", Themeid)
                 .add("userid", Userid)
                 .add("contains", Contains)
+                .add("phoneid", phoneid)
                 .build();
         Request request = new Request.Builder().url(comment_post).post(build).build();
         client.newCall(request).enqueue(callback);
@@ -177,7 +178,7 @@ public class Httputil {
         Request request = new Request.Builder().url(reply_request).post(build).build();
         client.newCall(request).enqueue(callback);
     }
-    public static void    reply_post(String contains,String userid,String id ,String root,String parentid,okhttp3.Callback callback) {
+    public static void   reply_post(String contains,String userid,String id ,String root,String parentid,String phoneid,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
                 .add("contains", contains)
@@ -185,6 +186,7 @@ public class Httputil {
                 .add("id", id)
                 .add("root", root)
                 .add("parentid", parentid)
+                .add("phoneid", phoneid)
                 .build();
         Request request = new Request.Builder().url(reply_post).post(build).build();
         client.newCall(request).enqueue(callback);

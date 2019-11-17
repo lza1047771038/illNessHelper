@@ -30,6 +30,7 @@
     <string name="registe_denyed">改账号已被注册</string>
     <string name="registe_succeed">注册成功</string>
     <string name="wrong_password">密码或账号错误</string>
+    <string name="remote_login">您的账号异地登录，请重新登录</string>
 
 
 </resources>

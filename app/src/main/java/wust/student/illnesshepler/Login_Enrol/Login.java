@@ -147,6 +147,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             info.setLogin(true);
             info.setId(1);
             info.setUserId(userId + "");
+            info.setUser_Name(username);
             info.setPassword(password);
             info.setUser_Image_Uri(userImagePath);
             info.setPhoneid(phoneid);

@@ -91,7 +91,13 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private GetTweetComments tweetComments;
     private RepliesDetails repliesDetails;
     private WriteComment writeComment;
+    /*
+    有个小bug 没有网络的时候，没有缓存过的推文可以输入
+    11月17号（明天）修复
 
+
+
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

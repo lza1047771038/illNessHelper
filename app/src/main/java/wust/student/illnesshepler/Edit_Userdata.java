@@ -146,7 +146,7 @@ public void handleMessge()
                     UpData("User_Age",Integer.toString(temp_age));
                     UpData("User_Name",temp_name);
                     user_name.setText(temp_name);
-                    user_age.setText(temp_age);
+                    user_age.setText(temp_age+"");
 //                    promptDialog.showError("修改失败请重试");
                     break;
             }
