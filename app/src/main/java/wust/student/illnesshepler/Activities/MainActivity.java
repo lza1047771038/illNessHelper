@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         if(all.size()!=0)
         {
             userInfo=all.get(0);
+            Log.d("test", "MainActivity.userInfo.getUser_Image_Uri()"+MainActivity.userInfo.getUser_Image_Uri());
         }
     }
 

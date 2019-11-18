@@ -37,11 +37,10 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import wust.student.illnesshepler.Activities.MainActivity;
+import wust.student.illnesshepler.Activities.Tweets.ShowTweet;
 import wust.student.illnesshepler.Bean.GetTweetComments;
-import wust.student.illnesshepler.MainActivity;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.ShowTweet;
-import wust.student.illnesshepler.SurveyQuestions.Test;
 import wust.student.illnesshepler.Utils.Httputil;
 
 public class WriteComment extends BottomSheetDialogFragment implements View.OnClickListener {
@@ -109,11 +108,13 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         temp.username = MainActivity.userInfo.getUser_Name();
                         temp.time = System.currentTimeMillis() + "";
                         temp.likes = 0;
-                        temp.userimage = MainActivity.userInfo.getUser_Name();
+                        temp.userimage =MainActivity.userInfo.getUser_Image_Uri();
                         temp.replies = 0;
                         temp.comments_num = 0;
                         ShowTweet.clist.add(0, temp);
-                        ShowTweet.adapter.notifyDataSetChanged();
+                        ShowTweet.adapter.notifyItemInserted(0);
+//                        ShowTweet.adapter.notifyDataSetChanged();
+
 //                        ShowTweet.recyclerView.getLayoutManager().scrollToPosition(0);
                         comments.setText("");
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -132,11 +133,12 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                             temp1.username = MainActivity.userInfo.getUser_Name();
                             temp1.time = System.currentTimeMillis() + "";
                             temp1.likes = 0;
-                            temp1.userimage =  MainActivity.userInfo.getUser_Name();
+                            temp1.userimage =  MainActivity.userInfo.getUser_Image_Uri();
+                            Log.d("test", "WriteComment onStart"+MainActivity.userInfo.getUser_Image_Uri());
                             temp1.replies = 0;
                             temp1.comments_num = 0;
                             RepliesDetails.replyList.add(0, temp1);
-                            RepliesDetails.replyAdapter.notifyDataSetChanged();
+                            RepliesDetails.replyAdapter.notifyItemInserted(0);
                             RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
                         } else {
                             ShowTweet.clist.get(postion).replies = replyNum + 1;

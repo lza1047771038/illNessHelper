@@ -125,7 +125,8 @@
             android:paddingBottom="5dp"
             android:text="8条回复 ->"
             android:textColor="#517DAB"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:visibility="gone"/>
 
         <View
             android:layout_width="match_parent"

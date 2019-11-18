@@ -48,7 +48,6 @@ import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.TweetsCommentAdapter;
 import wust.student.illnesshepler.Bean.GetTweetComments;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.ShowTweet;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;

@@ -216,7 +216,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
     public void getdata() {
         Bundle bundle = getIntent().getExtras();
-
         title = bundle.getString("title", "错误");
         auther = bundle.getString("authername", "错误");
         time = bundle.getString("time", "错误");

@@ -105,7 +105,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         temp.username = MainActivity.userInfo.getUser_Name();
                         temp.time = System.currentTimeMillis() + "";
                         temp.likes = 0;
-                        temp.userimage = MainActivity.userInfo.getUser_Name();
+                        temp.userimage = MainActivity.userInfo.getUser_Image_Uri();
                         temp.replies = 0;
                         temp.comments_num = 0;
                         ShowTweet.clist.add(0, temp);
@@ -128,16 +128,17 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                             temp1.username = MainActivity.userInfo.getUser_Name();
                             temp1.time = System.currentTimeMillis() + "";
                             temp1.likes = 0;
-                            temp1.userimage =  MainActivity.userInfo.getUser_Name();
+                            temp1.userimage =  MainActivity.userInfo.getUser_Image_Uri();
                             temp1.replies = 0;
                             temp1.comments_num = 0;
                             RepliesDetails.replyList.add(0, temp1);
                             RepliesDetails.replyAdapter.notifyDataSetChanged();
                             RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
                         } else {
-                            ShowTweet.clist.get(postion).replies = replyNum + 1;
-                            ShowTweet.adapter.notifyDataSetChanged();
-                            ShowTweet.recyclerView.getLayoutManager().scrollToPosition(postion);
+                            Log.d("test","postion:"+postion+"replyNum:"+replyNum);
+                            ShowTweet.clist.get(postion).replies= replyNum+1;
+                            Log.d("test","after postion:"+ShowTweet.clist.get(postion).replies);
+                            ShowTweet.adapter.notifyItemChanged(postion);
                         }
                         comments.setText("");
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
