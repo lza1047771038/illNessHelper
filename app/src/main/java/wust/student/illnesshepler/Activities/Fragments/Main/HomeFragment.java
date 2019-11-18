@@ -40,12 +40,12 @@ import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.Tweets;
 import wust.student.illnesshepler.CustomViews.MyNestScrollView;
-import wust.student.illnesshepler.Activities.Survey.InvestigationList;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Activities.Tweets.ShowTweet;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.ScreenUtil;
+import wust.student.illnesshepler.Activities.Survey.*;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener,
@@ -249,7 +249,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.survey:
-                Intent intent = new Intent(getActivity(), InvestigationList.class);
+                Intent intent = new Intent(getActivity(),InvestigationList.class);
                 startActivity(intent);
                 break;
             case R.id.libraries:
