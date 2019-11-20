@@ -65,7 +65,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
     private ImageView collect;
     private ImageView share;
-
+    private ImageView showTweetImg;
     private Toolbar toolbar;
 //    private RealtimeBlurView blurView;
     private LinearLayout linearLayout;
@@ -143,7 +143,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 //        tweetPostCommentHigth = (EditText) findViewById(R.id.tweet_post_comment_higth);
         collect = (ImageView) findViewById(R.id.tweet_collect);
         share = (ImageView) findViewById(R.id.tweet_share);
-
+        showTweetImg=(ImageView) findViewById(R.id.show_tweet_img);
         tweetPostComment.setOnClickListener(this);
 //        tweetPostComment.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
@@ -234,6 +234,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         String result=sp.getString(themeid,null);
         if(result!=null)
         {
+            Log.d("test", " Showtweet result NotificationDetails " + result);
             analysisTweetJson(result);
         }
         else
@@ -242,6 +243,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 SharedPreferences sp=ShowTweet.this.getSharedPreferences("ShowTweets", Context.MODE_PRIVATE);
                 String result=sp.getString(themeid,null);
+
                 if(result!=null)
                 {
                     analysisTweetJson(result);

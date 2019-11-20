@@ -50,6 +50,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     public static boolean flagsend = true;
     public static boolean flag;
     public static int replyNum;
+    public    String commentid;
     public WriteComment writeComment;
 
     @Override
@@ -102,6 +103,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         Toast.makeText(getContext(), "发送成功", Toast.LENGTH_SHORT).show();
                         GetTweetComments.Comments temp = new GetTweetComments.Comments();
                         temp.contains = msg.obj.toString();
+                        temp.id=commentid;
                         temp.username = MainActivity.userInfo.getUser_Name();
                         temp.time = System.currentTimeMillis() + "";
                         temp.likes = 0;
@@ -126,6 +128,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         if (!flag) {
                             temp1.contains = msg.obj.toString();
                             temp1.username = MainActivity.userInfo.getUser_Name();
+                            temp1.id=commentid;
                             temp1.time = System.currentTimeMillis() + "";
                             temp1.likes = 0;
                             temp1.userimage =  MainActivity.userInfo.getUser_Image_Uri();
@@ -260,7 +263,8 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         if (contains.length() == 0) {
         } else {
             if (true) {
-                Httputil.reply_post(contains, MainActivity.userInfo.getUserId(), id, root, parentid, MainActivity.userInfo.getPhoneid(), new Callback() {
+                commentid=System.currentTimeMillis()+"";
+                Httputil.reply_post(commentid,contains, MainActivity.userInfo.getUserId(), id, root, parentid, MainActivity.userInfo.getPhoneid(), new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -297,7 +301,8 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         } else {
             if (true) //敏感词汇
             {
-                Httputil.comment_post(themeid, MainActivity.userInfo.getUserId(), contains,MainActivity.userInfo.getPhoneid(), new Callback() {
+               commentid=System.currentTimeMillis()+"";
+                Httputil.comment_post(commentid,themeid, MainActivity.userInfo.getUserId(), contains,MainActivity.userInfo.getPhoneid(), new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         Message message = new Message();

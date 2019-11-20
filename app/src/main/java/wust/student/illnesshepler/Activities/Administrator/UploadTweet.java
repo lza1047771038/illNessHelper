@@ -168,7 +168,12 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                     try {
                         JSONObject imageurl = new JSONObject(msg.obj.toString());
                         JSONArray allimageurl = imageurl.getJSONArray("ImageList");
-                        headerimage=allimageurl.get(0).toString()+"";
+                        if(allimageurl.length()!=0) {
+                            headerimage = allimageurl.get(0).toString() + "";
+                        }
+                        else {
+                            headerimage ="null";
+                        }
                         names.clear();
                         for (int i = 0; i < allimageurl.length(); i++) {
                             names.add(allimageurl.get(i).toString());
@@ -274,7 +279,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     //第二次发送数据 发送编辑推文信息
     public void secondsubmit(String contains) {
         String title = update_title.getText().toString();
-        Httputil.NotificationPost(themeid,MainActivity.userInfo.getUserId(), title, contains,submittime + "",headerimage ,uploadtype, new Callback() {
+        Httputil.NotificationPost(MainActivity.userInfo.getPhoneid(),themeid,MainActivity.userInfo.getUserId(), title, contains,submittime + "",headerimage ,uploadtype, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 runOnUiThread(new Runnable() {
@@ -294,6 +299,10 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                         Log.d("test", result);
                         if (result.equals("1"))
                             Toast.makeText(UploadTweet.this, "成功", Toast.LENGTH_SHORT).show();
+                        else if(result.equals("2"))
+                        {
+                            Toast.makeText(UploadTweet.this, "异地登陆", Toast.LENGTH_SHORT).show();
+                        }
                         else if (result.equals("0"))
                             Toast.makeText(UploadTweet.this, "失败", Toast.LENGTH_SHORT).show();
                         else {

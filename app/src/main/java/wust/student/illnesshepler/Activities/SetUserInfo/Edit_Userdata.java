@@ -149,6 +149,9 @@ public void handleMessge()
                     user_age.setText(temp_age+"");
                     promptDialog.showError("修改失败请重试");
                     break;
+                case 3:
+                    promptDialog.showError("异地登录");
+                    break;
             }
             return false;
         }
@@ -274,7 +277,7 @@ public void UpDataInt(String name,int data)
     }
     public void changeUserinfo()
     {
-        Httputil.updateUserInfo(MainActivity.userInfo.getUserId(), MainActivity.userInfo.getUser_Name(), MainActivity.userInfo.getUser_Age(), MainActivity.userInfo.getUser_coin(), MainActivity.userInfo.getUser_Image_Uri(), new Callback() {
+        Httputil.updateUserInfo(MainActivity.userInfo.getUserId(), MainActivity.userInfo.getUser_Name(), MainActivity.userInfo.getUser_Age(), MainActivity.userInfo.getUser_coin(), MainActivity.userInfo.getUser_Image_Uri(),MainActivity.userInfo.getPhoneid(), new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Message message=new Message();
@@ -291,6 +294,9 @@ public void UpDataInt(String name,int data)
                     {
                         message.what=2;
                     }
+                    else if(result.equals("2")){
+                        message.what=3;
+                }
                     else {
                         message.what=1;
                     }

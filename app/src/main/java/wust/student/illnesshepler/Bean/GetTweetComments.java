@@ -22,7 +22,7 @@ public class GetTweetComments {
          * userimage : null
          */
         @SerializedName("id")
-       public int id;
+       public String id;
         @SerializedName("theme_id")
        public String theme_id;
         @SerializedName("time")

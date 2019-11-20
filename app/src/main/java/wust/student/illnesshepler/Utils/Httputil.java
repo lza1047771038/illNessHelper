@@ -120,10 +120,11 @@ public class Httputil {
         Log.d("test", "ImagesUpload   result :" );
         client.newCall(request).enqueue(callback);
     }
-    public static void NotificationPost(String themeid,String authorid,String title,String contains,String posttime,String headerimage ,String uploadtype,okhttp3.Callback callback) {
+    public static void NotificationPost(String phoneid,String themeid,String authorid,String title,String contains,String posttime,String headerimage ,String uploadtype,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
         RequestBody build = new FormBody.Builder()
+                .add("phoneid", phoneid)
                 .add("themeid", themeid)
                 .add("authorid", authorid)
                 .add("title", title)
@@ -144,9 +145,10 @@ public class Httputil {
         Request request = new Request.Builder().url(NotificationDetails).post(build).build();
         client.newCall(request).enqueue(callback);
     }
-    public static void comment_post(String Themeid,String Userid ,String Contains,String phoneid,okhttp3.Callback callback) {
+    public static void comment_post(String commentid,String Themeid,String Userid ,String Contains,String phoneid,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
+                .add("commentid", commentid)
                 .add("themeid", Themeid)
                 .add("userid", Userid)
                 .add("contains", Contains)
@@ -175,9 +177,10 @@ public class Httputil {
         Request request = new Request.Builder().url(reply_request).post(build).build();
         client.newCall(request).enqueue(callback);
     }
-    public static void   reply_post(String contains,String userid,String id ,String root,String parentid,String phoneid,okhttp3.Callback callback) {
+    public static void   reply_post(String commentid,String contains,String userid,String id ,String root,String parentid,String phoneid,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
+                .add("commentid", commentid)
                 .add("contains", contains)
                 .add("userid", userid)
                 .add("id", id)
@@ -197,17 +200,19 @@ public class Httputil {
         Request request = new Request.Builder().url(register).post(build).build();
         client.newCall(request).enqueue(callback);
     }
-    public static void login(String userid, String password,okhttp3.Callback callback) {
+    public static void login(String userid, String password,String phoneid,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
                 .add("userid", userid)
                 .add("password", password)
+                .add("password", password)
+                .add("phoneid", phoneid)
                 .build();
         Request request = new Request.Builder().url(login).post(build).build();
         client.newCall(request).enqueue(callback);
     }
 //    userid,username,age,coin,userimagepath
-    public static void updateUserInfo(String userid, String username, int age, int coin, String userimagepath ,okhttp3.Callback callback)
+    public static void updateUserInfo(String userid, String username, int age, int coin, String userimagepath ,String phoneid,okhttp3.Callback callback)
     {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
@@ -216,6 +221,7 @@ public class Httputil {
                 .add("age", age+"")
                 .add("coin", coin+"")
                 .add("userimagepath", userimagepath)
+                .add("phoneid", phoneid)
                 .build();
         Request request = new Request.Builder().url(updateUserInfo).post(build).build();
         client.newCall(request).enqueue(callback);
