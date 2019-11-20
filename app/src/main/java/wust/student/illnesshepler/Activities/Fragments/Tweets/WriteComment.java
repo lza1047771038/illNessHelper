@@ -111,7 +111,8 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         temp.replies = 0;
                         temp.comments_num = 0;
                         ShowTweet.clist.add(0, temp);
-                        ShowTweet.adapter.notifyDataSetChanged();
+                        ShowTweet.adapter.notifyItemInserted(0);
+//                        ShowTweet.adapter.notifyDataSetChanged();
 //                        ShowTweet.recyclerView.getLayoutManager().scrollToPosition(0);
                         comments.setText("");
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -135,8 +136,8 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                             temp1.replies = 0;
                             temp1.comments_num = 0;
                             RepliesDetails.replyList.add(0, temp1);
-                            RepliesDetails.replyAdapter.notifyDataSetChanged();
-                            RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
+                            RepliesDetails.replyAdapter.notifyItemInserted(0);
+//                            RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
                         } else {
                             Log.d("test","postion:"+postion+"replyNum:"+replyNum);
                             ShowTweet.clist.get(postion).replies= replyNum+1;
