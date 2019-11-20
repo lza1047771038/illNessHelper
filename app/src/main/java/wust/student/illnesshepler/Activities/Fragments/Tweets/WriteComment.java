@@ -51,6 +51,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     public static boolean flag;
     public static int replyNum;
     public    String commentid;
+    public    String commentidReply;
     public WriteComment writeComment;
 
     @Override
@@ -129,7 +130,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         if (!flag) {
                             temp1.contains = msg.obj.toString();
                             temp1.username = MainActivity.userInfo.getUser_Name();
-                            temp1.id=commentid;
+                            temp1.id=commentidReply;
                             temp1.time = System.currentTimeMillis() + "";
                             temp1.likes = 0;
                             temp1.userimage =  MainActivity.userInfo.getUser_Image_Uri();
@@ -264,8 +265,9 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         if (contains.length() == 0) {
         } else {
             if (true) {
-                commentid=System.currentTimeMillis()+"";
-                Httputil.reply_post(commentid,contains, MainActivity.userInfo.getUserId(), id, root, parentid, MainActivity.userInfo.getPhoneid(), new Callback() {
+                commentidReply=System.currentTimeMillis()+"";
+                Log.d("akbr","commentidReply"+commentidReply);
+                Httputil.reply_post(commentidReply,contains, MainActivity.userInfo.getUserId(), id, root, parentid, MainActivity.userInfo.getPhoneid(), new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -303,6 +305,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
             if (true) //敏感词汇
             {
                commentid=System.currentTimeMillis()+"";
+                Log.d("akbr","commentid"+commentid);
                 Httputil.comment_post(commentid,themeid, MainActivity.userInfo.getUserId(), contains,MainActivity.userInfo.getPhoneid(), new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {

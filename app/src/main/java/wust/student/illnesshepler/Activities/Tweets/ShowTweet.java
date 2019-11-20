@@ -335,6 +335,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         tweetComments = GsonUtils.getTweetComments(result);
         clist.clear();
         clist.addAll(tweetComments.data);
+        Log.d("akbr","commentid"+clist.get(0).id);
         Message message = new Message();
         message.what = 4;
         handler.sendMessage(message);
