@@ -3,6 +3,7 @@
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:focusableInTouchMode="false">
 
     <RelativeLayout
@@ -18,7 +19,7 @@
             android:clipToPadding="false"
             android:focusable="true"
             android:overScrollMode="never"
-            android:paddingTop="80dp"
+            android:paddingTop="60dp"
             android:paddingBottom="?attr/actionBarSize" />
 
         <include layout="@layout/chatviewtitle" />
