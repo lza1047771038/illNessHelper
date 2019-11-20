@@ -42,6 +42,7 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import wust.student.illnesshepler.Activities.MainActivity;
 import wust.student.illnesshepler.Adapters.TweetsCommentAdapter;
 import wust.student.illnesshepler.Bean.GetTweetComments;
 import wust.student.illnesshepler.Activities.Fragments.Tweets.RepliesDetails;
@@ -91,6 +92,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private GetTweetComments tweetComments;
     private RepliesDetails repliesDetails;
     private WriteComment writeComment;
+
     /*
     有个小bug 没有网络的时候，没有缓存过的推文可以输入
     11月17号（明天）修复
@@ -297,6 +299,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString(themeid, result);
                 editor.apply();
+                MainActivity.refreshed=true;
                 analysisCommentJson(result);
             }
         });
@@ -332,10 +335,11 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     }
     public void  analysisCommentJson(String result)
     {
+
         tweetComments = GsonUtils.getTweetComments(result);
         clist.clear();
         clist.addAll(tweetComments.data);
-        Log.d("akbr","commentid"+clist.get(0).id);
+//        Log.d("akbr","commentid"+clist.get(0).id);
         Message message = new Message();
         message.what = 4;
         handler.sendMessage(message);

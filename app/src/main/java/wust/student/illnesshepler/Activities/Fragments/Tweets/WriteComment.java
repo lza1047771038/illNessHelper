@@ -50,7 +50,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
     public static boolean flagsend = true;
     public static boolean flag;
     public static int replyNum;
-    public    String commentid;
+    public    String commentid=null;
     public    String commentidReply;
     public WriteComment writeComment;
 
@@ -105,6 +105,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         GetTweetComments.Comments temp = new GetTweetComments.Comments();
                         temp.contains = msg.obj.toString();
                         temp.id=commentid;
+                        temp.person_id= Long.parseLong(MainActivity.userInfo.getUserId());
                         temp.username = MainActivity.userInfo.getUser_Name();
                         temp.time = System.currentTimeMillis() + "";
                         temp.likes = 0;
@@ -130,6 +131,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         if (!flag) {
                             temp1.contains = msg.obj.toString();
                             temp1.username = MainActivity.userInfo.getUser_Name();
+                            temp1.person_id= Long.parseLong(MainActivity.userInfo.getUserId());
                             temp1.id=commentidReply;
                             temp1.time = System.currentTimeMillis() + "";
                             temp1.likes = 0;
@@ -137,6 +139,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                             temp1.replies = 0;
                             temp1.comments_num = 0;
                             RepliesDetails.replyList.add(0, temp1);
+
                             RepliesDetails.replyAdapter.notifyItemInserted(0);
 //                            RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
                         } else {
@@ -304,36 +307,41 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         } else {
             if (true) //敏感词汇
             {
-               commentid=System.currentTimeMillis()+"";
-                Log.d("akbr","commentid"+commentid);
-                Httputil.comment_post(commentid,themeid, MainActivity.userInfo.getUserId(), contains,MainActivity.userInfo.getPhoneid(), new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Message message = new Message();
-                        message.what = 3;
-                        message.obj = "null";
-                        handler.sendMessage(message);
-                    }
-
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        String reslut = response.body().string();
-                        Message message = new Message();
-                        if (reslut.equals("1")) {
-                            message.what = 2;
-                            message.obj = contains;
-                        } else if(reslut.equals("2"))
-                        {
-                            message.what = 6;
-                            message.obj = "null";
-                        }
-                        else {
+                if(  MainActivity.refreshed)//限制不刷新的情况下发表两次
+                {
+                    MainActivity.refreshed=false;
+                    commentid = System.currentTimeMillis() + "";
+                    Log.d("akbr", "commentid" + commentid);
+                    Httputil.comment_post(commentid, themeid, MainActivity.userInfo.getUserId(), contains, MainActivity.userInfo.getPhoneid(), new Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            Message message = new Message();
                             message.what = 3;
                             message.obj = "null";
+                            handler.sendMessage(message);
                         }
-                        handler.sendMessage(message);
-                    }
-                });
+
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                            String reslut = response.body().string();
+                            Message message = new Message();
+                            if (reslut.equals("1")) {
+                                message.what = 2;
+                                message.obj = contains;
+                            } else if (reslut.equals("2")) {
+                                message.what = 6;
+                                message.obj = "null";
+                            } else {
+                                message.what = 3;
+                                message.obj = "null";
+                            }
+                            handler.sendMessage(message);
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(getContext(), "您操作太快了，请休息一会再试", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(getContext(), "包含铭感词汇，请检查评论内容", Toast.LENGTH_SHORT).show();
             }

@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public final static String ImagesDruaction= Environment.getExternalStorageDirectory().getPath() + "/illnesshepler" + "/Images";  //本地保存图片的路径
     public static boolean isLogin=false;
     public static User_information userInfo;
+    public static boolean refreshed=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
