@@ -16,13 +16,9 @@ android {
     }
 
     repositories {
-
         flatDir {
-
             dirs 'libs'
-
         }
-
     }
 
 
@@ -42,7 +38,7 @@ android {
         debug {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('D:/Android.keystore/keys0.jks')
+            storeFile file('F:/Android.keystore/keys0.jks')
             storePassword '123456'
         }
     }

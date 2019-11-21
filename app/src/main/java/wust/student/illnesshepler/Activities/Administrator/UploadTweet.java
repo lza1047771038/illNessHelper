@@ -296,10 +296,10 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("test", result);
+                        Log.d("test  result", result);
                         if (result.equals("1"))
                             Toast.makeText(UploadTweet.this, "成功", Toast.LENGTH_SHORT).show();
-                        else if(result.equals("账号异地登陆，请重新登录!"))
+                        else if(result.equals("2"))
                         {
                             Toast.makeText(UploadTweet.this, "异地登陆", Toast.LENGTH_SHORT).show();
                         }

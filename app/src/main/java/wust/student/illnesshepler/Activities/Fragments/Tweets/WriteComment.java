@@ -1,8 +1,8 @@
 package wust.student.illnesshepler.Activities.Fragments.Tweets;
 
-
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -193,12 +193,13 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         Log.d("test", "WriteComment onStart");
         super.onStart();
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.top_white_corner));
         if (getDialog() != null && getDialog().getWindow() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Window window = getDialog().getWindow();
             window.findViewById(com.google.android.material.R.id.container).setFitsSystemWindows(false);
             window.findViewById(com.google.android.material.R.id.coordinator).setFitsSystemWindows(false);
+            window.setStatusBarColor(Color.TRANSPARENT);
             // dark navigation bar icons
             View decorView = window.getDecorView();
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
