@@ -134,7 +134,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String userImagePath =userInfo.getString("userImagePath");;
             String  username = userInfo.getString("username");
             String password = userInfo.getString("password");
-            String phoneid = userInfo.getString("phoneid");
+//            String phoneid = userInfo.getString("phoneid");
+            String phoneid = Settings.System.getString(this.getContentResolver(), Settings.System.ANDROID_ID);
+            if(phoneid==null)
+            {
+                phoneid="null";
+            }
             int userType = userInfo.getInt("userType");
             int type = userInfo.getInt("type");
             int age = userInfo.getInt("age");

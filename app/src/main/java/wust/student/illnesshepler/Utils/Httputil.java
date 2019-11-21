@@ -123,7 +123,9 @@ public class Httputil {
     public static void NotificationPost(String phoneid,String themeid,String authorid,String title,String contains,String posttime,String headerimage ,String uploadtype,okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
+        Log.d("test","phoneid"+phoneid);
         RequestBody build = new FormBody.Builder()
+
                 .add("phoneid", phoneid)
                 .add("themeid", themeid)
                 .add("authorid", authorid)

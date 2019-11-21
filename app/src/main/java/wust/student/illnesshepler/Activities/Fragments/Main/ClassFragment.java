@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
@@ -47,8 +48,8 @@ public class ClassFragment extends Fragment {
         recyclerView = view.findViewById(R.id.classes);
         recyclerView.setNestedScrollingEnabled(false);
         initData();
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        GridLayoutManager layoutManage = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(layoutManage);
         adapter = new CourseAdapter(list, getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(CourseClickListener);

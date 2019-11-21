@@ -299,7 +299,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                         Log.d("test", result);
                         if (result.equals("1"))
                             Toast.makeText(UploadTweet.this, "成功", Toast.LENGTH_SHORT).show();
-                        else if(result.equals("2"))
+                        else if(result.equals("账号异地登陆，请重新登录!"))
                         {
                             Toast.makeText(UploadTweet.this, "异地登陆", Toast.LENGTH_SHORT).show();
                         }
