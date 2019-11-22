@@ -49,12 +49,16 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import wust.student.illnesshepler.Activities.LoginAndRegister.LoginActivity;
 import wust.student.illnesshepler.Activities.MainActivity;
+import wust.student.illnesshepler.CustomViews.MyErrorDialog;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.ImageUtil;
 import wust.student.illnesshepler.Utils.ScreenUtil;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
+
+import static org.litepal.LitePalApplication.getContext;
 
 public class UploadTweet extends AppCompatActivity implements View.OnClickListener, ColorChooserDialog.ColorCallback {
     ActionBar actionBar;
@@ -302,6 +306,15 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                         else if(result.equals("2"))
                         {
                             Toast.makeText(UploadTweet.this, "异地登陆", Toast.LENGTH_SHORT).show();
+                            MyErrorDialog dialog = new MyErrorDialog(getContext());
+                            dialog.setCancelable(false);
+                            dialog.setOnButtonClickListener(new MyErrorDialog.OnButtonClickListener() {
+                                @Override
+                                public void onPositiveButtonClicked() {
+                                    startActivity(new Intent(UploadTweet.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                }
+                            });
+                            dialog.show();
                         }
                         else if (result.equals("0"))
                             Toast.makeText(UploadTweet.this, "失败", Toast.LENGTH_SHORT).show();

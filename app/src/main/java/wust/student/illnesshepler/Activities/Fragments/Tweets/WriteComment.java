@@ -2,6 +2,7 @@ package wust.student.illnesshepler.Activities.Fragments.Tweets;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,8 +35,10 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import wust.student.illnesshepler.Activities.LoginAndRegister.LoginActivity;
 import wust.student.illnesshepler.Bean.GetTweetComments;
 import wust.student.illnesshepler.Activities.MainActivity;
+import wust.student.illnesshepler.CustomViews.MyErrorDialog;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Activities.Tweets.ShowTweet;
 import wust.student.illnesshepler.Utils.Httputil;
@@ -153,6 +156,15 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         break;
                     case 6:
                         Toast.makeText(getContext(),  getResources().getString(R.string.remote_login), Toast.LENGTH_SHORT).show();
+                        MyErrorDialog dialog = new MyErrorDialog(getContext());
+                        dialog.setCancelable(false);
+                        dialog.setOnButtonClickListener(new MyErrorDialog.OnButtonClickListener() {
+                            @Override
+                            public void onPositiveButtonClicked() {
+                                startActivity(new Intent(getActivity(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            }
+                        });
+                        dialog.show();
                         break;
                 }
                 return false;
@@ -194,7 +206,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         super.onStart();
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.top_white_corner));
+        ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.bottomsheetdialogfragmentbackground));
         if (getDialog() != null && getDialog().getWindow() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Window window = getDialog().getWindow();
             window.findViewById(com.google.android.material.R.id.container).setFitsSystemWindows(false);

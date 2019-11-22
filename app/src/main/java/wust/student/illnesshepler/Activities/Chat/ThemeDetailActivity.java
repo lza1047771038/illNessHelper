@@ -1,4 +1,4 @@
-package wust.student.illnesshepler;
+package wust.student.illnesshepler.Activities.Chat;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -13,23 +13,20 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 public class ThemeDetailActivity extends AppCompatActivity {
 
-    View statusBarBackground;
     ScrollView scrollView;
     ActionBar actionBar;
-    Drawable drawable;
     Window window;
     Toolbar toolbar;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.NoAppTheme);
-
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -56,14 +53,13 @@ public class ThemeDetailActivity extends AppCompatActivity {
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int x, int y, int x1, int y1) {
-                int screen_height = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+                int screen_height =
+                        getApplicationContext().getResources().getDisplayMetrics().heightPixels;
                 if (y <= screen_height / 3f) {
                     toolbar.setAlpha(y / (screen_height / 3f));
                 }
             }
         });
-
-
     }
 
     public void RootLayoutInit() {
@@ -77,15 +73,12 @@ public class ThemeDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("动态");
         }
-
         setLayoutSettings();
-
     }
-
 
     private void Init() {
         scrollView = findViewById(R.id.scrollViews);
-        toolbar =(Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setAlpha(0);
     }
 }

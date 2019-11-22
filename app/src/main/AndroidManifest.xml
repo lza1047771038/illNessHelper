@@ -46,7 +46,7 @@
             android:name=".Activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ThemeDetailActivity"
+            android:name=".Activities.Chat.ThemeDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginAndRegister.LoginActivity"

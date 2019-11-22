@@ -1,18 +1,22 @@
 package wust.student.illnesshepler.Activities.LoginAndRegister;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,13 +46,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        LitePal.initialize(this);
-        List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        if (all.size() != 0) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            window.setStatusBarColor(Color.TRANSPARENT);
         }
+        setContentView(R.layout.activity_login);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
+        LitePal.initialize(this);
+        LitePal.deleteAll(User_information.class);
         initLayout();
     }
 
@@ -71,10 +83,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         startActivity(intent);
                         break;
                     case 2:
-                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.connect_fail), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,
+                                getResources().getString(R.string.connect_fail),
+                                Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,
+                                getResources().getString(R.string.wrong_password),
+                                Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return false;
@@ -96,12 +112,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void login(String userid, String pasword) {
-        String phoneid = Settings.System.getString(this.getContentResolver(), Settings.System.ANDROID_ID);
-        if(phoneid==null)
-        {
-            phoneid="null";
+        String phoneid = Settings.System.getString(this.getContentResolver(),
+                Settings.System.ANDROID_ID);
+        if (phoneid == null) {
+            phoneid = "null";
         }
-        Httputil.login(userid, pasword,phoneid,new Callback() {
+        Httputil.login(userid, pasword, phoneid, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Message message = new Message();
@@ -131,14 +147,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             JSONObject jsonObject = new JSONObject(result);
             JSONObject userInfo = new JSONObject(jsonObject.getString("data"));
             String userId = userInfo.get("userId").toString();
-            String userImagePath =userInfo.getString("userImagePath");;
-            String  username = userInfo.getString("username");
+            String userImagePath = userInfo.getString("userImagePath");
+            ;
+            String username = userInfo.getString("username");
             String password = userInfo.getString("password");
 //            String phoneid = userInfo.getString("phoneid");
-            String phoneid = Settings.System.getString(this.getContentResolver(), Settings.System.ANDROID_ID);
-            if(phoneid==null)
-            {
-                phoneid="null";
+            String phoneid = Settings.System.getString(this.getContentResolver(),
+                    Settings.System.ANDROID_ID);
+            if (phoneid == null) {
+                phoneid = "null";
             }
             int userType = userInfo.getInt("userType");
             int type = userInfo.getInt("type");
@@ -146,8 +163,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             int coin = userInfo.getInt("coin");
             Log.d("test", "coin:" + coin);
 
-            LitePal.initialize(this);
-            LitePal.deleteAll(User_information.class);
 
             User_information info = new User_information();
             info.setLogin(true);
