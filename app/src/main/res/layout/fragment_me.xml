@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
+    <wust.student.illnesshepler.CustomViews.ReboundScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
@@ -44,7 +44,8 @@
                     android:layout_height="80dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
                     android:background="#00FFFFFF"
                     android:src="@drawable/head" />
 
@@ -255,7 +256,7 @@
             </RelativeLayout>
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </wust.student.illnesshepler.CustomViews.ReboundScrollView>
 
 
     <androidx.appcompat.widget.Toolbar

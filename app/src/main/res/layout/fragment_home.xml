@@ -81,13 +81,13 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <wust.student.illnesshepler.CustomViews.MyNestScrollView
+        <wust.student.illnesshepler.CustomViews.ReboundScrollView
             android:id="@+id/scrollViews"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:overScrollMode="always"
+            android:overScrollMode="never"
             android:paddingBottom="?attr/actionBarSize"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -278,7 +278,7 @@
 
             </LinearLayout>
 
-        </wust.student.illnesshepler.CustomViews.MyNestScrollView>
+        </wust.student.illnesshepler.CustomViews.ReboundScrollView>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

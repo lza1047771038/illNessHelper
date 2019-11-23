@@ -40,10 +40,6 @@ public class ClassFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*statusBarBackground = view.findViewById(R.id.statusBarBackground);
-        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);*/
 
         recyclerView = view.findViewById(R.id.classes);
         recyclerView.setNestedScrollingEnabled(false);
@@ -62,6 +58,12 @@ public class ClassFragment extends Fragment {
         list.add(new Data_course("第二次作业","开发者",null));
         list.add(new Data_course("第三次作业","开发者",null));
         list.add(new Data_course("第四次作业","开发者",null));
+        list.add(new Data_course("第五次作业","开发者",null));
+        list.add(new Data_course("第五次作业","开发者",null));
+        list.add(new Data_course("第五次作业","开发者",null));
+        list.add(new Data_course("第五次作业","开发者",null));
+        list.add(new Data_course("第五次作业","开发者",null));
+        list.add(new Data_course("第五次作业","开发者",null));
         list.add(new Data_course("第五次作业","开发者",null));
     }
 
