@@ -82,14 +82,14 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Vi
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public TextView auther;
-        public TextView visitNum;
-        public ImageView imageView;
-        public LinearLayout linearLayout;
-        public CardView cardView;
+        private TextView title;
+        private TextView auther;
+        private TextView visitNum;
+        private ImageView imageView;
+        private LinearLayout linearLayout;
+        private CardView cardView;
 
-        public ViewHolder(@NonNull View itemView) {
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tweet_title);
             auther = itemView.findViewById(R.id.tweet_auther);
