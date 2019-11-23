@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,18 +69,19 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
     private String submitUrl;
     private Handler handler;
 
+    final String[] array = {"普通的推文", "首页上方的轮播推文"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//全屏
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+        //全屏
+        View decorView = getWindow().getDecorView();
+        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+        decorView.setSystemUiVisibility(option);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+
         setContentView(R.layout.activity_upload_from_internet);
         StatusBarUtil.setStatusBarDarkTheme(this, true);
         //标题栏
@@ -90,35 +92,35 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
             actionBar.setTitle("推文编辑-网络");
             actionBar.setBackgroundDrawable(drawable);
         }
-
         initlayout();
     }
 
     public void initlayout() {
-        upload_title=(EditText)findViewById(R.id.t_i_title);
-        url=(EditText)findViewById(R.id.t_i_url);
-        img=(ImageView) findViewById(R.id.t_i_img);
+        upload_title = (EditText) findViewById(R.id.t_i_title);
+        url = (EditText) findViewById(R.id.t_i_url);
+        img = (ImageView) findViewById(R.id.t_i_img);
         img.setOnClickListener(this);
-        handler=new Handler(new Handler.Callback() {
+        handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                switch (msg.what)
-                {
+                switch (msg.what) {
                     case 1:
                         JSONObject imageurl = null;
                         try {
                             imageurl = new JSONObject(msg.obj.toString());
                             JSONArray allimageurl = imageurl.getJSONArray("ImageList");
-                            if(allimageurl.length()!=0) {
+                            if (allimageurl.length() != 0) {
                                 submitUrl = allimageurl.get(0).toString() + "";
-                            }
-                            else {
-                                submitUrl ="null";
+                            } else {
+                                submitUrl = "null";
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         secondsubmit();
+                        break;
+                    default:
+                        break;
                 }
                 return false;
             }
@@ -132,34 +134,46 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            showexitdilog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_submit:
-                final String[] array = {"普通的推文", "首页上方的轮播推文"};
                 MaterialDialog chosedialog = new MaterialDialog.Builder(this)
                         .title("请选择上传类型")
                         .content("默认为普通的推文")
                         .items(array)
-                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
-                            @Override
-                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                uploadtype = which + "";
-                                Log.d("test", "UploadTweet   选了 :" + which);
-                                return true;
-                            }
-                        })
+                        .itemsCallbackSingleChoice(0,
+                                new MaterialDialog.ListCallbackSingleChoice() {
+                                    @Override
+                                    public boolean onSelection(MaterialDialog dialog, View itemView,
+                                                               int which, CharSequence text) {
+                                        uploadtype = which + "";
+                                        Log.d("test", "UploadTweet   选了 :" + which);
+                                        return true;
+                                    }
+                                })
                         .positiveText("确认")
                         .negativeText("取消")
                         .negativeColor(getColor(R.color.optioncolorcolor))
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            public void onClick(@NonNull MaterialDialog dialog,
+                                                @NonNull DialogAction which) {
                                 submit();
                             }
                         })
                         .onNegative(new MaterialDialog.SingleButtonCallback() {
                             @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            public void onClick(@NonNull MaterialDialog dialog,
+                                                @NonNull DialogAction which) {
                                 dialog.dismiss();
                             }
                         })
@@ -183,13 +197,15 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
                 .negativeColor(getColor(R.color.optioncolorcolor))
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    public void onClick(@NonNull MaterialDialog dialog,
+                                        @NonNull DialogAction which) {
                         finish();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    public void onClick(@NonNull MaterialDialog dialog,
+                                        @NonNull DialogAction which) {
                         dialog.dismiss();
                     }
                 })
@@ -201,7 +217,7 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
         submittime = System.currentTimeMillis();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         themeid = "NFT" + format.format(submittime);
-        if(imglist.size()!=0) {
+        if (imglist.size() != 0) {
             Httputil.ImagesUpload(themeid, imglist, new Callback() {
 
                 @Override
@@ -219,28 +235,26 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
                     handler.sendMessage(message);
                     Log.d("test", "ImagesUpload   result :" + result);
                 }
-
-
             });
-        }else {
+        } else {
             Message message = new Message();
             message.what = 2;
             handler.sendMessage(message);
         }
-
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case  R.id.t_i_img:
+        switch (v.getId()) {
+            case R.id.t_i_img:
                 Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
-                intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        "image/*");
                 startActivityForResult(intentToPickPic, 100);
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -254,13 +268,16 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
             case 100:
                 if (resultCode == RESULT_OK) {
                     final Uri uri = data.getData();
-                    final String path = ImageUtil.getRealPathFromURI(UploadFromInternet.this, uri) + "";
+                    final String path = ImageUtil.getRealPathFromURI(UploadFromInternet.this,
+                            uri) + "";
 
                     final String name = path.substring(path.lastIndexOf("/") + 1, path.length());
                     Glide.with(this).asBitmap().load(uri).into(new SimpleTarget<Bitmap>() {
                         @Override
-                        public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
-                           Bitmap bitmap1=ImageUtil.compressBmpToFile(bitmap, MainActivity.ImagesDruaction + "/" + name, 500); //压缩图片 为1024
+                        public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<
+                                ? super Bitmap> transition) {
+                            Bitmap bitmap1 = ImageUtil.compressBmpToFile(bitmap,
+                                    MainActivity.ImagesDruaction + "/" + name, 500); //压缩图片 为1024
                             img.setImageBitmap(bitmap1);
                             imglist.clear();
                             imglist.add(MainActivity.ImagesDruaction + "/" + name);
@@ -271,54 +288,56 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
+
     //第二次发送数据 发送编辑推文信息
     public void secondsubmit() {
-        String contains=url.getText().toString();
+        String contains = url.getText().toString();
         String title = upload_title.getText().toString();
-        Httputil.NotificationPost(MainActivity.userInfo.getPhoneid(),themeid,MainActivity.userInfo.getUserId(), title, contains,submittime + "",submitUrl ,uploadtype, new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                runOnUiThread(new Runnable() {
+        Httputil.NotificationPost(MainActivity.userInfo.getPhoneid(), themeid,
+                MainActivity.userInfo.getUserId(), title, contains, submittime + "", submitUrl,
+                uploadtype, new Callback() {
                     @Override
-                    public void run() {
-                        Toast.makeText(UploadFromInternet.this, "onFailure", Toast.LENGTH_SHORT).show();
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(UploadFromInternet.this, "onFailure",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
-                });
-            }
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                final String result = response.body().string();
-                runOnUiThread(new Runnable() {
                     @Override
-                    public void run() {
-                        Log.d("test  result", result);
-                        if (result.equals("1"))
-                            Toast.makeText(UploadFromInternet.this, "成功", Toast.LENGTH_SHORT).show();
-                        else if(result.equals("2"))
-                        {
-                            Toast.makeText(UploadFromInternet.this, "异地登陆", Toast.LENGTH_SHORT).show();
-                            MyErrorDialog dialog = new MyErrorDialog(getContext());
-                            dialog.setCancelable(false);
-                            dialog.setOnButtonClickListener(new MyErrorDialog.OnButtonClickListener() {
-                                @Override
-                                public void onPositiveButtonClicked() {
-                                    startActivity(new Intent(UploadFromInternet.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        final String result = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("test  result", result);
+                                if (result.equals("1"))
+                                    Toast.makeText(UploadFromInternet.this, "成功",
+                                            Toast.LENGTH_SHORT).show();
+                                else if (result.equals("2")) {
+                                    Toast.makeText(UploadFromInternet.this, "异地登陆",
+                                            Toast.LENGTH_SHORT).show();
+                                    MyErrorDialog dialog = new MyErrorDialog(getContext());
+                                    dialog.setCancelable(false);
+                                    dialog.setOnButtonClickListener(new MyErrorDialog.OnButtonClickListener() {
+                                        @Override
+                                        public void onPositiveButtonClicked() {
+                                            startActivity(new Intent(UploadFromInternet.this,
+                                                    LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                        }
+                                    });
+                                    dialog.show();
+                                } else if (result.equals("0"))
+                                    Toast.makeText(UploadFromInternet.this, "失败", Toast.LENGTH_SHORT).show();
+                                else {
+                                    Toast.makeText(UploadFromInternet.this, "Error", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                            dialog.show();
-                        }
-                        else if (result.equals("0"))
-                            Toast.makeText(UploadFromInternet.this, "失败", Toast.LENGTH_SHORT).show();
-                        else {
-                            Toast.makeText(UploadFromInternet.this, "Error", Toast.LENGTH_SHORT).show();
-                        }
+                            }
+                        });
                     }
                 });
-
-            }
-
-        });
     }
-
 }

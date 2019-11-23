@@ -11,7 +11,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
@@ -70,7 +72,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private ImageView share;
     private ImageView showTweetImg;
     private Toolbar toolbar;
-//    private RealtimeBlurView blurView;
     private LinearLayout linearLayout;
     private LinearLayout linearLayout2;
     private NestedScrollView scrollView;
@@ -125,14 +126,11 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         richEditor = (RichEditorNew) findViewById(R.id.richEditor);
         richEditor.setPadding(10, 10, 10, 10);
 
-        webView=(WebView)findViewById(R.id.webview) ;
+        webView = (WebView) findViewById(R.id.webview);
         recyclerView = (RecyclerView) findViewById(R.id.show_comment_recycler);
         recyclerView.setNestedScrollingEnabled(false);
 
         toolbar = findViewById(R.id.toolbar);
-//        blurView = findViewById(R.id.toolbar1);
-//        toolbar.setAlpha(0);
-//        blurView.setAlpha(0);
         toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
         setSupportActionBar(toolbar);
 
@@ -150,57 +148,14 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 //        tweetPostCommentHigth = (EditText) findViewById(R.id.tweet_post_comment_higth);
         collect = (ImageView) findViewById(R.id.tweet_collect);
         share = (ImageView) findViewById(R.id.tweet_share);
-        showTweetImg=(ImageView) findViewById(R.id.show_tweet_img);
+        showTweetImg = (ImageView) findViewById(R.id.show_tweet_img);
         tweetPostComment.setOnClickListener(this);
-//        tweetPostComment.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    tweetPostComment.setVisibility(View.GONE);
-//                    tweetPostCommentHigth.setVisibility(View.VISIBLE);
-//                    tweetPostCommentHigth.setFocusableInTouchMode(true);
-//                    tweetPostCommentHigth.requestFocus();
-//                    send.setVisibility(View.VISIBLE);
-//                    collect.setVisibility(View.GONE);
-//                    share.setVisibility(View.GONE);
-//                }
-//            }
-//        });
-//        tweetPostCommentHigth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (!hasFocus) {
-//                    tweetPostComment.setVisibility(View.VISIBLE);
-//                    tweetPostCommentHigth.setVisibility(View.GONE);
-//                    send.setVisibility(View.GONE);
-//                    collect.setVisibility(View.VISIBLE);
-//                    share.setVisibility(View.VISIBLE);
-//                }
-//                if (hasFocus) {
-//                    InputMethodManager imm = (InputMethodManager) getSystemService
-//                    (INPUT_METHOD_SERVICE);
-//                    imm.showSoftInput(tweetPostCommentHigth, InputMethodManager.SHOW_IMPLICIT);
-//                }
-//            }
-//        });
         tweetPostComment.setOnClickListener(this);
         collect.setOnClickListener(this);
         share.setOnClickListener(this);
 
 
         scrollView = findViewById(R.id.scrollViews);
-        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX,
-                                       int oldScrollY) {
-                int screen_height =
-                        getApplicationContext().getResources().getDisplayMetrics().heightPixels;
-                if (scrollY <= screen_height / 4f) {
-//                    toolbar.setAlpha(scrollY / (screen_height / 8f));
-//                    blurView.setAlpha(scrollY / (screen_height / 8f));
-                }
-            }
-        });
 
     }
 
@@ -237,60 +192,62 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         tweetTitle.setText(title);
         tweetAuther.setText(auther);
         tweetTime.setText(Utils.timeFormat(time));
-        SharedPreferences sp=ShowTweet.this.getSharedPreferences("ShowTweets", Context.MODE_PRIVATE);
-        String result=sp.getString(themeid,null);
-        if(result!=null)
-        {
+        SharedPreferences sp = ShowTweet.this.getSharedPreferences("ShowTweets",
+                Context.MODE_PRIVATE);
+        String result = sp.getString(themeid, null);
+        if (result != null) {
             Log.d("test", " Showtweet result NotificationDetails " + result);
             analysisTweetJson(result);
-        }
-        else
-        Httputil.NotificationDetails(themeid, new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                SharedPreferences sp=ShowTweet.this.getSharedPreferences("ShowTweets", Context.MODE_PRIVATE);
-                String result=sp.getString(themeid,null);
+        } else
+            Httputil.NotificationDetails(themeid, new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    SharedPreferences sp = ShowTweet.this.getSharedPreferences("ShowTweets",
+                            Context.MODE_PRIVATE);
+                    String result = sp.getString(themeid, null);
 
-                if(result!=null)
-                {
+                    if (result != null) {
+                        analysisTweetJson(result);
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ShowTweet.this,
+                                        getResources().getString(R.string.connect_fail),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    String result = response.body().string();
+                    SharedPreferences sp = ShowTweet.this.getSharedPreferences("ShowTweets",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString(themeid, result);
+                    editor.apply();
+                    Log.d("test", " Showtweet result" + result);
                     analysisTweetJson(result);
                 }
-                else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(ShowTweet.this, getResources().getString(R.string.connect_fail), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String result = response.body().string();
-                SharedPreferences sp=ShowTweet.this.getSharedPreferences("ShowTweets", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString(themeid, result);
-                editor.apply();
-                Log.d("test", " Showtweet result" + result);
-                analysisTweetJson(result);
-            }
-        });
+            });
         Httputil.comment_request(themeid, page + "", 20 + "", new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                SharedPreferences sp=ShowTweet.this.getSharedPreferences("TweetsComment", Context.MODE_PRIVATE);
-                String result=sp.getString(themeid,null);
+                SharedPreferences sp = ShowTweet.this.getSharedPreferences("TweetsComment",
+                        Context.MODE_PRIVATE);
+                String result = sp.getString(themeid, null);
                 Log.d("test", " Showtweet result comment_request " + result);
-                if(result!=null)
-                {
+                if (result != null) {
                     analysisCommentJson(result);
-                }
-                else {
+                } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ShowTweet.this, getResources().getString(R.string.connect_fail), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShowTweet.this,
+                                    getResources().getString(R.string.connect_fail),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -300,11 +257,12 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
                 Log.d("test", " Showtweet result comment_request " + result);
-                SharedPreferences sp=ShowTweet.this.getSharedPreferences("TweetsComment", Context.MODE_PRIVATE);
+                SharedPreferences sp = ShowTweet.this.getSharedPreferences("TweetsComment",
+                        Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString(themeid, result);
                 editor.apply();
-                MainActivity.refreshed=true;
+                MainActivity.refreshed = true;
                 analysisCommentJson(result);
             }
         });
@@ -324,8 +282,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             }
         });
     }
-    public void analysisTweetJson(String result)
-    {
+
+    public void analysisTweetJson(String result) {
         try {
             JSONObject tokenInfo = new JSONObject(result);
             html = tokenInfo.getString("contains");
@@ -338,8 +296,8 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         message.obj = html;
         handler.sendMessage(message);
     }
-    public void  analysisCommentJson(String result)
-    {
+
+    public void analysisCommentJson(String result) {
 
         tweetComments = GsonUtils.getTweetComments(result);
         clist.clear();
@@ -350,6 +308,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         handler.sendMessage(message);
 
     }
+
     public void setcommentsdata() {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(RecyclerView.VERTICAL);
@@ -361,16 +320,14 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
     public void setdata(String html) {
         Log.d("test", "Showtweet html" + html);
-        if(html.substring(0,4).equals("http"))
-        {
+        if (html.substring(0, 4).equals("http")) {
             linearLayout2.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
             richEditor.setVisibility(View.GONE);
             webView.getSettings().setJavaScriptEnabled(true);//启用js
             webView.getSettings().setBlockNetworkImage(false);//解决图片不显示
             webView.loadUrl(html);
-        }
-        else {
+        } else {
             linearLayout2.setVisibility(View.VISIBLE);
             webView.setVisibility(View.GONE);
             richEditor.setVisibility(View.VISIBLE);
@@ -398,40 +355,16 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-//    public void sendComment() {
-//        final String contains = tweetPostCommentHigth.getText().toString();
-//        if (contains.length() == 0) {
-//        } else {
-//            if (!SensitiveWordsUtils.contains(contains)) {
-//                Log.d("test", "Show Tweet comment_post" + themeid);
-//                Log.d("test", "Show Tweet comment_post" + MainActivity.authorid);
-//                Log.d("test", "Show Tweet comment_post" + contains);
-//                Httputil.comment_post(themeid, MainActivity.authorid, contains, new Callback() {
-//                    @Override
-//                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(@NotNull Call call, @NotNull Response response)
-//                    throws IOException {
-//                        String reslut = response.body().string();
-//                        Message message = new Message();
-//                        if (reslut.equals("1")) {
-//                            message.what = 2;
-//                            message.obj=contains;
-//                        } else {
-//                            message.what = 2;
-//                            message.obj="null";
-//                        }
-//                        handler.sendMessage(message);
-//                    }
-//                });//String Themeid,String Userid ,String Contains,
-//            } else {
-//                Toast.makeText(ShowTweet.this, "包含铭感词汇，请检查评论内容", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return false;
+        }
+    }
 
     @Override
     public void OnItemClick(View view, int position) {

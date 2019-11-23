@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,7 +61,8 @@ import wust.student.illnesshepler.Utils.StatusBarUtil;
 
 import static org.litepal.LitePalApplication.getContext;
 
-public class UploadTweet extends AppCompatActivity implements View.OnClickListener, ColorChooserDialog.ColorCallback {
+public class UploadTweet extends AppCompatActivity implements View.OnClickListener,
+        ColorChooserDialog.ColorCallback {
     ActionBar actionBar;
     Drawable drawable;
     Handler handler;
@@ -82,11 +84,13 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     private String themeid;
     private long submittime;
     List<String> names = new ArrayList<String>();
-    List<String> imglist = new ArrayList<String>();   public String html = "";
-    public String headerimage ;
-    private String uploadtype="0";
+    List<String> imglist = new ArrayList<String>();
+    public String html = "";
+    public String headerimage;
+    private String uploadtype = "0";
     public int size = 2;
 
+    final String[] array = {"普通的推文", "首页上方的轮播推文"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,15 +172,15 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                     richEditor.setTextColor(msg.arg1);
                 }
                 if (msg.what == 3) {  //图片上传完成
-//                    Toast.makeText(UploadTweet.this, "result" + msg.obj.toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(UploadTweet.this, "result" + msg.obj.toString(), Toast
+//                    .LENGTH_SHORT).show();
                     try {
                         JSONObject imageurl = new JSONObject(msg.obj.toString());
                         JSONArray allimageurl = imageurl.getJSONArray("ImageList");
-                        if(allimageurl.length()!=0) {
+                        if (allimageurl.length() != 0) {
                             headerimage = allimageurl.get(0).toString() + "";
-                        }
-                        else {
-                            headerimage ="null";
+                        } else {
+                            headerimage = "null";
                         }
                         names.clear();
                         for (int i = 0; i < allimageurl.length(); i++) {
@@ -210,31 +214,34 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_submit:
-                final String[] array = {"普通的推文","首页上方的轮播推文"};
                 MaterialDialog chosedialog = new MaterialDialog.Builder(this)
                         .title("请选择上传类型")
                         .content("默认为普通的推文")
                         .items(array)
-                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
-                            @Override
-                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                uploadtype=which+"";
-                                Log.d("test", "UploadTweet   选了 :"+which);
-                                return true;
-                            }
-                        })
+                        .itemsCallbackSingleChoice(0,
+                                new MaterialDialog.ListCallbackSingleChoice() {
+                                    @Override
+                                    public boolean onSelection(MaterialDialog dialog, View itemView,
+                                                               int which, CharSequence text) {
+                                        uploadtype = which + "";
+                                        Log.d("test", "UploadTweet   选了 :" + which);
+                                        return true;
+                                    }
+                                })
                         .positiveText("确认")
                         .negativeText("取消")
                         .negativeColor(getColor(R.color.optioncolorcolor))
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            public void onClick(@NonNull MaterialDialog dialog,
+                                                @NonNull DialogAction which) {
                                 submit();
                             }
                         })
                         .onNegative(new MaterialDialog.SingleButtonCallback() {
                             @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            public void onClick(@NonNull MaterialDialog dialog,
+                                                @NonNull DialogAction which) {
                                 dialog.dismiss();
                             }
                         })
@@ -283,50 +290,60 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     //第二次发送数据 发送编辑推文信息
     public void secondsubmit(String contains) {
         String title = update_title.getText().toString();
-        Httputil.NotificationPost(MainActivity.userInfo.getPhoneid(),themeid,MainActivity.userInfo.getUserId(), title, contains,submittime + "",headerimage ,uploadtype, new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                runOnUiThread(new Runnable() {
+        Httputil.NotificationPost(MainActivity.userInfo.getPhoneid(), themeid,
+                MainActivity.userInfo.getUserId(), title, contains, submittime + "", headerimage,
+                uploadtype, new Callback() {
                     @Override
-                    public void run() {
-                        Toast.makeText(UploadTweet.this, "onFailure", Toast.LENGTH_SHORT).show();
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(UploadTweet.this, "onFailure", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
-                });
-            }
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                final String result = response.body().string();
-                runOnUiThread(new Runnable() {
                     @Override
-                    public void run() {
-                        Log.d("test  result", result);
-                        if (result.equals("1"))
-                            Toast.makeText(UploadTweet.this, "成功", Toast.LENGTH_SHORT).show();
-                        else if(result.equals("2"))
-                        {
-                            Toast.makeText(UploadTweet.this, "异地登陆", Toast.LENGTH_SHORT).show();
-                            MyErrorDialog dialog = new MyErrorDialog(getContext());
-                            dialog.setCancelable(false);
-                            dialog.setOnButtonClickListener(new MyErrorDialog.OnButtonClickListener() {
-                                @Override
-                                public void onPositiveButtonClicked() {
-                                    startActivity(new Intent(UploadTweet.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        final String result = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("test  result", result);
+                                if (result.equals("1"))
+                                    Toast.makeText(UploadTweet.this, "成功", Toast.LENGTH_SHORT).show();
+                                else if (result.equals("2")) {
+                                    Toast.makeText(UploadTweet.this, "异地登陆", Toast.LENGTH_SHORT).show();
+                                    MyErrorDialog dialog = new MyErrorDialog(getContext());
+                                    dialog.setCancelable(false);
+                                    dialog.setOnButtonClickListener(new MyErrorDialog.OnButtonClickListener() {
+                                        @Override
+                                        public void onPositiveButtonClicked() {
+                                            startActivity(new Intent(UploadTweet.this,
+                                                    LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                        }
+                                    });
+                                    dialog.show();
+                                } else if (result.equals("0"))
+                                    Toast.makeText(UploadTweet.this, "失败", Toast.LENGTH_SHORT).show();
+                                else {
+                                    Toast.makeText(UploadTweet.this, "Error", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                            dialog.show();
-                        }
-                        else if (result.equals("0"))
-                            Toast.makeText(UploadTweet.this, "失败", Toast.LENGTH_SHORT).show();
-                        else {
-                            Toast.makeText(UploadTweet.this, "Error", Toast.LENGTH_SHORT).show();
-                        }
+                            }
+                        });
+
                     }
+
                 });
+    }
 
-            }
-
-        });
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            showexitdilog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -352,7 +369,6 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 showdilog("text_color");
                 break;
             case R.id.font_b:
-
                 richEditor.setBold();
                 if (Bold_flog == false) {
                     Log.d("test", "Bold_flog " + false);
@@ -365,16 +381,9 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                     font_b.setTextColor(getResources().getColor(R.color.darkgray));
                     Bold_flog = false;
                 }
-//                richEditor.loadRichEditorCode(tttt);
                 break;
-//            case R.id.test_size:
-//                showtestsizedilog();
-//                richEditor.setFontSize(size);
-//                break;
 
         }
-
-
     }
 
     //选择图片
@@ -403,13 +412,15 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                     final String name = path.substring(path.lastIndexOf("/") + 1, path.length());
                     Glide.with(this).asBitmap().load(uri).into(new SimpleTarget<Bitmap>() {
                         @Override
-                        public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                        public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<
+                                ? super Bitmap> transition) {
                             bitmap = ImageUtil.compressBmpToFile(bitmap, file + "/" + name, 500); //压缩图片 为1024
                             int width = bitmap.getWidth();
                             int screenwdith = (ScreenUtil.getScreenWidth(UploadTweet.this));
                             int temp = ScreenUtil.px2sp(UploadTweet.this, screenwdith);
                             int bili = (width * 100 / temp);
-                            Toast.makeText(getApplication(), width + "/" + screenwdith + "=" + path, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplication(),
+                                    width + "/" + screenwdith + "=" + path, Toast.LENGTH_LONG).show();
                             if (bili < 100) {
                                 String style = "margin-top:10px;max-width:" + bili + "%;";
                                 richEditor.setAlignCenter();
@@ -430,12 +441,14 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         new ColorChooserDialog.Builder(UploadTweet.this, R.string.app_name)
                 .titleSub(R.string.input_hint)  // title of dialog when viewing shades of a color
                 .tag(flog)
-                .accentMode(false)  // when true, will display accent palette instead of primary palette
+                .accentMode(false)  // when true, will display accent palette instead of primary
+                // palette
                 .doneButton(R.string.md_done)  // changes label of the done button
                 .cancelButton(R.string.md_cancel)  // changes label of the cancel button
                 .backButton(R.string.md_back)  // changes label of the back button
                 .preselect(Color.RED)  // 开始的时候的默认颜色
-                .dynamicButtonColor(true)// defaults to true, false will disable changing action buttons' color to currently selected color
+                .dynamicButtonColor(true)// defaults to true, false will disable changing action
+                // buttons' color to currently selected color
                 .show();
 
     }
@@ -468,13 +481,15 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 .negativeColor(getColor(R.color.optioncolorcolor))
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    public void onClick(@NonNull MaterialDialog dialog,
+                                        @NonNull DialogAction which) {
                         finish();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    public void onClick(@NonNull MaterialDialog dialog,
+                                        @NonNull DialogAction which) {
                         dialog.dismiss();
                     }
                 })

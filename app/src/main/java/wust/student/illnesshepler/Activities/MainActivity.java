@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
@@ -20,6 +22,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -54,33 +57,32 @@ public class MainActivity extends AppCompatActivity {
     List<Fragment> fragmentList = new ArrayList<>();
     List<Integer> menuList = new ArrayList<>();
 
+    private Fragment currentFragment;
     HomeFragment home = new HomeFragment();
     ClassFragment classes = new ClassFragment();
     ChatFragment chat = new ChatFragment();
     MeFragment me = new MeFragment();
-    public final static String ImagesDruaction= Environment.getExternalStorageDirectory().getPath() + "/illnesshepler" + "/Images";  //本地保存图片的路径
-    public static boolean isLogin=false;
+    public final static String ImagesDruaction =
+            Environment.getExternalStorageDirectory().getPath() + "/illnesshepler" + "/Images";
+    //本地保存图片的路径
+    public static boolean isLogin = false;
     public static User_information userInfo;
-    public static boolean refreshed=true;
+    public static boolean refreshed = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LitePal.initialize(this);
         setUserInfo();
-        getAuthorize(MainActivity.this,MainActivity.this);
+        getAuthorize(MainActivity.this, MainActivity.this);
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-//            decorView.setSystemUiVisibility(option);
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-
         setContentView(R.layout.activity_main);
-
-
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -120,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 
@@ -172,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -182,14 +184,13 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void setUserInfo()
-    {
+    public void setUserInfo() {
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        Log.d("test",all.toString()+"");
-        if(all.size()!=0)
-        {
-            userInfo=all.get(0);
-            Log.d("test", "MainActivity.userInfo.getUser_Image_Uri()"+MainActivity.userInfo.getPhoneid());
+        Log.d("test", all.toString() + "");
+        if (all.size() != 0) {
+            userInfo = all.get(0);
+            Log.d("test",
+                    "MainActivity.userInfo.getUser_Image_Uri()" + MainActivity.userInfo.getPhoneid());
         }
     }
 
@@ -201,10 +202,11 @@ public class MainActivity extends AppCompatActivity {
                 mPermissionList.add(s);
             }
         if (!mPermissionList.isEmpty()) {
-            String[] permission = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
+            String[] permission = mPermissionList.toArray(new String[mPermissionList.size()]);
+            //将List转为数组
             ActivityCompat.requestPermissions(activity, permission, REQUEST_CODE);
             mPermissionList.clear();
-            Toast.makeText(context,"授权失败，可能造成无法进入的问题",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "授权失败，可能造成无法进入的问题", Toast.LENGTH_SHORT).show();
         }
     }
 

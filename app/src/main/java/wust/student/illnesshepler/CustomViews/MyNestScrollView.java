@@ -15,7 +15,7 @@ public class MyNestScrollView extends NestedScrollView {
 
     @Override
     public void fling(int velocityY) {
-        super.fling(velocityY > 3500 ? 3500 : velocityY / 7 * 5);
+        super.fling(velocityY > 6000 ? 6000 : velocityY / 6 * 5);
     }
 
 
