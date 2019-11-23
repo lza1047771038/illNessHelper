@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestOptions;
 
+import wust.student.illnesshepler.Activities.Administrator.AdministratorActivity;
 import wust.student.illnesshepler.Activities.MainActivity;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Activities.Administrator.UploadTweet;
@@ -113,7 +114,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent intent=new Intent(view.getContext(), UploadTweet.class);
+        Intent intent=new Intent(view.getContext(), AdministratorActivity.class);
         startActivity(intent);
     }
 }

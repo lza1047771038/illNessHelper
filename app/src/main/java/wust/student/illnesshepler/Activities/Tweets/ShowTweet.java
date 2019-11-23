@@ -14,6 +14,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,7 +58,8 @@ import wust.student.illnesshepler.Utils.Utils;
 public class ShowTweet extends AppCompatActivity implements View.OnClickListener,
         TweetsCommentAdapter.OnItemClickListener {
 
-    RichEditorNew richEditor;
+    private RichEditorNew richEditor;
+    private WebView webView;
     private TextView tweetTitle;
     private TextView tweetAuther;
     private TextView tweetTime;
@@ -70,6 +72,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
     private Toolbar toolbar;
 //    private RealtimeBlurView blurView;
     private LinearLayout linearLayout;
+    private LinearLayout linearLayout2;
     private NestedScrollView scrollView;
 
     Window window;
@@ -122,6 +125,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         richEditor = (RichEditorNew) findViewById(R.id.richEditor);
         richEditor.setPadding(10, 10, 10, 10);
 
+        webView=(WebView)findViewById(R.id.webview) ;
         recyclerView = (RecyclerView) findViewById(R.id.show_comment_recycler);
         recyclerView.setNestedScrollingEnabled(false);
 
@@ -133,6 +137,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         setSupportActionBar(toolbar);
 
         linearLayout = findViewById(R.id.linearLayout3);
+        linearLayout2 = findViewById(R.id.linearLayout4);
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) linearLayout.getLayoutParams();
         params.setMargins(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
         linearLayout.setLayoutParams(params);
@@ -356,13 +361,27 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
     public void setdata(String html) {
         Log.d("test", "Showtweet html" + html);
-        richEditor.loadRichEditorCode(html);
-        richEditor.setOnClickImageTagListener(new RichEditor.OnClickImageTagListener() {
-            @Override
-            public void onClick(String url) {
-                Toast.makeText(ShowTweet.this, "url:" + url, Toast.LENGTH_LONG).show();
-            }
-        });
+        if(html.substring(0,4).equals("http"))
+        {
+            linearLayout2.setVisibility(View.GONE);
+            webView.setVisibility(View.VISIBLE);
+            richEditor.setVisibility(View.GONE);
+            webView.getSettings().setJavaScriptEnabled(true);//启用js
+            webView.getSettings().setBlockNetworkImage(false);//解决图片不显示
+            webView.loadUrl(html);
+        }
+        else {
+            linearLayout2.setVisibility(View.VISIBLE);
+            webView.setVisibility(View.GONE);
+            richEditor.setVisibility(View.VISIBLE);
+            richEditor.loadRichEditorCode(html);
+            richEditor.setOnClickImageTagListener(new RichEditor.OnClickImageTagListener() {
+                @Override
+                public void onClick(String url) {
+                    Toast.makeText(ShowTweet.this, "url:" + url, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     @Override

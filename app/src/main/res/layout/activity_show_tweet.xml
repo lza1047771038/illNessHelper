@@ -33,7 +33,12 @@
                 android:focusableInTouchMode="false"
                 android:orientation="vertical"
                 tools:ignore="MissingConstraints">
-
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:orientation="vertical">
                 <TextView
                     android:id="@+id/show_tweet_title"
                     android:layout_width="match_parent"
@@ -92,7 +97,7 @@
                     </RelativeLayout>
 
                 </LinearLayout>
-
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -104,6 +109,14 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:visibility="visible" />
+                <WebView
+                    android:id="@+id/webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:visibility="gone"
+                    />
 
                 <View
                     android:layout_width="match_parent"

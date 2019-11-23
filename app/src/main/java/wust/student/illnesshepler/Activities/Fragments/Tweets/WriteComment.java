@@ -1,9 +1,9 @@
 package wust.student.illnesshepler.Activities.Fragments.Tweets;
 
+
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -162,6 +162,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                             @Override
                             public void onPositiveButtonClicked() {
                                 startActivity(new Intent(getActivity(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                getActivity().finish();
                             }
                         });
                         dialog.show();
@@ -205,13 +206,12 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
         Log.d("test", "WriteComment onStart");
         super.onStart();
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
         ((View) getView().getParent()).setBackground(getResources().getDrawable(R.drawable.bottomsheetdialogfragmentbackground));
         if (getDialog() != null && getDialog().getWindow() != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Window window = getDialog().getWindow();
             window.findViewById(com.google.android.material.R.id.container).setFitsSystemWindows(false);
             window.findViewById(com.google.android.material.R.id.coordinator).setFitsSystemWindows(false);
-            window.setStatusBarColor(Color.TRANSPARENT);
             // dark navigation bar icons
             View decorView = window.getDecorView();
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);

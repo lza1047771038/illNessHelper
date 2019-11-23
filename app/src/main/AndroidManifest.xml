@@ -15,15 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Activities.Administrator.UploadFromInternet" ></activity>
+        <activity android:name=".Activities.Administrator.AdministratorActivity" />
         <activity
             android:name=".Activities.Tweets.ShowTweet"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Administrator.UploadTweet"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.Survey.Investigation"
+        <activity
+            android:name=".Activities.Survey.Investigation"
             android:screenOrientation="portrait"
-            android:theme="@style/Investigation"/>
+            android:theme="@style/Investigation" />
         <activity
             android:name=".Activities.Survey.InvestigationList"
             android:screenOrientation="portrait" />
@@ -33,9 +36,10 @@
             android:theme="@style/StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
+        </activity>
         <activity
             android:name=".Activities.SetUserInfo.Edit_Userdata"
             android:screenOrientation="portrait" />
@@ -50,8 +54,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginAndRegister.LoginActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginAndRegister.Enrol"
             android:screenOrientation="portrait" />

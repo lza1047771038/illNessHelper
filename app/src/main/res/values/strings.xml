@@ -32,5 +32,9 @@
     <string name="wrong_password">密码或账号错误</string>
     <string name="remote_login">您的账号异地登录，请重新登录</string>
 
+    <string name="upload_from_local">发布本地推文</string>
+    <string name="upload_from_internet">发布网络推文</string>
+    <string name="upload_class">发布课程</string>
+
 
 </resources>
