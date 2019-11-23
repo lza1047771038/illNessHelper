@@ -131,6 +131,7 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
         themeAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(themeAdapter);
 
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.getItemAnimator().setAddDuration(200);
         recyclerView.getItemAnimator().setRemoveDuration(200);
         recyclerView.getItemAnimator().setMoveDuration(200);

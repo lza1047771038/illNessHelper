@@ -81,10 +81,11 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
     }
 
-    public static interface OnItemClickListener{
+    public interface OnItemClickListener{
         void OnItemClick(View view,int position);
     }
-    OnItemClickListener onItemClickListener=null;
+
+    private OnItemClickListener onItemClickListener=null;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -157,5 +158,10 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     .setListener(listener)
                     .start();
         }
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        super.onViewRecycled(holder);
     }
 }
