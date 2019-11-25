@@ -65,7 +65,7 @@ dependencies {
 
     //底部导航栏
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     //RecyclerView加载动画
     implementation 'jp.wasabeef:recyclerview-animators:2.2.7'
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -79,4 +79,14 @@ dependencies {
     implementation 'com.yalantis:phoenix:1.2.3'
     //毛玻璃背景特效
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+    //RxJava&&RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
+    // Android 支持 Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    // 衔接 Retrofit & RxJava
+    // 此处一定要注意使用RxJava2的版本
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    //可裁剪的图片裁剪框架
+    implementation 'com.github.yalantis:ucrop:2.2.4-native'
 }

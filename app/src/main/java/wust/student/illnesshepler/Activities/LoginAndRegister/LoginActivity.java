@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     case 1:
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case 2:
                         Toast.makeText(LoginActivity.this,
@@ -133,7 +134,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     message.what = 3;
                     handler.sendMessage(message);
                 } else {
-//                    LitePal.deleteAll(User_information.class);
                     getUserInfo(result);
                     Log.d("test", "login result" + result);
                 }
@@ -151,7 +151,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             ;
             String username = userInfo.getString("username");
             String password = userInfo.getString("password");
-//            String phoneid = userInfo.getString("phoneid");
             String phoneid = Settings.System.getString(this.getContentResolver(),
                     Settings.System.ANDROID_ID);
             if (phoneid == null) {

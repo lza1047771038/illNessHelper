@@ -14,7 +14,7 @@ public class User_information extends LitePalSupport {
     public String password;
     public String phoneid;
     private int User_Age;
-    private String User_Image_Uri=null;
+    public String User_Image_Uri=null;
     private int id;
     public int userType;
     public int type;

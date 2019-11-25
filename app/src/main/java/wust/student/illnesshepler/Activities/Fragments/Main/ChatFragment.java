@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +32,7 @@ import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Bean.Posting;
+import wust.student.illnesshepler.CustomViews.MyNestScrollView;
 import wust.student.illnesshepler.CustomViews.MyRecyclerView;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.GsonUtils;
@@ -44,6 +47,7 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
     private MyRecyclerView recyclerView;
     private ThemeAdapter themeAdapter;
     private SwipeRefreshLayout refreshLayout;
+    private NestedScrollView scrollView;
 
     List<Posting> themeList = new ArrayList<>();
 
@@ -63,6 +67,7 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
 
         recyclerView = view.findViewById(R.id.chat_recyclerView);
         refreshLayout = view.findViewById(R.id.refreshLayout);
+        scrollView = view.findViewById(R.id.scrollView);
         layoutInit();
 
         SharedPreferences preferences = getActivity().getSharedPreferences("themeInfo",
@@ -137,13 +142,15 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
         recyclerView.getItemAnimator().setMoveDuration(200);
         recyclerView.getItemAnimator().setChangeDuration(200);
 
-        recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX,
                                        int oldScrollY) {
+
                 refreshLayout.setEnabled(scrollY <= 0);
             }
         });
+
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

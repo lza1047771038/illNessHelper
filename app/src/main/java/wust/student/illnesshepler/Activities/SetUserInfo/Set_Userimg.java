@@ -57,6 +57,9 @@ import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.PictureEditor;
 import wust.student.illnesshepler.Utils.StatusBarUtil;
 
+import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.UCropActivity;
+
 import static org.litepal.LitePalApplication.getContext;
 
 public class Set_Userimg extends AppCompatActivity {
@@ -106,22 +109,12 @@ public class Set_Userimg extends AppCompatActivity {
             public void onClick(View v) {
                 if (NewBmp != null) {
                     NewBmp = pictureEditor.getBitMapFromImageView(user_img);
-                    upLoadImage(fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(Set_Userimg.this, NewBmp)));
-
-//                    Up_Img_Uri("User_Image_Uri", fileUtil.getFileAbsolutePath(Set_Userimg.this, BmpToUri(Set_Userimg.this, NewBmp)));
-//                    finish();
+                    upLoadImage(fileUtil.getFileAbsolutePath(Set_Userimg.this,
+                            BmpToUri(Set_Userimg.this, NewBmp)));
                 } else
                     Toast.makeText(Set_Userimg.this, "请选择图片", Toast.LENGTH_SHORT).show();
             }
         });
-//暂时停用，等写好下载图片的功能的时候再打开
-//        right_round.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NewBmp = pictureEditor.rotaingImageView(pictureEditor.getBitMapFromImageView(user_img));
-//                user_img.setImageBitmap(pictureEditor.scaleImage(NewBmp, NewBmp.getWidth(), NewBmp.getHeight()));
-//            }
-//        });
 
         handler = new Handler(new Handler.Callback() {
             @Override
@@ -162,25 +155,34 @@ public class Set_Userimg extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1)
-            if (resultCode == RESULT_OK) {
-                uri = data.getData();
-                Bitmap photoBmp;
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                Uri destinationUri = Uri.fromFile(new File(getExternalCacheDir(), "uCrop.jpg"));
+                UCrop.of(data.getData(), destinationUri)
+                        .withOptions(options())
+                        .start(this);
+            } else if (requestCode == UCrop.REQUEST_CROP) {
+                uri = UCrop.getOutput(data);
+                Log.d("tag123", uri.toString());
                 isRequest = false;
                 try {
-                    photoBmp = pictureEditor.getBitmapFormUri(this, uri);
-                    Glide.with(this).load(uri).into(user_img);
-//                    user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, user_img.getWidth(), user_img.getHeight()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
+                    user_img.setImageURI(uri);
                     NewBmp = pictureEditor.getBitmapFormUri(Set_Userimg.this, uri);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    //裁剪框架样式
+    public UCrop.Options options(){
+        UCrop.Options options = new UCrop.Options();
+        options.setToolbarWidgetColor(Color.parseColor("#ffffff"));//标题字的颜色以及按钮颜色
+        options.setDimmedLayerColor(Color.parseColor("#AA000000"));//设置裁剪外颜色
+        options.setToolbarColor(Color.parseColor("#000000")); // 设置标题栏颜色
+        options.setStatusBarColor(Color.parseColor("#000000"));//设置状态栏颜色
+        return options;
     }
 
     public void upLoadImage(String url) {
@@ -192,23 +194,21 @@ public class Set_Userimg extends AppCompatActivity {
         Httputil.ImagesUpload("", pathList, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                Message message = new Message();
+                message.what = 2;
+                handler.sendMessage(message);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String ressult = response.body().string();
 
-                Message message = new Message();
-                message.what = 2;
-                handler.sendMessage(message);
-
                 try {
                     JSONObject imageurl = new JSONObject(ressult);
                     JSONArray allimageurl = imageurl.getJSONArray("ImageList");
                     String url = allimageurl.get(0).toString() + "";
                     MainActivity.userInfo.setUser_Image_Uri(url);
-                    Up_Img_Uri("User_Image_Uri",url);
+                    Up_Img_Uri("User_Image_Uri", url);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -234,8 +234,6 @@ public class Set_Userimg extends AppCompatActivity {
             List<User_information> all = LitePal.findAll(User_information.class);//查询功能
             if (all.get(0).getUser_Image_Uri() != null) {
                 Glide.with(this).load(all.get(0).getUser_Image_Uri()).apply(new RequestOptions().transforms(new CenterCrop())).into(user_img);
-//                Bitmap photoBmp = fileUtil.getBitmap(all.get(0).getUser_Image_Uri());
-//                user_img.setImageBitmap(pictureEditor.scaleImage(photoBmp, photoBmp.getWidth(), photoBmp.getHeight()));
             }
             isRequest = true;
         }
@@ -251,14 +249,16 @@ public class Set_Userimg extends AppCompatActivity {
         if (mPermissionList.isEmpty()) {
             return true;
         } else {
-            String[] permission = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
+            String[] permission = mPermissionList.toArray(new String[mPermissionList.size()]);
+            //将List转为数组
             ActivityCompat.requestPermissions(activity, permission, REQUEST_CODE);
             mPermissionList.clear();
             return false;
         }
     }
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//允许
                 Toast.makeText(getContext(), "授权成功", Toast.LENGTH_SHORT).show();

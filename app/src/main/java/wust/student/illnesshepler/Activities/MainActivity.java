@@ -1,16 +1,5 @@
 package wust.student.illnesshepler.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -22,8 +11,16 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,18 +29,22 @@ import org.litepal.LitePal;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
-import wust.student.illnesshepler.CustomViews.MyViewPager;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import wust.student.illnesshepler.Activities.Fragments.Main.ChatFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.ClassFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.HomeFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.MeFragment;
 import wust.student.illnesshepler.Bean.User_information;
+import wust.student.illnesshepler.CustomViews.MyViewPager;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static Observable<User_information> observable;
 
     String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -120,23 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset,
-                                       int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                bottom_navigation.getMenu().getItem(position).setChecked(true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -153,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_me:
                         viewPager.setCurrentItem(3);
-
                         break;
                     default:
                         break;
@@ -161,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     private long oldMillions = 0;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,19 +12,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <wust.student.illnesshepler.CustomViews.MyRecyclerView
-            android:id="@+id/chat_recyclerView"
+        <wust.student.illnesshepler.CustomViews.MyNestScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:focusable="true"
-            android:overScrollMode="never"
-            android:paddingTop="60dp"
-            android:paddingBottom="?attr/actionBarSize" />
+            android:scrollbars="vertical">
+
+
+            <wust.student.illnesshepler.CustomViews.MyRecyclerView
+                android:id="@+id/chat_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:focusable="true"
+                android:overScrollMode="never"
+                android:paddingTop="60dp"
+                android:paddingBottom="?attr/actionBarSize" />
+
+        </wust.student.illnesshepler.CustomViews.MyNestScrollView>
 
         <include layout="@layout/chatviewtitle" />
     </RelativeLayout>
+
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
