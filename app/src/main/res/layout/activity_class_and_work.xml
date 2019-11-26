@@ -1,45 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".Activities.ClassAndWork.CurseAndWork">
 
+    <com.flyco.tablayout.SegmentTabLayout
+        android:id="@+id/tapbayout"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:tl_bar_color="#ffffff"
+        app:tl_indicator_color="@color/green"
+        app:tl_indicator_margin_bottom="2dp"
+        app:tl_indicator_margin_left="2dp"
+        app:tl_indicator_margin_right="2dp"
+        app:tl_indicator_margin_top="2dp"
+        app:tl_tab_width="80dp"
+        app:tl_textBold="BOTH"/>
 
-    <LinearLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/Curse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:textColor="@color/dark"
-            android:textSize="18sp"
-            android:text="课程" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textColor="@color/dark"
-            android:text="|" />
-
-        <TextView
-            android:id="@+id/HomeWork"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:textColor="@color/dark"
-            android:text="作业" />
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
 
     <wust.student.illnesshepler.CustomViews.MyViewPager
         android:id="@+id/classANDwork"
@@ -53,4 +40,4 @@
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp" />
 
-</RelativeLayout>
+</LinearLayout>
