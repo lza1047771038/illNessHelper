@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,9 +39,12 @@ public class HomeWorkAdapter extends RecyclerView.Adapter<HomeWorkAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Data_HomeWork data = list.get(position);
-        holder.Title.setText(data.getTitle());
-        holder.Author.setText(data.getAuthor());
-        holder.isFinsh.setText(isFinsh(data.getIsFinsh()));
+        String[]Options=data.getOptions();
+        holder.Theme.setText(data.getTheme());
+        holder.radioButtonA.setText(Options[0]);
+        holder.radioButtonB.setText(Options[1]);
+        holder.radioButtonC.setText(Options[2]);
+        holder.radioButtonD.setText(Options[3]);
 
         holder.itemView.setTag(position);
     }
@@ -52,14 +57,22 @@ public class HomeWorkAdapter extends RecyclerView.Adapter<HomeWorkAdapter.MyView
 
     //创建MyViewHolder继承RecyclerView.ViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView Title,Author,isFinsh;
+        private TextView Theme;
+        private RadioGroup radioGroup;
+        private RadioButton radioButtonA;
+        private RadioButton radioButtonB;
+        private RadioButton radioButtonC;
+        private RadioButton radioButtonD;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            Title=itemView.findViewById(R.id.Title);
-            Author=itemView.findViewById(R.id.Author);
-            isFinsh=itemView.findViewById(R.id.isFinsh);
+            Theme=itemView.findViewById(R.id.Theme);
+            radioGroup=itemView.findViewById(R.id.RgOfAnswer);
+            radioButtonA=itemView.findViewById(R.id.A);
+            radioButtonB=itemView.findViewById(R.id.B);
+            radioButtonC=itemView.findViewById(R.id.C);
+            radioButtonD=itemView.findViewById(R.id.D);
 
             // 为ItemView添加点击事件
             itemView.setOnClickListener(HomeWorkAdapter.this);
@@ -94,7 +107,7 @@ public class HomeWorkAdapter extends RecyclerView.Adapter<HomeWorkAdapter.MyView
         int position = (int) v.getTag();      //getTag()获取数据
         if (mOnItemClickListener != null) {
             switch (v.getId()) {
-                case R.id.recycler:
+                case R.id.subject:
                     mOnItemClickListener.onItemClick(v, ViewName.PRACTISE, position);
                     break;
                 default:
@@ -102,14 +115,5 @@ public class HomeWorkAdapter extends RecyclerView.Adapter<HomeWorkAdapter.MyView
                     break;
             }
         }
-    }
-
-    private String isFinsh(boolean isFinsh){
-        String str;
-        if (isFinsh)
-            str="完成";
-        else
-            str="未完成";
-        return str;
     }
 }

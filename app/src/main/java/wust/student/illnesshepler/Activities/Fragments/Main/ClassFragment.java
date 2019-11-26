@@ -1,5 +1,6 @@
 package wust.student.illnesshepler.Activities.Fragments.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import wust.student.illnesshepler.Activities.ClassAndWork.CurseAndWork;
 import wust.student.illnesshepler.Adapters.CourseAdapter;
 import wust.student.illnesshepler.Adapters.HomeWorkAdapter;
 import wust.student.illnesshepler.Bean.Data_course;
@@ -27,7 +29,7 @@ public class ClassFragment extends Fragment {
     private CourseAdapter adapter;
     private List<Data_course> list;
     private MyRecyclerView recyclerView;
-    View view, statusBarBackground;
+    View view;
 
 
     @Nullable
@@ -54,32 +56,33 @@ public class ClassFragment extends Fragment {
 
     private void initData(){
         list =new ArrayList<>();
-        list.add(new Data_course("第一次作业","开发者",null));
-        list.add(new Data_course("第二次作业","开发者",null));
-        list.add(new Data_course("第三次作业","开发者",null));
-        list.add(new Data_course("第四次作业","开发者",null));
-        list.add(new Data_course("第五次作业","开发者",null));
-        list.add(new Data_course("第五次作业","开发者",null));
-        list.add(new Data_course("第五次作业","开发者",null));
-        list.add(new Data_course("第五次作业","开发者",null));
-        list.add(new Data_course("第五次作业","开发者",null));
-        list.add(new Data_course("第五次作业","开发者",null));
-        list.add(new Data_course("第五次作业","开发者",null));
+        list.add(new Data_course("第一课","开发者",null));
+        list.add(new Data_course("第二课","开发者",null));
+        list.add(new Data_course("第三课","开发者",null));
+        list.add(new Data_course("第四课","开发者",null));
+        list.add(new Data_course("第五课","开发者",null));
+        list.add(new Data_course("第六课","开发者",null));
+        list.add(new Data_course("第七课","开发者",null));
+        list.add(new Data_course("第八课","开发者",null));
+        list.add(new Data_course("第九课","开发者",null));
+        list.add(new Data_course("第十课","开发者",null));
+        list.add(new Data_course("第十一课","开发者",null));
     }
 
     private HomeWorkAdapter.OnItemClickListener CourseClickListener=new HomeWorkAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View v, HomeWorkAdapter.ViewName viewName, int position) {
             switch (v.getId()) {
-                case R.id.Title:
-                    TextView Title = (TextView) view.findViewById(R.id.Title);
+                case R.id.Course_Title:
+                    TextView Title = (TextView) view.findViewById(R.id.Course_Title);
                     Toast.makeText(getContext(), Title.getText().toString(), Toast.LENGTH_SHORT).show();
                     break;
-                case R.id.Author:
-                    TextView Author = (TextView) view.findViewById(R.id.Author);
+                case R.id.Course_teacher:
+                    TextView Author = (TextView) view.findViewById(R.id.Course_teacher);
                     Toast.makeText(getContext(), Author.getText().toString(), Toast.LENGTH_SHORT).show();
                     break;
                 default:
+                    startActivity(new Intent(getContext(), CurseAndWork.class));
                     Toast.makeText(getContext(), "你点击了第" + (position+1) + "条item", Toast.LENGTH_SHORT).show();
                     break;
             }
