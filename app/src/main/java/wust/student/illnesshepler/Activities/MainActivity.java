@@ -63,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
     ClassFragment classes = new ClassFragment();
     ChatFragment chat = new ChatFragment();
     MeFragment me = new MeFragment();
+    //本地保存图片的路径
     public final static String ImagesDruaction =
             Environment.getExternalStorageDirectory().getPath() + "/illnesshepler" + "/Images";
-    //本地保存图片的路径
+    public final static String PdfDDruaction = Environment.getExternalStorageDirectory().getPath();
+
     public static boolean isLogin = false;
     public static User_information userInfo;
     public static boolean refreshed = true;

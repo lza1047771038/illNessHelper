@@ -26,12 +26,8 @@ import wust.student.illnesshepler.R;
 public class CurseAndWork extends AppCompatActivity {
 
 
-    MyViewPager viewPager;
     Fragment CurseFragment=new CurseFragment();
     Fragment HomeworkFragment=new HomeworkFragment();
-    List<Fragment> fragmentList = new ArrayList<>();
-    TextView Curse;
-    TextView Homework;
 
     //aike
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -92,9 +88,6 @@ public class CurseAndWork extends AppCompatActivity {
 //        Curse=(TextView)findViewById(R.id.Curse);
 //        Homework=(TextView)findViewById(R.id.HomeWork);
         tl_3();
-        viewPager=findViewById(R.id.classANDwork);
-        fragmentList.add(CurseFragment);
-        fragmentList.add(HomeworkFragment);
     }
     private void tl_3() {
         final ViewPager vp_3 =(ViewPager) findViewById(R.id.vp_2);
@@ -145,6 +138,7 @@ public class CurseAndWork extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mTitles_2[position];
         }
+//        onInterceptTouchEvent\
 
         @Override
         public Fragment getItem(int position) {
