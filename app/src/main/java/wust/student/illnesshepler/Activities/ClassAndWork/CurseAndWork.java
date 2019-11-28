@@ -52,45 +52,6 @@ public class CurseAndWork extends AppCompatActivity {
         setContentView(R.layout.activity_class_and_work);
 
         init();
-
-//        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager
-//        ()) {
-//            @NonNull
-//            @Override
-//            public Fragment getItem(int position) {
-//                return fragmentList.get(position);
-//            }
-//
-//            @Override
-//            public int getCount() {
-//                return fragmentList.size();
-//            }
-//        };
-
-//
-//        viewPager.setAdapter(pagerAdapter);
-//        viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
-
-//        Curse.setOnClickListener(new View.OnClickListener() {
-//            @SuppressLint("ResourceAsColor")
-//            @Override
-//            public void onClick(View v) {
-//                viewPager.setCurrentItem(0);
-//                Curse.setTextSize(18);
-//                Homework.setTextSize(12);
-//            }
-//        });
-//
-//        Homework.setOnClickListener(new View.OnClickListener() {
-//            @SuppressLint("ResourceAsColor")
-//            @Override
-//            public void onClick(View v) {
-//                viewPager.setCurrentItem(1);
-//                Homework.setTextSize(18);
-//                Curse.setTextSize(12);
-//            }
-//        });
-
     }
 
     public void init() {

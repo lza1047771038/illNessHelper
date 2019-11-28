@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ClassAndWork.FullSreenPdf">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/full_photoView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        tools:srcCompat="@tools:sample/avatars[0]" />
+
+    <ImageView
+        android:id="@+id/previous"
+        android:layout_width="35dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@color/TransParentWhite"
+        android:layout_weight="1"
+        android:src="@drawable/pdf_ledt"/>
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="35dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@color/TransParentWhite"
+        android:layout_weight="1"
+        android:src="@drawable/pdf_right"/>
+
+<LinearLayout
+    android:id="@+id/bottom_linear"
+   android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/gradient_box"
+    android:layout_alignParentBottom="true"
+    android:orientation="horizontal">
+
+
+    <com.warkiz.widget.IndicatorSeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        app:isb_track_background_color="@color/white"
+        android:layout_weight="1"
+        app:isb_show_indicator="circular_bubble"
+        app:isb_show_tick_texts="true"
+        app:isb_tick_texts_typeface="serif"/>
+    <ImageView
+        android:id="@+id/zoom"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/exit_full_screen_icon"/>
+
+</LinearLayout>
+</RelativeLayout>

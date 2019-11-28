@@ -1,23 +1,24 @@
-package wust.student.illnesshepler.Activities.Fragments;
+package wust.student.illnesshepler.Activities.ClassAndWork;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.pdf.PdfRenderer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.warkiz.widget.IndicatorSeekBar;
@@ -29,14 +30,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import wust.student.illnesshepler.Activities.ClassAndWork.FullSreenPdf;
+import wust.student.illnesshepler.Activities.Fragments.CurseFragment;
 import wust.student.illnesshepler.Activities.MainActivity;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.AnimationUtil;
+import wust.student.illnesshepler.Utils.StatusBarUtil;
 
-
-public class CurseFragment extends Fragment implements View.OnClickListener {
-
+public class FullSreenPdf extends AppCompatActivity implements View.OnClickListener {
     boolean teamp = true;
     private static final String STATE_CURRENT_PAGE_INDEX = "current_page_index";
     private static final String FILENAME = "sample.pdf";
@@ -49,29 +49,25 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
     private ImageView mZoom;
     private IndicatorSeekBar mseekBar;
     private LinearLayout bottom;
-
     private int mPageIndex;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_curse, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_full_sreen_pdf);
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        // Retain view references.
-        initlayout(view, savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        mPageIndex = bundle.getInt("page");
+       initlayout();
+
+        // If there is a savedInstanceState (screen orientations, etc.), we restore the page index.
         try {
-            Log.d("test","mPageIndex::"+mPageIndex);
-            openRenderer(getActivity());
-
+            openRenderer(this);
             showPage(mPageIndex);
             setseeckbar();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(getActivity(), "Error! " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error! " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
     public void setseeckbar()
@@ -96,43 +92,29 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
-    public void initlayout(View view, Bundle savedInstanceState) {
-        mImageView = (PhotoView) view.findViewById(R.id.photoView);
+    public void initlayout()
+    {
+        mImageView = (PhotoView) findViewById(R.id.full_photoView);
         mImageView.setZoomable(true);
-        mButtonPrevious = (ImageView) view.findViewById(R.id.previous);
-        mButtonNext = (ImageView) view.findViewById(R.id.next);
-        mZoom = (ImageView) view.findViewById(R.id.zoom);
-        mseekBar = (IndicatorSeekBar) view.findViewById(R.id.seekBar);
-        bottom=(LinearLayout)view.findViewById(R.id.bottom_linear) ;
+        mButtonPrevious = (ImageView) findViewById(R.id.previous);
+        mButtonNext = (ImageView) findViewById(R.id.next);
+        mZoom = (ImageView) findViewById(R.id.zoom);
+        mseekBar = (IndicatorSeekBar) findViewById(R.id.seekBar);
+        bottom=(LinearLayout)findViewById(R.id.bottom_linear) ;
         // Bind events.
         mButtonPrevious.setOnClickListener(this);
         mButtonNext.setOnClickListener(this);
         mImageView.setOnClickListener(this);
         mZoom.setOnClickListener(this);
-
-        mPageIndex = 0;
-        // If there is a savedInstanceState (screen orientations, etc.), we restore the page index.
-        if (null != savedInstanceState) {
-            mPageIndex = savedInstanceState.getInt(STATE_CURRENT_PAGE_INDEX, 0);
-        }
-
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-
-        if (null != mCurrentPage) {
-            outState.putInt(STATE_CURRENT_PAGE_INDEX, mCurrentPage.getIndex());
-        }
-        super.onSaveInstanceState(outState);
     }
 //    @Override
 //    public void onSaveInstanceState(Bundle outState) {
+//
+//        if (null != mCurrentPage) {
+//            outState.putInt(STATE_CURRENT_PAGE_INDEX, mCurrentPage.getIndex());
+//        }
 //        super.onSaveInstanceState(outState);
-//        outState.putParcelable("android:support:fragments", null);
 //    }
-
 
     private void openRenderer(Context context) throws IOException {
         // In this sample, we read a PDF from the assets directory.
@@ -197,8 +179,8 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.previous: {
                 // Move to the previous page
                 showPage(mCurrentPage.getIndex() - 1);
@@ -210,15 +192,18 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.zoom: {
-
-                Intent intent = new Intent(view.getContext(), FullSreenPdf.class);
+//                // TODO
+                Intent intent = new Intent(FullSreenPdf.this, CurseAndWork.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", mCurrentPage.getIndex());
                 intent.putExtras(bundle);
-                startActivityForResult(intent,100);
+                setResult(100,intent);
+                finish();
+//                startActivity(intent);
+//                CurseFragment.newInstance(mCurrentPage.getIndex());
                 break;
             }
-            case R.id.photoView:
+            case R.id.full_photoView:
 //                mButtonNext.setVisibility(View.VISIBLE);
 //                mButtonPrevious.setVisibility(View.VISIBLE);
                 // 向左边移入
@@ -226,10 +211,10 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
                 if (teamp) {
                     mButtonPrevious.setVisibility(View.GONE);
                     mButtonNext.setVisibility(View.GONE);
-//                    mButtonNext.setVisibility(View.GONE);
                     bottom.setVisibility(View.GONE);
-//                    mZoom.setAnimation(AnimationUtil.outToBottomAnimation(getContext()));
-                    bottom.setAnimation(AnimationUtil.outToBottomAnimation(getContext()));
+//                    mseekBar.setVisibility(View.GONE);
+                    bottom.setAnimation(AnimationUtil.outToBottomAnimation(this));
+//                    mseekBar.setAnimation(AnimationUtil.outToBottomAnimation(this));
                     mButtonPrevious.setAnimation(AnimationUtil.outToLeftAnimation());
                     mButtonNext.setAnimation(AnimationUtil.outToRightAnimation());
                     teamp = false;
@@ -239,33 +224,10 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
                     bottom.setVisibility(View.VISIBLE);
                     mButtonNext.setAnimation(AnimationUtil.inFromRightAnimation());
                     mButtonPrevious.setAnimation(AnimationUtil.inFromLeftAnimation());
-                    bottom.setAnimation(AnimationUtil.inFromBottomAnimation(getContext()));
-//                    mseekBar.setAnimation(AnimationUtil.inFromBottomAnimation(getContext()));
+                    bottom.setAnimation(AnimationUtil.inFromBottomAnimation(this));
+//                    mseekBar.setAnimation(AnimationUtil.inFromBottomAnimation(this));
                     teamp = true;
                 }
         }
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode)
-        {
-            case 100 :
-                Bundle bundle = data.getExtras();
-                 int page = bundle.getInt("page");
-                 showPage(page);
-            break;
-        }
-    }
-    //    @Override
-//    public void onStop() {
-//        Log.d("test","onStop");
-//        try {
-//            closeRenderer();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        super.onStop();
-//    }
 }

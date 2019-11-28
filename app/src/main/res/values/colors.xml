@@ -19,5 +19,5 @@
     <color name="thikyred">#ff8a65</color>
     <color name="backgroud">#929292</color>
     <color name="textbacground">#F2F3F7</color>
-
+    <color name="TransParentWhite">#BFFFFFFF</color>
 </resources>
