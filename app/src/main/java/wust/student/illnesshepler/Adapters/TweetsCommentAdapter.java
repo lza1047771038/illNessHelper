@@ -78,7 +78,7 @@ public class TweetsCommentAdapter extends RecyclerView.Adapter<TweetsCommentAdap
         }
     }
 
-    public static interface OnItemClickListener{
+    public interface OnItemClickListener{
         void OnItemClick(View view,int position);
     }
     TweetsCommentAdapter.OnItemClickListener onItemClickListener=null;

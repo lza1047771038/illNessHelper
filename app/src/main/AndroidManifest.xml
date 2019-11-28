@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.ClassAndWork.CurseAndWork"></activity>
+        <activity android:name=".Activities.ClassAndWork.CurseAndWork"
+            android:theme="@style/NoAppTheme"/>
         <activity android:name=".Activities.Administrator.UploadFromInternet" />
         <activity android:name=".Activities.Administrator.AdministratorActivity" />
         <activity

@@ -39,6 +39,7 @@ import wust.student.illnesshepler.Activities.Fragments.Main.ClassFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.HomeFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.MeFragment;
 import wust.student.illnesshepler.Bean.User_information;
+import wust.student.illnesshepler.CustomViews.BottomNavigationViewItemClickListenner;
 import wust.student.illnesshepler.CustomViews.MyViewPager;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
@@ -54,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
     MyViewPager viewPager;
     BottomNavigationView bottom_navigation;
+    BottomNavigationViewItemClickListenner listenner;
 
     List<Fragment> fragmentList = new ArrayList<>();
     List<Integer> menuList = new ArrayList<>();
 
-    private Fragment currentFragment;
     HomeFragment home = new HomeFragment();
     ClassFragment classes = new ClassFragment();
     ChatFragment chat = new ChatFragment();
@@ -129,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_home:
+                        if(viewPager.getCurrentItem()==0){
+                            home.onClick();
+                        }
                         viewPager.setCurrentItem(0);
                         break;
                     case R.id.navigation_class:

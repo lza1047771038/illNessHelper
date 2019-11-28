@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,24 +34,41 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.Tweets;
+import wust.student.illnesshepler.CustomViews.BottomNavigationViewItemClickListenner;
 import wust.student.illnesshepler.CustomViews.MyNestScrollView;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Activities.Tweets.ShowTweet;
+import wust.student.illnesshepler.Utils.BuildConfig;
 import wust.student.illnesshepler.Utils.GsonUtils;
+import wust.student.illnesshepler.Utils.HttpApi;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.ScreenUtil;
 import wust.student.illnesshepler.Activities.Survey.*;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener,
-        TweetsListAdapter.OnItemClickListener, MyNestScrollView.MyScrollViewListener {
+        TweetsListAdapter.OnItemClickListener, MyNestScrollView.MyScrollViewListener,
+        BottomNavigationViewItemClickListenner {
 
+    public static String TAG = "test";
     private View view;
     private XBanner mXBanner;
     private LinearLayout sruvey;
@@ -83,10 +101,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         //绑定和初始化控件
         initlayout();
         setadapter();
-        getdata();
-
-
-
 
         //请求服务器数据 数据和控件绑定在onResponse 里调用setadapter（）
         handler = new Handler(new Handler.Callback() {
@@ -100,11 +114,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             }
         });
 
+        SharedPreferences sp = getActivity().getSharedPreferences("Tweets",
+                Context.MODE_PRIVATE);
+        String result = sp.getString("tweets_result", null);
+        if (result == null) {
+            getdata();
+        } else {
+            analysisJson(result);
+        }
+
     }
 
     private void initlayout() {
         scrollView = view.findViewById(R.id.scrollViews);
-
 
         refreshView = view.findViewById(R.id.refreshLayout);
         sruvey = (LinearLayout) view.findViewById(R.id.survey);
@@ -112,7 +134,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         doctors = (LinearLayout) view.findViewById(R.id.doctors);
         tools = (LinearLayout) view.findViewById(R.id.tools);
         twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
-
 
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -134,60 +155,97 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY,
                                        int oldScrollX, int oldScrollY) {
-                refreshView.setEnabled(scrollY <= 0);
+                refreshView.setEnabled(scrollY <= 5);
+
             }
         });
         refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                try {
-                    getdata();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                getdata();
             }
         });
     }
 
+
+    private int maxConnectCount = 5, currentRetryCount = 0, waitRetryTime = 0;
+
     private void getdata() {
-        Httputil.sendokhttpNotificationList(new Callback() {
+        currentRetryCount = 0;
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.RequestBaseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        HttpApi request = retrofit.create(HttpApi.class);
+
+        Observable<ResponseBody> observable = request.NotificationList("");     //Empty Body Form Field
+
+        observable.retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                getActivity().runOnUiThread(new Runnable() {
+            public ObservableSource<?> apply(Observable<Throwable> throwableObservable) throws Exception {
+                return throwableObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
                     @Override
-                    public void run() {
-                        Message message=new Message();
-                        Toast.makeText(getContext(), "无法连接至服务器，请稍后重试", Toast.LENGTH_SHORT).show();
-                        SharedPreferences sp=getActivity().getSharedPreferences("Tweets", Context.MODE_PRIVATE);
-                        String result=sp.getString("tweets_result","");
-                        if(result.equals("")||result==null)
-                        {
-                            message.what=2;
+                    public ObservableSource<?> apply(Throwable throwable) throws Exception {
+                        if (throwable instanceof IOException) {
+                            Log.d(TAG, "属于IO异常，需重试");
+                            if (currentRetryCount < maxConnectCount) {
+                                currentRetryCount++;
+                                Log.d(TAG, "重试次数 = " + currentRetryCount);
+                                waitRetryTime = 1000 + currentRetryCount * 500;
+                                Log.d(TAG, "等待时间 =" + waitRetryTime);
+                                return Observable.just(1).delay(waitRetryTime,
+                                        TimeUnit.MILLISECONDS);
+                            } else {
+                                return Observable.error(new Throwable("网络连接失败，请重试"));
+                            }
+                        } else {
+                            return Observable.error(new Throwable("发生了非网络异常（非I/O异常）"));
                         }
-                        else {
-                            analysisJson(result);
-                        }
-                        refreshView.setRefreshing(false);
                     }
                 });
             }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String result = response.body().string();
-                SharedPreferences sp=getActivity().getSharedPreferences("Tweets", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("tweets_result", result);
-                editor.apply();
-                Log.d("test", "Home result" + result);
-                analysisJson(result);
-            }
-        });
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            String result = responseBody.string();
+                            SharedPreferences sp = getActivity().getSharedPreferences("Tweets",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("tweets_result", result);
+                            editor.apply();
+                            analysisJson(result);
+                            refreshView.setRefreshing(false);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        refreshView.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 
-    public void analysisJson(String result)
-    {
+    private void analysisJson(String result) {
         tweets = GsonUtils.handleMessages3(result);
         if (tweets != null) {
             mlist.clear();
@@ -221,7 +279,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         tweetsListAdapter.setOnItemClickListener(this);  //监听
         twRecyclerView.setAdapter(tweetsListAdapter);
 
-
     }
 
     private void setbanner() {
@@ -229,7 +286,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         for (int i = 0; i < xlist.size(); i++) {
             images.add(xlist.get(i).imageUrl);
         }
-        Log.d("test", "HomeFragment images" + images);
         mXBanner.setAutoPlayAble(images.size() > 1);
         mXBanner.setIsClipChildrenMode(images.size() > 2);
         mXBanner.setData(images, null);
@@ -249,7 +305,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.survey:
-                Intent intent = new Intent(getActivity(),InvestigationList.class);
+                Intent intent = new Intent(getActivity(), InvestigationList.class);
                 startActivity(intent);
                 break;
             case R.id.libraries:
@@ -284,5 +340,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onScrollChanged(MyNestScrollView scrollView, int x, int y, int oldx, int oldy) {
 
+    }
+
+
+    public void onClick() {
+            refreshView.setRefreshing(true);
+            scrollView.scrollTo(0,0);
+            getdata();
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Activities.ClassAndWork.CurseAndWork">
 
@@ -12,9 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginTop="10dp"
         app:tl_bar_color="#ffffff"
         app:tl_indicator_color="@color/green"
         app:tl_indicator_margin_bottom="2dp"
@@ -22,24 +23,12 @@
         app:tl_indicator_margin_right="2dp"
         app:tl_indicator_margin_top="2dp"
         app:tl_tab_width="80dp"
-        app:tl_textBold="BOTH"/>
+        app:tl_textBold="BOTH" />
 
-    <wust.student.illnesshepler.CustomViews.FixedViewPager
+    <wust.student.illnesshepler.CustomViews.MyViewPager
         android:id="@+id/vp_2"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-<!--    <wust.student.illnesshepler.CustomViews.MyViewPager-->
-<!--        android:id="@+id/classANDwork"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginStart="0dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginEnd="0dp"-->
-<!--        android:layout_marginBottom="0dp" />-->
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

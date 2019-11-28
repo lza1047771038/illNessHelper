@@ -84,15 +84,6 @@ public class Httputil {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void sendokhttplogin(okhttp3.Callback callback) {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .build();
-        RequestBody build = new FormBody.Builder()
-                .build();
-        Request request = new Request.Builder().url(NotificationList).post(build).build();
-        client.newCall(request).enqueue(callback);
-    }
-
     public static void ImagesUpload(String themeid, List<String> pathList, okhttp3.Callback callback) {
         MediaType MutilPart_Form_Data = MediaType.parse("multipart/form-data; charset=utf-8");
 
@@ -205,7 +196,6 @@ public class Httputil {
         OkHttpClient client = new OkHttpClient();
         RequestBody build = new FormBody.Builder()
                 .add("userid", userid)
-                .add("password", password)
                 .add("password", password)
                 .add("phoneid", phoneid)
                 .build();

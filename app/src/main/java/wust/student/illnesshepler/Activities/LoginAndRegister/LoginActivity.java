@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
@@ -19,21 +20,30 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.litepal.LitePal;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-import wust.student.illnesshepler.Bean.User_information;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import wust.student.illnesshepler.Activities.MainActivity;
+import wust.student.illnesshepler.Bean.User_information;
+import wust.student.illnesshepler.CustomViews.processingDialog;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.Utils.Httputil;
+import wust.student.illnesshepler.Utils.BuildConfig;
+import wust.student.illnesshepler.Utils.HttpApi;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,6 +52,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText userid;
     EditText psd;
     public Handler handler;
+    public static String TAG = "test";
+    processingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +70,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (actionBar != null) {
             actionBar.hide();
         }
+        dialog = new processingDialog(LoginActivity.this, R.layout.processingdialog);
+        dialog.setCancelable(false);
 
         LitePal.initialize(this);
         LitePal.deleteAll(User_information.class);
@@ -79,6 +93,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public boolean handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
                     case 1:
+                        if(dialog.isShowing())
+                            dialog.cancel();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -94,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Toast.LENGTH_SHORT).show();
                         break;
                 }
+                dialog.cancel();
                 return false;
             }
         });
@@ -103,6 +120,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
+                if(!dialog.isShowing()){
+                    dialog.show();
+                }
                 login(userid.getText().toString(), psd.getText().toString());
                 break;
             case R.id.enrol:
@@ -112,33 +132,89 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    int maxConnectCount = 5, currentRetryCount = 0, waitRetryTime = 0;
+
     public void login(String userid, String pasword) {
+
         String phoneid = Settings.System.getString(this.getContentResolver(),
                 Settings.System.ANDROID_ID);
         if (phoneid == null) {
             phoneid = "null";
         }
-        Httputil.login(userid, pasword, phoneid, new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Message message = new Message();
-                message.what = 2;
-                handler.sendMessage(message);
-            }
 
+        currentRetryCount = 0;
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.RequestBaseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        HttpApi request = retrofit.create(HttpApi.class);
+
+        Observable<ResponseBody> observable = request.login(userid, pasword, phoneid);
+
+        observable.retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String result = response.body().string();
-                if (result.equals("0")) {
-                    Message message = new Message();
-                    message.what = 3;
-                    handler.sendMessage(message);
-                } else {
-                    getUserInfo(result);
-                    Log.d("test", "login result" + result);
-                }
+            public ObservableSource<?> apply(Observable<Throwable> throwableObservable) {
+                return throwableObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(Throwable throwable) {
+                        if (throwable instanceof IOException) {
+                            Log.d(TAG, "属于IO异常，需重试");
+                            if (currentRetryCount < maxConnectCount) {
+                                currentRetryCount++;
+                                Log.d(TAG, "重试次数 = " + currentRetryCount);
+                                waitRetryTime = 1000 + currentRetryCount * 500;
+                                Log.d(TAG, "等待时间 =" + waitRetryTime);
+                                return Observable.just(1).delay(waitRetryTime,
+                                        TimeUnit.MILLISECONDS);
+                            } else {
+                                return Observable.error(new Throwable("网络连接失败，请重试"));
+                            }
+                        } else {
+                            return Observable.error(new Throwable("发生了非网络异常（非I/O异常）"));
+                        }
+                    }
+                });
             }
-        });
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        d.isDisposed();
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            String result = responseBody.string();
+                            if (result.equals("0")) {
+                                Message message = new Message();
+                                message.what = 3;
+                                handler.sendMessage(message);
+                            } else {
+                                getUserInfo(result);
+                                Log.d("test", "login result" + result);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dialog.cancel();
+                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     public void getUserInfo(String result) {

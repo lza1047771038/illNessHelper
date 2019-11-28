@@ -8,12 +8,16 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,21 +30,31 @@ import wust.student.illnesshepler.R;
 public class CurseAndWork extends AppCompatActivity {
 
 
-    Fragment CurseFragment=new CurseFragment();
-    Fragment HomeworkFragment=new HomeworkFragment();
+    Fragment CurseFragment = new CurseFragment();
+    Fragment HomeworkFragment = new HomeworkFragment();
 
     //aike
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     public SegmentTabLayout tabLayout;
     private String[] mTitles_2 = {"课程", "作业"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Window window = getWindow();
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        window.setStatusBarColor(Color.TRANSPARENT);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_and_work);
 
         init();
 
-//        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+//        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager
+//        ()) {
 //            @NonNull
 //            @Override
 //            public Fragment getItem(int position) {
@@ -79,7 +93,7 @@ public class CurseAndWork extends AppCompatActivity {
 
     }
 
-    public void init(){
+    public void init() {
         mFragments.add(CurseFragment);
         mFragments.add(HomeworkFragment);
 
@@ -89,8 +103,9 @@ public class CurseAndWork extends AppCompatActivity {
 //        Homework=(TextView)findViewById(R.id.HomeWork);
         tl_3();
     }
+
     private void tl_3() {
-        final ViewPager vp_3 =(ViewPager) findViewById(R.id.vp_2);
+        final ViewPager vp_3 = (ViewPager) findViewById(R.id.vp_2);
         vp_3.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
         tabLayout.setTabData(mTitles_2);
@@ -107,7 +122,8 @@ public class CurseAndWork extends AppCompatActivity {
 
         vp_3.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 
@@ -125,7 +141,7 @@ public class CurseAndWork extends AppCompatActivity {
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
-        public MyPagerAdapter(FragmentManager fm) {
+        MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -140,6 +156,7 @@ public class CurseAndWork extends AppCompatActivity {
         }
 //        onInterceptTouchEvent\
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             return mFragments.get(position);
