@@ -1,5 +1,6 @@
 package wust.student.illnesshepler.Activities.Fragments.Main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -54,6 +55,7 @@ import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.Tweets;
 import wust.student.illnesshepler.CustomViews.BottomNavigationViewItemClickListenner;
 import wust.student.illnesshepler.CustomViews.MyNestScrollView;
+import wust.student.illnesshepler.CustomViews.OnScrollViewStateChangeListenner;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Activities.Tweets.ShowTweet;
 import wust.student.illnesshepler.Utils.BuildConfig;
@@ -86,6 +88,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private Handler handler;
     private TweetsListAdapter tweetsListAdapter;
     private Tweets tweets;
+
+    private OnScrollViewStateChangeListenner callback;
 
     @Nullable
     @Override
@@ -125,6 +129,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     }
 
+    @Override
+    public void onAttach(@NonNull Activity activity) {
+        super.onAttach(activity);
+        if (!(activity instanceof OnScrollViewStateChangeListenner)) {
+            throw new IllegalStateException(
+                    "HomeFragment所在的Activity必须实现BottomNavigationViewItemClickListenner接口!");
+        }
+        // 把该Activity当成Callbacks对象
+        callback = (OnScrollViewStateChangeListenner) activity;
+    }
+
     private void initlayout() {
         scrollView = view.findViewById(R.id.scrollViews);
 
@@ -155,7 +170,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY,
                                        int oldScrollX, int oldScrollY) {
-                refreshView.setEnabled(scrollY <= 5);
+                refreshView.setEnabled(scrollY <= 0);
+                callback.onScrollStateChanged(scrollY, oldScrollY);
 
             }
         });
@@ -181,7 +197,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
         HttpApi request = retrofit.create(HttpApi.class);
 
-        Observable<ResponseBody> observable = request.NotificationList("");     //Empty Body Form Field
+        Observable<ResponseBody> observable = request.NotificationList("");     //Empty Body Form
+        // Field
 
         observable.retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
             @Override
@@ -344,8 +361,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
 
     public void onClick() {
-            refreshView.setRefreshing(true);
-            scrollView.scrollTo(0,0);
-            getdata();
+        refreshView.setRefreshing(true);
+        scrollView.scrollTo(0, 0);
+        getdata();
     }
 }

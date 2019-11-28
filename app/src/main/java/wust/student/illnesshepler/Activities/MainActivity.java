@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -29,11 +29,8 @@ import org.litepal.LitePal;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import wust.student.illnesshepler.Activities.Fragments.Main.ChatFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.ClassFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.HomeFragment;
@@ -41,11 +38,11 @@ import wust.student.illnesshepler.Activities.Fragments.Main.MeFragment;
 import wust.student.illnesshepler.Bean.User_information;
 import wust.student.illnesshepler.CustomViews.BottomNavigationViewItemClickListenner;
 import wust.student.illnesshepler.CustomViews.MyViewPager;
+import wust.student.illnesshepler.CustomViews.OnScrollViewStateChangeListenner;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 
-public class MainActivity extends AppCompatActivity {
-    public static Observable<User_information> observable;
+public class MainActivity extends AppCompatActivity implements OnScrollViewStateChangeListenner {
 
     String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -54,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     int REQUEST_CODE = 123;
 
     MyViewPager viewPager;
+    RelativeLayout bottomNavigationViewHolder;
     BottomNavigationView bottom_navigation;
     BottomNavigationViewItemClickListenner listenner;
 
@@ -69,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             Environment.getExternalStorageDirectory().getPath() + "/illnesshepler" + "/Images";
     public final static String PdfDDruaction = Environment.getExternalStorageDirectory().getPath();
 
-    public static boolean isLogin = false;
     public static User_information userInfo;
     public static boolean refreshed = true;
 
@@ -79,12 +76,6 @@ public class MainActivity extends AppCompatActivity {
         LitePal.initialize(this);
         setUserInfo();
         getAuthorize(MainActivity.this, MainActivity.this);
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        }
 
         setContentView(R.layout.activity_main);
 
@@ -99,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         menuList.add(R.id.navigation_me);
 
         bottom_navigation = findViewById(R.id.bottom_navigation);
+        bottomNavigationViewHolder = findViewById(R.id.relativeLayout);
 
         viewPager = findViewById(R.id.MainActivity_ViewPager);
         fragmentList.add(home);
@@ -130,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_home:
-                        if(viewPager.getCurrentItem()==0){
+                        if (viewPager.getCurrentItem() == 0) {
                             home.onClick();
                         }
                         viewPager.setCurrentItem(0);
@@ -174,11 +166,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUserInfo() {
         List<User_information> all = LitePal.findAll(User_information.class);//查询功能
-        Log.d("test", all.toString() + "");
         if (all.size() != 0) {
             userInfo = all.get(0);
-            Log.d("test",
-                    "MainActivity.userInfo.getUser_Image_Uri()" + MainActivity.userInfo.getPhoneid());
         }
     }
 
@@ -198,4 +187,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private Boolean isBottomShow = true;
+
+    public void onScrollStateChanged(int scrollY, int oldscrollY) {
+        if (scrollY - oldscrollY > 0 && isBottomShow) {
+            isBottomShow = false;
+            //将Y属性变为底部栏高度 (相当于隐藏了)
+            bottomNavigationViewHolder.animate().setDuration(700).translationY(bottomNavigationViewHolder.getHeight());
+        } else if (scrollY - oldscrollY < 0 && !isBottomShow) {
+            isBottomShow = true;
+            bottomNavigationViewHolder.animate().setDuration(700).translationY(0);
+        }
+        /*if(scrollY<bottomNavigationViewHolder.getHeight()){
+            bottomNavigationViewHolder.setTranslationY(scrollY);
+        }*/
+    }
 }

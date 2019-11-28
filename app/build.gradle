@@ -24,12 +24,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             signingConfig signingConfigs.debug
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -38,7 +38,7 @@ android {
         debug {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('D:/Android.keystore/keys0.jks')
+            storeFile file('F:/Android.keystore/keys0.jks')
             storePassword '123456'
         }
     }
