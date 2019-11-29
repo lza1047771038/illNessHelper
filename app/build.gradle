@@ -107,4 +107,6 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     //进度条
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
+    //observableScrollView
+    api 'com.github.ksoichiro:android-observablescrollview:1.6.0'
 }

@@ -1,5 +1,6 @@
 package wust.student.illnesshepler.Activities.Fragments.Main;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +32,6 @@ import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Bean.Posting;
-import wust.student.illnesshepler.CustomViews.MyNestScrollView;
 import wust.student.illnesshepler.CustomViews.MyRecyclerView;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.GsonUtils;
@@ -93,6 +92,8 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
 
     }
 
+
+
     /**
      * 动态刷新加载RecyclerView
      * 这个能解决notifystatechanged不加载动画的问题
@@ -128,6 +129,7 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
      * 控件的设置以及监听器的设置
      */
 
+    @SuppressLint("ClickableViewAccessibility")
     private void layoutInit() {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
@@ -146,8 +148,12 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX,
                                        int oldScrollY) {
-
                 refreshLayout.setEnabled(scrollY <= 0);
+                /*if (scrollY - oldScrollY > 0 && scrollY - oldScrollY < 225.5f) {
+                    callback.onScrollStateChanged(scrollY - oldScrollY, 225.5f);
+                } else if (scrollY - oldScrollY < 0 && scrollY - oldScrollY > -225.5f) {
+                    callback.onScrollStateChanged(scrollY - oldScrollY, 225.5f);
+                }*/
             }
         });
 

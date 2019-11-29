@@ -1,284 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.yalantis.phoenix.PullToRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="false">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <wust.student.illnesshepler.CustomViews.ReboundScrollView
+        android:id="@+id/scrollViews"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:overScrollMode="never">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:fitsSystemWindows="true"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/RainBowTitle"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:fitsSystemWindows="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginEnd="88dp"
-                app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="scroll|enterAlways">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@mipmap/wust" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:text="青春彩虹伞"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="22sp" />
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="22dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/bell_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/RainBowSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:id="@+id/search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/searchview_cornerbackground"
-                    android:padding="7dp"
-                    android:text="彩虹搜索"
-                    android:textAlignment="center"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <wust.student.illnesshepler.CustomViews.ReboundScrollView
-            android:id="@+id/scrollViews"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:orientation="vertical">
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.stx.xhb.xbanner.XBanner
-                        android:id="@+id/xbanner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:AutoPlayTime="3000"
-                        app:isClipChildrenMode="true"
-                        app:isHandLoop="true"
-                        app:isShowIndicatorOnlyOne="true"
-                        app:isShowNumberIndicator="false"
-                        app:isShowTips="false"
-                        app:pageChangeDuration="800"
-                        app:pointsPosition="CENTER" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:id="@+id/survey"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="@drawable/thiky_white_bg"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/investigation_icon" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="问卷"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/libraries"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="@drawable/thiky_white_bg"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/libirayrs_icon" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="资料"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/doctors"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="@drawable/thiky_white_bg"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/doctor_icon" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="专家"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/tools"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="@drawable/thiky_white_bg"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/tools_icon" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="工具"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
+                <com.stx.xhb.xbanner.XBanner
+                    android:id="@+id/xbanner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
+                    app:AutoPlayTime="3000"
+                    app:isClipChildrenMode="true"
+                    app:isHandLoop="true"
+                    app:isShowIndicatorOnlyOne="true"
+                    app:isShowNumberIndicator="false"
+                    app:isShowTips="false"
+                    app:pageChangeDuration="800"
+                    app:pointsPosition="CENTER" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:id="@+id/survey"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/thiky_white_bg"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/investigation_icon" />
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="10dp"
-                            android:text="为你推荐"
-                            android:textColor="#333"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@drawable/ripple_bg_noborder"
-                            android:clickable="true"
-                            android:focusable="true"
                             android:gravity="center"
-                            android:text="more"
-                            android:textColor="#333" />
+                            android:text="问卷"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/tweets_recycle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:descendantFocusability="blocksDescendants"
-                        android:focusableInTouchMode="false" />
+                    <LinearLayout
+                        android:id="@+id/libraries"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/thiky_white_bg"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/libirayrs_icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="资料"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/doctors"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/thiky_white_bg"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/doctor_icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="专家"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tools"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/thiky_white_bg"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/tools_icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="工具"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="为你推荐"
+                        android:textColor="#333"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/ripple_bg_noborder"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="more"
+                        android:textColor="#333" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tweets_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusableInTouchMode="false" />
 
             </LinearLayout>
 
-        </wust.student.illnesshepler.CustomViews.ReboundScrollView>
+        </LinearLayout>
 
+    </wust.student.illnesshepler.CustomViews.ReboundScrollView>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </com.yalantis.phoenix.PullToRefreshView>

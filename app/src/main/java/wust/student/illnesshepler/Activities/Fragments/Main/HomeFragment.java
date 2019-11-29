@@ -1,6 +1,5 @@
 package wust.student.illnesshepler.Activities.Fragments.Main;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,8 +28,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.stx.xhb.xbanner.XBanner;
 import com.yalantis.phoenix.PullToRefreshView;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,33 +40,28 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import wust.student.illnesshepler.Activities.Survey.InvestigationList;
+import wust.student.illnesshepler.Activities.Tweets.ShowTweet;
 import wust.student.illnesshepler.Adapters.TweetsListAdapter;
 import wust.student.illnesshepler.Bean.Tweets;
 import wust.student.illnesshepler.CustomViews.BottomNavigationViewItemClickListenner;
 import wust.student.illnesshepler.CustomViews.MyNestScrollView;
-import wust.student.illnesshepler.CustomViews.OnScrollViewStateChangeListenner;
 import wust.student.illnesshepler.R;
-import wust.student.illnesshepler.Activities.Tweets.ShowTweet;
 import wust.student.illnesshepler.Utils.BuildConfig;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.HttpApi;
-import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.ScreenUtil;
-import wust.student.illnesshepler.Activities.Survey.*;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener,
         TweetsListAdapter.OnItemClickListener, MyNestScrollView.MyScrollViewListener,
         BottomNavigationViewItemClickListenner {
 
-    public static String TAG = "test";
+    private static String TAG = "test";
     private View view;
     private XBanner mXBanner;
     private LinearLayout sruvey;
@@ -79,7 +70,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private LinearLayout tools;
     private PullToRefreshView refreshView;
     private NestedScrollView scrollView;
-
     private RecyclerView twRecyclerView;
 
     private List<String> images = new ArrayList<>();
@@ -88,8 +78,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private Handler handler;
     private TweetsListAdapter tweetsListAdapter;
     private Tweets tweets;
-
-    private OnScrollViewStateChangeListenner callback;
 
     @Nullable
     @Override
@@ -129,31 +117,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     }
 
-    @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-        if (!(activity instanceof OnScrollViewStateChangeListenner)) {
-            throw new IllegalStateException(
-                    "HomeFragment所在的Activity必须实现BottomNavigationViewItemClickListenner接口!");
-        }
-        // 把该Activity当成Callbacks对象
-        callback = (OnScrollViewStateChangeListenner) activity;
-    }
-
     private void initlayout() {
         scrollView = view.findViewById(R.id.scrollViews);
-
         refreshView = view.findViewById(R.id.refreshLayout);
-        sruvey = (LinearLayout) view.findViewById(R.id.survey);
-        libraries = (LinearLayout) view.findViewById(R.id.libraries);
-        doctors = (LinearLayout) view.findViewById(R.id.doctors);
-        tools = (LinearLayout) view.findViewById(R.id.tools);
-        twRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycle);
+        sruvey =  view.findViewById(R.id.survey);
+        libraries =  view.findViewById(R.id.libraries);
+        doctors =  view.findViewById(R.id.doctors);
+        tools =  view.findViewById(R.id.tools);
+        twRecyclerView =  view.findViewById(R.id.tweets_recycle);
 
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         ScreenUtil.getScreenWidth(view.getContext()) / 2);
-        mXBanner = (XBanner) view.findViewById(R.id.xbanner);
+        mXBanner =  view.findViewById(R.id.xbanner);
         mXBanner.setLayoutParams(layoutParams);
         mXBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
@@ -171,10 +147,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY,
                                        int oldScrollX, int oldScrollY) {
                 refreshView.setEnabled(scrollY <= 0);
-                callback.onScrollStateChanged(scrollY, oldScrollY);
 
             }
         });
+        /*appBarLayout.addOnOffsetChangedListener(new AppBarLayout.BaseOnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+                callback.onScrollStateChanged(appBarLayout.getY(), appBarLayout.getTotalScrollRange(),true);
+//                Log.d(TAG,appBarLayout.getY()+"");
+            }
+        });*/
         refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {

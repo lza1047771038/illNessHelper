@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<wust.student.illnesshepler.CustomViews.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/Edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:showDividers="middle">
-
-        <View
-            android:id="@+id/statusBarBackground"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/edit_user_img"
@@ -44,8 +35,9 @@
 
                 <wust.student.illnesshepler.Utils.RoundImageView
                     android:id="@+id/user_img"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
                     android:src="@drawable/head" />
             </LinearLayout>
         </LinearLayout>
@@ -138,30 +130,33 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/ripple_bg"
-            android:gravity="center"
             android:layout_marginTop="40dp"
+            android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp">
-            <Button
-                android:id="@+id/change_user_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="确定"
-                android:background="@color/colorAccent"
-                android:textColor="@color/white"
-                android:textSize="15dp"/>
+
+                <Button
+                    android:id="@+id/change_user_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="确定"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+</wust.student.illnesshepler.CustomViews.ReboundScrollView>

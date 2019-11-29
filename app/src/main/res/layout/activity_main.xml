@@ -5,46 +5,111 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <wust.student.illnesshepler.CustomViews.MyViewPager
-        android:id="@+id/MainActivity_ViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.github.mmin18.widget.RealtimeBlurView
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/bottom_navigation"
-            android:layout_alignBottom="@+id/bottom_navigation"
-            app:realtimeBlurRadius="25dp"
-            app:realtimeOverlayColor="#c8FFFFFF" />
+            android:elevation="0dp"
+            android:theme="@style/MyToolbarTheme">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
+            <LinearLayout
+                android:id="@+id/RainBowTitle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:fitsSystemWindows="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@mipmap/wust" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="10dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/icon_search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:paddingStart="5dp"
+                    android:text="彩虹搜索"
+                    android:textSize="18sp"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="22dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/bell_light" />
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <wust.student.illnesshepler.CustomViews.MyViewPager
+            android:id="@+id/MainActivity_ViewPager"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
             android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/navigation" />
-    </RelativeLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior=".CustomViews.BottomNavigationViewBehavior">
+
+            <com.github.mmin18.widget.RealtimeBlurView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/bottom_navigation"
+                android:layout_alignBottom="@+id/bottom_navigation"
+                app:realtimeBlurRadius="25dp"
+                app:realtimeOverlayColor="#c8FFFFFF" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/navigation"
+                app:itemBackground="@null"/>
+        </RelativeLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>

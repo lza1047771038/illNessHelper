@@ -5,7 +5,7 @@
     <color name="colorAccent">@color/green</color>
     <color name="Half_TransParentWhite">#7FFFFFFF</color>
     <color name="dark">#272727</color>
-    <color name="gray">#F3F3F3</color>
+    <color name="gray">#F9F9F9</color>
     <color name="darkgray">#757575</color>
     <color name="thingray">#979797</color>
     <color name="blue">#4286F3</color>

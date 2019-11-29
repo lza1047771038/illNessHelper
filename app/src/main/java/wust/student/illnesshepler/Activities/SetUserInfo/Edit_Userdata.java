@@ -70,12 +70,11 @@ public class Edit_Userdata extends AppCompatActivity implements View.OnClickList
 
         builder = new AlertDialog.Builder(this);
 
+
         View decorView = getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        decorView.setSystemUiVisibility(option);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        StatusBarUtil.setStatusBarDarkTheme(this, true);
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.WHITE);
+
 
         Drawable drawable = getDrawable(R.color.white);
         ActionBar actionBar = getSupportActionBar();

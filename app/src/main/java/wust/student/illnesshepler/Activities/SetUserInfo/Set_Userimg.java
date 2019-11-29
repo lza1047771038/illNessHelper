@@ -9,17 +9,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.yalantis.ucrop.UCrop;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -55,20 +54,16 @@ import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.FileUtil;
 import wust.student.illnesshepler.Utils.Httputil;
 import wust.student.illnesshepler.Utils.PictureEditor;
-import wust.student.illnesshepler.Utils.StatusBarUtil;
-
-import com.yalantis.ucrop.UCrop;
-import com.yalantis.ucrop.UCropActivity;
 
 import static org.litepal.LitePalApplication.getContext;
 
 public class Set_Userimg extends AppCompatActivity {
     private Handler handler;
     PromptDialog promptDialog;
-    View statusBarBackground;
+
     Uri uri;
-    ImageView user_img, right_round;
-    Button btn_select_img, btn_used_img;
+    ImageView user_img;
+    TextView btn_select_img, btn_used_img;
     FileUtil fileUtil;
     PictureEditor pictureEditor;
     Bitmap NewBmp = null;
@@ -86,10 +81,9 @@ public class Set_Userimg extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set__userimg);
 
-        btn_select_img = (Button) findViewById(R.id.select_img);
-        btn_used_img = (Button) findViewById(R.id.used_img);
+        btn_select_img =  findViewById(R.id.select_img);
+        btn_used_img = findViewById(R.id.used_img);
         user_img = (ImageView) findViewById(R.id.img);
-        right_round = (ImageView) findViewById(R.id.right_round);
         linearLayout_roung = (LinearLayout) findViewById(R.id.linearLayout4);
 
 
@@ -133,24 +127,15 @@ public class Set_Userimg extends AppCompatActivity {
             }
         });
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-        StatusBarUtil.setStatusBarDarkTheme(this, true);
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.WHITE);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setBackgroundDrawable(getDrawable(R.color.white));
             actionBar.setTitle("设置头像");
         }
-
-        statusBarBackground = findViewById(R.id.statusBarBackground);
-        ViewGroup.LayoutParams params = statusBarBackground.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(getContext());
-        statusBarBackground.setLayoutParams(params);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

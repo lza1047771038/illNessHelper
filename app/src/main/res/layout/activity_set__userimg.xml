@@ -1,89 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:padding="15dp"
-    tools:context=".Activities.SetUserInfo.Set_Userimg">
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <wust.student.illnesshepler.CustomViews.ReboundScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:padding="15dp"
-        tools:context=".Activities.SetUserInfo.Set_Userimg">
-
-        <View
-            android:id="@+id/statusBarBackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginRight="0dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/icon_me"
-            tools:ignore="MissingConstraints" />
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="80dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/img"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="@+id/img"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-            tools:ignore="MissingConstraints">
-
-            <Button
-                android:id="@+id/select_img"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/ripple_bg"
-                android:text="选择图片"
-                android:textColor="@color/dark"
-                tools:ignore="MissingConstraints" />
-
-            <Button
-                android:id="@+id/used_img"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/ripple_bg"
-                android:text="使用头像"
-                android:textColor="@color/dark"
-                tools:ignore="MissingConstraints" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/img"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="15dp">
+            android:gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/right_round"
+                android:id="@+id/img"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="0dp"
+                android:src="@drawable/icon_me"
+                android:scaleType="centerCrop"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/right_round" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="80dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/select_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/toolbar_round_corner"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="选择图片"
+                    android:textColor="@color/dark" />
+
+                <TextView
+                    android:id="@+id/used_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/toolbar_round_corner"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="使用头像"
+                    android:textColor="@color/dark" />
+
+            </LinearLayout>
+
         </LinearLayout>
+    </wust.student.illnesshepler.CustomViews.ReboundScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>

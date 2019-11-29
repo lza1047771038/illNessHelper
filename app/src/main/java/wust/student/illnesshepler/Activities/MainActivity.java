@@ -4,13 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -30,7 +27,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import wust.student.illnesshepler.Activities.Fragments.Main.ChatFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.ClassFragment;
 import wust.student.illnesshepler.Activities.Fragments.Main.HomeFragment;
@@ -38,11 +34,10 @@ import wust.student.illnesshepler.Activities.Fragments.Main.MeFragment;
 import wust.student.illnesshepler.Bean.User_information;
 import wust.student.illnesshepler.CustomViews.BottomNavigationViewItemClickListenner;
 import wust.student.illnesshepler.CustomViews.MyViewPager;
-import wust.student.illnesshepler.CustomViews.OnScrollViewStateChangeListenner;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.SensitiveWordsUtils;
 
-public class MainActivity extends AppCompatActivity implements OnScrollViewStateChangeListenner {
+public class MainActivity extends AppCompatActivity {
 
     String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -185,21 +180,5 @@ public class MainActivity extends AppCompatActivity implements OnScrollViewState
             mPermissionList.clear();
             Toast.makeText(context, "授权失败，可能造成无法进入的问题", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private Boolean isBottomShow = true;
-
-    public void onScrollStateChanged(int scrollY, int oldscrollY) {
-        if (scrollY - oldscrollY > 0 && isBottomShow) {
-            isBottomShow = false;
-            //将Y属性变为底部栏高度 (相当于隐藏了)
-            bottomNavigationViewHolder.animate().setDuration(700).translationY(bottomNavigationViewHolder.getHeight());
-        } else if (scrollY - oldscrollY < 0 && !isBottomShow) {
-            isBottomShow = true;
-            bottomNavigationViewHolder.animate().setDuration(700).translationY(0);
-        }
-        /*if(scrollY<bottomNavigationViewHolder.getHeight()){
-            bottomNavigationViewHolder.setTranslationY(scrollY);
-        }*/
     }
 }

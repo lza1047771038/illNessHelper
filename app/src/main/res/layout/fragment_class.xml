@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<wust.student.illnesshepler.CustomViews.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:overScrollMode="never">
 
-    <wust.student.illnesshepler.CustomViews.ReboundScrollView
+    <wust.student.illnesshepler.CustomViews.MyRecyclerView
+        android:id="@+id/classes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:paddingBottom="?attr/actionBarSize">
-
-        <wust.student.illnesshepler.CustomViews.MyRecyclerView
-            android:id="@+id/classes"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"
-            android:focusableInTouchMode="false" />
-    </wust.student.illnesshepler.CustomViews.ReboundScrollView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/green"
-        android:gravity="center"
-        android:text="课程"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-</RelativeLayout>
+        android:descendantFocusability="blocksDescendants"
+        android:focusableInTouchMode="false" />
+</wust.student.illnesshepler.CustomViews.ReboundScrollView>
