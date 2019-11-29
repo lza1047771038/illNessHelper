@@ -10,9 +10,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -25,6 +28,7 @@ import java.util.List;
 import wust.student.illnesshepler.Activities.Fragments.CurseFragment;
 import wust.student.illnesshepler.Activities.Fragments.HomeworkFragment;
 import wust.student.illnesshepler.CustomViews.MyViewPager;
+import wust.student.illnesshepler.CustomViews.SlideLeftOrRightListenner;
 import wust.student.illnesshepler.R;
 
 public class CurseAndWork extends AppCompatActivity {
@@ -33,6 +37,8 @@ public class CurseAndWork extends AppCompatActivity {
     Fragment CurseFragment = new CurseFragment();
     Fragment HomeworkFragment = new HomeworkFragment();
 
+
+    SlideLeftOrRightListenner listenner = (CurseFragment) CurseFragment;
     //aike
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     public SegmentTabLayout tabLayout;
@@ -124,4 +130,26 @@ public class CurseAndWork extends AppCompatActivity {
         }
     }
 
+    private float downPoint, upPoint;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
+                downPoint = event.getX();
+                Log.e("test", downPoint + "");
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                upPoint = event.getX();
+                Log.d("test", upPoint + "");
+                if (upPoint - downPoint > 0)
+                    listenner.onSlide(true);
+                else
+                    listenner.onSlide(false);
+                break;
+            }
+        }
+        return true;
+    }
 }

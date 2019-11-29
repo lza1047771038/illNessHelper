@@ -1,5 +1,6 @@
 package wust.student.illnesshepler.Activities.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,11 +33,13 @@ import java.io.InputStream;
 
 import wust.student.illnesshepler.Activities.ClassAndWork.FullSreenPdf;
 import wust.student.illnesshepler.Activities.MainActivity;
+import wust.student.illnesshepler.CustomViews.SlideLeftOrRightListenner;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.AnimationUtil;
 
 
-public class CurseFragment extends Fragment implements View.OnClickListener {
+public class CurseFragment extends Fragment implements View.OnClickListener,
+        SlideLeftOrRightListenner {
 
     boolean teamp = true;
     private static final String STATE_CURRENT_PAGE_INDEX = "current_page_index";
@@ -43,7 +47,7 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
     private ParcelFileDescriptor mFileDescriptor;
     private PdfRenderer mPdfRenderer;
     private PdfRenderer.Page mCurrentPage;
-    private PhotoView mImageView;
+    private wust.student.illnesshepler.CustomViews.PhotoView mImageView;
     private ImageView mButtonPrevious;
     private ImageView mButtonNext;
     private ImageView mZoom;
@@ -64,7 +68,7 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
         // Retain view references.
         initlayout(view, savedInstanceState);
         try {
-            Log.d("test","mPageIndex::"+mPageIndex);
+            Log.d("test", "mPageIndex::" + mPageIndex);
             openRenderer(getActivity());
 
             showPage(mPageIndex);
@@ -74,8 +78,8 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "Error! " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-    public void setseeckbar()
-    {
+
+    public void setseeckbar() {
         mseekBar.setMax(getPageCount());
         mseekBar.setMin(1);
         mseekBar.setProgress(mCurrentPage.getIndex());
@@ -96,14 +100,15 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
+
     public void initlayout(View view, Bundle savedInstanceState) {
-        mImageView = (PhotoView) view.findViewById(R.id.photoView);
+        mImageView = view.findViewById(R.id.photoView);
         mImageView.setZoomable(true);
         mButtonPrevious = (ImageView) view.findViewById(R.id.previous);
         mButtonNext = (ImageView) view.findViewById(R.id.next);
         mZoom = (ImageView) view.findViewById(R.id.zoom);
         mseekBar = (IndicatorSeekBar) view.findViewById(R.id.seekBar);
-        bottom=(LinearLayout)view.findViewById(R.id.bottom_linear) ;
+        bottom = (LinearLayout) view.findViewById(R.id.bottom_linear);
         // Bind events.
         mButtonPrevious.setOnClickListener(this);
         mButtonNext.setOnClickListener(this);
@@ -118,6 +123,7 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
 
 
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -177,7 +183,8 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
         }
         mCurrentPage = mPdfRenderer.openPage(index);
         mseekBar.setProgress(mCurrentPage.getIndex());
-        Bitmap bitmap = Bitmap.createBitmap(mCurrentPage.getWidth() * 3, mCurrentPage.getHeight() * 3,
+        Bitmap bitmap = Bitmap.createBitmap(mCurrentPage.getWidth() * 3,
+                mCurrentPage.getHeight() * 3,
                 Bitmap.Config.ARGB_8888);
         mCurrentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
         mImageView.setImageBitmap(bitmap);
@@ -215,20 +222,15 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", mCurrentPage.getIndex());
                 intent.putExtras(bundle);
-                startActivityForResult(intent,100);
+                startActivityForResult(intent, 100);
                 break;
             }
             case R.id.photoView:
-//                mButtonNext.setVisibility(View.VISIBLE);
-//                mButtonPrevious.setVisibility(View.VISIBLE);
                 // 向左边移入
-
                 if (teamp) {
                     mButtonPrevious.setVisibility(View.GONE);
                     mButtonNext.setVisibility(View.GONE);
-//                    mButtonNext.setVisibility(View.GONE);
                     bottom.setVisibility(View.GONE);
-//                    mZoom.setAnimation(AnimationUtil.outToBottomAnimation(getContext()));
                     bottom.setAnimation(AnimationUtil.outToBottomAnimation(getContext()));
                     mButtonPrevious.setAnimation(AnimationUtil.outToLeftAnimation());
                     mButtonNext.setAnimation(AnimationUtil.outToRightAnimation());
@@ -240,7 +242,6 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
                     mButtonNext.setAnimation(AnimationUtil.inFromRightAnimation());
                     mButtonPrevious.setAnimation(AnimationUtil.inFromLeftAnimation());
                     bottom.setAnimation(AnimationUtil.inFromBottomAnimation(getContext()));
-//                    mseekBar.setAnimation(AnimationUtil.inFromBottomAnimation(getContext()));
                     teamp = true;
                 }
         }
@@ -249,13 +250,26 @@ public class CurseFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode)
-        {
-            case 100 :
-                Bundle bundle = data.getExtras();
-                 int page = bundle.getInt("page");
-                 showPage(page);
-            break;
+        switch (requestCode) {
+            case 100:
+                if(data!=null){
+                    Bundle bundle = data.getExtras();
+                    int page = bundle.getInt("page");
+                    showPage(page);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onSlide(Boolean Left) {
+        if (Left) {
+            if (mCurrentPage.getIndex() != 0) {
+                showPage(mCurrentPage.getIndex() - 1);
+            }
+        } else {
+            if (mCurrentPage.getIndex() != mPdfRenderer.getPageCount() - 1)
+                showPage(mCurrentPage.getIndex() + 1);
         }
     }
     //    @Override
