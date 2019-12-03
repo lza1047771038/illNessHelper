@@ -78,6 +78,7 @@ dependencies {
     implementation 'com.github.RexSuper:RichEditor:1.0.5'
     //自定义下拉刷新控件
     implementation 'com.yalantis:phoenix:1.2.3'
+    api 'com.github.yalantis:taurus:1.0.2'
     //毛玻璃背景特效
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 

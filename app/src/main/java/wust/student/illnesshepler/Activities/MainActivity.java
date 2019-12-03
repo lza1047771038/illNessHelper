@@ -14,12 +14,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.litepal.LitePal;
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     MyViewPager viewPager;
     RelativeLayout bottomNavigationViewHolder;
     BottomNavigationView bottom_navigation;
-    BottomNavigationViewItemClickListenner listenner;
+    CoordinatorLayout coordinatorLayout;
 
     List<Fragment> fragmentList = new ArrayList<>();
     List<Integer> menuList = new ArrayList<>();
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottomNavigationViewHolder = findViewById(R.id.relativeLayout);
+        coordinatorLayout = findViewById(R.id.MainActivity_coordinatorLayout);
 
         viewPager = findViewById(R.id.MainActivity_ViewPager);
         fragmentList.add(home);
@@ -126,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.navigation_chat:
+                        if (viewPager.getCurrentItem() == 2) {
+                            chat.onClick();
+                        }
                         viewPager.setCurrentItem(2);
                         break;
                     case R.id.navigation_me:

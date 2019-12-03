@@ -3,18 +3,18 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/icon_home"
-        android:title="首页" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_class"
         android:icon="@drawable/icon_class"
-        android:title="课程" />
+        android:title="@string/classes" />
     <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/icon_chat"
-        android:title="圈子" />
+        android:title="@string/chat" />
 
     <item
         android:id="@+id/navigation_me"
         android:icon="@drawable/icon_me"
-        android:title="我的" />
+        android:title="@string/me" />
 </menu>

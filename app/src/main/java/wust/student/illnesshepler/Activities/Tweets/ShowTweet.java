@@ -1,5 +1,6 @@
 package wust.student.illnesshepler.Activities.Tweets;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -16,7 +17,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -109,11 +113,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setTheme(R.style.NoAppTheme);
 
-        View decorView = getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-        decorView.setSystemUiVisibility(option);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-
         setContentView(R.layout.activity_show_tweet);
 
         initlayout();
@@ -130,21 +129,19 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         recyclerView.setNestedScrollingEnabled(false);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
         setSupportActionBar(toolbar);
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         linearLayout = findViewById(R.id.linearLayout3);
         linearLayout2 = findViewById(R.id.linearLayout4);
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) linearLayout.getLayoutParams();
-        params.setMargins(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
-        linearLayout.setLayoutParams(params);
         linearLayout.setOnClickListener(this);
         tweetTitle = (TextView) findViewById(R.id.show_tweet_title);
         tweetAuther = (TextView) findViewById(R.id.show_tweet_auther);
         tweetTime = (TextView) findViewById(R.id.show_tweet_time);
 
         tweetPostComment = (TextView) findViewById(R.id.tweet_post_comment);
-//        tweetPostCommentHigth = (EditText) findViewById(R.id.tweet_post_comment_higth);
         collect = (ImageView) findViewById(R.id.tweet_collect);
         share = (ImageView) findViewById(R.id.tweet_share);
         showTweetImg = (ImageView) findViewById(R.id.show_tweet_img);
@@ -182,12 +179,7 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         time = bundle.getString("time", "错误");
         themeid = bundle.getString("themeid", "错误");
         number = bundle.getInt("number", 0) + "";
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("动态");
 
-        }
         tweetTitle.setText(title);
         tweetAuther.setText(auther);
         tweetTime.setText(Utils.timeFormat(time));
@@ -255,7 +247,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String result = response.body().string();
-                Log.d("test", " Showtweet result comment_request " + result);
                 SharedPreferences sp = ShowTweet.this.getSharedPreferences("TweetsComment",
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
@@ -317,14 +308,34 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
         recyclerView.setAdapter(adapter);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     public void setdata(String html) {
         Log.d("test", "Showtweet html" + html);
         if (html.substring(0, 4).equals("http")) {
             linearLayout2.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
             richEditor.setVisibility(View.GONE);
-            webView.getSettings().setJavaScriptEnabled(true);//启用js
+
+            WebSettings ws = webView.getSettings();
+
+            ws.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            ws.setBuiltInZoomControls(true);// 隐藏缩放按钮
+
+            ws.setUseWideViewPort(true);// 可任意比例缩放
+            ws.setLoadWithOverviewMode(true);// setUseWideViewPort方法设置webview
+
+            ws.setSavePassword(true);
+            ws.setSaveFormData(true);// 保存表单数据
+            ws.setJavaScriptEnabled(true);
+
+            ws.setDomStorageEnabled(true);
+            ws.setSupportMultipleWindows(true);// 新加
+
+//            我就是没有这一行，死活不出来。MD，硬是没有人写这一句的
+            webView.setWebChromeClient(new WebChromeClient());
+            webView.setWebViewClient(new WebViewClient());
             webView.getSettings().setBlockNetworkImage(false);//解决图片不显示
+//            webView.setWebChromeClient(new WebChromeClient());
             webView.loadUrl(html);
         } else {
             linearLayout2.setVisibility(View.VISIBLE);
@@ -346,7 +357,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
             case R.id.linearLayout3:
                 break;
             case R.id.tweet_post_comment:
-                Toast.makeText(ShowTweet.this, "评论", Toast.LENGTH_SHORT).show();
                 openwritearea();
                 break;
             default:

@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true">
         <activity android:name=".Activities.ClassAndWork.CurseAndWork"
             android:screenOrientation="portrait"
@@ -25,7 +26,8 @@
         <activity android:name=".Activities.Administrator.AdministratorActivity" />
         <activity
             android:name=".Activities.Tweets.ShowTweet"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".Activities.Administrator.UploadTweet"
             android:screenOrientation="portrait" />

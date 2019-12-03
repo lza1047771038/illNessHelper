@@ -36,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginBottom="10dp"
-                        android:text="温馨提示"
+                        android:text="@string/alert"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
@@ -68,7 +68,7 @@
                         android:background="#85D0DF"
                         android:paddingLeft="30dp"
                         android:paddingRight="30dp"
-                        android:text="开始答题"
+                        android:text="@string/start"
                         android:textColor="#FFF"
                         android:textSize="18sp"/>
                 </androidx.cardview.widget.CardView>
@@ -76,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="点击下方关闭按钮将退出此次问卷"
+                    android:text="@string/under_start_words"
                     android:layout_gravity="center"
                     android:textSize="12sp"
                     android:textColor="#E91E63"/>

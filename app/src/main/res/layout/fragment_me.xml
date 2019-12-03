@@ -33,6 +33,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:adjustViewBounds="true"
+                    android:background="@null"
                     android:scaleType="centerCrop" />
 
                 <wust.student.illnesshepler.Utils.RoundImageView
@@ -85,7 +86,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="点击编辑资料"
+                        android:text="@string/notify"
                         android:textColor="#CCC" />
                 </LinearLayout>
 
@@ -111,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
-                    android:text="安全政策"
+                    android:text="@string/security"
                     android:textColor="#3F3F3F"
                     android:textSize="16sp" />
 
@@ -136,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
-                    android:text="用户协议"
+                    android:text="@string/agreements"
                     android:textColor="#3F3F3F"
                     android:textSize="16sp" />
 
@@ -161,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
-                    android:text="隐私政策"
+                    android:text="@string/privacy"
                     android:textColor="#3F3F3F"
                     android:textSize="16sp" />
 
@@ -186,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
-                    android:text="帮助与反馈"
+                    android:text="@string/help"
                     android:textColor="#3F3F3F"
                     android:textSize="16sp" />
 
@@ -212,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
-                    android:text="关于"
+                    android:text="@string/about"
                     android:textColor="#3F3F3F"
                     android:textSize="16sp" />
 
@@ -248,7 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:background="@android:color/transparent"
-                    android:text="管理员入口"
+                    android:text="@string/admin"
                     android:textColor="#3F3F3F"
                     android:textSize="16sp" />
             </RelativeLayout>

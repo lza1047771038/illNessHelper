@@ -53,7 +53,6 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:foreground="@drawable/thiky_white_bg"
                         android:orientation="vertical">
 
                         <ImageView
@@ -67,7 +66,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="问卷"
+                            android:text="@string/survey"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -79,7 +78,6 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:foreground="@drawable/thiky_white_bg"
                         android:orientation="vertical">
 
                         <ImageView
@@ -93,7 +91,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="资料"
+                            android:text="@string/library"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -105,7 +103,6 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:foreground="@drawable/thiky_white_bg"
                         android:orientation="vertical">
 
                         <ImageView
@@ -119,7 +116,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="专家"
+                            android:text="@string/professionals"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -131,7 +128,6 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:foreground="@drawable/thiky_white_bg"
                         android:orientation="vertical">
 
                         <ImageView
@@ -145,7 +141,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="工具"
+                            android:text="@string/tools"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -174,7 +170,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="为你推荐"
+                        android:text="@string/subscribe"
                         android:textColor="#333"
                         android:textSize="18sp" />
 
@@ -186,7 +182,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="more"
+                        android:text="@string/more"
                         android:textColor="#333" />
                 </LinearLayout>
 

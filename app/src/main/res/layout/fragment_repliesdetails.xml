@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="@string/all_reply"
+                android:text="@string/replies"
                 android:textColor="@color/dark"
                 android:textSize="18sp" />
 
@@ -175,6 +175,6 @@
         android:background="@drawable/bottomsheetdialogfragmentbackground"
         android:titleTextColor="@color/dark"
         android:elevation="10dp"
-        android:title="评论回复" />
+        android:title="@string/replies" />
 
 </RelativeLayout>

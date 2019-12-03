@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:gravity="center"
-                android:text="注册彩虹账号"
+                android:text="@string/register"
                 android:textColor="#000"
                 android:textSize="20sp" />
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/edit_text_style"
-                android:hint="@string/enter_id_hint"
+                android:hint="@string/id_hint"
                 android:inputType="number"
                 android:maxLength="20"
                 android:textSize="16sp" />
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/edit_text_style"
-                android:hint="@string/enter_psd_hint"
+                android:hint="@string/password_hint"
                 android:inputType="textPassword"
                 android:textSize="16sp"
                 android:maxLength="20"/>
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/edit_text_style"
-                android:hint="@string/confrim_psd_hint"
+                android:hint="@string/password_confirm"
                 android:inputType="textPassword"
                 android:textSize="16sp"
                 android:maxLength="20"/>
@@ -75,9 +75,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#8BC34A"
-                    android:foreground="@drawable/thiky_white_bg"
-                    android:text="注册"
+                    android:background="@drawable/thiky_white_bg"
+                    android:text="@string/register"
                     android:textColor="#FFF"
                     android:textSize="20sp" />
             </androidx.cardview.widget.CardView>

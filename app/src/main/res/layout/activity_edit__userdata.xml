@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="left|center"
-                android:text="头像"
+                android:text="@string/head_portrait"
                 android:textColor="#000" />
 
             <LinearLayout
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户名"
+                android:text="@string/userid"
                 android:textColor="#000" />
 
             <LinearLayout
@@ -84,7 +84,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="年龄"
+                android:text="@string/age"
                 android:textColor="#000" />
 
             <LinearLayout
@@ -113,7 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="积分"
+                android:text="@string/coins"
                 android:textColor="#000" />
 
             <LinearLayout
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"
-                    android:text="确定"
+                    android:text="@string/confirm"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </androidx.cardview.widget.CardView>

@@ -4,6 +4,7 @@ package wust.student.illnesshepler.Activities.Fragments.Tweets;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -117,8 +118,6 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                         temp.comments_num = 0;
                         ShowTweet.clist.add(0, temp);
                         ShowTweet.adapter.notifyItemInserted(0);
-//                        ShowTweet.adapter.notifyDataSetChanged();
-//                        ShowTweet.recyclerView.getLayoutManager().scrollToPosition(0);
                         comments.setText("");
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                         break;
@@ -144,7 +143,6 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
                             RepliesDetails.replyList.add(0, temp1);
 
                             RepliesDetails.replyAdapter.notifyItemInserted(0);
-//                            RepliesDetails.mrecyclerView.getLayoutManager().scrollToPosition(0);
                         } else {
                             Log.d("test","postion:"+postion+"replyNum:"+replyNum);
                             ShowTweet.clist.get(postion).replies= replyNum+1;
@@ -215,6 +213,7 @@ public class WriteComment extends BottomSheetDialogFragment implements View.OnCl
             // dark navigation bar icons
             View decorView = window.getDecorView();
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            window.setStatusBarColor(Color.TRANSPARENT);
         }
     }
 

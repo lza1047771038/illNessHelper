@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -127,14 +128,10 @@ public class Set_Userimg extends AppCompatActivity {
             }
         });
 
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        getWindow().setStatusBarColor(Color.WHITE);
-
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setBackgroundDrawable(getDrawable(R.color.white));
-            actionBar.setTitle("设置头像");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.head_portrait);
         }
     }
 
@@ -267,5 +264,18 @@ public class Set_Userimg extends AppCompatActivity {
         } catch (Exception ignored) {
         }
         return null;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

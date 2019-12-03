@@ -49,13 +49,13 @@ public class Enrol extends AppCompatActivity implements View.OnClickListener {
                 switch (msg.what)
                 {
                     case 1:
-                        Toast.makeText(Enrol.this,getResources().getString(R.string.registe_succeed),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Enrol.this,getResources().getString(R.string.register_succeed),Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(Enrol.this,MainActivity.class);
                         startActivity(intent);
                         finish();
                         break;
                     case 2:
-                        Toast.makeText(Enrol.this,getResources().getString(R.string.registe_denyed),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Enrol.this,getResources().getString(R.string.register_denyed),Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return false;
@@ -89,14 +89,14 @@ public class Enrol extends AppCompatActivity implements View.OnClickListener {
         String userPsd2=psd2.getText().toString();
         if(userId.length()<6||userId.length()>20)
         {
-            Toast.makeText(this,getResources().getString(R.string.registe_id_wrong),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.register_id_wrong),Toast.LENGTH_SHORT).show();
         }else if(userPsd1.length()<6&&userPsd1.length()>20)
         {
-            Toast.makeText(this,getResources().getString(R.string.registe_psd_wrong),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.register_psd_wrong),Toast.LENGTH_SHORT).show();
         }
         else if(!userPsd1.equals(userPsd2))
         {
-            Toast.makeText(this,getResources().getString(R.string.registe_dif_psd),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.register_dif_psd),Toast.LENGTH_SHORT).show();
         }
         else{
             registe(userId,userPsd1);
@@ -124,7 +124,7 @@ public class Enrol extends AppCompatActivity implements View.OnClickListener {
                     public void run() {
                         if(result.equals("0"))
                         {
-                            Toast.makeText(Enrol.this,getResources().getString(R.string.registe_denyed),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Enrol.this,getResources().getString(R.string.register_denyed),Toast.LENGTH_SHORT).show();
                         }
                         else if(result.equals("1"))
                         {

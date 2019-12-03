@@ -64,27 +64,26 @@ public class Investigation extends AppCompatActivity {
     public boolean temp2 = false;
     private Dialog_prompt dialog_prompt;
     private int[] v = new int[]{R.id.prompt_begin, R.id.prompt_text, R.id.calcel_btn};
-    private boolean flagLoading=false;//是否在加载
+    private boolean flagLoading = false;//是否在加载
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //全屏
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    |View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+        View decorView = getWindow().getDecorView();
+        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        decorView.setSystemUiVisibility(option);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
         setContentView(R.layout.activity_investigation);
         //标题栏
         drawable = getDrawable(android.R.color.transparent);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("问卷调查");
+            actionBar.setTitle(R.string.survey);
             actionBar.setBackgroundDrawable(drawable);
         }
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -137,12 +136,13 @@ public class Investigation extends AppCompatActivity {
     }
 
     public void initlayout() {
-        flagLoading=false;
-        promptDialog.showSuccess("加载完成");
+        flagLoading = false;
+        promptDialog.showSuccess(getResources().getString(R.string.loading_successfully));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                dialog_prompt = new Dialog_prompt(Investigation.this, R.layout.prompt_dialog, v, bundle.getString("warning", ""));
+                dialog_prompt = new Dialog_prompt(Investigation.this, R.layout.prompt_dialog, v,
+                        bundle.getString("warning", ""));
                 dialog_prompt.setCancelable(false);
                 dialog_prompt.setOnButtonClickedListener(new Dialog_prompt.onBtnClickListener() {
                     @Override
@@ -160,7 +160,7 @@ public class Investigation extends AppCompatActivity {
                     }
                 });
                 dialog_prompt.show();
-                flagLoading=true;
+                flagLoading = true;
             }
         }, 1000);
 
@@ -177,7 +177,6 @@ public class Investigation extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_submit:
-                Log.d("test", jsonObject + "");
                 submit();
                 break;
             case android.R.id.home:
@@ -191,8 +190,9 @@ public class Investigation extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             showexitdilog();
+            return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return false;
     }
 
     public void requestThemes() {
@@ -215,7 +215,6 @@ public class Investigation extends AppCompatActivity {
                 testinfo = GsonUtils.handleMessages1(result);
                 if (problemnum != 0) {
                     mlist.add(problem);
-                    Log.d("test", "haveporoblem");
                 }
                 mlist.addAll(testinfo.data1);
                 mlist.addAll(testinfo.data2);
@@ -244,7 +243,7 @@ public class Investigation extends AppCompatActivity {
 
         }
         promptDialog = new PromptDialog(this);
-        promptDialog.showLoading("正在提交", true);
+        promptDialog.showLoading(getResources().getString(R.string.uploading), true);
         int submittime = 500 + (int) (Math.random() * 1000);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -265,8 +264,6 @@ public class Investigation extends AppCompatActivity {
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                         final String result = response.body().string();
-                        Log.d("test", "result    :" + result);
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -295,26 +292,26 @@ public class Investigation extends AppCompatActivity {
 
     public void showexitdilog() {
         MaterialDialog dialog = new MaterialDialog.Builder(this)
-                .title("您确认要退出吗")
-                .content("点击确认推出")
-                .positiveText("确认")
-                .negativeText("取消")
+                .title(R.string.quit_title)
+                .content(R.string.quit_message)
+                .positiveText(R.string.confirm)
+                .negativeText(R.string.cancel)
                 .negativeColor(getColor(R.color.optioncolorcolor))
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if(flagLoading) {
+                    public void onClick(@NonNull MaterialDialog dialog,
+                                        @NonNull DialogAction which) {
+                        if (flagLoading) {
                             finish();
-                        }
-                        else
-                        {
-                            Toast.makeText(getContext(), "正在加载，请勿退出", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    public void onClick(@NonNull MaterialDialog dialog,
+                                        @NonNull DialogAction which) {
                         dialog.dismiss();
                     }
                 })

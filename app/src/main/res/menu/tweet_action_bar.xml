@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_submit"
-        android:title="发布"
+        android:title="@string/submit"
         android:tooltipText="38dp"
         app:showAsAction="always"
         />

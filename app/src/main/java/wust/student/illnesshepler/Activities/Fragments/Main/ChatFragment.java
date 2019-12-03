@@ -32,13 +32,14 @@ import okhttp3.Response;
 import wust.student.illnesshepler.Adapters.ThemeAdapter;
 import wust.student.illnesshepler.Bean.GetTheme;
 import wust.student.illnesshepler.Bean.Posting;
+import wust.student.illnesshepler.CustomViews.BottomNavigationViewItemClickListenner;
 import wust.student.illnesshepler.CustomViews.MyRecyclerView;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
 
 
-public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickListener {
+public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickListener, BottomNavigationViewItemClickListenner {
 
     private GetTheme themeInfo;
 
@@ -240,5 +241,12 @@ public class ChatFragment extends Fragment implements ThemeAdapter.OnItemClickLi
                 Toast.makeText(getContext(), "点击了item:" + position, Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    public void onClick() {
+        refreshLayout.setRefreshing(true);
+        scrollView.scrollTo(0, 0);
+        requestThemes();
     }
 }

@@ -56,7 +56,6 @@ import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.HttpApi;
 import wust.student.illnesshepler.Utils.ScreenUtil;
 
-
 public class HomeFragment extends Fragment implements View.OnClickListener,
         TweetsListAdapter.OnItemClickListener, MyNestScrollView.MyScrollViewListener,
         BottomNavigationViewItemClickListenner {
@@ -109,27 +108,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         SharedPreferences sp = getActivity().getSharedPreferences("Tweets",
                 Context.MODE_PRIVATE);
         String result = sp.getString("tweets_result", null);
+        long time = sp.getLong("time", 0);
         if (result == null) {
             getdata();
         } else {
             analysisJson(result);
+            if (time != 0) {
+                if (System.currentTimeMillis() - time > 3600000) {
+                    refreshView.setRefreshing(true);
+                    getdata();
+                }
+            }
         }
-
     }
 
     private void initlayout() {
         scrollView = view.findViewById(R.id.scrollViews);
         refreshView = view.findViewById(R.id.refreshLayout);
-        sruvey =  view.findViewById(R.id.survey);
-        libraries =  view.findViewById(R.id.libraries);
-        doctors =  view.findViewById(R.id.doctors);
-        tools =  view.findViewById(R.id.tools);
-        twRecyclerView =  view.findViewById(R.id.tweets_recycle);
+        sruvey = view.findViewById(R.id.survey);
+        libraries = view.findViewById(R.id.libraries);
+        doctors = view.findViewById(R.id.doctors);
+        tools = view.findViewById(R.id.tools);
+        twRecyclerView = view.findViewById(R.id.tweets_recycle);
 
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         ScreenUtil.getScreenWidth(view.getContext()) / 2);
-        mXBanner =  view.findViewById(R.id.xbanner);
+        mXBanner = view.findViewById(R.id.xbanner);
         mXBanner.setLayoutParams(layoutParams);
         mXBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
@@ -150,13 +155,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
             }
         });
-        /*appBarLayout.addOnOffsetChangedListener(new AppBarLayout.BaseOnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-                callback.onScrollStateChanged(appBarLayout.getY(), appBarLayout.getTotalScrollRange(),true);
-//                Log.d(TAG,appBarLayout.getY()+"");
-            }
-        });*/
         refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -222,6 +220,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                                     Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("tweets_result", result);
+                            editor.putLong("time", System.currentTimeMillis());
                             editor.apply();
                             analysisJson(result);
                             refreshView.setRefreshing(false);

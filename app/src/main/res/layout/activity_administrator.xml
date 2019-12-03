@@ -61,7 +61,7 @@
             android:paddingBottom="15dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="@string/upload_class"
+            android:text="@string/upload_CBT_classes"
             android:textColor="@color/dark"
             android:textSize="16sp" />
 

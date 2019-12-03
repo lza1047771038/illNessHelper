@@ -6,13 +6,14 @@
     android:orientation="vertical">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/MainActivity_coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="0dp"
+            app:elevation="0dp"
             android:theme="@style/MyToolbarTheme">
 
             <LinearLayout
@@ -48,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="10"
                     android:paddingStart="5dp"
-                    android:text="彩虹搜索"
+                    android:text="@string/Search"
                     android:textSize="18sp"
                     android:textColor="@color/white" />
 

@@ -75,22 +75,13 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //全屏
-        View decorView = getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        decorView.setSystemUiVisibility(option);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         setContentView(R.layout.activity_upload_from_internet);
-        StatusBarUtil.setStatusBarDarkTheme(this, true);
         //标题栏
-        drawable = getDrawable(R.color.white);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("推文编辑-网络");
-            actionBar.setBackgroundDrawable(drawable);
+            actionBar.setTitle(R.string.upload_from_internet);
         }
         initlayout();
     }
@@ -190,10 +181,10 @@ public class UploadFromInternet extends AppCompatActivity implements View.OnClic
     //退出确认框
     public void showexitdilog() {
         MaterialDialog dialog = new MaterialDialog.Builder(this)
-                .title("您确认要退出吗")
-                .content("点击确认推出")
-                .positiveText("确认")
-                .negativeText("取消")
+                .title(R.string.quit_title)
+                .content(R.string.quit_message)
+                .positiveText(R.string.confirm)
+                .negativeText(R.string.cancel)
                 .negativeColor(getColor(R.color.optioncolorcolor))
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override

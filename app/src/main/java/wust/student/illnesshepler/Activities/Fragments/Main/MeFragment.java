@@ -13,12 +13,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.snackbar.Snackbar;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -36,6 +38,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private ImageView imageView, MybackgroundImageView;
     private TextView User_Name;
     private RelativeLayout AdministratorEntry, Edit_information, About;
+    private CoordinatorLayout coordinatorLayout;
 
     FileUtil fileUtil;
 
@@ -62,6 +65,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         AdministratorEntry = (RelativeLayout) view.findViewById(R.id.administrator_entry);
         User_Name = (TextView) view.findViewById(R.id.User_Name);
         Edit_information = (RelativeLayout) view.findViewById(R.id.Edit_information);
+        coordinatorLayout = getActivity().findViewById(R.id.MainActivity_coordinatorLayout);
     }
 
     private void InitLayout() {
@@ -134,8 +138,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             }
-            case R.id.fragment_me_about:{
-                Toast.makeText(getContext(), "hahahaha", Toast.LENGTH_SHORT).show();
+            case R.id.fragment_me_about: {
+                Snackbar.make(coordinatorLayout, "hahahahahah", Snackbar.LENGTH_INDEFINITE).show();
                 break;
             }
             default:

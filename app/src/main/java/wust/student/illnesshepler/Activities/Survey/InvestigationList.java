@@ -51,16 +51,10 @@ public class InvestigationList extends AppCompatActivity implements Investigatio
         recyclerView = (RecyclerView) findViewById(R.id.in_recycle);
         recyclerView.setNestedScrollingEnabled(false);
 
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        getWindow().setStatusBarColor(Color.WHITE);
-
-        drawable = getDrawable(R.color.white);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("问卷调查");
-            actionBar.setBackgroundDrawable(drawable);
+            actionBar.setTitle(R.string.survey);
         }
         getdata();
         initlayout();

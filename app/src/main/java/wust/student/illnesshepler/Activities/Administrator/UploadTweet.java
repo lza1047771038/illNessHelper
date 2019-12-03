@@ -64,7 +64,6 @@ import static org.litepal.LitePalApplication.getContext;
 public class UploadTweet extends AppCompatActivity implements View.OnClickListener,
         ColorChooserDialog.ColorCallback {
     ActionBar actionBar;
-    Drawable drawable;
     Handler handler;
     private RichEditorNew richEditor;
     private TextView tupian;
@@ -95,24 +94,12 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//全屏
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
         setContentView(R.layout.activity_upload_tweet);
-        StatusBarUtil.setStatusBarDarkTheme(this, true);
         //标题栏
-        drawable = getDrawable(R.color.white);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("推文编辑");
-            actionBar.setBackgroundDrawable(drawable);
+            actionBar.setTitle(R.string.upload_from_local);
         }
 //初始化控件
         initlayout();
@@ -163,7 +150,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                if (msg.what == 1) {  //设置北京颜色
+                if (msg.what == 1) {  //设置背景颜色
                     Log.d("test", "msg1" + msg.arg1);
                     richEditor.setTextBackgroundColor(msg.arg1);
                 }
@@ -172,8 +159,6 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                     richEditor.setTextColor(msg.arg1);
                 }
                 if (msg.what == 3) {  //图片上传完成
-//                    Toast.makeText(UploadTweet.this, "result" + msg.obj.toString(), Toast
-//                    .LENGTH_SHORT).show();
                     try {
                         JSONObject imageurl = new JSONObject(msg.obj.toString());
                         JSONArray allimageurl = imageurl.getJSONArray("ImageList");
@@ -363,7 +348,6 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.text_backgrond:
                 showdilog("background");
-
                 break;
             case R.id.text_color:
                 showdilog("text_color");
@@ -439,13 +423,13 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     //调用dialog
     public void showdilog(String flog) {
         new ColorChooserDialog.Builder(UploadTweet.this, R.string.app_name)
-                .titleSub(R.string.input_hint)  // title of dialog when viewing shades of a color
+                .titleSub(R.string.title_sub)  // title of dialog when viewing shades of a color
                 .tag(flog)
                 .accentMode(false)  // when true, will display accent palette instead of primary
                 // palette
-                .doneButton(R.string.md_done)  // changes label of the done button
-                .cancelButton(R.string.md_cancel)  // changes label of the cancel button
-                .backButton(R.string.md_back)  // changes label of the back button
+                .doneButton(R.string.done)  // changes label of the done button
+                .cancelButton(R.string.cancel)  // changes label of the cancel button
+                .backButton(R.string.back)  // changes label of the back button
                 .preselect(Color.RED)  // 开始的时候的默认颜色
                 .dynamicButtonColor(true)// defaults to true, false will disable changing action
                 // buttons' color to currently selected color
@@ -474,10 +458,10 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     //退出确认框
     public void showexitdilog() {
         MaterialDialog dialog = new MaterialDialog.Builder(this)
-                .title("您确认要退出吗")
-                .content("点击确认推出")
-                .positiveText("确认")
-                .negativeText("取消")
+                .title(R.string.quit_title)
+                .content(R.string.quit_message)
+                .positiveText(R.string.confirm)
+                .negativeText(R.string.cancel)
                 .negativeColor(getColor(R.color.optioncolorcolor))
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override

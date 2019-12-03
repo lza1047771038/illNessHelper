@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -70,17 +71,10 @@ public class Edit_Userdata extends AppCompatActivity implements View.OnClickList
 
         builder = new AlertDialog.Builder(this);
 
-
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        getWindow().setStatusBarColor(Color.WHITE);
-
-
-        Drawable drawable = getDrawable(R.color.white);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("编辑个人信息");
-            actionBar.setBackgroundDrawable(drawable);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.edit);
         }
 
         handleMessge();
@@ -291,5 +285,18 @@ public class Edit_Userdata extends AppCompatActivity implements View.OnClickList
                         handler.sendMessage(message);
                     }
                 });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

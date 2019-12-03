@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="0dp">
 
-        <wust.student.illnesshepler.CustomViews.MyNestScrollView
+        <wust.student.illnesshepler.CustomViews.ReboundScrollView
             android:id="@+id/scrollViews"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -17,13 +18,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
-            android:paddingTop="?attr/actionBarSize"
-            android:paddingBottom="50dp"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:overScrollMode="never">
@@ -33,137 +28,136 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="false"
-                android:orientation="vertical"
-                tools:ignore="MissingConstraints">
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/linearLayout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:focusableInTouchMode="false"
                     android:orientation="vertical">
-                <TextView
-                    android:id="@+id/show_tweet_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:paddingLeft="10dp"
-                    android:text="标题"
-                    android:textColor="#333"
-                    android:textSize="24sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="0dp"
-                    android:paddingLeft="5dp">
-
-                    <wust.student.illnesshepler.Utils.RoundImageView
-                        android:id="@+id/show_tweet_img"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/postcard" />
-
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/show_tweet_title"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        android:text="标题"
+                        android:textColor="#333"
+                        android:textSize="24sp" />
 
-                        <TextView
-                            android:id="@+id/show_tweet_auther"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:text="作者"
-                            android:textColor="@color/optioncolorcolor"
-                            android:textSize="14dp"
-                            android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="5dp">
 
-                        <TextView
-                            android:id="@+id/show_tweet_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/show_tweet_auther"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
-                            android:text="时间"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
+                        <wust.student.illnesshepler.Utils.RoundImageView
+                            android:id="@+id/show_tweet_img"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/postcard" />
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/show_tweet_auther"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:text="作者"
+                                android:textColor="@color/optioncolorcolor"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/show_tweet_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/show_tweet_auther"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:text="时间"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#dbdbdb" />
-
-                <com.rex.editor.view.RichEditorNew
-                    android:id="@+id/richEditor"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:visibility="visible" />
-                <WebView
-                    android:id="@+id/webview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
-                    android:visibility="gone"
-                    />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:background="@color/gray" />
 
-                <TextView
+                <com.rex.editor.view.RichEditorNew
+                    android:id="@+id/richEditor"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="热门评论"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:layout_height="match_parent"
+                    android:visibility="visible" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/show_comment_recycler"
+                <WebView
+                    android:id="@+id/webview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:descendantFocusability="blocksDescendants"
-                    android:focusableInTouchMode="false" />
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/replies"
+                        android:textColor="#000"
+                        android:textSize="18sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/show_comment_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:descendantFocusability="blocksDescendants"
+                        android:focusableInTouchMode="false" />
+                </LinearLayout>
 
             </LinearLayout>
 
 
-        </wust.student.illnesshepler.CustomViews.MyNestScrollView>
+        </wust.student.illnesshepler.CustomViews.ReboundScrollView>
 
-        <com.github.mmin18.widget.RealtimeBlurView
-            android:id="@+id/toolbar1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/linearLayout2"
-            android:layout_alignBottom="@+id/linearLayout2"
-            app:realtimeBlurRadius="100dp"
-            app:realtimeOverlayColor="#BFFFFFFF"/>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:translationZ="20dp">
+            android:background="@color/white"
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -176,17 +170,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="15dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/grey_6018dp"
+                    android:drawableStart="@drawable/grey_6018dp"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:hint=" 写评论"
-                    android:paddingLeft="10dp"
+                    android:hint="@string/write_replies"
+                    android:paddingStart="20dp"
                     android:paddingTop="5dp"
-                    android:paddingRight="10dp"
+                    android:paddingEnd="20dp"
                     android:paddingBottom="5dp" />
 
             </RelativeLayout>
@@ -196,8 +188,8 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:src="@drawable/collect"
                 android:visibility="visible" />
@@ -207,8 +199,8 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:src="@drawable/share"
                 android:visibility="visible" />
@@ -216,24 +208,15 @@
         </LinearLayout>
 
 
-
     </RelativeLayout>
-
-    <View
-        android:id="@+id/customView"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
-
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
         android:background="@color/green"
         android:theme="@style/MyToolbarTheme"
-        app:title="标题" />
+        app:title="@string/moments" />
 
 
 </RelativeLayout>

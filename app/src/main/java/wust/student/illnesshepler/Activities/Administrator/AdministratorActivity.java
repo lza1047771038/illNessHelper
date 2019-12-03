@@ -24,18 +24,11 @@ public class AdministratorActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Drawable drawable = getDrawable(R.color.white);
 
-        Window window = getWindow();
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-        window.setStatusBarColor(Color.TRANSPARENT);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("管理员界面");
-            actionBar.setBackgroundDrawable(drawable);
+            actionBar.setTitle(R.string.admin);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
