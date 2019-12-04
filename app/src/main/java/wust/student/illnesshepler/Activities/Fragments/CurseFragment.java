@@ -53,7 +53,7 @@ public class CurseFragment extends Fragment implements View.OnClickListener,
     private ImageView mZoom;
     private IndicatorSeekBar mseekBar;
     private LinearLayout bottom;
-
+    private float mPosX, mPosY, mCurPosX, mCurPosY;
     private int mPageIndex;
 
     @Override
@@ -110,6 +110,44 @@ public class CurseFragment extends Fragment implements View.OnClickListener,
         mseekBar = (IndicatorSeekBar) view.findViewById(R.id.seekBar);
         bottom = (LinearLayout) view.findViewById(R.id.bottom_linear);
         // Bind events.
+//        mImageView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                switch (event.getAction()) {
+//
+//                    case MotionEvent.ACTION_DOWN:
+//                        mPosX = event.getX();
+//                        mPosY = event.getY();
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        mCurPosX = event.getX();
+//                        mCurPosY = event.getY();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        if (mCurPosX - mPosX > 0
+//                                && (Math.abs(mCurPosX - mPosX) > 25)) {
+//                            Toast.makeText(getActivity(), "向右", Toast.LENGTH_SHORT).show();
+//                        } else if (mCurPosX - mPosX < 0
+//                                && (Math.abs(mCurPosX - mPosX) > 25)) {
+//                            Toast.makeText(getActivity(), "向左", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//
+//                       /* if (mCurPosY - mPosY > 0
+//                                && (Math.abs(mCurPosY - mPosY) > 25)) {
+//                            Log.e("TAG", "wang向下");
+//                        } else if (mCurPosY - mPosY < 0
+//                                && (Math.abs(mCurPosY - mPosY) > 25)) {
+//                            Log.e("TAG", "wang向上");
+//                        }
+//                        break;*/
+//                }
+//
+//                return true;
+//            }
+//        });
+
         mButtonPrevious.setOnClickListener(this);
         mButtonNext.setOnClickListener(this);
         mImageView.setOnClickListener(this);

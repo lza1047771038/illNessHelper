@@ -2,48 +2,48 @@
     <string name="app_name">青春彩虹伞</string>
 
     <!--    MainActivity-->
-    <string name="home">主页</string>
-    <string name="classes">课程</string>
-    <string name="chat">圈子</string>
-    <string name="me">我的</string>
-    <string name="Search">彩虹搜索</string>
+    <string name="home">باش بەت</string>
+    <string name="classes">دەرىس</string>
+    <string name="chat">چەمبىرەك</string>
+    <string name="me">مىنىڭ</string>
+    <string name="Search">ئىزدەش</string>
     <!--    HomeFragment-->
-    <string name="survey">问卷</string>
-    <string name="library">资料</string>
-    <string name="professionals">专家</string>
-    <string name="tools">工具</string>
-    <string name="subscribe">推文订阅</string>
-    <string name="more">更多</string>
-    <string name="watched">浏览</string>
+    <string name="survey">تەكشۈرۈش</string>
+    <string name="library">ماتىريال</string>
+    <string name="professionals">مۇتەخەسسىس</string>
+    <string name="tools">قوراللار</string>
+    <string name="subscribe">ئۇچۇر</string>
+    <string name="more">تىخىمۇ كۆپ</string>
+    <string name="watched">قىتىم كۆرۇلدى</string>
     <!--    InvestigationList-->
     <!--    Investigation-->
-    <string name="start">开始答题</string>
-    <string name="under_start_words">点击下方按钮退出</string>
-    <string name="alert">温馨提示</string>
-    <string name="submit">提交</string>
-    <string name="quit_title">确定退出吗？</string>
-    <string name="quit_message">点击确认退出</string>
-    <string name="confirm">确认</string>
-    <string name="cancel">取消</string>
-    <string name="loading_successfully">加载完毕</string>
-    <string name="uploading">正在上传</string>
-    <string name="loading">正在加载，请勿退出</string>
+    <string name="start">جاۋاب بېرىشنى باشلاش</string>
+    <string name="under_start_words">ئاستى تەرەپتىكى  كۇنۇپكىنى چېكىپ چېكىنىپ چىقىڭ</string>
+    <string name="alert">سەمىمىي ئەسكەرتىش</string>
+    <string name="submit">تاپشۇرۇش</string>
+    <string name="quit_title">چېكىنىپ چىقىشنى جەزىملەشتۈرەمسىز ؟</string>
+    <string name="quit_message">مۇقىملاش نى چىكىپ چىكىنىپ چىقىڭ</string>
+    <string name="confirm">مۇقىملاش</string>
+    <string name="cancel">ئەمەلدىن قالدۇرش</string>
+    <string name="loading_successfully">يۈكلەش تاماملانسى</string>
+    <string name="uploading">يوللىنىۋاتىدۇ</string>
+    <string name="loading">يۈكلەۋاتىدۇ ، چېكىنمەڭ</string>
     <!--    Activity_tweetDetails-->
-    <string name="moments">动态</string>
-    <string name="replies">评论回复</string>
-    <string name="write_replies">写评论</string>
-    <string name="reply">回复</string>
-    <string name="send">发送</string>
-    <string name="remote_login">账号异地登录，请重新登陆</string>
+    <string name="moments">چەمبىرەك</string>
+    <string name="replies">پىكىرلەر</string>
+    <string name="write_replies">پىكىر يىزىش </string>
+    <string name="reply">قايتۇرۇش</string>
+    <string name="send">يوللاش</string>
+    <string name="remote_login">ھېسابات نومۇرىنى باشقا جايدا تىزىملىتىڭ ، قايتىدىن كىرىڭ</string>
     <!--    MeFragment-->
     <!--    <string name=""></string>-->
-    <string name="notify">点击此处修改个人信息</string>
-    <string name="about">关于</string>
+    <string name="notify">بۇ يەرنى چېكىپ شەخسىي ئۇچۇرنى ئۆزگەرتىڭ</string>
+    <string name="about"> ھەققىدە app </string>
     <string name="admin">管理员入口</string>
-    <string name="security">安全协议</string>
-    <string name="agreements">用户协议</string>
-    <string name="privacy">隐私协议</string>
-    <string name="help">帮助与反馈</string>
+    <string name="security">بىخەتەرلىك كېلىشىمى</string>
+    <string name="agreements">ئىشلەتكۈچىلەر كېلىشىمى</string>
+    <string name="privacy">شەخسىي مەخپىيەتلىك كېلىشىمى</string>
+    <string name="help">ياردەم ۋە ئىنكاس</string>
     <!--    Administrator-->
     <string name="upload_from_local">从本地上传</string>
     <string name="upload_from_internet">使用网络连接上传</string>
@@ -53,30 +53,30 @@
     <string name="back">返回</string>
     <string name="done">完成</string>
     <!--    Edit_User_Info|-->
-    <string name="edit">编辑个人信息</string>
-    <string name="head_portrait">头像</string>
-    <string name="userid">用户名</string>
-    <string name="age">年龄</string>
-    <string name="coins">积分</string>
+    <string name="edit">شەخسىي ئۇچۇرنى تەھرىرلەش</string>
+    <string name="head_portrait">باش سۈرەت</string>
+    <string name="userid">ئىشلەتكۈچى نامى</string>
+    <string name="age">ياش</string>
+    <string name="coins">نومۇر</string>
     <!--    Choose Head Portrait-->
-    <string name="select_photos">选择头像</string>
+    <string name="select_photos">باش سۈرەت تاللاش</string>
     <!--    Login-->
-    <string name="login">登录</string>
-    <string name="wrong_password">密码错误!</string>
-    <string name="userid_hint">用户名或学号</string>
-    <string name="password">密码</string>
+    <string name="login">كىرىش</string>
+    <string name="wrong_password">مەخپى نۇمۇر خاتا</string>
+    <string name="userid_hint">ئىشلەتكۈچى ئېتى ياكى ئۆگىنىش نومۇرى</string>
+    <string name="password">مەخپى نۇمۇر</string>
     <!--    Register-->
     <!--    <string name=""></string>-->
-    <string name="register">注册</string>
-    <string name="id_hint">请输入6到20位数字作为你的ID</string>
-    <string name="password_hint">请输入6位以上的字符作为你的密码</string>
-    <string name="password_confirm">确认密码</string>
-    <string name="register_id_wrong">用户ID长度不符合规范</string>
-    <string name="register_psd_wrong">密码长度不符合规范</string>
-    <string name="register_dif_psd">确认</string>
-    <string name="connect_fail">网络连接失败</string>
-    <string name="register_denyed">你的ID已经被占用，请使用其他作为你的ID</string>
-    <string name="register_succeed">注册成功</string>
+    <string name="register">تىزىملغا ئالدۇرۇش</string>
+    <string name="id_hint">سىز 6 دىن 20 گىچە بولغان ساننى ID قىلىپ كىرگۈزۈڭ</string>
+    <string name="password_hint">6خانىلىقتىن يۇقۇرى ھەرىپلەرنى كىرگۈزۈپ ، مەخپى نۇمۇر ئورنىتىڭ</string>
+    <string name="password_confirm">مەخپى نۇمۇرنى  قايتا كىرگۈزۈڭ</string>
+    <string name="register_id_wrong">ئىشلەتكۈچى ID ئۇزۇنلىقى ئۆلچەمگە ئۇيغۇن كەلمەيدۇ.</string>
+    <string name="register_psd_wrong">مەخپى نۇمۇرنى</string>
+    <string name="register_dif_psd">مەخپى نۇمۇر 6خانىدىن كەم بولسا بولمايدۇ</string>
+    <string name="connect_fail">تورغا ئۇلاش مەغلۇپ بولدى</string>
+    <string name="register_denyed">سىزنىڭ ID ىڭىز ئاللىقاچان ئىگىلىنىپ بولدى ، سىز باشقا ID ئىشلىتىڭ</string>
+    <string name="register_succeed">تىزىملىتىش مۇۋەپپەقىيەتلىك بولدى</string>
 <!--    Upload From Local-->
     <string name="title_hint">请输入标题</string>
     <string name="title">标题</string>
