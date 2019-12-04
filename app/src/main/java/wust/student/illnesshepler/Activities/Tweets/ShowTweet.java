@@ -6,13 +6,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +18,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,32 +29,28 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.rex.editor.view.RichEditor;
 import com.rex.editor.view.RichEditorNew;
-
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+import wust.student.illnesshepler.Activities.Fragments.Tweets.RepliesDetails;
+import wust.student.illnesshepler.Activities.Fragments.Tweets.WriteComment;
 import wust.student.illnesshepler.Activities.MainActivity;
 import wust.student.illnesshepler.Adapters.TweetsCommentAdapter;
 import wust.student.illnesshepler.Bean.GetTweetComments;
-import wust.student.illnesshepler.Activities.Fragments.Tweets.RepliesDetails;
-import wust.student.illnesshepler.Activities.Fragments.Tweets.WriteComment;
 import wust.student.illnesshepler.R;
 import wust.student.illnesshepler.Utils.BlurUtils;
 import wust.student.illnesshepler.Utils.GsonUtils;
 import wust.student.illnesshepler.Utils.Httputil;
-import wust.student.illnesshepler.Utils.StatusBarUtil;
 import wust.student.illnesshepler.Utils.Utils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShowTweet extends AppCompatActivity implements View.OnClickListener,
         TweetsCommentAdapter.OnItemClickListener {
@@ -310,7 +301,6 @@ public class ShowTweet extends AppCompatActivity implements View.OnClickListener
 
     @SuppressLint("SetJavaScriptEnabled")
     public void setdata(String html) {
-        Log.d("test", "Showtweet html" + html);
         if (html.substring(0, 4).equals("http")) {
             linearLayout2.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);

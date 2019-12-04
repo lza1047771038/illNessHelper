@@ -23,14 +23,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="left|center"
+                android:gravity="center"
                 android:text="@string/head_portrait"
                 android:textColor="#000" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="right"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <wust.student.illnesshepler.Utils.RoundImageView
@@ -61,11 +61,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/user_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="right|center"
                     android:text="XXX" />
@@ -90,11 +91,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/user_age"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="right|center"
                     android:text="18" />
@@ -119,11 +121,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/user_integral"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="right|center"
                     android:text="0" />

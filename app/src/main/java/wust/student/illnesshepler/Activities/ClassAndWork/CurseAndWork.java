@@ -143,10 +143,12 @@ public class CurseAndWork extends AppCompatActivity {
             case MotionEvent.ACTION_UP: {
                 upPoint = event.getX();
                 Log.d("test", upPoint + "");
-                if (upPoint - downPoint > 0)
-                    listenner.onSlide(true);
-                else
-                    listenner.onSlide(false);
+                if (Math.abs(upPoint - downPoint) > 400) {
+                    if (upPoint - downPoint > 0)
+                        listenner.onSlide(true);
+                    else
+                        listenner.onSlide(false);
+                }
                 break;
             }
         }

@@ -77,5 +77,14 @@
     <string name="connect_fail">Sorry! Connect Failed</string>
     <string name="register_denyed">Register Failed , Please Check Your Id ( There Is Already Have One)</string>
     <string name="register_succeed">Registed Successfully</string>
+<!--    Upload From Local-->
+    <string name="title_hint">Please Type In Title</string>
+    <string name="title">Title</string>
+    <string name="contains">Please Type In Contains</string>
+<!--    Upload From Internet-->
+    <string name="links">Links</string>
+    <string name="links_hint">Here Links</string>
+    <string name="click_image_to_select_image">Click Image To Select Images</string>
+    <string name="click_image_on_the_right">Click Image On The Right</string>
 
 </resources>

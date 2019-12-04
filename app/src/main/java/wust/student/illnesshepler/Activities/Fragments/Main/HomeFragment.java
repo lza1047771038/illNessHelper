@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                                 return Observable.just(1).delay(waitRetryTime,
                                         TimeUnit.MILLISECONDS);
                             } else {
-                                return Observable.error(new Throwable("网络连接失败，请重试"));
+                                return Observable.error(new Throwable("网络连接失败，请检查网络连接后重试"));
                             }
                         } else {
                             return Observable.error(new Throwable("发生了非网络异常（非I/O异常）"));

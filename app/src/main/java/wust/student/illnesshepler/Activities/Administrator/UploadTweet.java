@@ -111,7 +111,7 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
         richEditor = findViewById(R.id.richEditor);
         richEditor.setPadding(10, 10, 10, 10);
         richEditor.setFontSize(size);
-        richEditor.setHint("请输入正文");
+        richEditor.setHint(getResources().getString(R.string.contains));
         textSize = (Spinner) findViewById(R.id.test_size);
 
         update_title = (EditText) findViewById(R.id.update_title);
@@ -296,9 +296,8 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
                             public void run() {
                                 Log.d("test  result", result);
                                 if (result.equals("1"))
-                                    Toast.makeText(UploadTweet.this, "成功", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 else if (result.equals("2")) {
-                                    Toast.makeText(UploadTweet.this, "异地登陆", Toast.LENGTH_SHORT).show();
                                     MyErrorDialog dialog = new MyErrorDialog(getContext());
                                     dialog.setCancelable(false);
                                     dialog.setOnButtonClickListener(new MyErrorDialog.OnButtonClickListener() {
@@ -382,7 +381,6 @@ public class UploadTweet extends AppCompatActivity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(getApplication(), "取消", Toast.LENGTH_LONG).show();
             return;
         }
         int width;

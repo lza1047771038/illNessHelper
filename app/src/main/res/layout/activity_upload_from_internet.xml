@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="标题:"
+            android:text="@string/title"
             android:textSize="16sp" />
 
         <EditText
@@ -32,7 +32,7 @@
             android:layout_marginRight="15dp"
             android:layout_toEndOf="@+id/title"
             android:background="@drawable/edit_text_style"
-            android:hint="请输入标题"
+            android:hint="@string/title_hint"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textColor="@android:color/black" />
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="链接:"
+            android:text="@string/links"
             android:textSize="16sp" />
 
         <EditText
@@ -63,7 +63,7 @@
             android:layout_marginRight="15dp"
             android:layout_toEndOf="@+id/url"
             android:background="@drawable/edit_text_style"
-            android:hint="请输入链接"
+            android:hint="@string/links_hint"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textColor="@android:color/black" />
@@ -88,14 +88,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="选择封面图片:"
+                android:text="@string/click_image_to_select_image"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="点击右侧图片选择封面"
+                android:text="@string/click_image_on_the_right"
                 android:textColor="@color/red"
                 android:textSize="12sp" />
         </LinearLayout>

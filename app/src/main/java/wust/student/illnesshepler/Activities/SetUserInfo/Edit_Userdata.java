@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -256,6 +257,16 @@ public class Edit_Userdata extends AppCompatActivity implements View.OnClickList
                 changeUserinfo();
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            changeUserinfo();
+            finish();
+            return true;
+        }
+        return false;
     }
 
     public void changeUserinfo() {

@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">青春彩虹伞</string>
+
+    <!--    MainActivity-->
+    <string name="home">主页</string>
+    <string name="classes">课程</string>
+    <string name="chat">圈子</string>
+    <string name="me">我的</string>
+    <string name="Search">彩虹搜索</string>
+    <!--    HomeFragment-->
+    <string name="survey">问卷</string>
+    <string name="library">资料</string>
+    <string name="professionals">专家</string>
+    <string name="tools">工具</string>
+    <string name="subscribe">推文订阅</string>
+    <string name="more">更多</string>
+    <string name="watched">浏览</string>
+    <!--    InvestigationList-->
+    <!--    Investigation-->
+    <string name="start">开始答题</string>
+    <string name="under_start_words">点击下方按钮退出</string>
+    <string name="alert">温馨提示</string>
+    <string name="submit">提交</string>
+    <string name="quit_title">确定退出吗？</string>
+    <string name="quit_message">点击确认退出</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="loading_successfully">加载完毕</string>
+    <string name="uploading">正在上传</string>
+    <string name="loading">正在加载，请勿退出</string>
+    <!--    Activity_tweetDetails-->
+    <string name="moments">动态</string>
+    <string name="replies">评论回复</string>
+    <string name="write_replies">写评论</string>
+    <string name="reply">回复</string>
+    <string name="send">发送</string>
+    <string name="remote_login">账号异地登录，请重新登陆</string>
+    <!--    MeFragment-->
+    <!--    <string name=""></string>-->
+    <string name="notify">点击此处修改个人信息</string>
+    <string name="about">关于</string>
+    <string name="admin">管理员入口</string>
+    <string name="security">安全协议</string>
+    <string name="agreements">用户协议</string>
+    <string name="privacy">隐私协议</string>
+    <string name="help">帮助与反馈</string>
+    <!--    Administrator-->
+    <string name="upload_from_local">从本地上传</string>
+    <string name="upload_from_internet">使用网络连接上传</string>
+    <string name="upload_CBT_classes">上传课件</string>
+    <!--    UploadTweet-->
+    <string name="title_sub">颜色</string>
+    <string name="back">返回</string>
+    <string name="done">完成</string>
+    <!--    Edit_User_Info|-->
+    <string name="edit">编辑个人信息</string>
+    <string name="head_portrait">头像</string>
+    <string name="userid">用户名</string>
+    <string name="age">年龄</string>
+    <string name="coins">积分</string>
+    <!--    Choose Head Portrait-->
+    <string name="select_photos">选择头像</string>
+    <!--    Login-->
+    <string name="login">登录</string>
+    <string name="wrong_password">密码错误!</string>
+    <string name="userid_hint">用户名或学号</string>
+    <string name="password">密码</string>
+    <!--    Register-->
+    <!--    <string name=""></string>-->
+    <string name="register">注册</string>
+    <string name="id_hint">请输入6到20位数字作为你的ID</string>
+    <string name="password_hint">请输入6位以上的字符作为你的密码</string>
+    <string name="password_confirm">确认密码</string>
+    <string name="register_id_wrong">用户ID长度不符合规范</string>
+    <string name="register_psd_wrong">密码长度不符合规范</string>
+    <string name="register_dif_psd">确认</string>
+    <string name="connect_fail">网络连接失败</string>
+    <string name="register_denyed">你的ID已经被占用，请使用其他作为你的ID</string>
+    <string name="register_succeed">注册成功</string>
+<!--    Upload From Local-->
+    <string name="title_hint">请输入标题</string>
+    <string name="title">标题</string>
+    <string name="contains">请输入内容</string>
+<!--    Upload From Internet-->
+    <string name="links">链接</string>
+    <string name="links_hint">请再次输入链接</string>
+    <string name="click_image_to_select_image">选择封面图片</string>
+    <string name="click_image_on_the_right">点击右侧图片选择封面图片</string>
+
+</resources>

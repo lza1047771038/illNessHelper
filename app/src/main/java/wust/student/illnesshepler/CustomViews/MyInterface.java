@@ -1,4 +1,4 @@
-package wust.student.illnesshepler.me_edit;
+package wust.student.illnesshepler.CustomViews;
 
 interface MyInterface {
     public void buttonYesClicked();

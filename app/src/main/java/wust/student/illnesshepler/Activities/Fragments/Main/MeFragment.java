@@ -50,12 +50,9 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
     }
 
     private void InitViews() {
@@ -139,7 +136,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.fragment_me_about: {
-                Snackbar.make(coordinatorLayout, "hahahahahah", Snackbar.LENGTH_INDEFINITE).show();
+                Snackbar.make(coordinatorLayout, "hahahahahah", Snackbar.LENGTH_SHORT).show();
                 break;
             }
             default:
