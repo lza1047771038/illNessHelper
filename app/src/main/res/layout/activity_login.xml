@@ -79,7 +79,7 @@
                 android:id="@+id/btn_login"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/gradient_bg"
                 app:srcCompat="@drawable/forward" />
         </androidx.cardview.widget.CardView>
 

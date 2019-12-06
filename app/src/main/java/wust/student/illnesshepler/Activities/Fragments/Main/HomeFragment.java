@@ -3,6 +3,8 @@ package wust.student.illnesshepler.Activities.Fragments.Main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Outline;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -290,13 +293,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         mXBanner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
+                view.setOutlineProvider(new ViewOutlineProvider() {
+                    @Override
+                    public void getOutline(View view, Outline outline) {
+                        view.setElevation(15);
+                        view.setPadding(0,0,0,8);
+                        outline.setRoundRect(0, 0, view.getWidth()+5, view.getHeight(), 20);
+                    }
+                });
+                view.setClipToOutline(true);
                 Glide.with(view.getContext()).load(images.get(position))
                         .apply(new RequestOptions()
                                 .transforms(new CenterCrop(), new RoundedCorners(16)))
                         .into((ImageView) view);
             }
         });
-
     }
 
     @Override

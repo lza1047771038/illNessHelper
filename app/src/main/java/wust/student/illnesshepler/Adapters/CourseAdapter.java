@@ -1,9 +1,11 @@
 package wust.student.illnesshepler.Adapters;
 
 import android.content.Context;
+import android.graphics.Outline;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +43,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             holder.pictuer.setImageURI(data.getUri());
 
         holder.itemView.setTag(position);
+//        holder.itemView.setTranslationZ(15);
+//        holder.itemView.setOutlineProvider(new ViewOutlineProvider() {
+//            @Override
+//            public void getOutline(View view, Outline outline) {
+//                outline.setRoundRect(15,15,view.getWidth(),view.getHeight(),15);
+//            }
+//        });
     }
 
 
