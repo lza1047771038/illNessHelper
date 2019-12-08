@@ -77,14 +77,20 @@
     <string name="connect_fail">Sorry! Connect Failed</string>
     <string name="register_denyed">Register Failed , Please Check Your Id ( There Is Already Have One)</string>
     <string name="register_succeed">Registed Successfully</string>
-<!--    Upload From Local-->
+    <!--    Upload From Local-->
     <string name="title_hint">Please Type In Title</string>
     <string name="title">Title</string>
     <string name="contains">Please Type In Contains</string>
-<!--    Upload From Internet-->
+    <!--    Upload From Internet-->
     <string name="links">Links</string>
     <string name="links_hint">Here Links</string>
     <string name="click_image_to_select_image">Click Image To Select Images</string>
     <string name="click_image_on_the_right">Click Image On The Right</string>
-
+    <!--Upload Course-->
+    <string name="course_title">Course Title</string>
+    <string name="input_course_title">Please input Course Title </string>
+    <string name="teacher">授课教师</string>
+    <string name="input_teacher_name">请输入授课教师姓名</string>
+    <string name="chose_pdf_file">选择课件</string>
+    <string name="chose">选择</string>
 </resources>

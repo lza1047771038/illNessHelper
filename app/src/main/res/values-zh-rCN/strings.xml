@@ -86,5 +86,11 @@
     <string name="links_hint">请再次输入链接</string>
     <string name="click_image_to_select_image">选择封面图片</string>
     <string name="click_image_on_the_right">点击右侧图片选择封面图片</string>
-
+<!--Upload Course-->
+    <string name="course_title">课程标题</string>
+    <string name="input_course_title">请输入课程标题 </string>
+    <string name="teacher">授课教师</string>
+    <string name="input_teacher_name">请输入授课教师姓名</string>
+    <string name="chose_pdf_file">选择课件</string>
+    <string name="chose">选择</string>
 </resources>
